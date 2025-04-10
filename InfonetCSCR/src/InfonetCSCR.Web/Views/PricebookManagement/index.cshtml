@@ -1,0 +1,275 @@
+@section Head {
+  <link href="~/css/pricebookManagement.css" rel="stylesheet" asp-append-version="true" />
+}
+
+@inject IApplicationConfig _config
+@inject IViewLocalizer localizer
+@inject IHttpContextAccessor httpContextAccessor
+@{
+  ViewData["Title"] = @localizer["pricebookManagement"];
+  bool isBackOffice = _config.IsBackOffice;
+}
+
+<input id="isBackOffice" type="hidden" value="@isBackOffice.ToString()" />
+<input id="price-change" type="hidden" value="@localizer["priceChange"]" />
+<input id="stocks" type="hidden" value="@localizer["stocks"]" />
+<input id="cost-change" type="hidden" value="@localizer["costChange"]" />
+<input id="commodity" type="hidden" value="@localizer["commodity"]" />
+<input id="promotions" type="hidden" value="@localizer["promotions"]" />
+<input id="hotButtons" type="hidden" value="@localizer["hotButtons"]" />
+<input id="label-printing" type="hidden" value="@localizer["labelPrinting"]" />
+
+<input id="selection" type="hidden" value="@localizer["selection"]" />
+<input id="view" type="hidden" value="@localizer["view"]" />
+<input id="list" type="hidden" value="@localizer["list"]" />
+
+<input id="byStore" type="hidden" value="@localizer["store"]" />
+<input id="byPriceGroup" type="hidden" value="@localizer["priceGroup"]" />
+<input id="byRegion" type="hidden" value="@localizer["region"]" />
+<input id="byVendor" type="hidden" value="@localizer["vendor"]" />
+
+<input id="sel" type="hidden" value="@localizer["sel"]" />
+<input id="search" type="hidden" value="@localizer["search"]" />
+
+<input id="dept" type="hidden" value="@localizer["dept"]" />
+<input id="deptName" type="hidden" value="@localizer["deptName"]" />
+<input id="subDept" type="hidden" value="@localizer["subDept"]" />
+<input id="subDeptName" type="hidden" value="@localizer["subDeptName"]" />
+<input id="subDetail" type="hidden" value="@localizer["subDetail"]" />
+<input id="subDetailName" type="hidden" value="@localizer["subDetailName"]" />
+<input id="selectStoreRequest" type="hidden" value="@localizer["selectStoreRequest"]" />
+<input id="name" type="hidden" value="@localizer["name"]" />
+<input id="stockCode" type="hidden" value="@localizer["stockCode"]" />
+<input id="trType" type="hidden" value="@localizer["trType"]" />
+
+<input id="productId" type="hidden" value="@localizer["productId"]" />
+<input id="productName" type="hidden" value="@localizer["productName"]" />
+<input id="cost" type="hidden" value="@localizer["cost"]" />
+<input id="nPrice" type="hidden" value="@localizer["nPrice"]" />
+<input id="regPrice" type="hidden" value="@localizer["regPrice"]" />
+<input id="margin-p" type="hidden" value="@localizer["margin-p"]" />
+<input id="sel" type="hidden" value="@localizer["sel"]" />
+
+<input id="selectedStores" type="hidden" value="@localizer["selectedStores"]" />
+<input id="selectedVendors" type="hidden" value="@localizer["selectedVendors"]" />
+<input id="selectedRegions" type="hidden" value="@localizer["selectedRegions"]" />
+<input id="selectedPriceGroups" type="hidden" value="@localizer["selectedPriceGroups"]" />
+
+<input id="increasedBy" type="hidden" value="@localizer["increasedBy"]" />
+<input id="decreasedBy" type="hidden" value="@localizer["decreasedBy"]" />
+<input id="margin-p" type="hidden" value="@localizer["margin-p"]" />
+<input id="prices" type="hidden" value="@localizer["prices"]" />
+<input id="quantity" type="hidden" value="@localizer["quantity"]" />
+<input id="from" type="hidden" value="@localizer["from"]" />
+<input id="price" type="hidden" value="@localizer["price"]" />
+<input id="percent" type="hidden" value="@localizer["percent"]" />
+<input id="updatingTable" type="hidden" value="@localizer["updatingTable"]" />
+<input id="showAllProducts" type="hidden" value="@localizer["showAllProducts"]" />
+<input id="priceChangeRequest" type="hidden" value="@localizer["priceChangeRequest"]" />
+<input id="selectProductRequest" type="hidden" value="@localizer["selectProductRequest"]" />
+<input id="toDateShouldBeGreaterWarning" type="hidden" value="@localizer["toDateShouldBeGreaterWarning"]" />
+<input id="saveAsPendingTransfer" type="hidden" value="@localizer["saveAsPendingTransfer"]" />
+<input id="confirmSaveAsPendingTransfer" type="hidden" value="@localizer["confirmSaveAsPendingTransfer"]" />
+<input id="commodityTransferSuccessful" type="hidden" value="@localizer["commodityTransferSuccessful"]" />
+<input id="hotButtonTransferSuccessful" type="hidden" value="@localizer["hotButtonTransferSuccessful"]" />
+<input id="promotionPendingTransferSuccessful" type="hidden" value="@localizer["promotionPendingTransferSuccessful"]" />
+<input id="cantIdentifyDestinationStores" type="hidden" value="@localizer["cantIdentifyDestinationStores"]" />
+<input id="selectAtLeastOneStore" type="hidden" value="@localizer["selectAtLeastOneStore"]" />
+<input id="selectAtLeastOneItem" type="hidden" value="@localizer["selectAtLeastOneItem"]" />
+<input id="saving" type="hidden" value="@localizer["saving"]" />
+<input id="priceSetup" type="hidden" value="@localizer["priceSetup"]" />
+<input id="costSetup" type="hidden" value="@localizer["costSetup"]" />
+<input id="costChangeRequest" type="hidden" value="@localizer["costChangeRequest"]" />
+
+<input id="r-regularPrice" type="hidden" value="@localizer["r-regularPrice"]" />
+<input id="s-salePricing" type="hidden" value="@localizer["s-salePricing"]" />
+<input id="f-firstUnitPricing" type="hidden" value="@localizer["f-firstUnitPricing"]" />
+<input id="i-incrementalPricing" type="hidden" value="@localizer["i-incrementalPricing"]" />
+<input id="x-xForPricing" type="hidden" value="@localizer["x-xForPricing"]" />
+
+<input id="currentCost" type="hidden" value="@localizer["currentCost"]" />
+<input id="currentPrice" type="hidden" value="@localizer["currentPrice"]" />
+<input id="newCurrentPrice" type="hidden" value="@localizer["newCurrentPrice"]" />
+<input id="futureCost" type="hidden" value="@localizer["futureCost"]" />
+<input id="futurePrice" type="hidden" value="@localizer["futurePrice"]" />
+<input id="newFuturePrice" type="hidden" value="@localizer["newFuturePrice"]" />
+
+<input id="updates" type="hidden" value="@localizer["updates"]" />
+<input id="userCode" type="hidden" value="@ViewData["UserCode"]?.ToString()" />
+<input id="deleteSelectedItemWarning" type="hidden" value="@localizer["deleteSelectedItemWarning"]" />
+<input id="deleteStoreDataWarning" type="hidden" value="@localizer["deleteStoreDataWarning"]" />
+<input id="deleteAllWarning" type="hidden" value="@localizer["deleteAllWarning"]" />
+<input id="warning" type="hidden" value="@localizer["warning"]" />
+<input id="deleteSingleCommodityTransferWarning" type="hidden" value="@localizer["deleteSingleCommodityTransferWarning"]" />
+<input id="add" type="hidden" value="@localizer["add"]" />
+<input id="remove" type="hidden" value="@localizer["remove"]" />
+<input id="update" type="hidden" value="@localizer["update"]" />
+<input id="tranferSuccessful" type="hidden" value="@localizer["tranferSuccessful"]" />
+<input id="deleteSuccessful" type="hidden" value="@localizer["deleteSuccessful"]" />
+<input id="transferingText" type="hidden" value="@localizer["transfering"]" />
+<input id="transferText" type="hidden" value="@localizer["transfer"]" />
+<input id="finalizeText" type="hidden" value="@localizer["finalize"]" />
+<input id="anUnexpectedErrorHasOccured" type="hidden" value="@localizer["anUnexpectedErrorHasOccured"]" />
+<input id="noDataToTransfer" type="hidden" value="@localizer["noDataToTransfer"]" />
+<input id="language" type="hidden" value="@_config.Language" />
+
+<input id="transUser" type="hidden" value="@httpContextAccessor.HttpContext.Session.GetString("UserCode")" />
+<input id="nPrice" type="hidden" value="@localizer["nPrice"]" />
+<input id="nCost" type="hidden" value="@localizer["nCost"]" />
+<input id="changePriceBasedOnMarginSetup" type="hidden" value="@localizer["changePriceBasedOnMarginSetup"]" />
+<input id="doYouWantToChangeThePrice" type="hidden" value="@localizer["doYouWantToChangeThePrice"]" />
+<input id="changeCostBeforeSaving" type="hidden" value="@localizer["changeCostBeforeSaving"]" />
+<input id="userCode" type="hidden" value="@ViewData["UserCode"]?.ToString()" />
+<input id="fromDataDefinition" type="hidden" value="@ViewData["FromDataDefinition"]?.ToString()" />
+
+<input id="youCantChangeToAPassedDate" type="hidden" value="@localizer["youCantChangeToAPassedDate"]" />
+<input id="packageCost" type="hidden" value="@localizer["packageCost"]" />
+<input id="toDateShouldBeAlwaysGreaterThanFromDate" type="hidden" value="@localizer["toDateShouldBeAlwaysGreaterThanFromDate"]" />
+<input id="zeroRecords" type="hidden" value="@localizer["zeroRecords"]" />
+<input id="lengthMenu" type="hidden" value="@localizer["lengthMenu"]" />
+<input id="info" type="hidden" value="@localizer["info"]" />
+
+<input id="priceChangeSelectionTab" type="hidden" value="@localizer["priceChangeSelectionTab"]" />
+<input id="priceChangeViewTab" type="hidden" value="@localizer["priceChangeViewTab"]" />
+<input id="priceChangeListTab" type="hidden" value="@localizer["priceChangeListTab"]" />
+<input id="stocksSelectionTab" type="hidden" value="@localizer["stocksSelectionTab"]" />
+<input id="stocksViewTab" type="hidden" value="@localizer["stocksViewTab"]" />
+<input id="stocksListTab" type="hidden" value="@localizer["stocksListTab"]" />
+<input id="costChangeSelectionTab" type="hidden" value="@localizer["costChangeSelectionTab"]" />
+<input id="costChangeVeiwTab" type="hidden" value="@localizer["costChangeVeiwTab"]" />
+<input id="costChangeListTab" type="hidden" value="@localizer["costChangeListTab"]" />
+<input id="entriesSelected" type="hidden" value="@localizer["entriesSelected", "{0}", "{1}"]" />
+<input id="labelPrintingSelectionTab" type="hidden" value="@localizer["labelPrintingSelectionTab"]" />
+<input id="labelPrintingViewTab" type="hidden" value="@localizer["labelPrintingViewTab"]" />
+<input id="labelPrintingListTab" type="hidden" value="@localizer["labelPrintingListTab"]" />
+
+<div class="px-3 py-2 mt-2">
+  <div class="d-flex justify-content-between px-3">
+    <h3 class="h3 fw-bold mb-3">@localizer["pricebookManagement"]</h3>
+  </div>
+
+  <div class="page-content p-4 h-100">
+    <div class="d-flex align-items-center row col-12 mb-4">
+      <label class="mt-1 col-auto form-label fw-bold">@localizer["priceBookType"]</label>
+      <div class="col-lg-6 col-xl-3">
+        <select class="form-select" id="data-transfer-type" onchange="handleDataTransferTypeChange()">
+          <option value="price-change" selected>@localizer["priceChange"]</option>
+          <option value="cost-change">@localizer["costChange"]</option>
+          <option value="label-printing">@localizer["labelPrinting"]</option>
+        </select>
+      </div>
+    </div>
+
+    @* Nav tabs *@
+    <ul class="nav nav-tabs nav-fill" id="tab" role="tablist">
+      <li class="nav-item" id="selection-link-wrapper">
+        <a class="nav-link active" id="selection-tab-link" role="tab" data-bs-toggle="tab" href="#selection-tab-pane">@localizer["priceChangeSelectionTab"]</a>
+      </li>
+      <li class="nav-item" id="view-tab-link-wrapper">
+        <a class="nav-link" id="view-tab-link" role="tab" data-bs-toggle="tab" href="#view-tab-pane">@localizer["priceChangeViewTab"]</a>
+      </li>
+      <li class="nav-item" id="list-tab-link-wrapper">
+        <a class="nav-link" id="list-tab-link" role="tab" data-bs-toggle="tab" href="#list-tab-pane">@localizer["priceChangeListTab"]</a>
+      </li>
+    </ul>
+
+    @* Tab panes *@
+    <div class="tab-content">
+
+      @* Selection tab pane *@
+      <div class="tab-pane fade active show" id="selection-tab-pane" role="tabpanel">
+        <div class="d-flex gap-3 justify-content-start p-4">
+          <button id="btn-categories" type="button" class="btn btn-primary text-center align-items-center" onclick="showProductCategories()">@localizer["productCategories"]</button>
+          <button id="btn-vendors" type="button" class="btn btn-primary text-center align-items-center" onclick="showVendors()">@localizer["vendors"]</button>
+        </div>
+        <div id="productCategoryContainer">
+          <div class="row pt-3">
+            <div class="col-lg-12 col-xl-6">
+              <div class="container border-2 max-width-3000">
+                <table id="department-grid" class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th width="25%">@localizer["dept"]</th>
+                      <th width="30%">@localizer["deptName"]</th>
+                      <th width="25%">@localizer["sel"]</th>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+              <div class="d-flex mt-2 ps-4">
+                <input type="checkbox" class="form-check-input edit-mode-control" id="includeProducts">
+                <label class="form-check-label ms-2">
+                  @localizer["includeProducts"]
+                </label>
+              </div>
+            </div>
+
+            <div class="col-lg-12 col-xl-6">
+              <div class="container border-2 max-width-3000 padding-top-30px">
+                <table id="sub-department-grid" class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th width="25%">@localizer["dept"]</th>
+                      <th width="25%">@localizer["subDept"]</th>
+                      <th width="40%">@localizer["subDeptName"]</th>
+                      <th width="10%">@localizer["sel"]</th>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+              <div class="container border-2 max-width-3000 padding-top-30px">
+                <table id="sub-detail-grid" class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th width="20%">@localizer["dept"]</th>
+                      <th width="20%">@localizer["subDept"]</th>
+                      <th width="20%">@localizer["subDetail"]</th>
+                      <th width="30%">@localizer["subDetailName"]</th>
+                      <th width="10%">@localizer["sel"]</th>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="vendorOptionContainer">
+          <div class="d-flex flex-column my-3 vendorOptionsList">
+            <select multiple class="form-select col" id="vendorOptions"></select>
+          </div>
+          <div class="d-flex flex-column my-3">
+            <h5>@localizer["sortBy"]</h5>
+            <div class="d-flex">
+              <div class="form-check me-3">
+                <input class="form-check-input" type="radio" name="sortBy" id="code" value="1" onclick="renderVendorOptionsPBM(this.value)" checked>
+                <label class="form-check-label" for="code">@localizer["code"]</label>
+              </div>
+              <div class="form-check me-3">
+                <input class="form-check-input" type="radio" name="sortBy" id="name" value="2" onclick="renderVendorOptionsPBM(this.value)">
+                <label class="form-check-label" for="name">@localizer["name"]</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      @* View tab pane*@
+      <partial name="_PriceBookViewTab"></partial>
+      
+      @* List tab pane*@
+      <partial name="_PriceBookListTab"></partial>
+      
+    </div>
+  </div>
+</div>
+
+@section Scripts {
+  <script src="~/js/storeSelectionByGroup.js" asp-append-version="true"></script>
+  <script src="~/js/PricebookTransfer/pricebookTransfer.js" asp-append-version="true"></script>
+  <script src="~/js/PricebookTransfer/stocks.js" asp-append-version="true"></script>
+  <script src="~/js/PricebookManagement/pricebookManagement.js" asp-append-version="true"></script>
+  <script src="~/js/PricebookTransfer/priceChange.js" asp-append-version="true"></script>
+  <script src="~/js/PricebookTransfer/costChange.js" asp-append-version="true"></script>
+  <script src="~/js/PricebookTransfer/labelPrint.js" asp-append-version="true"></script>
+}

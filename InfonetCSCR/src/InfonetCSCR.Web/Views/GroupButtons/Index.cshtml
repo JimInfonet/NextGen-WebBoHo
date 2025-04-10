@@ -1,0 +1,111 @@
+@section Head {
+  <link href="~/css/groupButtons.css" rel="stylesheet" asp-append-version="true" />
+}
+
+@inject IApplicationConfig _config
+@inject IViewLocalizer localizer
+@inject IHttpContextAccessor httpContextAccessor
+@{
+  ViewData["Title"] = @localizer["setGroupButtons"];
+}
+
+<input type="hidden" id="invalidImageFolderPath" value="@localizer["invalidImageFolderPath"]" />
+<input type="hidden" id="buttonText" value="@localizer["button"]" />
+<input type="hidden" id="noButtonSelected" value="@localizer["noButtonSelected"]" />
+<input type="hidden" id="undefinedText" value="@localizer["undefined"]" />
+<input type="hidden" id="defineButton" value="@localizer["defineButton"]" />
+<input type="hidden" id="noButtonDescription" value="@localizer["noButtonDescription"]" />
+<input type="hidden" id="isThatOk" value="@localizer["isThatOk"]" />
+<input type="hidden" id="thisButtonWillNotDisplayProductDescriptionIsThatOk" value="@localizer["thisButtonWillNotDisplayProductDescriptionIsThatOk"]" />
+<input type="hidden" id="stockNotFound" value="@localizer["stockNotFound"]" />
+<input type="hidden" id="pleaseSelectStockItem" value="@localizer["pleaseSelectStockItem"]" />
+<input type="hidden" id="buttonDefinedSuccessfully" value="@localizer["buttonDefinedSuccessfully"]" />
+<input type="hidden" id="buttonSuccessfullyDeleted" value="@localizer["buttonSuccessfullyDeleted"]" />
+<input type="hidden" id="buttonUpdatedSuccessfully" value="@localizer["buttonUpdatedSuccessfully"]" />
+<input type="hidden" id="buttonSettingsExchangedSuccessfully" value="@localizer["buttonSettingsExchangedSuccessfully"]" />
+<input type="hidden" id="nonDefine" value="@localizer["nonDefine"]" />
+
+
+<div class="mt-2 mb-3 pageTitleContainer">
+  <h3><strong>@localizer["setGroupButtons"]</strong></h3>
+</div>
+
+<div class="row groupButtonsLayoutContainer">
+  <div class="col-lg-12 col-xl-6 mb-4 groupButtonsLeftContainer">
+    <div class="groupButtonsButtonTitle">
+      <h5><strong>@localizer["groupButtons"]</strong></h5>
+    </div>
+    <div class="groupButtonsLayout">
+      <div id="groupButtonsContainer" class="groupButtonsContainer">
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-12 col-xl-6 mb-4">
+    <div class="groupButtonsButtonTitle">
+      <h5><strong>@localizer["changeButtonSettings"]</strong></h5>
+    </div>
+    <div class="changeButtonSetting">
+      <div class="changeButtonSettingContainer">
+        <div class="changeButtonSettingLeftContainer">
+          <div class="changeButtonSettingButton">
+            <div class="changeButtonSettingUndefinedTextContainer" id="changeButtonSettingUndefinedTextContainer">
+              <button id="defaultButton" class="groupButtonSettingsButton groupButton"></button>
+            </div>
+          </div>
+
+          <div id="changeButtonSettingTextContainer" hidden class="changeButtonSettingTextContainer">
+            <div id="selectStockItemTextContainer">
+              <p class="changeButtonSettingText">@localizer["selectStockItemAndTypeTheTextToAppearOnTheButtonToDefine"]</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="changeButtonSettingRightContainer">
+          <h5><strong id="selectedButtonTitleData">@localizer["noButtonSelected"]</strong></h5>
+          <p><strong>@localizer["productLabel"] : <span id="productText">@localizer["nonDefine"]</span></strong></p>
+
+          <div class="changeButtonSettingForm">
+            <div>
+              <label class="mb-2">@localizer["buttonType"]</label>
+              <select id="buttonType-select" class="form-select infonet-input w-100" aria-label="Select Button Type">
+                <option value="">@localizer["select"] @localizer["buttonType"]</option>
+                <option value="1">1 - @localizer["openItems"]</option>
+                <option value="2">2 - @localizer["hotButtons"]</option>
+                <option value="3">3 - @localizer["fuelButtons"]</option>
+              </select>
+            </div>
+
+            <div class="inputContainer">
+              <label class="my-2">@localizer["firstLine"] :</label>
+              <input id="firstLine" type="text" class="infonet-input clear-selected-input-on-keypress w-100" autocomplete="off" maxlength="10" />
+            </div>
+
+            <div class="inputContainer">
+              <label class="my-2">@localizer["secondLine"] :</label>
+              <input id="secondLine" type="text" class="infonet-input clear-selected-input-on-keypress w-100" autocomplete="off" maxlength="10" />
+            </div>
+
+            <div id="changeButtonSettingButtons" hidden class="changeButtonSettingButtons">
+              <button id="selectStockButtonId" onclick="selectStockClicked()" class="btn btn-primary me-2">@localizer["selectStock"]</button>
+              <div class="addAndUpdateButtons">
+                <button class="btn btn-primary" onclick="addOrUpdateGroupButton(false)">@localizer["changeSetting"]</button>
+                <button class="btn btn-danger" onclick="deleteGroupButton()">@localizer["undefineButton"]</button>
+              </div>
+            </div>
+
+            <div id="changeButtonDefineButton" hidden class="changeButtonDefineButton">
+              <button id="selectStockButtonId" onclick="selectStockClicked()" class="btn btn-primary me-2">@localizer["selectStock"]</button>
+              <button id="defineButtonId" onclick="addOrUpdateGroupButton(true)" class="btn btn-primary"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<partial name="_StockCodeModal"></partial>
+
+@section Scripts {
+  <script src="~/js/groupButtons.js" asp-append-version="true"></script>
+}

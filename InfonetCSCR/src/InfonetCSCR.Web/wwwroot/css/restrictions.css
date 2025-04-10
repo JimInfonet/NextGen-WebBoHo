@@ -1,0 +1,12 @@
+﻿.restriction-modal {
+  max-width: 820px;
+}
+
+.age-limit-suggestion {
+  font-size: 11px;
+}
+
+td {
+  overflow-wrap: break-word;
+  max-width: 20px;
+}

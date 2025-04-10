@@ -1,0 +1,199 @@
+﻿@inject IApplicationConfig _config
+@inject IViewLocalizer localizer
+
+@{
+  bool isBackOffice = _config.IsBackOffice;
+}
+
+<div class="tab-pane fade my-3 gap-5" id="list-tab-pane" role="tabpanel">
+  <div class="row justify-content-between">
+    <div class="row">
+      <div class="col">
+        <label class="mb-2 h5 fw-bold" id="list-tab-table-title">@localizer["priceChange"] @localizer["updates"]</label>
+        <hr class="hr--sm" />
+
+        <div class="mt-3 table-container overflow-scroll custom-grid-scrollbar" id="table-container--transfers">
+          <div id="price-change-table-section" style="display:none">
+            <table class="table table-striped" id="table--price-change-transfer" style="width:100%">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col" width="10%">@localizer["batch-h"]</th>
+                  <th scope="col" width="25%">@localizer["product"]</th>
+                  <th scope="col" width="50%">@localizer["description"]</th>
+                  <th scope="col" width="10%">@localizer["type"]</th>
+                  <th scope="col" width="5%">@localizer["del"]</th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+
+          <div id="commodity-table-section" style="display:none">
+            <table class="table table-striped" id="table-commodity-transfer" style="width:100%">
+              <thead>
+                <tr>
+                  <th width="15%" scope="col">@localizer["batch-h"]</th>
+                  <th width="10%" scope="col">@localizer["dept"]</th>
+                  <th width="15%" scope="col">@localizer["subDept"]</th>
+                  <th width="15%" scope="col">@localizer["subDetail"]</th>
+                  <th width="25%" scope="col">@localizer["description"]</th>
+                  <th width="15%" scope="col">@localizer["transType"]</th>
+                  <th scope="col">@localizer["del"]</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+          </div>
+          <div id="cost-change-table-section" style="display:none">
+            <table class="table table-striped" id="table-cost-change-transfer" style="width:100%">
+              <thead>
+                <tr>
+                  <th width="20%" scope="col">@localizer["batch-h"]</th>
+                  <th width="30%" scope="col">@localizer["product"]</th>
+                  <th width="45%" scope="col">@localizer["description"]</th>
+                  <th scope="col">@localizer["del"]</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+          </div>
+
+          <div id="hot-buttons-table-section" style="display:none">
+            <table class="table table-striped" id="table-hot-buttons-transfer" style="width:100%">
+              <thead>
+                <tr>
+                  <th width="10%" scope="col">@localizer["batch-h"]</th>
+                  <th width="6%" scope="col">@localizer["button"]</th>
+                  <th width="15%" scope="col">@localizer["productId"]</th>
+                  <th width="24%" scope="col">@localizer["productName"]</th>
+                  <th width="14%" scope="col">@localizer["caption1"]</th>
+                  <th width="14%" scope="col">@localizer["caption2"]</th>
+                  <th width="10%" scope="col">@localizer["transType"]</th>
+                  <th scope="col">@localizer["del"]</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+          </div>
+
+          <div id="promotion-table-section" style="display:none">
+            <table class="table table-striped" id="table--promotion-transfer" style="width:100%">
+              <thead>
+                <tr>
+                  <th width="10%" scope="col">@localizer["batch-h"]</th>
+                  <th width="10%" scope="col">@localizer["id"]</th>
+                  <th width="30%" scope="col">@localizer["description"]</th>
+                  <th width="15%" scope="col">@localizer["startDate"]</th>
+                  <th width="15%" scope="col">@localizer["endDate"]</th>
+                  <th width="10%" scope="col">@localizer["transType"]</th>
+                  <th width="10%" scope="col">@localizer["del"]</th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+
+          <div id="stock-list-table-section" style="display:none">
+            <table class="table table-striped" id="table--stock-transfer" style="width:100%">
+              <thead>
+                <tr>
+                  <th width="20%" scope="col">@localizer["batch-h"]</th>
+                  <th width="20%" scope="col">@localizer["product"]</th>
+                  <th width="30%" scope="col">@localizer["description"]</th>
+                  <th width="20%" scope="col">@localizer["trType"]</th>
+                  <th width="10%" scope="col">@localizer["del"]</th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+
+          <div id="label-print-table-section" style="display:none">
+            <table class="table table-striped" id="table--label-print" style="width:100%">
+              <thead>
+                <tr>
+                  <th width="30%" scope="col">@localizer["product"]</th>
+                  <th width="60%" scope="col">@localizer["description"]</th>
+                  <th width="10%" scope="col">@localizer["del"]</th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+        </div>
+      </div>
+      @if (!isBackOffice)
+      {
+        <div class="col-3">
+          <label class="mb-2 h5 fw-bold">@localizer["selectedStores"]</label>
+          <hr class="hr--sm" />
+          <div class="mt-3">
+            <select multiple class="form-select" id="list__selected-stores-container">
+            </select>
+          </div>
+        </div>
+      }
+      <div class="row">
+        <div class="col">
+          <button id="buttonDeleteFromTransferList" class="btn btn-sm btn-outline-danger mt-3 px-4" onclick="handleDeleteFromTransferList(null, null, null, 'ALL')">@localizer["deleteAll"]</button>
+        </div>
+      </div>
+      @if (!isBackOffice)
+      {
+        <div class="col-3 d-flex flex-column-reverse">
+          <button class="btn btn-sm btn-outline-danger btn-block mt-3 px-4" onclick="handleDeleteFromTransferList(null, null, null, selectedStoreIdOnListTab, 'STORE')">@localizer["deleteStoreData"]</button>
+        </div>
+      }
+    </div>
+  </div>
+
+  @if (isBackOffice)
+  {
+    <div class="d-flex flex-row-reverse justify-content-between mt-4 gap-3">
+      <div class="align-self-center d-flex gap-3 mt-3" style="height:fit-content;">
+        <button class="btn btn-lg btn-outline-secondary px-5" id="btn-report">@localizer["reports"]</button>
+        <button class="btn btn-lg btn-primary px-5" id="btn-transfer" onclick="handleFinalize()">@localizer["finalize"]</button>
+      </div>
+      <div id="label-printing-page-orientation" style="display:none">
+        <label class="mb-2 h5 fw-bold" id="list-tab-table-title">@localizer["labelPrintingPageOrientation"]</label>
+        <div class="container">
+          <div class="row">
+            <div class="form-check mt-1 mb-1">
+              <input class="form-check-input mt-2" type="radio" name="label-orientation" value="LANDSCAPE">
+              <label class="form-check-label mt-1">@localizer["landscape"]</label>
+            </div>
+            <div class="form-check mt-1 mb-1">
+              <input class="form-check-input mt-2" type="radio" name="label-orientation" value="PORTRAIT" checked>
+              <label class="form-check-label mt-1">@localizer["portrait"]</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="label-printing-format" style="display:none">
+        <label class="mb-2 h5 fw-bold" id="list-tab-table-title">@localizer["labelPrintingFormat"]</label>
+        <div class="container">
+          <div class="row">
+            <div class="form-check mt-1 mb-1">
+              <input class="form-check-input mt-2" type="radio" name="label-format" value="STANDARD" checked>
+              <label class="form-check-label mt-1">@localizer["standardLabel"]</label>
+            </div>
+            <div class="form-check mt-1 mb-1">
+              <input class="form-check-input mt-2" type="radio" name="label-format" value="LARGE">
+              <label class="form-check-label mt-1">@localizer["largeLabel"]</label>
+            </div>
+            <div class="form-check mt-1 mb-1">
+              <input class="form-check-input mt-2" type="radio" name="label-format" value="SMALL">
+              <label class="form-check-label mt-1">@localizer["smallLabel"]</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+  else
+  {
+    <div class="d-flex flex-row-reverse gap-3 mt-3">
+      <button class="btn btn-lg btn-primary px-5" id="btn-transfer" onclick="handlePerformTransfer()">@localizer["transfer"]</button>
+      <button class="btn btn-lg btn-outline-secondary px-5" id="btn-report" onclick="displayPriceBookTransferReport()">@localizer["reports"]</button>
+    </div>
+  }
+</div>

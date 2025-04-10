@@ -1,0 +1,67 @@
+@model UnitOfMeasureViewModel
+@inject IViewLocalizer localizer
+
+<div class="container body-content p-2" style="max-width:3000px;">
+  <div class="d-flex justify-content-between padding-left-12px-and-top-10px">
+    <h5 class="h5 fw-bold mb-3">@localizer["unitOfMeasure"]</h5>
+  </div>
+  @*UnitOfMeasure Datatable Section*@
+  <div id="unitOfMeasure-table" class="container custom-grid-scrollbar border-2" style="max-width:3000px;">
+    <table id="unitOfMeasure-grid" class="table table-striped" style="width:100%">
+      <thead>
+        <tr>
+          <th id="UnitOfMeasureId">@localizer["unitOfMeasureId"]</th>
+          <th id="Description">@localizer["description"]</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          <th class="input substring-search" width="25%" scope="col"></th>
+          <th class="input substring-search" width="75%" scope="col"></th>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <div class="p-2 row padding-top-40px">
+    <div class="d-flex gap-3 col-xl-8 col-lg-9">
+      <button id="unitOfMeasure-btn-add" type="button" class="btn btn-footer btn-primary text-center align-items-center" onclick="onUnitOfMeasureAddOrEditClick(false)">@localizer["add"]</button>
+      <button id="unitOfMeasure-btn-edit" type="button" class="btn btn-footer btn-primary align-items-center" onclick="onUnitOfMeasureAddOrEditClick(true)">@localizer["edit"]</button>
+      <button id="unitOfMeasure-btn-delete" type="button" class="btn btn-footer btn-danger text-center align-items-center" onclick="onUnitOfMeasureDeleteClick()">@localizer["delete"]</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="unitOfMeasureFormModal" tabindex="1" role="dialog" area-modal="true">
+  <div class="modal-dialog modal-dialog-centered unitOfMeasure-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 id="unitOfMeasure-form-section-title" class="modal-title">@localizer["unitOfMeasureForm"]</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="unitOfMeasure-form">
+          <div class="row gap-3 p-3">
+            <div class="col">
+              <label class="mb-2">@localizer["unitOfMeasureId"]</label>
+              <input id="unitOfMeasure-id" type="text" maxlength="3" class="infonet-input w-100 not-editable" />
+              <span id="validation-for-unitOfMeasure-id" class="text-danger">@localizer["thisFieldIsRequired"]</span>
+            </div>
+          </div>
+          <div class="row gap-3 p-3">
+            <div class="col">
+              <label class="mb-2">@localizer["description"]</label>
+              <input id="unitOfMeasure-description" type="text" maxlength="3" class="infonet-input w-100" />
+              <span id="validation-for-unitOfMeasure-description" class="text-danger">@localizer["thisFieldIsRequired"]</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-cancel btn-outline-danger align-content-center btn-sm me-2" data-bs-dismiss="modal">@localizer["cancel"]</button>
+        <button type="button" class="btn btn-primary btn-sm btn-save" onclick="onUnitOfMeasureCompleteClick()">@localizer["complete"]</button>
+      </div>
+    </div>
+  </div>
+</div>

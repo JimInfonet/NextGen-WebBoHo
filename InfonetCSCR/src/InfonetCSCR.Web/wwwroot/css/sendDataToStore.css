@@ -1,0 +1,115 @@
+﻿#regionsContainer,
+#storesContainer,
+#itemsContainer,
+#selectedItemsContainer {
+  height: 285px;
+  overflow-y: scroll;
+}
+
+#ddlDataTransferType {
+  max-width: 300px;
+}
+
+#selectedStoreList {
+  height: 100%;
+}
+
+#selectedItemsGridContainer {
+  white-space: nowrap;
+}
+
+/* Backdrop to cover the entire screen */
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  z-index: 9999;
+}
+
+  .backdrop * {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    font-size: 20px;
+  }
+
+#transferOptionsContainer {
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+  border-radius: 10px;
+}
+
+#reportViewer {
+  padding: 10px;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  height: 455px;
+  display: flex;
+  margin: 0px 12px;
+  width: -webkit-fill-available;
+}
+
+.selected-row {
+  background-color: #0d6efd;
+  color: white;
+}
+
+.checkboxInput {
+  background-color: white !important;
+  padding-right: 5px;
+}
+
+#itemsContainerDataTable tr {
+  cursor: default;
+}
+
+#selectedItemsContainerDataTable tr {
+  cursor: default;
+}
+
+.checkboxContainer {
+  max-width: 20px !important;
+}
+
+.searchTd {
+  max-width: 100px !important;
+}
+
+#itemsContainerDataTable__footer {
+  position: relative;
+}
+
+  #itemsContainerDataTable__footer .dataTables_scrollFootInner {
+    width: auto !important;
+  }
+
+  #itemsContainerDataTable__footer table {
+    width: 100% !important;
+  }
+
+#selectedItemsContainerDataTable__footer {
+  position: relative;
+}
+
+  #selectedItemsContainerDataTable__footer .dataTables_scrollFootInner {
+    width: auto !important;
+  }
+
+  #selectedItemsContainerDataTable__footer table {
+    width: 100% !important;
+  }
+
+td {
+  width: auto;
+}
+
+.dataTables_scrollFoot {
+  overflow: scroll !important;
+}
+
+.dataTableData {
+  width: 200px;
+}

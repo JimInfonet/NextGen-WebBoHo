@@ -1,0 +1,97 @@
+﻿@section Head {
+  <link href="~/css/functionButtons.css" rel="stylesheet" asp-append-version="true" />
+}
+
+@inject IApplicationConfig _config
+@inject IViewLocalizer localizer
+@inject IHttpContextAccessor httpContextAccessor
+@{
+  ViewData["Title"] = @localizer["setFunctionButtons"];
+}
+
+<input type="hidden" id="invalidImageFolderPath" value="@localizer["invalidImageFolderPath"]" />
+<input type="hidden" id="function" value="@localizer["function"]" />
+<input type="hidden" id="undefinedText" value="@localizer["undefined"]" />
+<input type="hidden" id="defineButton" value="@localizer["defineButton"]" />
+<input type="hidden" id="pleaseSelectButtonTypeFirst" value="@localizer["pleaseSelectButtonTypeFirst"]" />
+<input type="hidden" id="pleaseSelectFunctionFirst" value="@localizer["pleaseSelectFunctionFirst"]" />
+<input type="hidden" id="buttonText" value="@localizer["button"]" />
+<input type="hidden" id="noButtonSelected" value="@localizer["noButtonSelected"]" />
+<input type="hidden" id="buttonDefinedSuccessfully" value="@localizer["buttonDefinedSuccessfully"]" />
+<input type="hidden" id="buttonSuccessfullyDeleted" value="@localizer["buttonSuccessfullyDeleted"]" />
+<input type="hidden" id="buttonUpdatedSuccessfully" value="@localizer["buttonUpdatedSuccessfully"]" />
+<input type="hidden" id="buttonSettingsExchangedSuccessfully" value="@localizer["buttonSettingsExchangedSuccessfully"]" />
+<input type="hidden" id="pleaseSelectButtonFirst" value="@localizer["pleaseSelectButtonFirst"]" />
+<input type="hidden" id="pleaseSelectPictureFirst" value="@localizer["pleaseSelectPictureFirst"]" />
+
+<div class="mt-2 mb-3 pageTitleContainer">
+  <h2><strong>@localizer["setFunctionButtons"]</strong></h2>
+</div>
+
+<div class="row functionButtonsLayoutContainer">
+  <div class="col-lg-12 col-xl-6 mb-4 functionButtonsLeftContainer">
+    <div class="functionButtonsButtonTitle">
+      <h5><strong>@localizer["functionButtons"]</strong></h5>
+    </div>
+    <div class="functionButtonsLayout">
+      <div id="functionButtonsContainer" class="functionButtonsContainer">
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-12 col-xl-6 mb-4 functionButtonsRightContainer">
+    <div class="functionButtonsFormTitle">
+      <h5><strong>@localizer["changeButtonSettings"]</strong></h5>
+    </div>
+
+    <div class="functionButtonSettings">
+      <p id="functionButtonSettingsWarning"><strong>@localizer["selectFunctionThenSelectPictureToDefineButton"]</strong></p>
+      <div class="functionButtonSettingsFormLayout">
+        <div class="functionButtonSettingsButtons">
+          <button id="defaultButton" onclick="pictureIdOneCliecked()" class="functionButtonSettingsButton functionButton"></button>
+          <button id="imageButton" hidden onclick="pictureIdTwoCliecked()" class="functionButtonSettingsButton functionButton"></button>
+        </div>
+
+        <div class="functionButtonSettingsForm">
+          <div class="functionButtonSettingsTitles">
+            <h5><strong id="buttonId"></strong></h5>
+            <p><strong>@localizer["function"] : <span id="functionName"></span></strong></p>
+          </div>
+
+          <div class="functionButtonSettingsFormInputs">
+            <div class="functionButtonSettingsFormInput">
+              <label class="mb-2">@localizer["buttonType"]</label>
+              <select id="buttonType-select" class="form-select infonet-input w-100" onchange="buttonTypeOptionChanged(this.options[this.selectedIndex].value)" aria-label="Select Button Type">
+                <option value="">@localizer["select"] @localizer["buttonType"]</option>
+                <option value="1">1 - @localizer["cashValue"]</option>
+                <option value="2">2 - @localizer["tenders"]</option>
+                <option value="3">3 - @localizer["functions"]</option>
+              </select>
+            </div>
+
+            <div class="functionButtonSettingsFormInput">
+              <label class="mb-2">@localizer["selectFunction"]</label>
+              <select id="selectFunction-select" class="form-select infonet-input w-100" onchange="functionOptionChanged(this.options[this.selectedIndex].value)" aria-label="Select Function">
+                <option value="">@localizer["selectFunction"]</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="functionButtonSettingsFormButtons">
+            <div id="functionButtonSettingButtons" hidden class="changeButtonSettingButtons">
+              <button class="btn btn-primary mt-2" onclick="addOrUpdateFunctionButton(false)">@localizer["changeSetting"]</button>
+              <button class="btn btn-danger ms-1 mt-2" onclick="undefineButtonClicked()">@localizer["undefineButton"]</button>
+            </div>
+
+            <div id="functionButtonDefineButton" hidden class="changeButtonDefineButton">
+              <button id="defineButtonId" onclick="addOrUpdateFunctionButton(true)" class="btn btn-primary"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+@section Scripts {
+  <script src="~/js/functionButtons.js" asp-append-version="true"></script>
+}

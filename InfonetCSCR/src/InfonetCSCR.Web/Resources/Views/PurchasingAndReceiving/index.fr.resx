@@ -1,0 +1,336 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="account" xml:space="preserve">
+    <value>Compte</value>
+  </data>
+  <data name="anErrorHasOccurredWhileExecutingBatchFile" xml:space="preserve">
+    <value>Une erreur s'est produite lors de l'exécution du fichier batch.</value>
+  </data>
+  <data name="anErrorHasOccurredWhileSavingFile" xml:space="preserve">
+    <value>Une erreur s'est produite lors de l'enregistrement du fichier.</value>
+  </data>
+  <data name="automated" xml:space="preserve">
+    <value>Automatique</value>
+  </data>
+  <data name="blank" xml:space="preserve">
+    <value>Vide</value>
+  </data>
+  <data name="anErrorHasOccurredWhileSendingMail" xml:space="preserve">
+    <value>Une erreur s'est produite lors de l'envoi d'e-mail.</value>
+  </data>
+  <data name="areYouSureYouWantToEmailThisPO" xml:space="preserve">
+    <value>Êtes-vous sûre de vouloir envoyer cette CA _PO_ par courriel? Ceci peut être fait seulement une fois.</value>
+  </data>
+  <data name="cancel" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="closed" xml:space="preserve">
+    <value>Fermé</value>
+  </data>
+  <data name="code" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="company" xml:space="preserve">
+    <value>Compagnie</value>
+  </data>
+  <data name="create" xml:space="preserve">
+    <value>Créer</value>
+  </data>
+  <data name="date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="destinationForPO" xml:space="preserve">
+    <value>Destination pour le B.P. </value>
+  </data>
+  <data name="done" xml:space="preserve">
+    <value>Complété</value>
+  </data>
+  <data name="email" xml:space="preserve">
+    <value>Courriel</value>
+  </data>
+  <data name="emailAlreadySent" xml:space="preserve">
+    <value>Email déjà envoyé.</value>
+  </data>
+  <data name="delete" xml:space="preserve">
+    <value>Supprimer</value>
+  </data>
+  <data name="deletePurchaseOrder" xml:space="preserve">
+    <value>Supprimer la Commande d'Achat</value>
+  </data>
+  <data name="emailed" xml:space="preserve">
+    <value>Courrieled</value>
+  </data>
+  <data name="emptyDataFile" xml:space="preserve">
+    <value>Fichier de Données Vide. Processus  Annulé.</value>
+  </data>
+  <data name="fileIsNotCreated" xml:space="preserve">
+    <value>Fichier n'est pas créé. Soyer certain qu'il y a des items dans cette CA. Processus Annulé.</value>
+  </data>
+  <data name="ftp" xml:space="preserve">
+    <value>FTP</value>
+  </data>
+  <data name="generate" xml:space="preserve">
+    <value>Générer</value>
+  </data>
+  <data name="generatePurchaseOrder" xml:space="preserve">
+    <value>Générer une Commande d'Achat</value>
+  </data>
+  <data name="hold" xml:space="preserve">
+    <value>Suspension</value>
+  </data>
+  <data name="invalidEmailAddress" xml:space="preserve">
+    <value>Adresse courriel invalide. Processus Annulé.</value>
+  </data>
+  <data name="lines" xml:space="preserve">
+    <value>Lignes</value>
+  </data>
+  <data name="name" xml:space="preserve">
+    <value>Nom abrégé</value>
+  </data>
+  <data name="open" xml:space="preserve">
+    <value>Ouvrir</value>
+  </data>
+  <data name="paid" xml:space="preserve">
+    <value>Payé</value>
+  </data>
+  <data name="po" xml:space="preserve">
+    <value>Bon de Commande</value>
+  </data>
+  <data name="purchaseOrderSuccessfullyAdded" xml:space="preserve">
+    <value>Commande d'Achat ajoutée avec succès</value>
+  </data>
+  <data name="purchaseOrderSuccessfullyDeleted" xml:space="preserve">
+    <value>Commande d'Achat supprimée avec succès</value>
+  </data>
+  <data name="purchaseOrderType" xml:space="preserve">
+    <value>Type de Commande d'Achat</value>
+  </data>
+  <data name="purchasingAndReceiving" xml:space="preserve">
+    <value>Achat et Réception</value>
+  </data>
+  <data name="readyToEmailThePOToVendor" xml:space="preserve">
+    <value>Prêt a envoyer une CA par Courriel au Fournisseur.</value>
+  </data>
+  <data name="saveToDisk" xml:space="preserve">
+    <value>Enregistrer Sous</value>
+  </data>
+  <data name="remove" xml:space="preserve">
+    <value>Supprimer</value>
+  </data>
+  <data name="search" xml:space="preserve">
+    <value>Rechercher</value>
+  </data>
+  <data name="send" xml:space="preserve">
+    <value>Envoyer</value>
+  </data>
+  <data name="shift#" xml:space="preserve">
+    <value>Quart de travail #</value>
+  </data>
+  <data name="shiftID" xml:space="preserve">
+    <value>ID de Quart</value>
+  </data>
+  <data name="sortBy" xml:space="preserve">
+    <value>Trier Par</value>
+  </data>
+  <data name="status" xml:space="preserve">
+    <value>Statut</value>
+  </data>
+  <data name="successfullySavedTo" xml:space="preserve">
+    <value>Enregistré avec succès</value>
+  </data>
+  <data name="youAreAboutToDeleteThePurchaseOrder" xml:space="preserve">
+    <value>Vous êtes en train de supprimer la Commande d'Achat {0}. Voulez-vous continuer (O/N)?</value>
+  </data>
+  <data name="successfullySentMailTo" xml:space="preserve">
+    <value>E-mail envoyé avec succès à </value>
+  </data>
+  <data name="successfullySentToFtp" xml:space="preserve">
+    <value>Envoyé avec succès vers FTP.</value>
+  </data>
+  <data name="vendorAccountDoesNotExist" xml:space="preserve">
+    <value>Compte fournisseur n'existe pas. Processus Annulé.</value>
+  </data>
+  <data name="detail" xml:space="preserve">
+    <value>Détail</value>
+  </data>
+  <data name="print" xml:space="preserve">
+    <value>Imprimer</value>
+  </data>
+  <data name="cash" xml:space="preserve">
+    <value>Comptant</value>
+  </data>
+  <data name="charge" xml:space="preserve">
+    <value>Charge</value>
+  </data>
+  <data name="no" xml:space="preserve">
+    <value>Non</value>
+  </data>
+  <data name="paymentType" xml:space="preserve">
+    <value>Type de Paiement</value>
+  </data>
+  <data name="post" xml:space="preserve">
+    <value>Post</value>
+  </data>
+  <data name="priceChange" xml:space="preserve">
+    <value>Changement de prix</value>
+  </data>
+  <data name="priceChangeModalMessage" xml:space="preserve">
+    <value>Voulez-vous recalculer le prix ?</value>
+  </data>
+  <data name="purchasingReceivingPostModalTitle" xml:space="preserve">
+    <value>Information de Paiement pour le CA</value>
+  </data>
+  <data name="shiftNumber" xml:space="preserve">
+    <value>Numéro de Quart</value>
+  </data>
+  <data name="subTotal" xml:space="preserve">
+    <value>Sous-total</value>
+  </data>
+  <data name="surcharge/discount" xml:space="preserve">
+    <value>Surcharge/Escompte</value>
+  </data>
+  <data name="GSTAmount" xml:space="preserve">
+    <value>Montant G.S.T.</value>
+  </data>
+  <data name="total" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="yes" xml:space="preserve">
+    <value>Oui</value>
+  </data>
+  <data name="ok" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="fileCreatedSuccessfully" xml:space="preserve">
+    <value>Fichier créé avec succès</value>
+  </data>
+  <data name="invalidShiftId" xml:space="preserve">
+    <value>Veuillez saisir un identifiant d'équipe valide</value>
+  </data>
+  <data name="anErrorHasOccurred" xml:space="preserve">
+    <value>Une erreur est survenue.</value>
+  </data>
+  <data name="select" xml:space="preserve">
+    <value>Sélectionner</value>
+  </data>
+  <data name="invalidShiftNumber" xml:space="preserve">
+    <value>Veuillez saisir un Numéro de Quart valide</value>
+  </data>
+</root>

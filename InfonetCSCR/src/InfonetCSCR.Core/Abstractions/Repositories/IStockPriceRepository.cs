@@ -1,0 +1,65 @@
+﻿namespace InfonetCSCR.Core.Abstractions.Repositories;
+
+public interface IStockPriceRepository
+{
+  Task<bool> AddStockPriceAsync(StockPrice model);
+  Task<int> AddSpecialPriceAsync(StockSpecialPrice model);
+  Task<IEnumerable<StockPriceVendors>> GetVendors(StockPriceModel model);
+  Task<IEnumerable<StockCosts>> GetCosts(StockPriceModel model);
+  Task<IEnumerable<StockPrice>> GetPrices(StockPriceModel model, int pricesInUse, string? storeIDs);
+  Task<StockPriceInfo> GetStockPriceInfoAsync(GetStockPriceInfoDto model);
+  Task<IEnumerable<StockPriceInfo>> GetStockPriceInfoBatchAsync(List<GetStockPriceInfoDto> models);
+  Task<IEnumerable<StockPriceInfo>> GetStockPriceInfoListAsync(GetStockPriceInfoDto model);
+  Task<IEnumerable<StockPrice>> GetStockPriceListAsync(GetStockPriceInfoDto model);
+  Task<IEnumerable<StockRebates>> GetRebate(string? stockCode, int orderNo, string? storeIDs);
+  Task<StockPricePromotion> GetPromotion(string stockCode);
+  Task<IEnumerable<StockSpecialPrice>> GetSpecialPriceFromDiskKL(StockPriceModel model);
+  Task<IEnumerable<StockSpecialPrice>> GetSpecialPrice(StockPriceModel model, string? storeIDs);
+  Task<IEnumerable<StockCosts>> GetStockCosts(StockPriceModel model, string? storeIDs, string vendorIDs = "");
+  Task<int> InsertStockCostsBatch(StockCosts model, List<string>? vendors,
+    List<string>? stores, bool setVendorActive = false);
+  Task<int> InsertStockCosts(StockCosts model, string storeIDs, string vendorID = "", bool setVendorActive = false);
+  Task<VendorPart?> GetVendorPart(string? stockCode, string? vendorId);
+  Task<int> InsertVendorPart(string? stockCode, string? vendorId, string? partNo);
+  Task<int> UpdateVendorPart(string? stockCode, string? vendorId, string? partNo);
+  Task<int> UpdateAllVendorInActive(StockPriceModel model, string? storeIDs);
+  Task<int> ToggleVendorStatus(StockPriceModel model, string? storeIDs, bool status);
+  Task<int> UpdateStockMasterCost(string? stockCode, string? vendorId, decimal? cost);
+  Task<int> UpdateStockCostBatch(StockCosts model, List<StockCostsBatch> values);
+  Task<int> UpdateStockCost(StockCosts model, string? storeIDs, string? vendorId);
+  Task<int> UpdateStockPriceBatch(List<StockPrice> values);
+  Task<int> UpdateStockPrice(StockPrice model);
+  Task<int> InsertStockPriceBatch(StockPrice model, List<string> stores, List<string> vendors);
+  Task<int> InsertStockPrice(StockPrice model);
+  Task<int> AddRebate(StockRebates model, List<string>? storeIDs);
+  Task<int> DeleteRebate(StockRebates model, string? storeIDs, bool useStoreIds = true);
+  Task<int> RemoveSpecialPrice(StockSpecialPrice model, string? storeIDs, bool useStoreIDs = true);
+  Task<int> DeleteSpecialPrice(StockSpecialPrice model, string? storeIDs);
+  Task<int> DeleteSpecialPriceFromDiscKLTable(StockSpecialPrice model);
+  Task<int> UpdateSpecialPrice(StockSpecialPrice model, string? storeIDs, bool applyFromCondition = false);
+  Task<int> UpdateSpecialPriceForUseARInvoicePolicyAsync(StockSpecialPrice model);
+  Task<int> InsertSpecialPrice(StockSpecialPrice model);
+  Task<int> AddSpecialPriceInDiscKLTableAsync(StockSpecialPrice specialPrice);
+  Task<IEnumerable<StockPriceVendors>?> GetVendorsNotInStockCost(StockPriceModel model);
+  Task<int> UpdateStockMasterForActiveVendor(StockPriceModel model);
+  Task<int> DeleteVendorpart(StockPriceModel model);
+  Task<int> DeleteSpecialPriceForVendor(StockPriceModel model, string? storeIDs);
+  Task<int> DeleteStockPricesForVendor(StockPriceModel model, string? storeIDs);
+  Task<int> DeleteStockRebatesForVendor(StockPriceModel model, string? storeIDs);
+  Task<int> DeleteStockCostsForVendor(StockPriceModel model, string? storeIDs);
+  Task<int> UpdateProductTaxExemptForVendor(StockPriceModel model);
+  Task<int> UpdateStockMasterForVendor(StockPriceModel model);
+  Task<IEnumerable<PriceGroup>?> GetPriceGroup();
+  Task<int> UpdateStockMasterTransferFlag(string? stockCode);
+  Task<bool> AddStockPriceByStockCodeAsync(string stockCode, string baseStockCode);
+  Task<bool> DeleteStockPriceByStockCodeAsync(string stockCode);
+  Task<double> GetStockPriceByStockCodeAndVendorAsync(string stockCode, string vendor);
+  Task<int> UpdateStockPriceInfoAsync(StockPriceInfo oldStockPriceInfo, StockPriceInfo newStockPriceInfo);
+  Task<int> CreateOrUpdateStockPriceAsync(PriceDefinition model, bool? updateForVendorAll = false);
+  Task<int> DeleteExistingSpecialPricesAsync(string stockCode, string storeId, int orderNo, string vendorId);
+  Task<int> GetStockPriceRecordCountAsync(GetStockPriceRecordCountDto model);
+  Task<StockPrice> GetStockPrices(string stockCode, string? vendorId, int priceNumber, int? orderNo);
+  Task<bool> AddStockPriceListAsync(List<StockPrice> stockPricesList);
+  Task<int> UpdateStockPriceListAsync(List<StockPrice> updateStockPricesList);
+  Task<IEnumerable<StockPrice>> GetStockPricesListAsync(List<(string stockCode, string vendorId, int orderNo)> stockPriceParameters);
+}

@@ -1,0 +1,585 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="add" xml:space="preserve">
+    <value>Ajouter</value>
+  </data>
+  <data name="apply" xml:space="preserve">
+    <value>Appliquer</value>
+  </data>
+  <data name="batch-h" xml:space="preserve">
+    <value># de Lot</value>
+  </data>
+  <data name="byPriceGroup" xml:space="preserve">
+    <value>Par Groupe de Prix</value>
+  </data>
+  <data name="byRegion" xml:space="preserve">
+    <value>Par Régions</value>
+  </data>
+  <data name="byStore" xml:space="preserve">
+    <value>Par Magasin</value>
+  </data>
+  <data name="byVendor" xml:space="preserve">
+    <value>Par Fournisseurs</value>
+  </data>
+  <data name="cancel" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="cantIdentifyDestinationStores" xml:space="preserve">
+    <value>On ne peut pas identifier les magasins ciblés. Soyez certain que le Fournisseur / Lien Magasin existe.</value>
+  </data>
+  <data name="changeCostBeforeSaving" xml:space="preserve">
+    <value>Vous devez faire le changement de Coût avant de sauvegarder l'information.</value>
+  </data>
+  <data name="commodity" xml:space="preserve">
+    <value>Structure</value>
+  </data>
+  <data name="commodityTransferSuccessful" xml:space="preserve">
+    <value>Lot crée avec succès Structure.</value>
+  </data>
+  <data name="comparison" xml:space="preserve">
+    <value>Comparaison</value>
+  </data>
+  <data name="confirmSaveAsPendingTransfer" xml:space="preserve">
+    <value>Lot crée avec succès </value>
+  </data>
+  <data name="cost" xml:space="preserve">
+    <value>Coût</value>
+  </data>
+  <data name="costChange" xml:space="preserve">
+    <value>Changement de Coûts</value>
+  </data>
+  <data name="currentPrice" xml:space="preserve">
+    <value>Prix courant</value>
+  </data>
+  <data name="dataTransfer" xml:space="preserve">
+    <value>Transfert des données</value>
+  </data>
+  <data name="dataTransferType" xml:space="preserve">
+    <value>Type de Communication</value>
+  </data>
+  <data name="decreasedBy" xml:space="preserve">
+    <value>Réduire Par</value>
+  </data>
+  <data name="del" xml:space="preserve">
+    <value>Sup</value>
+  </data>
+  <data name="deleteAll" xml:space="preserve">
+    <value>Supprimer tout</value>
+  </data>
+  <data name="deleteAllWarning" xml:space="preserve">
+    <value>Vous êtes sur le point de supprimer tous les éléments de la liste de transfert. Poursuivre ?</value>
+  </data>
+  <data name="deleteSelectedItemWarning" xml:space="preserve">
+    <value>Vous êtes sur le point de supprimer l'élément sélectionné de la liste de transfert. Poursuivre ?</value>
+  </data>
+  <data name="deleteStoreData" xml:space="preserve">
+    <value>Supprimer un Magasin</value>
+  </data>
+  <data name="deleteStoreDataWarning" xml:space="preserve">
+    <value>Vous êtes sur le point de supprimer tous les articles de la liste de transfert pour le magasin sélectionné. Poursuivre ?</value>
+  </data>
+  <data name="dept" xml:space="preserve">
+    <value>Département</value>
+  </data>
+  <data name="deptName" xml:space="preserve">
+    <value>Nom département</value>
+  </data>
+  <data name="description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="doesNotEnd" xml:space="preserve">
+    <value>N'expire jamais</value>
+  </data>
+  <data name="effectiveDates" xml:space="preserve">
+    <value>Dates effectives</value>
+  </data>
+  <data name="endDate" xml:space="preserve">
+    <value>Date de fin</value>
+  </data>
+  <data name="f-firstUnitPricing" xml:space="preserve">
+    <value>F - Prix spécial pour quantité</value>
+  </data>
+  <data name="from" xml:space="preserve">
+    <value>De</value>
+  </data>
+  <data name="futurePrice" xml:space="preserve">
+    <value>Prix future</value>
+  </data>
+  <data name="hotButtons" xml:space="preserve">
+    <value>Touches rapides</value>
+  </data>
+  <data name="i-incrementalPricing" xml:space="preserve">
+    <value>I - Prix incrémentiel</value>
+  </data>
+  <data name="id" xml:space="preserve">
+    <value>Numéro</value>
+  </data>
+  <data name="increasedBy" xml:space="preserve">
+    <value>Augmenter Par</value>
+  </data>
+  <data name="list" xml:space="preserve">
+    <value>LISTE</value>
+  </data>
+  <data name="loading" xml:space="preserve">
+    <value>Chargement</value>
+  </data>
+  <data name="margin" xml:space="preserve">
+    <value>Marge</value>
+  </data>
+  <data name="margin-p" xml:space="preserve">
+    <value>Marge %</value>
+  </data>
+  <data name="name" xml:space="preserve">
+    <value>Nom abrégé</value>
+  </data>
+  <data name="newCurrentPrice" xml:space="preserve">
+    <value>Nouveau prix courant</value>
+  </data>
+  <data name="newFuturePrice" xml:space="preserve">
+    <value>Nouveau prix future</value>
+  </data>
+  <data name="nPrice" xml:space="preserve">
+    <value>N. Prix</value>
+  </data>
+  <data name="pageTitle" xml:space="preserve">
+    <value>Transfert des données</value>
+  </data>
+  <data name="percent" xml:space="preserve">
+    <value>Pourcent</value>
+  </data>
+  <data name="price" xml:space="preserve">
+    <value>Prix</value>
+  </data>
+  <data name="pricebookTransfer" xml:space="preserve">
+    <value>Transfert Livres des Prix</value>
+  </data>
+  <data name="priceChange" xml:space="preserve">
+    <value>Changement de prix</value>
+  </data>
+  <data name="priceChangeRequest" xml:space="preserve">
+    <value>Vous devez faire le changement de prix avant de sauvegarder l'information.</value>
+  </data>
+  <data name="priceGroup" xml:space="preserve">
+    <value>Groupe de Prix</value>
+  </data>
+  <data name="priceGroups" xml:space="preserve">
+    <value>Groupe de Prix</value>
+  </data>
+  <data name="prices" xml:space="preserve">
+    <value>Prix</value>
+  </data>
+  <data name="priceSetup" xml:space="preserve">
+    <value>Définir les prix</value>
+  </data>
+  <data name="priceUnits" xml:space="preserve">
+    <value>Unités de prix</value>
+  </data>
+  <data name="product" xml:space="preserve">
+    <value>Produit</value>
+  </data>
+  <data name="productId" xml:space="preserve">
+    <value># d'article</value>
+  </data>
+  <data name="productName" xml:space="preserve">
+    <value>Nom de l'article</value>
+  </data>
+  <data name="products" xml:space="preserve">
+    <value>Articles</value>
+  </data>
+  <data name="promotions" xml:space="preserve">
+    <value>Promotions</value>
+  </data>
+  <data name="quantity" xml:space="preserve">
+    <value>Quantité</value>
+  </data>
+  <data name="r-regularPrice" xml:space="preserve">
+    <value>R - Prix régulier</value>
+  </data>
+  <data name="recentChanges" xml:space="preserve">
+    <value>Changement Récent</value>
+  </data>
+  <data name="region" xml:space="preserve">
+    <value>Région</value>
+  </data>
+  <data name="regions" xml:space="preserve">
+    <value>Régions</value>
+  </data>
+  <data name="regPrice" xml:space="preserve">
+    <value>Prix Rég.</value>
+  </data>
+  <data name="remove" xml:space="preserve">
+    <value>Supprimer</value>
+  </data>
+  <data name="reports" xml:space="preserve">
+    <value>Rapports</value>
+  </data>
+  <data name="s-salePricing" xml:space="preserve">
+    <value>S - Prix de vente</value>
+  </data>
+  <data name="saveAsPendingTransfer" xml:space="preserve">
+    <value>Sauvegarder comme   'Envoie en attente'</value>
+  </data>
+  <data name="saving" xml:space="preserve">
+    <value>Sauver</value>
+  </data>
+  <data name="search" xml:space="preserve">
+    <value>Rechercher</value>
+  </data>
+  <data name="sel" xml:space="preserve">
+    <value>Sélectionner</value>
+  </data>
+  <data name="select/UnselectAll" xml:space="preserve">
+    <value>Sélectionner/Désélectionner tout</value>
+  </data>
+  <data name="selectAtLeastOneStore" xml:space="preserve">
+    <value>Vous devez sélectionner ou Magasin.</value>
+  </data>
+  <data name="selectedPriceGroups" xml:space="preserve">
+    <value>Groupe de prix</value>
+  </data>
+  <data name="selectedRegions" xml:space="preserve">
+    <value>Régions</value>
+  </data>
+  <data name="selectedStores" xml:space="preserve">
+    <value>Magasin</value>
+  </data>
+  <data name="selectedVendors" xml:space="preserve">
+    <value>Fournisseurs</value>
+  </data>
+  <data name="selection" xml:space="preserve">
+    <value>SÉLECTIONNER DESTINATION ET</value>
+  </data>
+  <data name="selectProductRequest" xml:space="preserve">
+    <value>Autres envois n'ont pas été sauvegardés.</value>
+  </data>
+  <data name="selectStoreRequest" xml:space="preserve">
+    <value>Vous devez sélectionner au moins un Groupe de prix, Région, Fournisseurs ou Magasin.</value>
+  </data>
+  <data name="showAllProducts" xml:space="preserve">
+    <value>Afficher Tout Les Articles</value>
+  </data>
+  <data name="specialPricing" xml:space="preserve">
+    <value>Prix spécial</value>
+  </data>
+  <data name="startDate" xml:space="preserve">
+    <value>Date de Début</value>
+  </data>
+  <data name="stockCode" xml:space="preserve">
+    <value>No d'article</value>
+  </data>
+  <data name="stocks" xml:space="preserve">
+    <value>Articles</value>
+  </data>
+  <data name="store" xml:space="preserve">
+    <value>Magasin</value>
+  </data>
+  <data name="stores" xml:space="preserve">
+    <value>Magasins</value>
+  </data>
+  <data name="subDept" xml:space="preserve">
+    <value>Sous-département</value>
+  </data>
+  <data name="subDeptName" xml:space="preserve">
+    <value>Nom sous-département</value>
+  </data>
+  <data name="subDetail" xml:space="preserve">
+    <value>Classe</value>
+  </data>
+  <data name="subDetailName" xml:space="preserve">
+    <value>Nom de la Classe</value>
+  </data>
+  <data name="to" xml:space="preserve">
+    <value>Ã </value>
+  </data>
+  <data name="transferOptions" xml:space="preserve">
+    <value>Options de Communication</value>
+  </data>
+  <data name="trType" xml:space="preserve">
+    <value>Type d'envoi</value>
+  </data>
+  <data name="transfer" xml:space="preserve">
+    <value>Envoyer</value>
+  </data>
+  <data name="transType" xml:space="preserve">
+    <value>Type d'envoi</value>
+  </data>
+  <data name="type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="update" xml:space="preserve">
+    <value>Mise Ã  jour</value>
+  </data>
+  <data name="updates" xml:space="preserve">
+    <value>MISE À JOUR</value>
+  </data>
+  <data name="vendor" xml:space="preserve">
+    <value>Fournisseur</value>
+  </data>
+  <data name="vendorProducts" xml:space="preserve">
+    <value>Article par Fournisseur</value>
+  </data>
+  <data name="vendors" xml:space="preserve">
+    <value>Fournisseurs</value>
+  </data>
+  <data name="view" xml:space="preserve">
+    <value>VISUALISER LES</value>
+  </data>
+  <data name="warning" xml:space="preserve">
+    <value>Avertissement</value>
+  </data>
+  <data name="x-xForPricing" xml:space="preserve">
+    <value>X - Mix &amp; Match</value>
+  </data>
+  <data name="deleteSuccessful" xml:space="preserve">
+    <value>Supprimé avec succès !</value>
+  </data>
+  <data name="tranferSuccessful" xml:space="preserve">
+    <value>Transféré avec succès !</value>
+  </data>
+  <data name="anUnexpectedErrorHasOccured" xml:space="preserve">
+    <value>Une erreur inattendue s'est produite.</value>
+  </data>
+  <data name="transfering" xml:space="preserve">
+    <value>Transfert</value>
+  </data>
+  <data name="button" xml:space="preserve">
+    <value>Touche</value>
+  </data>
+  <data name="caption1" xml:space="preserve">
+    <value>Ligne 1</value>
+  </data>
+  <data name="caption2" xml:space="preserve">
+    <value>Ligne 2</value>
+  </data>
+  <data name="hotButtonTransferSuccessful" xml:space="preserve">
+    <value>Lot crée avec succès Touches rapides.</value>
+  </data>
+  <data name="promotionPendingTransferSuccessful" xml:space="preserve">
+    <value>Lot crée avec succès Promotions.</value>
+  </data>
+  <data name="selectAtLeastOneItem" xml:space="preserve">
+    <value>Autres envois n'ont pas été sauvegardés.</value>
+  </data>
+  <data name="packageCost" xml:space="preserve">
+    <value>Coût/Caisse</value>
+  </data>
+  <data name="changePriceBasedOnMarginSetup" xml:space="preserve">
+    <value>Modifier le prix en fonction de la configuration de la marge</value>
+  </data>
+  <data name="costSetup" xml:space="preserve">
+    <value>Définir les Coût</value>
+  </data>
+  <data name="doYouWantToChangeThePrice" xml:space="preserve">
+    <value>Voulez-vous recalculer le prix ?</value>
+  </data>
+  <data name="dataDefinition" xml:space="preserve">
+    <value>Définition de Data</value>
+  </data>
+  <data name="toDateShouldBeGreaterWarning" xml:space="preserve">
+    <value>'To' Date should be always Greater than 'From' Date</value>
+  </data>
+  <data name="costChangeRequest" xml:space="preserve">
+    <value>Vous devez faire le changement de Coût avant de sauvegarder l'information.</value>
+  </data>
+  <data name="noDataToTransfer" xml:space="preserve">
+    <value>Il n'y a pas de données à transférer.</value>
+  </data>
+  <data name="currentCost" xml:space="preserve">
+    <value>Coût courant</value>
+  </data>
+  <data name="futureCost" xml:space="preserve">
+    <value>Coût Future</value>
+  </data>
+  <data name="nCost" xml:space="preserve">
+    <value>N. Coût</value>
+  </data>
+  <data name="toDateShouldBeAlwaysGreaterThanFromDate" xml:space="preserve">
+    <value>La date de fin doit être plus supérieur à la date de début.</value>
+  </data>
+  <data name="youCantChangeToAPassedDate" xml:space="preserve">
+    <value>Impossible de sélectionner une date passée.</value>
+  </data>
+  <data name="commodityListTab" xml:space="preserve">
+    <value>LISTE  DES LOTS DE STRUCTURE</value>
+  </data>
+  <data name="commoditySelectionTab" xml:space="preserve">
+    <value>SÉLECTIONNER DESTINATION ET DE LA STRUCTURE</value>
+  </data>
+  <data name="costChangeListTab" xml:space="preserve">
+    <value>LISTE DES LOTS DE CHANGEMENT DE COÛTS</value>
+  </data>
+  <data name="costChangeSelectionTab" xml:space="preserve">
+    <value>SÉLECTIONNER  DESTINATION ET STRUCTURE</value>
+  </data>
+  <data name="costChangeVeiwTab" xml:space="preserve">
+    <value>SÉLECTION  D'ARTICLES ET TYPE DE COÛTS</value>
+  </data>
+  <data name="hotButtonsListTab" xml:space="preserve">
+    <value>LISTE DES LOTS DE TOUCHES RAPIDES</value>
+  </data>
+  <data name="hotButtonsSelectionTab" xml:space="preserve">
+    <value>SÉLECTIONNER DESTINATION ET TOUCHES RAPIDES</value>
+  </data>
+  <data name="info" xml:space="preserve">
+    <value>Affichage de _START_ à _END_ entrées sur _TOTAL_</value>
+  </data>
+  <data name="lengthMenu" xml:space="preserve">
+    <value>Afficher _MENU_ entrées</value>
+  </data>
+  <data name="priceChangeListTab" xml:space="preserve">
+    <value>LISTE DES LOTS DE CHANGEMENT DE PRIX</value>
+  </data>
+  <data name="priceChangeSelectionTab" xml:space="preserve">
+    <value>SÉLECTIONNER DESTINATION ET STRUCTURE</value>
+  </data>
+  <data name="priceChangeViewTab" xml:space="preserve">
+    <value>SÉLECTION  D'ARTICLES ET TYPE DE PRIX</value>
+  </data>
+  <data name="promotionsListTab" xml:space="preserve">
+    <value>LISTE DES LOTS DE PROMOTIONS</value>
+  </data>
+  <data name="promotionsSelectionTab" xml:space="preserve">
+    <value>SÉLECTIONNER DESTINATION ET PROMOTIONS</value>
+  </data>
+  <data name="stocksListTab" xml:space="preserve">
+    <value>LISTE DES LOTS D'ARTICLES</value>
+  </data>
+  <data name="stocksSelectionTab" xml:space="preserve">
+    <value>SÉLECTIONNER DESTINATION ET ARTICLES</value>
+  </data>
+  <data name="stocksViewTab" xml:space="preserve">
+    <value>VISUALISER LES ARTICLES</value>
+  </data>
+  <data name="zeroRecords" xml:space="preserve">
+    <value>Aucune donnée disponible.</value>
+  </data>
+  <data name="entriesSelected" xml:space="preserve">
+    <value>{0} de {1} éléments sont sélectionné</value>
+  </data>
+  <data name="totalEntries" xml:space="preserve">
+    <value>Total éléments</value>
+  </data>
+  <data name="totalSelectedStores" xml:space="preserve">
+    <value>Total Sélectionné Magasins</value>
+  </data>
+  <data name="finalize" xml:space="preserve">
+    <value>Finaliser</value>
+  </data>
+</root>

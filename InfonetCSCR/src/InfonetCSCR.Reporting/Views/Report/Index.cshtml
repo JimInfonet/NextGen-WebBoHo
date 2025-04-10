@@ -1,0 +1,40 @@
+﻿@{
+  ViewBag.Title = "Stock Item History Report";
+}
+
+<input type="hidden" id="getStockItemHistoryReportUrl" name="getStockItemHistoryReportUrl" value='@Url.Action("GetStockItemHistoryReport", "Report")'>
+<input type="hidden" id="getSalesAnalysisByProductReportUrl" name="getSalesAnalysisByProductReportUrl" value='@Url.Action("GetSalesAnalysisByProductReport", "Report")'>
+<input type="hidden" id="getVendorPurchasesByProductReportUrl" name="getVendorPurchasesByProductReportUrl" value='@Url.Action("GetVendorPurchasesByProductReport", "Report")'>
+<input type="hidden" id="getPriceChangeReportUrl" name="getPriceChangeReportUrl" value='@Url.Action("GetPriceChangeReport", "Report")'>
+<input type="hidden" id="getStockTransferReportUrl" name="getStockTransferReportUrl" value='@Url.Action("GetStockTransferReport", "Report")'>
+<input type="hidden" id="getCommodityTransferReportUrl" name="getCommodityTransferReportUrl" value='@Url.Action("GetCommodityTransferReport", "Report")'>
+<input type="hidden" id="getHotButtonsReportUrl" name="getHotButtonsReportUrl" value='@Url.Action("GetHotButtonsReport", "Report")'>
+<input type="hidden" id="getCostChangeReportUrl" name="getCostChangeReportUrl" value='@Url.Action("GetCostChangeReport", "Report")'>
+<input type="hidden" id="getPromotionalDiscountTransferReportUrl" name="getPromotionalDiscountTransferReportUrl" value='@Url.Action("GetPromotionalDiscountTransferReport", "Report")'>
+<input type="hidden" id="getStockTakesAndReceivingReport" name="getStockTakesAndReceivingReport" value='@Url.Action("GetStockTakesAndReceivingReport", "Report")'>
+<input type="hidden" id="getTimeSheetReport" name="getTimeSheetReport" value='@Url.Action("GetTimeSheetReport", "Report")'>
+<input type="hidden" id="getPurchasingAndReceivingReport" name="getPurchasingAndReceivingReport" value='@Url.Action("GetPurchasingAndReceivingReport", "Report")'>
+<input type="hidden" id="getFuelPriceChangeReport" name="getFuelPriceChangeReport" value='@Url.Action("GetFuelPriceChangeReport", "Report")'>
+<input type="hidden" id="getElectronicJournalReport" name="getElectronicJournalReport" value='@Url.Action("GetElectronicJournalReport", "Report")'>
+<input type="hidden" id="getElectronicJournalSummaryReport" name="getElectronicJournalSummaryReport" value='@Url.Action("GetElectronicJournalSummaryReport", "Report")'>
+<input type="hidden" id="getElectronicJournalDetailsReport" name="getElectronicJournalDetailsReport" value='@Url.Action("GetElectronicJournalDetailsReport", "Report")'>
+<input type="hidden" id="getElectronicJournalTenderDetailsReport" name="getElectronicJournalTenderDetailsReport" value='@Url.Action("GetElectronicJournalTenderDetailsReport", "Report")'>
+<input type="hidden" id="getLabelPrintingReport" name="getLabelPrintingReport" value='@Url.Action("GetLabelPrintingReport", "Report")'>
+
+<div class="d-flex justify-content-center">
+  <div id="loaderSection" class="spinner-border" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+
+<div class="row justify-content-center" id="reportDiv">
+  <div class="col" style="margin-left: 150px">
+    <div id="reportBlock"></div>
+  </div>
+</div>
+
+<div id="webBaseUrl" hidden>@ViewBag.WebBaseUrl</div>
+
+@section Scripts {
+  <script src="~/Scripts/Report.js" asp-append-version="true"></script>
+}

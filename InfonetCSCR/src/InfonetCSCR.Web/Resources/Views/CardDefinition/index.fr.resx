@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ackrooCardType" xml:space="preserve">
+    <value>Type de carte Ackroo</value>
+  </data>
+  <data name="ackrooCardTypeLabel" xml:space="preserve">
+    <value>(A=Ackroo)</value>
+  </data>
+  <data name="add" xml:space="preserve">
+    <value>Ajouter</value>
+  </data>
+  <data name="allowPayments" xml:space="preserve">
+    <value>Permettre les paiements</value>
+  </data>
+  <data name="allowPayPump" xml:space="preserve">
+    <value>Permet paye pompe</value>
+  </data>
+  <data name="allowRefund" xml:space="preserve">
+    <value>Permettre un remboursement</value>
+  </data>
+  <data name="anErrorOccurredWhileAddingCardNumberRanges" xml:space="preserve">
+    <value>Une erreur s'est produite lors de la Ajouter des de  Plages de numéros de cartes</value>
+  </data>
+  <data name="anErrorOccurredWhileDeletingFromCardNumberRanges" xml:space="preserve">
+    <value>Une erreur s'est produite lors de la  supprimer de  Plages de numéros de cartes</value>
+  </data>
+  <data name="areYouSureYouWantToDeleteThisRange" xml:space="preserve">
+    <value>Êtres vous Sur vous voulez Supprimer cette Chaine?</value>
+  </data>
+  <data name="back" xml:space="preserve">
+    <value>Recule</value>
+  </data>
+  <data name="bankCardID" xml:space="preserve">
+    <value>Numéro de carte bancaire</value>
+  </data>
+  <data name="callTheBank" xml:space="preserve">
+    <value>Appeler la banque</value>
+  </data>
+  <data name="cancel" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="cardAttributes" xml:space="preserve">
+    <value>Montant exact requis</value>
+  </data>
+  <data name="cardCode" xml:space="preserve">
+    <value>Code de carte</value>
+  </data>
+  <data name="cardDescriptionParameters" xml:space="preserve">
+    <value>Paramètres de description des cartes</value>
+  </data>
+  <data name="cardNumberRanges" xml:space="preserve">
+    <value>Plages de numéros de cartes</value>
+  </data>
+  <data name="cardType" xml:space="preserve">
+    <value>Type de carte</value>
+  </data>
+  <data name="cardTypeLabels" xml:space="preserve">
+    <value>(C=Crédit, D=Débit, F=Flotte, T=Partenaire, G=Certificat Cadeau, L=Fidélisation, K=KickBack)</value>
+  </data>
+  <data name="checkDigitMask" xml:space="preserve">
+    <value>Vérifier le caractère de vérification masqué</value>
+  </data>
+  <data name="checkDigitMaskLabel" xml:space="preserve">
+    <value>(0, 1, 2, ou C)</value>
+  </data>
+  <data name="checkExpiryDate" xml:space="preserve">
+    <value>Vérifier la date d'expiration</value>
+  </data>
+  <data name="complete" xml:space="preserve">
+    <value>Compléter</value>
+  </data>
+  <data name="confirmGoBackAlert" xml:space="preserve">
+    <value>Si vous revenez à la liste, toutes vos données seront perdues. Voulez-vous poursuivre?</value>
+  </data>
+  <data name="credit" xml:space="preserve">
+    <value>Crédit</value>
+  </data>
+  <data name="creditDebitCardDefinition" xml:space="preserve">
+    <value>Définition d'une carte de Débit / Crédit</value>
+  </data>
+  <data name="creditFee%" xml:space="preserve">
+    <value>Frais de crédit %</value>
+  </data>
+  <data name="delete" xml:space="preserve">
+    <value>Supprimer</value>
+  </data>
+  <data name="deleteRange" xml:space="preserve">
+    <value>Supprimer la Chaine</value>
+  </data>
+  <data name="description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="discRate" xml:space="preserve">
+    <value>Taux de rabais</value>
+  </data>
+  <data name="discType" xml:space="preserve">
+    <value>Taux de Type</value>
+  </data>
+  <data name="edit" xml:space="preserve">
+    <value>Éditer</value>
+  </data>
+  <data name="emptyMessage" xml:space="preserve">
+    <value>Aucune donnée disponible.</value>
+  </data>
+  <data name="encryptCardNumber" xml:space="preserve">
+    <value>Crypter numéro de carte de</value>
+  </data>
+  <data name="error" xml:space="preserve">
+    <value>Erreur</value>
+  </data>
+  <data name="fleetCardType" xml:space="preserve">
+    <value>Type de carte de flotte</value>
+  </data>
+  <data name="fleetCardTypeLabel" xml:space="preserve">
+    <value>(W=Wex, F=FleetServer, P=PetroTrak)</value>
+  </data>
+  <data name="floorLimit" xml:space="preserve">
+    <value>Limite minimale</value>
+  </data>
+  <data name="from" xml:space="preserve">
+    <value>De</value>
+  </data>
+  <data name="giftCardType" xml:space="preserve">
+    <value>Type de carte cadeau</value>
+  </data>
+  <data name="giftTypeLabel" xml:space="preserve">
+    <value>(G=GiveX, A=AckrooGift, C=CarwashGift)</value>
+  </data>
+  <data name="goToCardDefinitionGrid" xml:space="preserve">
+    <value>Aller à la grille de définition de carte</value>
+  </data>
+  <data name="languageDigitPosition" xml:space="preserve">
+    <value>Position du caractères de langue</value>
+  </data>
+  <data name="languageDigitPositionRange" xml:space="preserve">
+    <value>Language Digit Position should be in -2,147,483,648 and 214748.3647F</value>
+  </data>
+  <data name="limitToSaleAmount" xml:space="preserve">
+    <value>Limiter le montant de la transaction</value>
+  </data>
+  <data name="loading" xml:space="preserve">
+    <value>Chargement</value>
+  </data>
+  <data name="maxCardLength" xml:space="preserve">
+    <value>Longueur Maximum de la carte</value>
+  </data>
+  <data name="maxCashBack" xml:space="preserve">
+    <value>Retour en argent maximal</value>
+  </data>
+  <data name="minCardLength" xml:space="preserve">
+    <value>Longueur Minimum de la carte</value>
+  </data>
+  <data name="minMaxCardLength" xml:space="preserve">
+    <value>Longueur Minimum &amp;&amp; Maximum de la carte</value>
+  </data>
+  <data name="optionalDataProfileID" xml:space="preserve">
+    <value>ID de profil de données facultatif</value>
+  </data>
+  <data name="pleaseEnterAValidNumber" xml:space="preserve">
+    <value>S'il te plaît Entrer un numéro de valide.</value>
+  </data>
+  <data name="pleaseEnterLowerLimit" xml:space="preserve">
+    <value>SVP Entrer la Limite inférieur.</value>
+  </data>
+  <data name="pleaseEnterUpperLimit" xml:space="preserve">
+    <value>SVP Entrer la Limite supérieur.</value>
+  </data>
+  <data name="pleaseUseEitherDollarOrPercentage" xml:space="preserve">
+    <value>Veuillez utiliser le dollar ou le pourcentage. Les deux valeurs ne peuvent pas être utilisées.</value>
+  </data>
+  <data name="positionOfLanguageCode" xml:space="preserve">
+    <value>Position du code de langue(# du caractère précédent la sentinelle d'arrêt)(Zéro signifie aucun)?</value>
+  </data>
+  <data name="pourchaseLimit" xml:space="preserve">
+    <value>Limite d'achat</value>
+  </data>
+  <data name="printCopies" xml:space="preserve">
+    <value>Imprimer les copies</value>
+  </data>
+  <data name="printSignatureLine" xml:space="preserve">
+    <value>Imprimer la Ligne Signature</value>
+  </data>
+  <data name="productRestriction" xml:space="preserve">
+    <value>Restriction de produit</value>
+  </data>
+  <data name="receiptText" xml:space="preserve">
+    <value>Texte du reçu</value>
+  </data>
+  <data name="save" xml:space="preserve">
+    <value>Sauvegarder</value>
+  </data>
+  <data name="select" xml:space="preserve">
+    <value>Sélectionner</value>
+  </data>
+  <data name="suchLowerLimitAlreayExistsForThisCardCode" xml:space="preserve">
+    <value>La Limite inférieur éxiste déjà pour ce code carte.</value>
+  </data>
+  <data name="to" xml:space="preserve">
+    <value>à</value>
+  </data>
+  <data name="transactionFee$" xml:space="preserve">
+    <value>Frais de Transactions $</value>
+  </data>
+  <data name="verifyCustomerCardNumber" xml:space="preserve">
+    <value>Vérifier le numéro de carte du client</value>
+  </data>
+  <data name="verifyTheCheckDigit" xml:space="preserve">
+    <value>Vérifier le chiffre vérificateur</value>
+  </data>
+  <data name="verifyTheLast4Digits" xml:space="preserve">
+    <value>Vérifier les 4 derniers caractères</value>
+  </data>
+  <data name="verifyUsingNegativeCardFile" xml:space="preserve">
+    <value>Vérifier à l'aide de la filière négative des cartes</value>
+  </data>
+  <data name="verifyUsingPositiveCardFile" xml:space="preserve">
+    <value>Vérifier à l'aide de la filière positive des cartes</value>
+  </data>
+  <data name="yesNoOptions" xml:space="preserve">
+    <value>Oui / No options (Changer le Y pour O ?)</value>
+  </data>
+  <data name="cardDefinitionUpdatedSuccessfully" xml:space="preserve">
+    <value>La définition de la carte a été mise à jour avec succès</value>
+  </data>
+</root>

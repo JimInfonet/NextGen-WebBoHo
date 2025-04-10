@@ -1,0 +1,238 @@
+﻿@section Head {
+  <link href="~/css/vendors.css" rel="stylesheet" asp-append-version="true" />
+}
+
+@model VendorAddRecordViewModel
+@inject IApplicationConfig _config
+@inject IViewLocalizer localizer
+@{
+  ViewData["Title"] = @localizer["pageTitle"];
+}
+
+<input id="pleaseSelectASortItem" type="hidden" value="@localizer["pleaseSelectASortItem"]" />
+<input id="pleaseSelectASortOrder" type="hidden" value="@localizer["pleaseSelectASortOrder"]" />
+<input id="anErrorHasOccuredWhileUpdatingVendor" type="hidden" value="@localizer["anErrorHasOccuredWhileUpdatingVendor"]" />
+<input id="anErrorHasOccuredWhileAddingVendor" type="hidden" value="@localizer["anErrorHasOccuredWhileAddingVendor"]" />
+<input id="ascending" type="hidden" value="@localizer["ascending"]" />
+<input id="descending" type="hidden" value="@localizer["descending"]" />
+<input id="vendorAdded" type="hidden" value="@localizer["vendorAdded"]" />
+<input id="vendorUpdated" type="hidden" value="@localizer["vendorUpdated"]" />
+
+<input type="hidden" id="isCodeAlreadyExist" value="@ViewBag.CodeExists" />
+<input type="hidden" id="isErrorOccured" value="@ViewBag.ErrorOccured" />
+<input type="hidden" id="isAdd" value="@ViewBag.IsAdd" />
+<input type="hidden" id="showOnly" value="@ViewBag.ShowOnly" />
+<input type="hidden" id="actionType" value="@ViewBag.Action" />
+
+<form class="p-3 mt-2" asp-controller="Vendors" asp-action="@(ViewBag.IsAdd? "AddVendor" : "UpdateVendor")" id="vendorsForm">
+  
+  <input type="hidden" asp-for="AddedSortItems" id="AddedSortItems" name="AddedSortItems" value="@Model.AddedSortItems" />
+  <input type="hidden" asp-for="RemovedSortItems" id="RemovedSortItems" name="RemovedSortItems" value="@Model.RemovedSortItems" />
+
+  <div class="p-2">
+    <div class="d-flex justify-content-between">
+      <h3 class="h3 fw-bold mb-3">@localizer["pageTitle"]</h3>
+    </div>
+
+    <div class="body-content p-2">
+      @*Add Section*@
+      <div class="mt-3 col" id="addVendors">
+        <div class="row m-3 row">
+          <div class="row">
+            <div class="col col-lg-6 col-xl-4 pt-3">
+              <label asp-for="Vendor.Code" class="mb-2">@localizer["code"]</label>
+              @if(ViewBag.IsAdd)
+              {
+                <input asp-for="Vendor.Code" maxlength="10" id="Code" type="text" class="col infonet-input stock-item-form-input w-100" />
+              }
+              else
+              {
+                <input value="@(Model.Vendor.Code)" maxlength="10" id="Code" disabled="true" type="text" class="col infonet-input stock-item-form-input w-100" />
+                <input asp-for="Vendor.Code" maxlength="10" id="hiddenCode" type="hidden" class="col infonet-input stock-item-form-input w-100" />
+              }
+              <span asp-validation-for="Vendor.Code" class="text-danger"></span>
+            </div>
+            <div class="col col-lg-6 col-xl-4 pt-3">
+              <label asp-for="Vendor.Name" class="mb-2">@localizer["name"]</label>
+              <input asp-for="Vendor.Name" type="text" maxlength="30" id="Name" class="col infonet-input stock-item-form-input w-100" />
+              <span asp-validation-for="Vendor.Name" class="text-danger"></span>
+            </div>
+            <div class="col col-lg-6 col-xl-4 pt-3">
+              <label asp-for="Vendor.Address" class="mb-2">@localizer["address"]</label>
+              <input asp-for="Vendor.Address" maxlength="30" type="text" id="Address" class="col infonet-input stock-item-form-input w-100" />
+              <span asp-validation-for="Vendor.Address" class="text-danger"></span>
+            </div>
+            
+            <div class="col col-lg-6 col-xl-4 pt-3">
+              <label asp-for="Vendor.City" class="mb-2">@localizer["city"]</label>
+              <input asp-for="Vendor.City" id="City" maxlength="20" type="text" class="col infonet-input stock-item-form-input w-100" />
+              <span asp-validation-for="Vendor.City" class="text-danger"></span>
+            </div>
+            <div class="col col-lg-6 col-xl-4 pt-3">
+              <label asp-for="Vendor.Postal" class="mb-2">@localizer["postalCode"]</label>
+              <input asp-for="Vendor.Postal" id="Postal" maxlength="15" type="text" class="col infonet-input stock-item-form-input w-100" />
+              <span asp-validation-for="Vendor.Postal" class="text-danger"></span>
+            </div>
+            <div class="col col-lg-6 col-xl-4 pt-3">
+              <label asp-for="Vendor.Province" class="mb-2">@localizer["province"]</label>
+              <input asp-for="Vendor.Province" id="Province" maxlength="20" type="text" class="col infonet-input stock-item-form-input w-100" />
+              <span asp-validation-for="Vendor.Province" class="text-danger"></span>
+            </div>
+
+            <div class="col col-lg-6 col-xl-4 pt-3">
+              <label asp-for="Vendor.Country" class="mb-2">@localizer["country"]</label>
+              <input asp-for="Vendor.Country" id="Country" maxlength="20" type="text" class="col infonet-input stock-item-form-input w-100" />
+              <span asp-validation-for="Vendor.Country" class="text-danger"></span>
+            </div>
+            <div class="col col-lg-6 col-xl-4 pt-3">
+              <label asp-for="Vendor.Phone" class="mb-2">@localizer["phone"]</label>
+              <input asp-for="Vendor.Phone" id="Phone" maxlength="15" type="text" class="col infonet-input stock-item-form-input w-100" />
+              <span asp-validation-for="Vendor.Phone" class="text-danger"></span>
+            </div>
+            <div class="col col-lg-6 col-xl-4 pt-3">
+              <label asp-for="Vendor.Fax" class="mb-2">@localizer["fax"]</label>
+              <input asp-for="Vendor.Fax" id="Fax" type="text" maxlength="15" class="col infonet-input stock-item-form-input w-100" />
+              <span asp-validation-for="Vendor.Fax" class="text-danger"></span>
+            </div>
+            <div class="col col-lg-6 col-xl-4 pt-3">
+              <label asp-for="Vendor.OrderFreq" class="mb-2">@localizer["orderFrequency"]</label>
+              <input asp-for="Vendor.OrderFreq" maxlength="5" type="text" id="OrderFrequency" class="col infonet-input stock-item-form-input w-100" />
+              <span asp-validation-for="Vendor.OrderFreq" class="text-danger"></span>
+            </div>
+            <div class="col col-lg-6 col-xl-4 pt-3">
+              <label asp-for="Vendor.Email" class="mb-2">@localizer["email"]</label>
+              <input asp-for="Vendor.Email" id="Email" maxlength="50" type="text" class="col infonet-input stock-item-form-input w-100" />
+              <span asp-validation-for="Vendor.Email" class="text-danger"></span>
+            </div>
+            <div class="col col-lg-6 col-xl-4 pt-3">
+              <label asp-for="Vendor.ContactName1" class="mb-2">@localizer["contactName1"]</label>
+              <input asp-for="Vendor.ContactName1" type="text" maxlength="30" id="ContactName1" class="col infonet-input stock-item-form-input w-100" />
+              <span asp-validation-for="Vendor.ContactName1" class="text-danger"></span>
+            </div>
+            <div class="col col-lg-6 col-xl-4 pt-3">
+              <label asp-for="Vendor.ContactName2" class="mb-2">@localizer["contactName2"]</label>
+              <input asp-for="Vendor.ContactName2" type="text" maxlength="30" id="ContactName2" class="col infonet-input stock-item-form-input w-100" />
+              <span asp-validation-for="Vendor.ContactName2" class="text-danger"></span>
+            </div>
+            <div class="col col-lg-6 col-xl-4 pt-3">
+              <label asp-for="Vendor.TaxNumber" class="mb-2">@localizer["taxNumber"]</label>
+              <input asp-for="Vendor.TaxNumber" id="TaxNumber" maxlength="20" type="text" class="col infonet-input stock-item-form-input w-100" />
+              <span asp-validation-for="Vendor.TaxNumber" class="text-danger"></span>
+            </div>
+            <div class="col col-lg-6 col-xl-4 pt-3">
+              <label asp-for="Vendor.CustAccount" class="mb-2">@localizer["customerAccount"]</label>
+              <input asp-for="Vendor.CustAccount" type="text" maxlength="10" id="CustomerAccount" class="col infonet-input stock-item-form-input w-100" />
+              <span asp-validation-for="Vendor.CustAccount" class="text-danger"></span>
+            </div>
+            @if (_config.IsBackOffice)
+            {
+              <div class="col col-lg-6 col-xl-4 pt-3">
+                <label asp-for="Vendor.PoDiscount" class="mb-2">@localizer["discountPO"]</label>
+                <input asp-for="Vendor.PoDiscount" maxlength="10" type="text" id="DiscountPO" class="col infonet-input stock-item-form-input w-100" />
+                <span asp-validation-for="Vendor.PoDiscount" class="text-danger"></span>
+              </div>
+            }
+            <div class="col row gap-3 pt-3">
+              <div class="col">
+                <label asp-for="Vendor.ActiveCheckBox" class="mb-2">@localizer["activeStatus"]</label>
+                <br />
+                <input asp-for="Vendor.ActiveCheckBox" type="checkbox" id="ActiveStatus" class="col infonet-input stock-item-form-input" />
+                <span asp-validation-for="Vendor.ActiveCheckBox" class="text-danger"></span>
+              </div>
+
+              <div class="col te-vendor-container">
+                <label asp-for="Vendor.IsTEVendorCheckBox" class="mb-2">@localizer["teVendor"]</label>
+                <br />
+                <input asp-for="Vendor.IsTEVendorCheckBox" type="checkbox" id="TEVendor" class="col infonet-input stock-item-form-input" />
+                <span asp-validation-for="Vendor.IsTEVendorCheckBox" class="text-danger"></span>
+              </div>
+              @if (_config.IsBackOffice)
+              {
+                <div class="col">
+                  <label asp-for="Vendor.PoCostTaxIncludeCheckBox" class="mb-2">@localizer["poCostWithTax"]</label>
+                  <br />
+                  <input asp-for="Vendor.PoCostTaxIncludeCheckBox" type="checkbox" id="POCostTaxInclude" class="col infonet-input stock-item-form-input" />
+                  <span asp-validation-for="Vendor.PoCostTaxIncludeCheckBox" class="text-danger"></span>
+                </div>
+              }
+            </div>
+          </div>
+
+          <div class="row pt-5" id="SortItemContainer">
+            <div class="container overflow-scroll custom-grid-scrollbar border-2">
+              <table id="vendor-sort-grid" class="table table-striped">
+                <thead>
+                  <tr>
+                    <th id="STItem">@localizer["sortItem"]</th>
+                    <th id="STOrderHash">@localizer["orderHash"]</th>
+                    <th id="STSortOrder">@localizer["sortOrder"]</th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+
+            <div class="p-2 row">
+              <div class="d-flex gap-3 col-xl-8 col-lg-9">
+                <button id="btn-sort-add" type="button" class="btn btn-footer btn-primary text-center align-items-center">@localizer["add"]</button>
+                <button id="btn-sort-delete" type="button" class="btn btn-footer btn-danger disabled text-center align-items-center" onclick="deleteSortItem()">@localizer["delete"]</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-3 text-end justify-content-end d-flex">
+            <div class="mt-4 d-flex width-fit-content">
+              <button id="btn-complete" type="submit" class="btn btn-footer btn-primary text-center me-2">@localizer["save"]</button>
+              <button id="btn-enable-edit" type="button" class="btn btn-footer btn-primary text-center me-2">@localizer["edit"]</button>
+              <button id="btn-cancel" type="button" class="btn btn-back btn-outline-danger text-center ms-2">@localizer["back"]</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form> 
+
+@*Modal for adding sort item*@
+<div class="modal fade" id="addNewSortItemModal" tabindex="1" role="dialog" area-labelledby="addNewSortItemModalLabel" area-modal="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">@localizer["newSortItem"]</h5>
+      </div>
+      <div class="modal-body">
+        <label class="my-2">@localizer["sortBy"]</label>
+        <div class="wrappper">
+          <select id="sortItemSelect" class="form-select col infonet-input" aria-label="@localizer["sortBy"]">
+            <option value="-1">@localizer["selectSortBy"]</option>
+            @{
+              for (var i = 0; i < Model.SortItems?.Count(); i++)
+              {
+                var sortItem = Model.SortItems.ElementAt(i);
+                <option value="@sortItem.SortItem">@sortItem.SortItem</option>
+              }
+            }
+          </select>
+        </div>
+
+        <label class="my-2">@localizer["sortOrder"]</label>
+        <div class="wrapper">
+          <select id="sortOrderSelect" class="form-select col infonet-input" aria-label="@localizer["sortOrder"]">
+            <option value="-1">@localizer["selectSortOrder"]</option>
+            
+            <option value="0">@localizer["ascending"]</option>
+            <option value="1">@localizer["descending"]</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary btn-sm btn-save" onclick="insertSortItem()">@localizer["complete"]</button>
+        <button type="button" class="btn btn-cancel btn-outline-danger align-content-center btn-sm me-2" data-bs-dismiss="modal">@localizer["cancel"]</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+@section Scripts
+{
+  <script src="~/js/addEditVendors.js" asp-append-version="true"></script>
+}

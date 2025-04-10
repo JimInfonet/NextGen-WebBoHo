@@ -1,0 +1,381 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="account" xml:space="preserve">
+    <value>Account</value>
+  </data>
+  <data name="addFromList" xml:space="preserve">
+    <value>Add From List</value>
+  </data>
+  <data name="apply" xml:space="preserve">
+    <value>Apply</value>
+  </data>
+  <data name="addTax" xml:space="preserve">
+    <value>Add Tax</value>
+  </data>
+  <data name="back" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="buyer" xml:space="preserve">
+    <value>Buyer</value>
+  </data>
+  <data name="by$" xml:space="preserve">
+    <value>By $</value>
+  </data>
+  <data name="by%" xml:space="preserve">
+    <value>By %</value>
+  </data>
+  <data name="calculateDiscount" xml:space="preserve">
+    <value>Calculate Discount</value>
+  </data>
+  <data name="cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="cannotBeMoreThanChar" xml:space="preserve">
+    <value>{0} cannot be more than {1} characters long.</value>
+  </data>
+  <data name="change" xml:space="preserve">
+    <value>Change</value>
+  </data>
+  <data name="changeReorderPoint" xml:space="preserve">
+    <value>Change Reorder Point</value>
+  </data>
+  <data name="charges" xml:space="preserve">
+    <value>Charges</value>
+  </data>
+  <data name="cost" xml:space="preserve">
+    <value>Cost</value>
+  </data>
+  <data name="customerAccount" xml:space="preserve">
+    <value>Customer Account</value>
+  </data>
+  <data name="dateReceived" xml:space="preserve">
+    <value>Date Received</value>
+  </data>
+  <data name="decimalPointsAreNotAllowedForThisProduct" xml:space="preserve">
+    <value>Decimal Points are not allowed for this product's order quantity.</value>
+  </data>
+  <data name="decimalPointsAreNotAllowedForThisProductReceivedQuantity" xml:space="preserve">
+    <value>Decimal Points are not allowed for this product's Received Quantity.</value>
+  </data>
+  <data name="deleteItem" xml:space="preserve">
+    <value>Delete Item</value>
+  </data>
+  <data name="deleteTax" xml:space="preserve">
+    <value>Delete Tax</value>
+  </data>
+  <data name="description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="editMinMax" xml:space="preserve">
+    <value>Edit Min/Max</value>
+  </data>
+  <data name="exactCost" xml:space="preserve">
+    <value>Exact Cost</value>
+  </data>
+  <data name="fax" xml:space="preserve">
+    <value>Fax</value>
+  </data>
+  <data name="fob" xml:space="preserve">
+    <value>FOB</value>
+  </data>
+  <data name="freight" xml:space="preserve">
+    <value>Freight</value>
+  </data>
+  <data name="from" xml:space="preserve">
+    <value>From</value>
+  </data>
+  <data name="inputSurcharge" xml:space="preserve">
+    <value>Input Surcharge</value>
+  </data>
+  <data name="inputSurchargeDiscount" xml:space="preserve">
+    <value>Input Surcharge/Discount</value>
+  </data>
+  <data name="invoice" xml:space="preserve">
+    <value>Invoice #</value>
+  </data>
+  <data name="invoiceNumber" xml:space="preserve">
+    <value>Invoice Number</value>
+  </data>
+  <data name="minimumValueForPackingQty" xml:space="preserve">
+    <value>Minimum Value for Packing Quantity is 1.</value>
+  </data>
+  <data name="noInvoiceEnteredDoYouWantToUseTheDefault" xml:space="preserve">
+    <value>No Invoice # entered. Do you want to use the default?</value>
+  </data>
+  <data name="notes" xml:space="preserve">
+    <value>Notes</value>
+  </data>
+  <data name="orderQuantityShouldBeIn" xml:space="preserve">
+    <value>Order Quantity should be between -214748.3648 and 214748.3647</value>
+  </data>
+  <data name="orderQuantityShouldBeInRangeWithoutDecimal" xml:space="preserve">
+    <value>Order Quantity should be between -214748 and 214748</value>
+  </data>
+  <data name="orderQuantity" xml:space="preserve">
+    <value>Order Quantity</value>
+  </data>
+  <data name="orderUnit" xml:space="preserve">
+    <value>Order Unit</value>
+  </data>
+  <data name="packingQuantityShouldBeIn" xml:space="preserve">
+    <value>Packing Quantity should be between 1 and 32767.</value>
+  </data>
+  <data name="packingQuantity" xml:space="preserve">
+    <value>Packing Quantity</value>
+  </data>
+  <data name="part#" xml:space="preserve">
+    <value>Part#</value>
+  </data>
+  <data name="partNumber" xml:space="preserve">
+    <value>Part Number</value>
+  </data>
+  <data name="phone" xml:space="preserve">
+    <value>Phone</value>
+  </data>
+  <data name="pleaseSelectAPurchaseDetailBeforeDeleting" xml:space="preserve">
+    <value>Please select a purchase detail before deleting</value>
+  </data>
+  <data name="poDate" xml:space="preserve">
+    <value>P.O. Date</value>
+  </data>
+  <data name="poNumber" xml:space="preserve">
+    <value>P.O. Number</value>
+  </data>
+  <data name="postedItem" xml:space="preserve">
+    <value>Posted Item</value>
+  </data>
+  <data name="purchaseOrderInformationOfThePO" xml:space="preserve">
+    <value>Purchase Order Information of the PO</value>
+  </data>
+  <data name="purchaseDetailSuccessfullyDeleted" xml:space="preserve">
+    <value>Purchase Detail Successfully Deleted</value>
+  </data>
+  <data name="quantityInStock" xml:space="preserve">
+    <value>Quantity In Stock</value>
+  </data>
+  <data name="receivedQuantityShouldBeIn" xml:space="preserve">
+    <value>Received Quantity should be between -214748.3648 and 214748.3647</value>
+  </data>
+  <data name="receivedQuantityShouldBeInRangeWithoutDecimal" xml:space="preserve">
+    <value>Received Quantity should be between -214748 and 214748</value>
+  </data>
+  <data name="receivedQuantityCantBeMoreThanOrderedQuantity" xml:space="preserve">
+    <value>Received Quantity can't be more than ordered quantity.</value>
+  </data>
+  <data name="receivedQuantity" xml:space="preserve">
+    <value>Received Quantity</value>
+  </data>
+  <data name="reorderMaximum" xml:space="preserve">
+    <value>Reorder Maximum</value>
+  </data>
+  <data name="reorderPoint" xml:space="preserve">
+    <value>Reorder Point</value>
+  </data>
+  <data name="save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="shipVia" xml:space="preserve">
+    <value>Ship Via</value>
+  </data>
+  <data name="subTotal" xml:space="preserve">
+    <value>Sub Total</value>
+  </data>
+  <data name="surchargeDiscount" xml:space="preserve">
+    <value>Surcharge / Discount</value>
+  </data>
+  <data name="taxable" xml:space="preserve">
+    <value>Taxable</value>
+  </data>
+  <data name="taxAmount" xml:space="preserve">
+    <value>Tax Amount</value>
+  </data>
+  <data name="taxesSuccessfullyAdded" xml:space="preserve">
+    <value>Tax successfully added</value>
+  </data>
+  <data name="taxesSuccessfullyDeleted" xml:space="preserve">
+    <value>Tax Successfully deleted</value>
+  </data>
+  <data name="taxTotal" xml:space="preserve">
+    <value>Tax Total</value>
+  </data>
+  <data name="terms" xml:space="preserve">
+    <value>Terms</value>
+  </data>
+  <data name="to" xml:space="preserve">
+    <value>To</value>
+  </data>
+  <data name="toBeDelivered" xml:space="preserve">
+    <value>To Be Delivered</value>
+  </data>
+  <data name="total" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="youAreNotAllowedToDeleteThisPostedItem" xml:space="preserve">
+    <value>You are not allowed to delete this posted Item</value>
+  </data>
+  <data name="youCantAllowCostPerUnitTobeMoreThat50Percent" xml:space="preserve">
+    <value>You Can't allow Cost per unit to be changed by more than 50 %. Current Unit Cost is {0}.</value>
+  </data>
+  <data name="youShouldEnterAValueForCost" xml:space="preserve">
+    <value>You should enter a value for Cost</value>
+  </data>
+  <data name="youShouldEnterNumericValueForReceivedQuantity" xml:space="preserve">
+    <value>You should enter a numeric value for Received quantity.</value>
+  </data>
+  <data name="youShouldEnterNumericValueForOrderQty" xml:space="preserve">
+    <value>You should enter a numeric value except zero for Order Quantity.</value>
+  </data>
+  <data name="youShouldEnterNumericValueForReorderMaximum" xml:space="preserve">
+    <value>You should enter a numeric value for Reorder Maximum.</value>
+  </data>
+  <data name="youShouldEnterNumericValueForReorderPoint" xml:space="preserve">
+    <value>You should enter a numeric value for Reorder point.</value>
+  </data>
+  <data name="youShouldEnterNumericValueForSurchargeDiscount" xml:space="preserve">
+    <value>You should enter a numeric value for Surcharge/Discount.</value>
+  </data>
+  <data name="areYouSureYouWantToDeleteIt" xml:space="preserve">
+    <value>Are you sure you want to Delete it?</value>
+  </data>
+  <data name="invalidNumberWarningMessage" xml:space="preserve">
+    <value>Please enter a valid number.</value>
+  </data>
+  <data name="confirmDeletion" xml:space="preserve">
+    <value>Confirm Deletion</value>
+  </data>
+  <data name="select" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="pleaseSelectPartNumber" xml:space="preserve">
+    <value>Please select a Part Number.</value>
+  </data>
+  <data name="costCanNotBeZero" xml:space="preserve">
+    <value>Cost can not be zero</value>
+  </data>
+  <data name="costShouldBeIn" xml:space="preserve">
+    <value>Cost should be between -214748.3648 and 214748.3647</value>
+  </data>
+  <data name="itemsAreAddedSuccessfully" xml:space="preserve">
+    <value>Item(s) are added to the PO successfully</value>
+  </data>
+</root>

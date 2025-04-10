@@ -1,0 +1,6 @@
+﻿.btn-customer-card {
+  height: 50px;
+  background: rgba(38, 83, 188, 0.1);
+  border-radius: 4px;
+  color: var(--color-primary);
+}

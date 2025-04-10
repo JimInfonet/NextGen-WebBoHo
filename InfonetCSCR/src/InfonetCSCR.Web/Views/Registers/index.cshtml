@@ -1,0 +1,275 @@
+@section Head {
+  <link href="~/css/registers.css" rel="stylesheet" asp-append-version="true" />
+}
+
+@inject IApplicationConfig _config
+@inject IViewLocalizer localizer
+@inject IHttpContextAccessor httpContextAccessor
+@{
+  ViewData["Title"] = @localizer["registerSettings"];
+}
+
+<input type="hidden" id="portNumRange" value="@localizer["portNumRange"]" />
+<input type="hidden" id="registerRange" value="@localizer["registerRange"]" />
+<input type="hidden" id="registerAlreadyExists" value="@localizer["registerAlreadyExists"]" />
+<input type="hidden" id="registerCanNotBeEmpty" value="@localizer["registerCanNotBeEmpty"]" />
+<input type="hidden" id="deleteRegisterTitle" value="@localizer["deleteRegisterTitle", "{0}"]" />
+<input type="hidden" id="deleteRegisterMessage" value="@localizer["deleteRegisterMessage", "{0}"]" />
+<input type="hidden" id="registerAddedSuccessfully" value="@localizer["registerAddedSuccessfully"]" />
+<input type="hidden" id="registerUpdatedSuccessfully" value="@localizer["registerUpdatedSuccessfully"]" />
+<input type="hidden" id="registerDeletedSuccessfully" value="@localizer["registerDeletedSuccessfully"]" />
+
+<div class="px-3 py-2 mt-2">
+  <div class="d-flex justify-content-between px-3">
+    <h3 class="h3 fw-bold">@localizer["registerSettings"]</h3>
+  </div>
+
+  <div class="m-2">
+    <div class="container body-content p-2 pb-2" style="max-width:3000px;">
+      <div class="d-flex align-content-center w-50 p-3 my-3">
+        <label class="m-2 h5 resizable-label">@localizer["registerNumber"]</label>
+        <input id="registers-input" class="col infonet-input clear-selected-input-on-keypress only-digit" maxlength="5" hidden>
+        <select id="registers-select" class="form-select col infonet-input" onchange="loadRegisters()">
+        </select>
+      </div>
+      <div class="container custom-grid-scrollbar border-2" style="max-width:3000px;">
+
+        <div class="row registersLayoutContainer">
+          @*Left Side*@
+          <div class="col-lg-12 col-xl-6 registersLeftContainer">
+            
+            @*Report Printer*@
+            <div class="device-section-3">
+              <div class="border-bottom">
+                <h5><strong>@localizer["reportPrinter"]</strong></h5>
+              </div>
+              <div class="gap-3 pt-3">
+                <label class="mb-2">@localizer["reportPrinter"]</label>
+                <select id="report-printer-driver-select" class="form-select infonet-input"></select>
+              </div>
+              <div class="gap-3 pt-3">
+                <label class="mb-2">@localizer["reportPrinterFont"]</label>
+                <select id="report-printer-font-select" class="form-select infonet-input"></select>
+              </div>
+              <div class="gap-3 pt-3">
+                <label class="mb-2">@localizer["reportPrinterFontSize"]</label>
+                <select id="report-printer-font-size-select" class="form-select infonet-input w-25"></select>
+              </div>
+            </div>
+
+            @*Receipt Printer*@
+            <div class="device-section-2">
+              <div class="border-bottom">
+                <h5><strong>@localizer["receiptPrinter"]</strong></h5>
+              </div>
+              <div class="row gap-3 pt-3">
+                <div class="col">
+                  <input class="form-check-input mt-2" id="use-receipt-printer" type="checkbox">
+                  <label class="form-check-label mt-1">@localizer["useReceiptPrinter"]</label>
+                </div>
+                <div class="col">
+                  <input class="form-check-input mt-2" id="use-opos-receipt-printer" type="checkbox" onchange="useOPOSReceiptPrinterChanged()">
+                  <label class="form-check-label mt-1">@localizer["useOPOSReceiptPrinter"]</label>
+                </div>
+              </div>
+
+              <div class="gap-3 pt-3" id="receiptPrinterSelect">
+                <label class="mb-2">@localizer["receiptPrinterDriver"]</label>
+                <select id="receipt-printer-driver-select" class="form-select infonet-input"></select>
+              </div>
+
+              <div class="gap-3 pt-3" id="useOPOSReceiptPrinterText">
+                <label class="mb-2">@localizer["OPOSReceiptPrinterDeviceName"]</label>
+                <input id="receipt-printer-device" class="infonet-input w-100" maxlength="30"/>
+              </div>
+            </div>
+
+            @*Label Printer*@
+            <div class="device-section-1">
+              <div class="shelfLabelPrinterTitle border-bottom">
+                <h5><strong>@localizer["shelfLabelPrinter"]</strong></h5>
+              </div>
+              <div class="row gap-3 pt-3">
+                <div class="col">
+                  <input class="form-check-input mt-2" id="use-label-printer" type="checkbox">
+                  <label class="form-check-label mt-1">@localizer["useLabelPrinter"]</label>
+                </div>
+                <div class="col">
+                  <input class="form-check-input mt-2" id="use-opos-label-printer" type="checkbox" onchange="useOPOSLabelPrinterChanged()">
+                  <label class="form-check-label mt-1">@localizer["useOPOSLabelPrinter"]</label>
+                </div>
+              </div>
+
+              <div class="gap-3 pt-3" id="labelPrinterDriverSelect">
+                <label class="mb-2">@localizer["labelPrinterDriver"]</label>
+                <select id="label-printer-driver-select" class="form-select infonet-input"></select>
+              </div>
+
+              <div class="gap-3 pt-3" id="useOPOSLabelPrinterText">
+                <label class="mb-2">@localizer["OPOSLabelPrinterDevice"]</label>
+                <input id="label-printer-device" class="infonet-input w-100" maxlength="30">
+              </div>
+            </div>
+
+            @*MSR*@
+            <div class="device-section-1">
+              <div class="receiptPrinterTitle border-bottom">
+                <h5><strong>@localizer["MSR"]</strong></h5>
+              </div>
+              <div class="row gap-3 pt-3">
+                <div class="col">
+                  <input class="form-check-input mt-2" id="use-msr" type="checkbox" onchange="useMSRChanged()">
+                  <label class="form-check-label mt-1">@localizer["useMSR"]</label>
+                </div>
+                <div class="col">
+                  <input class="form-check-input mt-2" id="use-opos-msr" type="checkbox" onchange="useOPOSMSRChanged()">
+                  <label class="form-check-label mt-1">@localizer["useOPOSMSR"]</label>
+                </div>
+              </div>
+              <div class="gap-3 pt-3" id="OPOSMSRDeviceName">
+                <label class="mb-2">@localizer["OPOSMSRDeviceName"]</label>
+                <input id="msr-device" class="infonet-input w-100" maxlength="30">
+              </div>
+            </div>
+          </div>
+
+          @*Right Side*@
+          <div class="col-lg-12 col-xl-6 registersRightContainer">
+
+            @*Scanner*@
+            <div class="device-section-3">
+              <div class="border-bottom">
+                <h5><strong>@localizer["scanner"]</strong></h5>
+              </div>
+
+              <div class="row gap-3 pt-3">
+                <div class="col">
+                  <input class="form-check-input mt-2" id="use-scanner" type="checkbox" onchange="useScannerChanged()">
+                  <label class="form-check-label mt-1">@localizer["useScanner"]</label>
+                </div>
+                <div class="col">
+                  <input class="form-check-input mt-2" id="use-opos-scanner" type="checkbox" onchange="useOPOSScannerChanged()">
+                  <label class="form-check-label mt-1">@localizer["useOPOSScanner"]</label>
+                </div>
+              </div>
+
+              <div id="scannerPortSettings">
+                <div class="gap-3 pt-3">
+                  <label class="mb-2">@localizer["scannerPort"]</label>
+                  <input id="scanner-port-num" class="infonet-input w-100 clear-selected-input-on-keypress only-digit" maxlength="3">
+                </div>
+                <div class="gap-3 pt-3">
+                  <label class="mb-2">@localizer["scannerSettings"]</label>
+                  <input id="scanner-port-settings" class="infonet-input w-100" maxlength="20">
+                </div>
+              </div>
+
+              <div id="OPOSScannerDeviceName">
+                <div class="gap-3 pt-3">
+                  <label class="mb-2">@localizer["OPOSScannerDeviceName"]</label>
+                  <input id="scanner-device" class="infonet-input w-100" maxlength="30">
+                </div>
+              </div>
+            </div>
+
+            @*Customer Display*@
+            <div class="device-section-2">
+              <div class="border-bottom">
+                <h5><strong>@localizer["customerDisplay"]</strong></h5>
+              </div>
+              <div class="row gap-3 pt-3">
+                <div class="col">
+                  <input class="form-check-input mt-2" id="use-customer-display" type="checkbox">
+                  <label class="form-check-label mt-1">@localizer["useCustomerDisplay"]</label>
+                </div>
+                <div class="col">
+                  <input class="form-check-input mt-2" id="use-opos-customer-display" type="checkbox" onchange="useOPOSCustomerDisplayChanged()">
+                  <label class="form-check-label mt-1">@localizer["useOPOSCustomerDisplay"]</label>
+                </div>
+              </div>
+
+              <div id="customerDisplayPortName">
+                <div class="gap-3 pt-3">
+                  <label class="mb-2">@localizer["customerDisplayPort"]</label>
+                  <input id="customer-display-port-num" class="infonet-input w-100 clear-selected-input-on-keypress only-digit" maxlength="3">
+                </div>
+                <div class="gap-3 pt-3">
+                  <label class="mb-2">@localizer["customerDisplayName"]</label>
+                  <select id="customer-display-driver-select" class="form-select infonet-input"></select>
+                </div>
+              </div>
+
+              <div class="gap-3 pt-3" id="OPOSCustomerDisplayDeviceName">
+                <label class="mb-2">@localizer["OPOSCustomerDisplayDeviceName"]</label>
+                <input id="customer-display-device" class="infonet-input w-100" maxlength="30">
+              </div>
+            </div>
+
+            @*Cash Drawer*@
+            <div class="device-section-1">
+              <div class="border-bottom">
+                <h5><strong>@localizer["cashDrawer"]</strong></h5>
+              </div>
+
+              <div class="row gap-3 pt-3">
+                <div class="col">
+                  <input class="form-check-input mt-2" id="use-cash-drawer" type="checkbox" onchange="useCashDrawerChanged()">
+                  <label class="form-check-label mt-1">@localizer["useCashDrawer"]</label>
+                </div>
+                <div class="col">
+                  <input class="form-check-input mt-2" id="use-opos-cash-drawer" type="checkbox" onchange="useOPOSCashDrawerChanged()">
+                  <label class="form-check-label mt-1">@localizer["useOPOSCashDrawer"]</label>
+                </div>
+              </div>
+
+              <div class="gap-3 pt-3" id="cashDrawerOpenCode">
+                <label class="mb-2">@localizer["openCode"]</label>
+                <select id="cash-drawer-port-num-select" class="form-select infonet-input"></select>
+              </div>
+              <div class="gap-3 pt-3" id="OPOSCashDrawerDeviceName">
+                <label class="mb-2">@localizer["OPOSCashDrawerDeviceName"]</label>
+                <input id="cash-drawer-device" class="infonet-input w-100" maxlength="30">
+              </div>
+            </div>
+
+            @*Scale*@
+            <div class="device-section-1">
+              <div class="border-bottom">
+                <h5><strong>@localizer["scale"]</strong></h5>
+              </div>
+
+              <div class="row gap-3 pt-3">
+                <div class="col">
+                  <input class="form-check-input mt-2" id="use-scale" type="checkbox" onchange="useScaleChanged()">
+                  <label class="form-check-label mt-1">@localizer["useScale"]</label>
+                </div>
+                <div class="col">
+                  <input class="form-check-input mt-2" id="use-opos-scale" type="checkbox" onchange="useOPOSScaleChanged()">
+                  <label class="form-check-label mt-1">@localizer["useOPOSScale"]</label>
+                </div>
+              </div>
+
+              <div class="gap-3 pt-3" id="OPOSScaleDeviceName">
+                <label class="mb-2">@localizer["OPOSScaleDeviceName"]</label>
+                <input id="scale-device" class="infonet-input w-100" maxlength="30">
+              </div>
+            </div>
+          </div>
+        </div>
+        @*Container End*@
+
+      </div>
+      <div class="d-flex justify-content-end px-3 gap-3">
+        <button id="btn-add" onclick="addButtonClicked()" type="button" class="btn btn-save align-items-center">@localizer["add"]</button>
+        <button id="btn-edit" onclick="editButtonClicked()" type="button" class="btn btn-save align-items-center">@localizer["edit"]</button>
+        <button id="btn-save" onclick="saveButtonClicked()" type="button" class="btn btn-save align-items-center">@localizer["save"]</button>
+        <button id="btn-delete" onclick="deleteButtonClicked()" type="button" class="btn btn-footer btn-danger align-items-center">@localizer["delete"]</button>
+        <button id="btn-cancel" onclick="cancelButtonClicked()" type="button" class="btn btn-cancel btn-outline-danger align-items-center">@localizer["cancel"]</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+@section Scripts {
+  <script src="~/js/registers.js" asp-append-version="true"></script>
+}

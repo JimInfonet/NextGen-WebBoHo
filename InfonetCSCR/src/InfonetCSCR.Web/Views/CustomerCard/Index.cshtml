@@ -1,0 +1,267 @@
+﻿@section Head {
+  <link href="~/css/customerCard.css" rel="stylesheet" asp-append-version="true" />
+}
+
+@model CustomerCardViewModel
+@inject IViewLocalizer localizer
+@inject IApplicationConfig _config
+
+@{
+  bool useDataCard = (bool)ViewData["USE_DATACARD"]!;
+  bool arCust = (bool)ViewData["CL_ARCUST"]!;
+  bool taxExempt = (bool)ViewData["TAX_EXEMPT"]!;
+  bool tePayPump = (bool)ViewData["TE_PAYPUMP"]!;
+  bool useKickBack = (bool)ViewData["USE_KICKBACK"]!;
+  bool rstrProfile = (bool)ViewData["RSTR_PROFILE"]!;
+  bool isBackOffice = _config.IsBackOffice;
+  bool custMem = ViewData["CUST_MEM"]?.ToString() == "Customer";
+  string teType = ViewData["TE_Type"]?.ToString()!;
+  ViewData["Title"] = custMem ? localizer["customerCard"] : localizer["memberCard"];
+}
+
+<input id="CUST_MEM" type="hidden" value="@custMem.ToString()" />
+<input id="CL_ARCUST" type="hidden" value="@arCust.ToString()" />
+<input id="RSTR_PROFILE" type="hidden" value="@rstrProfile.ToString()" />
+<input id="USE_DATACARD" type="hidden" value="@useDataCard.ToString()" />
+<input id="isBackOffice" type="hidden" value="@isBackOffice.ToString()" />
+<input id="back" type="hidden" value="@localizer["back"]" />
+<input id="search" type="hidden" value="@localizer["search"]" />
+<input id="delete" type="hidden" value="@localizer["delete"]" />
+<input id="isConflict" type="hidden" value="@localizer["isConflict"]" />
+<input id="errorMessage" type="hidden" value="@localizer["errorMessage"]" />
+<input id="cardNumberSectionTitle" type="hidden" value="@localizer["cardNumber"]" />
+<input id="rewardPointCards" type="hidden" value="@localizer["rewardPointCards"]" />
+<input id="creditLimitRange" type="hidden" value="@localizer["creditLimitRange"]" />
+<input id="theValueMustBeANumber" type="hidden" value="@localizer["theValueMustBeANumber"]" />
+<input id="thisFieldIsRequired" type="hidden" value="@localizer["thisFieldIsRequired"]" />
+<input id="thisPointCardIsLinked" type="hidden" value="@localizer["thisPointCardIsLinked"]" />
+<input id="thisPhoneNumberIsLinked" type="hidden" value="@localizer["thisPhoneNumberIsLinked"]" />
+<input id="confirmDeleteRewardCard" type="hidden" value="@localizer["confirmDeleteRewardCard", "{0}"]" />
+<input id="numericValueOnlyForPhone" type="hidden" value="@localizer["numericValueOnlyForPhone"]" />
+<input id="rewardCardAddedSuccefully" type="hidden" value="@localizer["rewardCardAddedSuccefully"]" />
+<input id="rewardCardUpdatedSuccefully" type="hidden" value="@localizer["rewardCardUpdatedSuccefully"]" />
+<input id="numericValueOnlyForCardNumber" type="hidden" value="@localizer["numericValueOnlyForCardNumber"]" />
+<input id="rewardCardDeletedSuccessfully" type="hidden" value="@localizer["rewardCardDeletedSuccessfully"]" />
+<input id="customerCardTitleID" type="hidden" value="@localizer[custMem ? "customerCardsForCustomer" : "memberCardsForMember"]" />
+<input id="customerCodeCanNotBeNull" type="hidden" value="@localizer[custMem ? "customerCodeCanNotBeNull" : "memberCodeCanNotBeNull"]" />
+<input id="confirmDeleteCustomerCard" type="hidden" value="@localizer[custMem ? "confirmDeleteCustomerCard" : "confirmDeleteMemberCard", "{0}"]" />
+<input id="customerCardAlreadyExistsInCustomer" type="hidden" value="@localizer[custMem ? "CustomerCardAlreadyExistsInCustomer" : "MemberCardAlreadyExistsInMember", "{0}", "{1}"]" />
+<input id="failedToDeleteCustomerCard" type="hidden" value="@localizer[custMem ? "failedToDeleteCustomerCard" : "failedToDeleteMemberCard"]" />
+<input id="customerCardAddedSuccefully" type="hidden" value="@localizer[custMem ? "customerCardAddedSuccefully" : "memberCardAddedSuccefully"]" />
+<input id="customerCardUpdatedSuccefully" type="hidden" value="@localizer[custMem ? "customerCardUpdatedSuccefully" : "memberCardUpdatedSuccefully"]" />
+<input id="customerCardDeletedSuccessfully" type="hidden" value="@localizer[custMem ? "customerCardDeletedSuccessfully" : "rewardCardDeletedSuccessfully"]" />
+
+<div class="m-3">
+  <h3>
+    <strong id="customer-card-title-id"></strong>
+  </h3>
+</div>
+
+<div class="m-3">
+  <div class="body-content p-2">
+    <div class="container overflow-scroll custom-grid-scrollbar border-2" style="max-width:3000px;">
+      <table id="customer-cards-grid" class="table table-striped" width="20%">
+        <thead class="datatable-allignment">
+          <tr>
+            <th width="25%" id="CardNumber">@localizer["cardNumber"]</th>
+            <th width="20%" id="CustomerCode">@localizer["customerCode"]</th>
+            <th width="35%" id="CardName">@localizer["cardName"]</th>
+            <th width="20%" id="CardStatus">@localizer["cardStatus"]</th>
+          </tr>
+        </thead>
+        <tfoot>
+          <tr>
+            <th class="input" width="25%" scope="col"></th>
+            <th class="input" width="20%" scope="col"></th>
+            <th class="input" width="35%" scope="col"></th>
+            <th class="input" width="20%" scope="col"></th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    @*Button section*@
+    <div class="d-flex">
+      <div class="d-flex gap-3 col-xl-8 col-lg-9">
+        <button id="btn-add" type="button" class="btn btn-footer btn-primary text-center align-items-center" onclick="onCustomerCardAddClick()">@localizer["add"]</button>
+        <button id="btn-edit" type="button" class="btn btn-footer btn-primary align-items-center" onclick="onCustomerCardEditClick()">@localizer["edit"]</button>
+        <button id="btn-delete" type="button" class="btn btn-footer btn-danger text-center align-items-center" onclick="deleteCustomerCard()">@localizer["delete"]</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="customerCardModal" tabindex="1" role="dialog" area-modal="true">
+  <div class="modal-dialog modal-dialog-centered customer-card-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 id="customer-form-section-title" class="modal-title"></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form id="customer-card-form" onsubmit="addCustomerCard(event)">
+        <div class="page-content">
+          <input asp-for="IsEditMode" id="is-customer-card-edit-mode" value="false" hidden />
+          <div class="p-3">
+            <div class="row gap-3 pt-3">
+              <div class="col">
+                <label asp-for="CardNumber" class="mb-2">@localizer["cardNumber"]</label>
+                <input asp-for="CardNumber" id="card-number" type="text" class="infonet-input w-100 not-editable" required onkeyup="onCustomerCardInputChange()" />
+                <span id="validation-for-card-number" class="text-danger"></span>
+              </div>
+              <div class="col">
+                <label asp-for="CardName" class="mb-2">@localizer["cardName"]</label>
+                <input asp-for="CardName" id="card-name" type="text" class="infonet-input w-100 edit-mode-control" required />
+                <span asp-validation-for="CardName" class="text-danger"></span>
+              </div>
+            </div>
+            <div class="row gap-3 pt-3">
+              <div class="col">
+                <label asp-for="ExpDate" class="mb-2">@localizer["expiryDate"]</label>
+                <input asp-for="ExpDate" id="exp-date" type="date" class="infonet-input w-100 edit-mode-control" required />
+                <span asp-validation-for="ExpDate" class="text-danger"></span>
+              </div>
+              <div class="col">
+                @if (!(useDataCard && !arCust))
+                {
+                  <label asp-for="PIN" class="mb-2">@localizer["PIN"]</label>
+                  <input asp-for="PIN" id="pin" type="password" class="infonet-input w-100 edit-mode-control" />
+                  <span asp-validation-for="PIN" class="text-danger"></span>
+                }
+              </div>
+            </div>
+            <div class="row gap-3 pt-3">
+              <div class="col">
+                <label asp-for="CardStatus" class="mb-2">@localizer["cardStatus"]</label>
+                <select asp-for="CardStatus" id="card-status-select" class="form-select col infonet-input edit-mode-control" aria-label="Select Status" required>
+                  <option value="">@localizer["select"] @localizer["cardStatus"]</option>
+                  <option value="V">@localizer["valid"]</option>
+                  <option value="E">@localizer["expired"]</option>
+                  <option value="C">@localizer["closed"]</option>
+                </select>
+                <span asp-validation-for="CardStatus" class="text-danger"></span>
+              </div>
+              <div class="col">
+                @if (!(useDataCard && !arCust))
+                {
+                  <label asp-for="CreditLimit" class="mb-2">@localizer["creditLimit"]</label>
+                  <input asp-for="CreditLimit" id="credit-limit" maxlength="10" class="infonet-input w-100 edit-mode-control" onkeyup="onCustomerCardInputChange()" />
+                  <span id="validation-for-credit-limit" class="text-danger"></span>
+                }
+              </div>
+            </div>
+            <div class="row gap-3 pt-3">
+              <div class="col">
+                @if (taxExempt && teType == "AITE" && tePayPump)
+                {
+                  <label asp-for="TECardNumber" class="mb-2">@localizer["teCard"]</label>
+                  <input asp-for="TECardNumber" id="tax-exempt-card" type="text" class="infonet-input w-100 edit-mode-control" />
+                  <span asp-validation-for="TECardNumber" class="text-danger"></span>
+                }
+              </div>
+              <div class="col">
+                @if (rstrProfile && !(useDataCard && !arCust))
+                {
+                  <label asp-for="ProfileID" class="mb-2">@localizer["cardRestrictionProfile"]</label>
+                  <select asp-for="ProfileID" id="restriction-profile-select" class="form-select col infonet-input rstr-profile edit-mode-control" aria-label="Select Note">
+                    <option value="">@localizer["select"] @localizer["cardRestrictionProfile"]</option>
+                  </select>
+                }
+              </div>
+            </div>
+            <div class="row gap-3 pt-3">
+              @if (useKickBack && !(useDataCard && !arCust))
+              {
+                <div class="col"></div>
+                <div class="col form-check mt-2" style="margin-left: 3rem">
+                  <label asp-for="AllowRedemptionCheckbox" class="mb-2">@localizer["allowRedemption"]</label>
+                  <input asp-for="AllowRedemptionCheckbox" id="allow-redemption" class="form-check-input edit-mode-control" type="checkbox">
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+
+        @*Button section*@
+        <div class="modal-footer">
+          <button type="button" class="btn btn-cancel btn-outline-danger align-content-center btn-sm me-2" data-bs-dismiss="modal">@localizer["cancel"]</button>
+          <button class="btn btn-primary btn-sm btn-save">@localizer["complete"]</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+@*Reward point section*@
+@if (useKickBack)
+{
+  <div class="m-3">
+    <div class="border-bottom mx-3">
+      <p class="form-section-title">@localizer["rewardPointCards"]</p>
+    </div>
+    <div class="body-content p-2">
+      <div class="container overflow-scroll custom-grid-scrollbar border-2" style="max-width:3000px;">
+        <table id="reward-cards-grid" class="table table-striped" width="20%">
+          <thead>
+            <tr>
+              <th width="50%" id="CardNumber">@localizer["cardNumber"]</th>
+              <th width="50%" id="Phone">@localizer["phone"]</th>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+              <th class="input" width="50%" scope="col"></th>
+              <th class="input" width="50%" scope="col"></th>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+
+      @*Button section*@
+      <div class="d-flex gap-3 col-xl-8 col-lg-9">
+        <button id="rwd-btn-add" type="button" class="btn btn-footer btn-primary text-center align-items-center" onclick="onRewardCardAddClick()">@localizer["add"]</button>
+        <button id="rwd-btn-edit" type="button" class="btn btn-footer btn-primary align-items-center" onclick="onRewardCardEditClick()">@localizer["edit"]</button>
+        <button id="rwd-btn-delete" type="button" class="btn btn-footer btn-danger text-center align-items-center" onclick="onRewardCardDeleteClick()">@localizer["delete"]</button>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal fade" id="rewardCardModal" tabindex="1" role="dialog" area-modal="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 id="reward-form-section-title" class="modal-title">@localizer["rewardPointCards"]</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="page-content">
+            <div class="row gap-3 p-3">
+              <div class="col">
+                <label class="mb-2">@localizer["cardNumber"]</label>
+                <input id="point-card-number" type="text" maxlength="30" class="infonet-input w-100 rwd-card-form not-editable" required onkeyup="onRewardCardInputChange()" />
+                <span id="validation-for-reward-card-number" class="text-danger"></span>
+              </div>
+              <div class="col">
+                <label class="mb-2">@localizer["phone"]</label>
+                <input id="point-card-phone-number" type="text" maxlength="10" class="infonet-input w-100 rwd-card-form" onkeyup="onRewardCardInputChange()" />
+                <span id="validation-for-reward-phone" class="text-danger">@localizer["numericValueOnlyForPhone"]</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-cancel btn-outline-danger align-content-center btn-sm me-2" data-bs-dismiss="modal">@localizer["cancel"]</button>
+          <button type="button" class="btn btn-primary btn-sm btn-save" onclick="onRewardCardCompleteClick()">@localizer["complete"]</button>
+        </div>
+      </div>
+    </div>
+  </div>
+}
+
+<div class="d-flex gap-3 m-3 footer-btn">
+  <button id="btn-back" onclick="goToCustomerPage()" type="button" class="btn btn-footer btn-back btn-outline-danger">@localizer["back"]</button>
+</div>
+
+@section Scripts {
+  <script src="~/js/customerCard.js" asp-append-version="true"></script>
+}

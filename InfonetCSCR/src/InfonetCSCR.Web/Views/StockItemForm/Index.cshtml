@@ -1,0 +1,383 @@
+﻿@section Head {
+  <link href="~/css/stockItemForm.css" rel="stylesheet" asp-append-version="true" />
+}
+
+@model ProductViewModel
+@inject IViewLocalizer localizer
+@inject IApplicationConfig _config
+@{
+  ViewData["Title"] = @localizer["pageTitle"];
+}
+
+<input id="posDescriptionGlobal" type="hidden" value="@localizer["posDescription"]" />
+<input id="longDescriptionGlobal" type="hidden" value="@localizer["longDescription"]" />
+<input id="category" type="hidden" value="@localizer["category"]" />
+<input id="subCategory" type="hidden" value="@localizer["subCategory"]" />
+<input id="subDetail" type="hidden" value="@localizer["subDetail"]" />
+<input id="family" type="hidden" value="@localizer["family"]" />
+<input id="brand" type="hidden" value="@localizer["brand"]" />
+<input id="generic" type="hidden" value="@localizer["generic"]" />
+<input id="characteristic" type="hidden" value="@localizer["characteristic"]" />
+<input id="unitOfMeasure" type="hidden" value="@localizer["unitOfMeasure"]" />
+<input id="orderUnit" type="hidden" value="@localizer["orderUnit"]" />
+<input id="warehouse" type="hidden" value="@localizer["warehouse"]" />
+<input id="isBackOffice" type="hidden" value="@_config.IsBackOffice.ToString()" />
+<input id="useFuelPolicy" type="hidden" value="@ViewData["UseFuelPolicy"]?.ToString()" />
+<input id="fuelRebatePolicy" type="hidden" value="@ViewData["FuelRebatePolicy"]?.ToString()" />
+<input id="taxExemptPolicy" type="hidden" value="@ViewData["TaxExemptPolicy"]?.ToString()" />
+<input id="exemptTypePolicy" type="hidden" value="@ViewData["ExemptTypePolicy"]?.ToString()" />
+<input id="trackTEInvPolicy" type="hidden" value="@ViewData["TrackTEInvPolicy"]?.ToString()" />
+<input id="ProductIsFuel" type="hidden" value="@ViewData["ProductIsFuel"]?.ToString()" />
+<input id="errorMessage" type="hidden" value="@localizer["errorMessage"]" />
+<input id="confirmGoBackAlert" type="hidden" value="@localizer["confirmGoBackAlert"]" />
+<input id="addedToTransferList" type="hidden" value="@localizer["addedToTransferList"]" />
+<input id="failedToAddToTransferList" type="hidden" value="@localizer["failedToAddToTransferList"]" />
+<input id="stockCodeAlreadyMoreThan13DigitsWarning" type="hidden" value="@localizer["stockCodeAlreadyMoreThan13DigitsWarning"]" />
+<input id="back" type="hidden" value="@localizer["back"]" />
+<input id="selectWarehouse" type="hidden" value="@localizer["selectWarehouse"]" />
+<input id="isTransferred" type="hidden" value="@ViewData["isTransferred"]?.ToString()" />
+
+@if (Model != null)
+{
+  <input id="productType-select-from-model" hidden value="@Model.StockType" />
+  <input id="category-select-from-model" hidden value="@Model.Department" />
+  <input id="subcategory-select-from-model" hidden value="@Model.SubDepartment" />
+  <input id="family-select-from-model" hidden value="@Model.Family" />
+  <input id="subdetail-select-from-model" hidden value="@Model.SubDetail" />
+  <input id="brand-select-from-model" hidden value="@Model.Brand" />
+  <input id="generic-select-from-model" hidden value="@Model.Generic" />
+  <input id="characteristic-select-from-model" hidden value="@Model.Characteristic" />
+  <input id="orderUnit-select-from-model" hidden value="@Model.OrderUnit" />
+  <input id="unitOfMeasure-select-from-model" hidden value="@Model.UnitOfMeasure" />
+}
+
+<input type="hidden" id="modelData" name="modelData" value='@Json.Serialize(Model)' />
+
+<input id="isAddProduct" hidden value="@ViewData["isAddProduct"]?.ToString()" />
+<input id="isUpdateProduct" hidden value="@ViewData["isUpdateProduct"]?.ToString()" />
+<input id="elgLoyPolicy" hidden value="@ViewData["ElgLoyPolicy"]?.ToString()" />
+<input id="expandTo13DigitsPolicy" hidden value="@ViewData["ExpandTo13DigitsPolicy"]?.ToString()" />
+
+@if (ViewData["StockCodeAlreadyExists"] != null)
+{
+  <input id="StockCodeAlreadyExists" hidden value="@localizer["stockOrAlternateCodeAlreadyExists",ViewData["StockCodeAlreadyExists"]?.ToString()]" />
+}
+else
+{
+  <input id="StockCodeAlreadyExists" hidden value="" />
+}
+
+<form class="p-3 mt-2" asp-controller="StockItemForm" asp-action="SaveProduct" id="stockItemsForm">
+  <input asp-for="Vendor" hidden />
+  <input asp-for="PriceUnits" hidden />
+  <input asp-for="Transfer" hidden />
+  <div class="d-flex justify-content-between">
+    <h3 class="h3 fw-bold mb-3">@localizer["productDetails"]</h3>
+  </div>
+  <div class="stock-item-form p-3 @_config.Language">
+
+    @*Product stock section*@
+    <div class="mt-3">
+      <div class="border-bottom mx-3">
+        <p class="form-section-title">@localizer["productStock"]</p>
+      </div>
+
+      <div class="container">
+        <div class="row gap-3 pt-3">
+          <div class="col">
+            <label asp-for="StockCode" class="mb-2">@localizer["stockCode"]</label>
+            <input asp-for="StockCode" id="stock-code" type="text" class="infonet-input w-100 not-editable" required />
+            <span asp-validation-for="StockCode" class="text-danger"></span>
+          </div>
+          <div class="col">
+            <label asp-for="StockType" class="mb-2">@localizer["productType"]</label>
+            <select asp-for="StockType" id="productType-select" class="form-select col infonet-input stock-item-form-input" aria-label="Select Product type" onchange="toggleInputs(this.options[this.selectedIndex].value);">
+              <option value="">@localizer["select"] @localizer["productType"]</option>
+              <option value="F">@localizer["f-Fixed"]</option>
+              <option value="C">@localizer["c-Charge"]</option>
+              <option value="V">@localizer["v-Variable"]</option>
+              <option value="O">@localizer["o-OneTime"]</option>
+              <option value="I">@localizer["i-Inactive"]</option>
+              <option value="G">@localizer["g-GiftCertificate"]</option>
+              <option value="P">@localizer["p-Coupon"]</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row gap-3 pt-3">
+          <div class="col">
+            <label asp-for="Description" class="mb-2">@localizer["description"]</label>
+            <input asp-for="Description" id="description" onchange="setPOSDescirption()" class="infonet-input stock-item-form-input w-100" required />
+            <span asp-validation-for="Description" class="text-danger"></span>
+          </div>
+          <div class="col">
+            <label class="mb-2">@localizer["posDescription"]</label>
+            <input id="posDescription" disabled class="infonet-input w-100" />
+          </div>
+        </div>
+
+        <div class="row gap-3 pt-3">
+          <div class="col">
+            <label class="mb-2">@localizer["longDescription"]</label>
+            <textarea id="longDescription" disabled class="infonet-input w-100" rows="3"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    @*Product category section*@
+    <div class="mt-4">
+      <div class="border-bottom mx-3">
+        <p class="form-section-title">@localizer["productCategory"]</p>
+      </div>
+
+      <div class="container">
+        <div class="row gap-3 pt-3">
+          <div class="col">
+            <label asp-for="Department" class="mb-2">@localizer["category"]</label>
+            <select asp-for="Department" id="category-select" class="form-select infonet-input stock-item-form-input w-100" onchange="loadSubCategoryOptions(this.options[this.selectedIndex].value)" aria-label="Select Category"></select>
+          </div>
+          <div class="col">
+            <label id="lblSubDeptCategory" asp-for="SubDepartment" class="mb-2">@localizer["subCategory"]</label>
+            <select asp-for="SubDepartment" id="subcategory-select" class="form-select infonet-input stock-item-form-input w-100" onchange="loadSubDetailsOptions(this.options[this.selectedIndex].value)" aria-label="Select Sub Category">
+              <option value="">@localizer["select"] @localizer["subCategory"]</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row gap-3 pt-3">
+          <div class="col">
+            <label asp-for="Family" class="mb-2">@localizer["family"]</label>
+            <select asp-for="Family" id="family-select" class="form-select infonet-input stock-item-form-input w-100" aria-label="Select Family"></select>
+          </div>
+          <div class="col">
+            <label asp-for="SubDetail" class="mb-2">@localizer["subDetail"]</label>
+            <select asp-for="SubDetail" id="subdetail-select" class="form-select infonet-input stock-item-form-input w-100" aria-label="Select Sub detail">
+              <option value="">@localizer["select"] @localizer["subDetail"]</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row gap-3 pt-3">
+          <div class="col">
+            <label asp-for="Brand" class="mb-2">@localizer["brand"]</label>
+            <select asp-for="Brand" id="brand-select" onchange="setLongDescription()" class="form-select infonet-input stock-item-form-input" aria-label="Select Brand"></select>
+          </div>
+          <div class="col">
+            <label asp-for="Generic" class="mb-2">@localizer["generic"]</label>
+            <select asp-for="Generic" id="generic-select" onchange="setLongDescription()" class="form-select infonet-input stock-item-form-input" aria-label="Select Generic"></select>
+          </div>
+        </div>
+
+        <div class="row gap-3 pt-3">
+          <div class="col">
+            <label asp-for="Characteristic" class="mb-2">@localizer["characteristic"]</label>
+            <select asp-for="Characteristic" id="characteristic-select" onchange="setLongDescription()" class="form-select infonet-input stock-item-form-input w-100" aria-label="Select Characteristic"></select>
+          </div>
+          <div class="col">
+            <label asp-for="UnitOfMeasure" class="mb-2">@localizer["unitOfMeasure"]</label>
+            <select asp-for="UnitOfMeasure" id="unitOfMeasure-select" onchange="setPOSDescirption()" class="form-select infonet-input stock-item-form-input w-100" aria-label="Select Unit of measure"></select>
+          </div>
+        </div>
+
+        <div class="row gap-3 pt-3">
+          <div class="col">
+            <label asp-for="OrderUnit" class="mb-2">@localizer["orderUnit"]</label>
+            <select asp-for="OrderUnit" id="orderUnit-select" class="form-select infonet-input stock-item-form-input w-100" aria-label="Select Order unit"></select>
+          </div>
+          <div class="col">
+            @if (ViewData["SupportWareHousePolicy"]?.ToString().ToLower() == "true" && !_config.IsBackOffice)
+            {
+              <label class="mb-2">@localizer["warehouse"]</label>
+              <select id="warehouse-select" class="form-select infonet-input stock-item-form-input w-100" aria-label="Select warehouse"></select>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+
+    @*Product and quantity section*@
+    <div class="mt-4">
+      <div class="border-bottom mx-3">
+        <p class="form-section-title">@localizer["productAndQuantity"]</p>
+      </div>
+
+      <div class="container">
+        <div class="row gap-3 pt-3">
+          <div class="col">
+            <label id="lblPacking" asp-for="Packing" class="mb-2">@localizer["packing"]</label>
+            <input asp-for="Packing" id="packing" type="number" class="col infonet-input stock-item-form-input w-100" onkeypress="return onlyDigitAndDecimalKeyPress(event)" />
+            <span asp-validation-for="Packing" class="text-danger"></span>
+          </div>
+          <div class="col">
+            <label id="lblFormat" asp-for="Format" class="mb-2">@localizer["format"]</label>
+            <input asp-for="Format" type="text" id="format" class="col infonet-input stock-item-form-input w-100" onchange="setPOSDescirption()" />
+            <span asp-validation-for="Format" class="text-danger"></span>
+          </div>
+          <div class="col">
+            <label asp-for="ProductDiscount" class="mb-2">@localizer["productDiscountCode"]</label>
+            <input asp-for="ProductDiscount" class="col infonet-input stock-item-form-input w-100" type="number" onkeydown="return event.keyCode !== 69" min="0" max="255" />
+            <span asp-validation-for="ProductDiscount" class="text-danger"></span>
+          </div>
+        </div>
+
+        <div class="row gap-3 pt-3">
+          <div class="col visibility-on-product-type" hidden>
+            <label asp-for="AvailableQty" class="mb-2">@localizer["availableQuantity"]</label>
+            <input asp-for="AvailableQty" class="col infonet-input w-100" type="number" disabled />
+          </div>
+          <div class="col visibility-on-product-type" hidden>
+            <label asp-for="ReOrderQty" class="mb-2">@localizer["reorderPoint"]</label>
+            <input asp-for="ReOrderQty" class="col infonet-input stock-item-form-input w-100" type="number" onkeydown="return event.keyCode !== 69" />
+            <span asp-validation-for="ReOrderQty" class="text-danger"></span>
+          </div>
+          <div class="col visibility-on-product-type" hidden>
+            <label asp-for="MaxQty" class="mb-2 w-100">@localizer["reorderMaximum"]</label>
+            <input asp-for="MaxQty" class="col infonet-input stock-item-form-input w-100" type="number" onkeydown="return event.keyCode !== 69" />
+            <span asp-validation-for="MaxQty" class="text-danger"></span>
+          </div>
+        </div>
+        @if (ViewData["ProductIsFuel"]?.ToString().ToLower() == "true")
+        {
+          <div class="row gap-3 pt-3" id="fuelRebate">
+            <div class="col-4">
+              <label asp-for="FuelRebate" class="mb-2 w-100">@localizer["fuelRebate"]</label>
+              <input asp-for="FuelRebate" class="col infonet-input stock-item-form-input w-100" type="number" onkeydown="return event.keyCode !== 69" />
+              <span asp-validation-for="FuelRebate" class="text-danger"></span>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+
+    @*Tax Exempt Settings section*@
+    @if (ViewData["ProductIsFuel"]?.ToString().ToLower() == "false" && _config.IsBackOffice && ViewData["IsProductTaxExempt"]?.ToString().ToLower() == "true")
+    {
+      <div class="mt-4 toggle-visibility-on-product-type" id="taxExemptSettings">
+        <div class="border-bottom mx-3">
+          <p class="form-section-title">@localizer["taxExemptSetting"]</p>
+        </div>
+
+        <div class="container">
+          <div class="row gap-3 pt-3">
+            <div class="col toggle-visibility-on-product-type">
+              <label asp-for="AvailableQtyTE" class="mb-2">@localizer["availableQuantity"]</label>
+              <input asp-for="AvailableQtyTE" class="col infonet-input w-100" type="number" disabled />
+            </div>
+            <div class="col toggle-visibility-on-product-type">
+              <label asp-for="ReOrderQtyTE" class="mb-2">@localizer["reorderPoint"]</label>
+              <input asp-for="ReOrderQtyTE" class="col infonet-input stock-item-form-input w-100" type="number" onkeydown="return event.keyCode !== 69" />
+              <span asp-validation-for="ReOrderQtyTE" class="text-danger"></span>
+            </div>
+            <div class="col toggle-visibility-on-product-type">
+              <label asp-for="MaxQtyTE" class="mb-2 w-100">@localizer["reorderMaximum"]</label>
+              <input asp-for="MaxQtyTE" class="col infonet-input stock-item-form-input w-100" type="number" onkeydown="return event.keyCode !== 69" />
+              <span asp-validation-for="MaxQtyTE" class="text-danger"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+
+    <div class="mt-4">
+      <div class="border-bottom mx-3"></div>
+      <div class="container px-3">
+        <div class="pt-2">
+          @if (ViewData["TaxExemptGAPolicy"]?.ToString().ToLower() == "true")
+          {
+            <div class="form-check mt-2">
+              <input asp-for="EligibleTaxExemptionCheckBox" class="form-check-input stock-item-form-input" type="checkbox" id="eligibleForTaxExempt">
+              <label class="form-check-label ms-1" for="eligibleForTaxExempt">
+                @localizer["eligibleForTaxExempt"]
+              </label>
+            </div>
+          }
+          @if (ViewData["ProductIsFuel"]?.ToString().ToLower() == "true")
+          {
+            <div class="form-check mt-2" id="eligibleForFuelRebate">
+              <input asp-for="EligibleFuelRebateCheckBox" class="form-check-input stock-item-form-input" type="checkbox" id="eligibleForFuelRebate">
+              <label class="form-check-label ms-1" for="eligibleForFuelRebate">
+                @localizer["eligibleForFuelRebate"]
+              </label>
+            </div>
+          }
+          @if (ViewData["TaxRebatePolicy"]?.ToString().ToLower() == "true")
+          {
+            <div class="form-check mt-2">
+              <input asp-for="QualifiedTaxRebateCheckBox" class="form-check-input stock-item-form-input" type="checkbox" id="qualifiedForTaxRebate">
+              <label class="form-check-label ms-1" for="qualifiedForTaxRebate">
+                @localizer["qualifiedForTaxRebate"]
+              </label>
+            </div>
+          }
+          @if (ViewData["TaxRebatePolicy"]?.ToString().ToLower() == "true")
+          {
+            <div class="form-check mt-2">
+              <input asp-for="EligibleTaxRebateCheckBox" class="form-check-input stock-item-form-input" type="checkbox" id="eligibleForTaxRebate">
+              <label class="form-check-label ms-1" for="eligibleForTaxRebate">
+                @localizer["eligibleForTaxRebate"]
+              </label>
+            </div>
+          }
+          <div class="form-check mt-2">
+            <input asp-for="AvailabilityCheckBox" class="form-check-input stock-item-form-input" type="checkbox" id="availability">
+            <label class="form-check-label ms-1" for="availability">
+              @localizer["availability"]
+            </label>
+          </div>
+          <div class="form-check mt-2">
+            <input asp-for="EligibleLoyaltyCheckBox" class="form-check-input stock-item-form-input" type="checkbox" id="eligibleForLoyalty">
+            <label class="form-check-label ms-1" for="eligibleForLoyalty">
+              @localizer["eligibleForLoyalty"]
+            </label>
+          </div>
+          <div class="form-check mt-2">
+            <input asp-for="LabelCheckBox" class="form-check-input stock-item-form-input" type="checkbox" id="label">
+            <label class="form-check-label ms-1" for="label">
+              @localizer["label"]
+            </label>
+          </div>
+          <div class="form-check mt-2">
+            <input asp-for="SBYWGHTCheckBox" class="form-check-input stock-item-form-input" type="checkbox" id="scalable">
+            <label class="form-check-label ms-1" for="scalable">
+              @localizer["scalable"]
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    @*Button section*@
+    <div class="border-bottom mx-3 mt-4"></div>
+    <div class="buttons-container justify-content-between mt-3 px-3">
+      <div class="buttons-group @(_config.IsBackOffice ? "" : "head-office justify-content-between")">
+        <button id="btn-price" type="button" onclick="priceButtonClicked()" class="btn btn-price">@localizer["price"]</button>
+        <button id="btn-details" onclick="onDetailsButtonClick()" type="button" class="btn btn-details">@localizer["details"]</button>
+        @if (_config.IsBackOffice == false)
+        {
+          <span id="btn-transfer-disabled" tabindex="0" data-toggle="tooltip" data-placement="top" title="@localizer["stockItemAlreadyTransferred"]">
+            <button disabled type="button" class="btn btn-transfer">
+              @localizer["transfer"]
+            </button>
+          </span>
+          <button id="btn-transfer" type="button" class="btn btn-transfer" onclick="transferButtonClicked()">
+            @localizer["transfer"]
+          </button>
+          <button id="btn-pricebook" type="button" onclick="goToPriceBookTransfer()" class="btn btn-pricebook">@localizer["priceBook"]</button>
+        }
+      </div>
+
+      <div class="buttons-group justify-content-end @(_config.IsBackOffice ? "" : "head-office")">
+        <button id="btn-cancel" onclick="cancelButtonClicked()" type="button" class="btn btn-cancel btn-outline-danger align-content-center">@localizer["cancel"]</button>
+        <button id="btn-save" type="submit" class="btn btn-save text-center">@localizer["save"]</button>
+        <button id="btn-edit" onclick="toggleEditMode()" type="button" hidden class="btn btn-save">@localizer["edit"]</button>
+        <button id="btn-back" onclick="goToStockItemsPage()" type="button" class="btn btn-back btn-outline-danger">@localizer["back"]</button>
+      </div>
+    </div>
+  </div>
+</form>
+
+@section Scripts
+  {
+  <script src="~/js/stockItemForm.js" asp-append-version="true"></script>
+}

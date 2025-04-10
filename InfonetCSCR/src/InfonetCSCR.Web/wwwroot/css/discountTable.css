@@ -1,0 +1,156 @@
+﻿table {
+  border-collapse: collapse;
+  width: 100%;
+  table-layout: fixed; /* Fixed table layout */
+}
+
+.discountTableBody {
+  width: 1000px !important;
+  height: 410px !important;
+  display: flex !important;
+  align-content: center !important;
+  justify-content: center;
+  overflow: auto; /* Add scrollbars for overflow */
+  border-left: 1px solid black;
+  border-top: 1px solid black;
+  border-right: 2px solid black;
+  border-bottom: 2px solid black;
+}
+
+
+.table-container {
+  width: 100%; /* Set the desired width */
+  height: 100%; /* Set the desired height */
+  overflow: auto; /* Add scrollbars for overflow */
+}
+
+table, td {
+  border: 1px solid black;
+}
+
+th, td {
+  padding: 2px;
+  text-align: center;
+  cursor: pointer;
+  width: 60px; /* Fixed cell width */
+}
+
+th {
+  background-color: #f2f2f2;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  border: 1px solid black !important;
+}
+
+table tbody tr th:first-child {
+  position: sticky;
+  left: 0;
+  z-index: 2; /* Increase the z-index to make it above the body cells */
+  border: 1px solid black;
+}
+
+thead tr th:first-child {
+  position: sticky !important;
+  left: 0 !important;
+  z-index: 5 !important; /* Increase the z-index to make it above the body cells */
+}
+
+input[type="text"] {
+  border: none;
+  text-align: center;
+  width: 100%;
+  max-width: 30px; /* Limit input width */
+}
+
+td.editing {
+  overflow: hidden;
+}
+
+  td.editing input {
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+.discountTablePageContainer {
+  width: 600px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  margin-left: 120px;
+  margin-right: -100px;
+}
+
+.discountTableContainer {
+  width: 100%;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: start !important;
+}
+
+.discountTablePolicy {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.productDiscountCodesTitleContainer {
+  height: 100px !important;
+  transform: rotate(270deg);
+  transform-origin: bottom left;
+  margin-right: -370px;
+  margin-bottom: -100px;
+}
+
+.productDiscountCodesTitle {
+  width: 300px;
+}
+
+  .productDiscountCodesTitle b {
+    height: 100px !important;
+    width: 300px;
+  }
+
+.discountTableTitleContainer {
+  display: flex !important;
+  justify-content: start !important;
+  margin-left: 50px;
+  margin-bottom: 5px;
+}
+
+.customerDiscountCodesTitleContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.policySettingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/*Media Queries*/
+
+@media (min-width: 1366px) {
+  .discountTableBody {
+    width: 1040px !important;
+    height: 420px !important;
+  }
+
+  .discountTablePageContainer {
+    width: 1000px !important;
+  }
+}
+
+@media (min-width: 1920px) {
+  .discountTableBody {
+    width: 1500px !important;
+    height: 700px !important;
+  }
+
+  .discountTablePageContainer {
+    width: 1450px !important;
+  }
+}

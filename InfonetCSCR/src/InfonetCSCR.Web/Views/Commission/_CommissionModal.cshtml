@@ -1,0 +1,74 @@
+﻿@inject IViewLocalizer localizer
+
+<input type="hidden" id="commissionExistsValidation" value="@localizer["commissionExistsValidation"]" />
+<input type="hidden" id="noCommissionValidation" value="@localizer["noCommissionValidation"]" />
+<input type="hidden" id="bothCommissionValidation" value="@localizer["bothCommissionValidation"]" />
+<input type="hidden" id="editCommissionModalTitle" value="@localizer["editCommissionModalTitle"]" />
+<input type="hidden" id="allOption" value="@localizer["all"]" />
+
+@*Commission Modal*@
+<div class="modal fade" id="commissionModal" tabindex="1" role="dialog" area-modal="true">
+	<div class="modal-dialog modal-dialog-centered commission-modal">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 id="commissionModalTitle" class="modal-title">@localizer["CommissionFormModalTitle"]</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div class="tax-form">
+					<div class="row gap-3 p-3">
+						<div class="col">
+							<label class="control-label mb-2">@localizer["employeeID"]</label>
+							<select id="employeeID" class="form-control form-select infonet-input w-100" asp-items="ViewBag.EmployeeList"></select>
+						</div>
+						<div class="col">
+							<label class="control-label mb-2">@localizer["department"]</label>
+							<select id="department" class="form-control form-select infonet-input w-100" asp-items="ViewBag.DepartmentList"></select>
+						</div>
+					</div>
+					<div class="row gap-3 p-3">
+						<div class="col">
+							<label class="control-label mb-2">@localizer["subDept"]</label>
+							<select id="subDept" class="form-control form-select infonet-input w-100"></select>
+						</div>
+						<div class="col">
+							<label class="control-label mb-2">@localizer["subDetail"]</label>
+							<select id="subDetail" class="form-control form-select infonet-input w-100"></select>
+						</div>
+					</div>
+					<div class="row gap-3 p-3">
+						<div class="col">
+							<label class="control-label mb-2">@localizer["stockCode"]</label>
+							<input type="text" id="stockCode" class="form-control infonet-input w-100" readonly onclick="openStockCodeModalForCommission()">
+							<input type="hidden" id="hdnStockCode">
+
+						</div>
+						<div class="col">
+							<label class="control-label mb-2">@localizer["apply"]</label>
+							<select id="apply" class="form-control form-select infonet-input w-100">
+								<option value="0" selected>@localizer["no"]</option>
+								<option value="1" selected>@localizer["yes"]</option>
+							</select>
+						</div>
+					</div>
+					<div class="row gap-3 p-3">
+						<div class="col">
+							<label class="control-label mb-2">@localizer["commissionPercentage"]</label>
+							<input type="text" id="commissionPercentage" class="form-control infonet-input w-100" maxlength="4">
+						</div>
+						<div class="col">
+							<label class="control-label mb-2">@localizer["commissionAmount"]</label>
+							<input type="text" id="commissionAmount" class="form-control infonet-input w-100" maxlength="4">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-cancel btn-outline-danger align-content-center btn-sm me-2" data-bs-dismiss="modal">@localizer["cancel"]</button>
+				<button type="button" class="btn btn-primary btn-sm btn-save" onclick="addEditCommissionAsync()">@localizer["save"]</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<partial name="_StockCodeModal"></partial>

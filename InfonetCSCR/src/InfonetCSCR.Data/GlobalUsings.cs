@@ -1,0 +1,13 @@
+﻿global using Dapper;
+global using InfonetCSCR.Core.Abstractions;
+global using InfonetCSCR.Core.Abstractions.Repositories;
+global using InfonetCSCR.Core.Dtos;
+global using InfonetCSCR.Core.Models;
+global using InfonetCSCR.Data.Repositories;
+global using InfonetCSCR.Data.Helpers;
+global using Microsoft.Extensions.Configuration;
+global using System.Data;
+global using System.Data.SqlClient;
+global using System.Text;
+global using InfonetCSCR.Core.Enums;
+global using InfonetCSCR.Core.Records;

@@ -1,0 +1,11 @@
+﻿.positiveCardsTableContainer {
+  padding: 20px;
+}
+
+.activeYNSelect {
+  width: 100% !important;
+}
+
+.negativeCardModal {
+  max-width: 650px;
+}

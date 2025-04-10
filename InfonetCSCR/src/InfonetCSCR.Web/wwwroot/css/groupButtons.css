@@ -1,0 +1,201 @@
+#groupButtonsContainer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+}
+
+.groupButtonsLeftContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.groupButtonsLayout {
+  display: flex;
+  justify-content: center !important;
+  align-content: center;
+  align-items: center;
+  margin: 10px;
+  padding: 20px;
+  border-radius: 5px;
+  background-color: #80808033;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  min-height: 850px;
+}
+
+.groupButtonsButtonTitle {
+  display: flex;
+  justify-content: start;
+  margin-left: 10px;
+}
+
+.groupButtonsContainer {
+  margin-top: 10px;
+}
+
+.changeButtonSetting {
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding: 20px;
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+  border-radius: 10px;
+  min-height: 850px;
+}
+
+.groupButtonsLayoutContainer {
+  width: 100%;
+  margin-left: 0px;
+}
+
+.changeButtonSettingContainer {
+  display: flex;
+  align-items: center;
+  height: 100% !important;
+  width: 100%;
+  margin-left: 5px;
+}
+
+.changeButtonSettingLeftContainer {
+  flex: 35%;
+  height: 100%;
+  width: 100%;
+  margin-bottom: auto;
+  margin-top: 20px;
+}
+
+.changeButtonSettingButton {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  text-align: center;
+  width: 120px;
+  height: 120px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+}
+
+.groupButtonSettingsButton {
+  background-size: cover;
+  width: 190px;
+  height: 190px;
+  border: 5px solid #F9F9F9 !important;
+  outline: none;
+}
+
+.groupButton {
+  color: #0026ff;
+  font-weight: bold;
+  border-radius: 10px 10px;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+}
+
+.changeButtonSettingRightContainer {
+  flex: 65%;
+  height: 100%;
+  width: 100%;
+  margin-left: 10px;
+}
+
+.changeButtonSettingForm {
+  padding: 5px;
+}
+
+.changeButtonSettingButtons {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  align-content: center;
+  justify-content: center;
+}
+
+  .changeButtonSettingButtons button {
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+
+.changeButtonDefineButton {
+  display: flex;
+  margin-top: 50px;
+  align-content: center;
+  justify-content: center;
+}
+
+.changeButtonSettingTextContainer {
+  padding: 12px;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  text-align: center;
+  align-content: center;
+  align-items: center;
+  max-width: 180px;
+  max-height: 180px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 30px;
+}
+
+.changeButtonSettingText {
+  text-align: center;
+  align-content: center;
+  align-items: center;
+}
+
+.addAndUpdateButtons {
+  display: flex;
+  margin-top: 20px;
+}
+
+  .addAndUpdateButtons button {
+    width: 100%;
+  }
+
+.changeButtonDefineButton button {
+  width: 100%;
+}
+
+.stockItemsListModal {
+  max-width: 700px !important;
+}
+
+.dataTables_scrollHeadInner, .dataTables_scrollFootInner, .dataTable {
+  width: 100% !important;
+}
+
+.stockCodeTitle {
+  width: 40% !important;
+}
+
+.descriptionTitle {
+  width: 60% !important;
+}
+
+.stockCodeTitle input, .descriptionTitle input {
+  width: 100% !important;
+}
+
+@media (max-width: 1400px) {
+  .groupButtonSettingsButton {
+    background-size: cover;
+    width: 150px;
+    height: 150px;
+    font-size: 13px;
+  }
+
+  .changeButtonSetting {
+    min-height: 610px;
+  }
+
+  .groupButtonsLayout {
+    min-height: 610px;
+  }
+}

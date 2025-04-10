@@ -1,0 +1,8 @@
+namespace InfonetCSCR.Web.Abstractions.Services;
+
+public interface IFuelPriceChangeService
+{
+  Task<StoreDataInHoDbRecordViewModel?> CheckStoreDataInHeadOfficeDatabase(FuelPriceChangeStoreCheckRecordViewModel fuelPriceChangeStoreCheckRecordViewModel);
+  Task<IList<GradeTierServiceLevelTableDataViewModel>> GetDataFromGradeTierAndServiceLevelTable(GradeGridRecordViewModel gradeGridRecord);
+  Task<bool> TransferFuelPriceChange(IList<FuelPriceChangeTransferRecordViewModel> storesData);
+}

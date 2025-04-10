@@ -1,0 +1,193 @@
+@section Head {
+  <link href="~/css/sendDataToStore.css" rel="stylesheet" asp-append-version="true" />
+}
+
+@inject IViewLocalizer localizer
+
+@{
+  ViewData["Title"] = @localizer["dataTransfer"];
+}
+
+<input id="lclInvalidStoreDataPath" type="hidden" value="@localizer["invalidStoreDataPath", "{0}"]" />
+<input id="lclTransferCompleted" type="hidden" value="@localizer["transferCompleted"]" />
+<input id="lclRecordWillBeAppended" type="hidden" value="@localizer["recordWillBeAppended"]" />
+<input id="lclRecordWillBeRemoved" type="hidden" value="@localizer["recordWillBeRemoved"]" />
+<input id="lclRecordWillBeUpdated" type="hidden" value="@localizer["recordWillBeUpdated"]" />
+<input id="columnText" type="hidden" value="@localizer["column"]" />
+
+<div class="px-3 py-2 mt-2">
+  <div>
+    <h3><strong>@localizer["dataTransfer"]</strong></h3>
+  </div>
+
+  <div class="body-content p-4">
+    <div id="backdrop" class="backdrop">
+      <span class="spinner-border text-light" role="status"></span>
+      <span class="text-light ms-5">@localizer["loading"]...</span>
+    </div>
+
+    <div class="d-flex mb-3 align-items-center">
+      <label class="fs-5 me-3 align-content-center">@localizer["dataTransferType"]</label>
+      <select id="ddlDataTransferType" class="form-control form-select infonet-input" asp-items="ViewBag.DataTransferTypeList" onchange="handleDDLDataTransferTypeChange(this.value)"></select>
+    </div>
+    @* Nav tabs *@
+    <ul class="nav nav-tabs nav-fill" id="tab" role="tablist">
+      <li class="nav-item">
+        <a id="selectionTab" class="nav-link active" role="tab" data-bs-toggle="tab" href="#selectionTabContent">@localizer["selection"]</a>
+      </li>
+      <li class="nav-item">
+        <a id="viewTab" class="nav-link disabled" role="tab" data-bs-toggle="tab" href="#viewTabContent" onclick="initViewTab()">@localizer["view"]</a>
+      </li>
+    </ul>
+
+    <div class="tab-content">
+      @* Selection Tab *@
+      <div class="tab-pane fade active show p-3" id="selectionTabContent" role="tabpanel">
+        <div class="row">
+          <div class="col-xl-5 col-sm-6">
+            <div class="d-flex justify-content-between flex-column flex-xl-row">
+              <label class="form-check-label h5 fw-bold">@localizer["regions"]</label>
+              <div>
+                <input id="chkAllRegions" class="form-check-input" type="checkbox" onchange="handleRegionsSelectAll(this.checked)">
+                <label class="form-check-label">@localizer["select/UnselectAll"]</label>
+              </div>
+            </div>
+            <div id="regionsContainer" class="form-control form-group">
+              @foreach (var region in ViewBag.Regions)
+              {
+                <div class="form-check my-1">
+                  <input class="form-check-input" type="checkbox" name="regions" id="region-@region.ID" value="@region.ID" onchange="handleSendDataToStoreRegionCheck(this.value, this.checked)">
+                  <label class="form-check-label" for="region-@region.ID">
+                    @region.ID  @region.Name
+                  </label>
+                </div>
+              }
+            </div>
+          </div>
+          <div class="col-xl-7 col-sm-6">
+            <div class="d-flex justify-content-between flex-column flex-xl-row">
+              <label class="form-check-label h5 fw-bold">@localizer["allItems"]</label>
+              <div>
+                <input id="chkAllItems" class="form-check-input" type="checkbox" onchange="handleItemsSelectUnselectAll('itemsContainer')">
+                <label class="form-check-label">@localizer["selectAll"]</label>
+              </div>
+            </div>
+            <div id="itemsContainerDataTableContainer" class="container custom-grid-scrollbar border-2">
+              <table id="itemsContainerDataTable" class="table">
+                <thead>
+                  <tr id="dynamicTableItemsHeader"></tr>
+                </thead>
+                <tfoot>
+                  <tr id="dynamicTableItemsFooter"></tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-xl-5 col-sm-6">
+            <div class="d-flex justify-content-between flex-column flex-xl-row">
+              <label class="form-check-label h5 fw-bold">@localizer["stores"]</label>
+              <div>
+                <input id="chkAllStores" class="form-check-input" type="checkbox" onchange="handleStoresSelectAll(this.checked)">
+                <label class="form-check-label">@localizer["select/UnselectAll"]</label>
+              </div>
+            </div>
+            <div id="storesContainer" class="form-control form-group">
+              @foreach (var store in ViewBag.Stores)
+              {
+                <div class="form-check my-1">
+                  <input class="form-check-input" type="checkbox" name="stores" id="store-@store.Store_ID" value="@store.Store_ID">
+                  <label class="form-check-label" for="store-@store.Store_ID">
+                    @store.Store_ID  @store.Store_Desc
+                  </label>
+                </div>
+              }
+            </div>
+          </div>
+          <div class="col-xl-7 col-sm-6">
+            <div class="d-flex justify-content-between flex-column flex-xl-row">
+              <label class="form-check-label h5 fw-bold">@localizer["selectedItems"]</label>
+              <div>
+                <input id="uchkAllItems" class="form-check-input" type="checkbox" onchange="handleItemsSelectUnselectAll('selectedItemsContainer')">
+                <label class="form-check-label">@localizer["unSelectAll"]</label>
+              </div>
+            </div>
+            <div id="selectedItemsContainerDataTableContainer" class="container custom-grid-scrollbar border-2" style="max-width:3000px;">
+              <table id="selectedItemsContainerDataTable" class="table table-striped" width="100%">
+                <thead>
+                  <tr id="dynamicTableSelectedItemsHeader"></tr>
+                </thead>
+                <tfoot>
+                  <tr id="dynamicTableSelectedItemsFooter"></tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      @* View Tab *@
+      <div class="tab-pane fade active p-3" id="viewTabContent" role="tabpanel">
+        <div id="viewTabViewer" class="row">
+          <div class="col-lg-6">
+            <textarea id="selectedStoreList" class="infonet-input w-100" readonly></textarea>
+          </div>
+          <div class="col-lg-6">
+            <div class="row">
+              <div id="transferOptionsContainer" class="col-lg-6  d-flex flex-column gap-2">
+                <label class="form-check-label fs-5 fw-bold my-1 text-ellipsis" title="@localizer["transferOptions"]">@localizer["transferOptions"]</label>
+                <div class="form-check">
+                  <input type="radio" id="transferOptionAdd" class="form-check-input"  name="transferOption" value="A">
+                  <label class="form-check-label" for="transferOptionAdd">@localizer["add"]</label>
+                </div>
+                <div class="form-check">
+                  <input type="radio" id="transferOptionRemove" class="form-check-input"  name="transferOption" value="R">
+                  <label class="form-check-label" for="transferOptionRemove">@localizer["remove"]</label>
+                </div class="form-check">
+                <div>
+                  <input type="radio" id="transferOptionUpdate" class="form-check-input" name="transferOption" value="U" disabled>
+                  <label class="form-check-label" for="transferOptionUpdate">@localizer["update"]</label>
+                </div>
+              </div>
+              <div class="col-lg-6 d-flex flex-column gap-3">
+                <button id="btnReport" type="button" class="btn btn-primary" onclick="showReport()">@localizer["report"]</button>
+                <button id="btnCloseReport" type="button" class="btn btn-primary" onclick="closeReport()">@localizer["closeReport"]</button>
+                <button id="btnPrint" type="button" class="btn btn-primary" disabled">@localizer["print"]</button>
+                <button id="btnTransfer" type="button" class="btn btn-primary align-items-center" onclick="transferDataAsync()">@localizer["transfer"]</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-3" id="girdAndReportContainer">
+          <div id="selectedItemsGridContainer"></div>
+          <pre id="reportViewer"></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="storeDataTransferDynamicDataTableModal" tabindex="1" role="dialog" aria-modal="true">
+  <div class="modal-dialog modal-dialog-centere custom-modal-style">
+    <div class="modal-content">
+      <div class="container custom-grid-scrollbar border-2" id="addKitItemTable" style="max-width:3000px;">
+        <table id="storeDataTransferDynamicDataTable" class="table table-striped" width="100%">
+          <thead>
+            <tr id="dynamicTableHeader"></tr>
+          </thead>
+          <tfoot>
+            <tr id="dynamicTableFooter"></tr>
+          </tfoot>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-cancel btn-outline-danger align-content-center btn-sm me-2" data-bs-dismiss="modal">@localizer["cancel"]</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+@section Scripts {
+  <script src="~/js/sendDataToStore.js" asp-append-version="true"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
+}

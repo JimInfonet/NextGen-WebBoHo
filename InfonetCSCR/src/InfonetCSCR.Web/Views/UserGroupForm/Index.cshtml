@@ -1,0 +1,62 @@
+﻿@section Head {
+  <link href="~/css/userAndUserGroup.css" rel="stylesheet" asp-append-version="true" />
+}
+
+@model UserGroupViewModel
+@inject IViewLocalizer localizer
+
+@{
+  ViewData["Title"] = localizer["userGroupForm"];
+}
+
+<input id="isUserGroupAlreadyExists" type="hidden" value='@(ViewData["isUserGroupAlreadyExists"] != null ? "true" : "false")' />
+<input id="userGroupAlreadyExists" type="hidden" value="@localizer["userGroupAlreadyExists", "{0}"]" />
+<input id="selectedSecurityLevel" type="hidden" value='@(Model != null ? Model.SecurityLevel : "")' />
+
+<form asp-controller="UserGroupForm" asp-action="SaveUserGroup" id="saveUserGroupForm">
+  <div class="p-3 mt-2">
+    <div class="d-flex justify-content-between mb-3">
+      <h3 class="h3 fw-bold mb-3">@localizer["userGroupForm"]</h3>
+    </div>
+
+    <div class="user-body-content p-2">
+      <div class="mt-3 col">
+        <div class="row m-3">
+          <div class="row gap-3 pt-3">
+            <div class="col">
+              <label asp-for="Code" class="mb-2">@localizer["groupName"]</label>
+              <input asp-for="Code" type="text" class="col infonet-input w-100 clear-selected-input-on-keypress not-editable only-alpha-numerical" maxlength="10" required />
+              <span asp-validation-for="Code" class="text-danger"></span>
+            </div>
+            <div class="col">
+              <label asp-for="SecurityLevel" class="mb-2">@localizer["securityLevel"]</label>
+              <select asp-for="SecurityLevel" class="form-select infonet-input w-100 edit-mode-control customPadding" aria-label="Select" required>
+                <option value="" disabled selected>@localizer["selectSecurityLevel"]</option>
+              </select>
+              <span asp-validation-for="SecurityLevel" class="text-danger"></span>
+            </div>
+          </div>
+          <div class="row gap-3 pt-3">
+            <div class="col-6">
+              <label asp-for="Name" class="mb-2">@localizer["groupDescription"]</label>
+              <input asp-for="Name" type="text" class="col infonet-input w-100 clear-selected-input-on-keypress edit-mode-control" maxlength="30" required />
+              <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+          </div>
+
+          <div class="row pt-3 text-end">
+            <div class="mt-4 d-flex justify-content-end gap-3 col">
+              <button id="btn-complete" type="submit" class="btn btn-primary btn-footer text-center me-2">@localizer["newGroupComplete"]</button>
+              <button id="btn-cancel" onclick="" type="button" class="btn btn-outline-danger btn-footer text-center ms-2">@localizer["cancelNewGroup"]</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+@section Scripts
+  {
+  <script src="~/js/UserAndUserGroup/userGroupForm.js" asp-append-version="true"></script>
+}

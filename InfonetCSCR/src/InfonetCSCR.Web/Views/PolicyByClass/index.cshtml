@@ -1,0 +1,92 @@
+@section Head {
+  <link href="~/css/policyByClass.css" rel="stylesheet" asp-append-version="true" />
+}
+
+@inject IViewLocalizer localizer
+
+@{
+  ViewData["Title"] = @localizer["pageTitile"];
+}
+
+<input type="hidden" id="lclDeletePolicySettingSuccess" value="@localizer["deletePolicySettingSuccess", "{0}"]" />
+
+<div class="px-3 py-2 mt-2">
+  <div class="row">
+    <div class="col">
+      <h3 class="fw-bold">@localizer["policiesByPolicyClass"]</h3>
+    </div>
+  </div>
+
+  <div class="body-content p-4">
+    <div class="row my-3">
+      <div class="col d-flex">
+        <label class="fs-5 me-3 align-content-center">@localizer["selectAPolicyClass"]</label>
+        <select id="policiesClassList" class="form-select infonet-input" aria-label="Select policies class" asp-items="ViewBag.PoliciesClassList" onchange="loadPoliciesByClassAsync()"></select>
+      </div>
+    </div>
+    <div class="row">
+      <table id="policiesByClassGrid" class="table table-striped">
+        <thead class="datatable-allignment">
+          <tr>
+            <th width="20%">@localizer["level"]</th>
+            <th width="60%">@localizer["value"]</th>
+            <th width="20%">@localizer["setting"]</th>
+          </tr>
+        </thead>
+        <tfoot>
+          <tr>
+            <th class="input substring-search" width="20%" scope="col"></th>
+            <th class="input substring-search" width="60%" scope="col"></th>
+            <th class="input substring-search" width="20%" scope="col" hidden></th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+    <div class="row">
+      <div class="col-lg-9">
+        <label id="lblPolicySettingsGridTitle" class="h5 fw-bold"></label>
+        <table id="policySettingsGrid" class="table table-striped">
+          <thead class="datatable-allignment">
+            <tr>
+              <th width="20%">@localizer["level"]</th>
+              <th width="60%">@localizer["value"]</th>
+              <th width="20%">@localizer["setting"]</th>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+              <th class="input substring-search" width="20%" scope="col"></th>
+              <th class="input substring-search" width="60%" scope="col"></th>
+              <th class="input substring-search" width="20%" scope="col"></th>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+      <div id="valueSettingContainer" class="col-lg-3">
+        <div class="row mb-3 p-2">
+          <label class="ps-0 mb-1">@localizer["values"]</label>
+          <textarea id="txtPolicyValues" class="infonet-input" readonly></textarea>
+        </div>
+        <div class="row p-2">
+          <label class="ps-0 mb-1">@localizer["setAtLevels"]</label>
+          <textarea id="txtPolicyLevels" class="infonet-input" readonly></textarea>
+        </div>
+      </div>
+
+      <div class="p-2 row">
+        <div class="col-lg-12 gap-3 d-flex justify-content-center">
+          <button id="btnAddPolicyByClass" type="button" class="btn btn-footer btn-primary text-center align-items-center" onclick="btnAddPolicyByClassClickAsync()" disabled>@localizer["add"]</button>
+          <button id="btnEditPolicyByClass" type="button" class="btn btn-footer btn-primary align-items-center" onclick="btnEditPolicyByClassClickAsync()" disabled>@localizer["edit"]</button>
+          <button id="btnDeletePolicyByClass" type="button" class="btn btn-footer btn-danger text-center align-items-center" onclick="btnDeletePolicyByClassClickAsync()" disabled>@localizer["delete"]</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="addEditPolicySettingModalContainer"></div>
+</div>
+
+@section Scripts {
+  <script src="~/js/policyByClass.js" asp-append-version="true"></script>
+  <script src="~/js/_AddEditPolicySettingModal.js" asp-append-version="true"></script>
+}

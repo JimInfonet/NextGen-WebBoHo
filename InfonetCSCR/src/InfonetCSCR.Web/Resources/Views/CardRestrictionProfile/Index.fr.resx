@@ -1,0 +1,279 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="add" xml:space="preserve">
+    <value>Ajouter</value>
+  </data>
+  <data name="edit" xml:space="preserve">
+    <value>Éditer</value>
+  </data>
+  <data name="delete" xml:space="preserve">
+    <value>Supprimer</value>
+  </data>
+  <data name="profileId" xml:space="preserve">
+    <value>Carte d'indentit</value>
+  </data>
+  <data name="profileName" xml:space="preserve">
+    <value>Nom de profil</value>
+  </data>
+  <data name="restrictProducts" xml:space="preserve">
+    <value>Restreindre les produits</value>
+  </data>
+  <data name="anErrorHasOccuredWhileLoadingCardRestrictions" xml:space="preserve">
+    <value>Une erreur s'est produite lors du chargement des restrictions de la carte.</value>
+  </data>
+  <data name="cardRestrictionProfiles" xml:space="preserve">
+    <value>Carte de profils de restriction</value>
+  </data>
+  <data name="0meansNoLimit" xml:space="preserve">
+    <value>(0 signifie aucune limite)</value>
+  </data>
+  <data name="singleTransaction" xml:space="preserve">
+    <value>Transaction unique $</value>
+  </data>
+  <data name="dailyTransaction" xml:space="preserve">
+    <value>Transaction quotidienne $</value>
+  </data>
+  <data name="monthlyTransaction" xml:space="preserve">
+    <value>Transaction mensuelle $</value>
+  </data>
+  <data name="askForPO" xml:space="preserve">
+    <value>Demander le numéro de bon de commande ?</value>
+  </data>
+  <data name="allowProducts" xml:space="preserve">
+    <value>Autoriser les produits</value>
+  </data>
+  <data name="denyProducts" xml:space="preserve">
+    <value>Refuser les produits</value>
+  </data>
+  <data name="weekday" xml:space="preserve">
+    <value>Jour de la semaine</value>
+  </data>
+  <data name="allowPurchase" xml:space="preserve">
+    <value>Autoriser l'achat?</value>
+  </data>
+  <data name="timeRestriction" xml:space="preserve">
+    <value>Restriction de temps?</value>
+  </data>
+  <data name="purchaseStartTime" xml:space="preserve">
+    <value>Heure de début de l'achat</value>
+  </data>
+  <data name="purchaseEndTime" xml:space="preserve">
+    <value>Heure de fin d'achat</value>
+  </data>
+  <data name="productRestriction" xml:space="preserve">
+    <value>Restriction de produit</value>
+  </data>
+  <data name="promptForFuel" xml:space="preserve">
+    <value>Demander du carburant ?</value>
+  </data>
+  <data name="limitTimeofPurchase" xml:space="preserve">
+    <value>Jour/heure limite d’achat ?</value>
+  </data>
+  <data name="restrictionSetup" xml:space="preserve">
+    <value>Configuration des restrictions :</value>
+  </data>
+  <data name="sequence" xml:space="preserve">
+    <value>Séquence</value>
+  </data>
+  <data name="promptMessage" xml:space="preserve">
+    <value>Message d'invite</value>
+  </data>
+  <data name="save" xml:space="preserve">
+    <value>Sauvegarder</value>
+  </data>
+  <data name="cancel" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="back" xml:space="preserve">
+    <value>Recule</value>
+  </data>
+  <data name="friday" xml:space="preserve">
+    <value>Vendredi</value>
+  </data>
+  <data name="monday" xml:space="preserve">
+    <value>Lundi</value>
+  </data>
+  <data name="saturday" xml:space="preserve">
+    <value>Samedi</value>
+  </data>
+  <data name="sunday" xml:space="preserve">
+    <value>Dimanche</value>
+  </data>
+  <data name="thursday" xml:space="preserve">
+    <value>Jeudi</value>
+  </data>
+  <data name="tuesday" xml:space="preserve">
+    <value>Mardi</value>
+  </data>
+  <data name="wednesday" xml:space="preserve">
+    <value>Mercredi</value>
+  </data>
+  <data name="addPrompt" xml:space="preserve">
+    <value>Ajouter une invite</value>
+  </data>
+  <data name="deletePrompt" xml:space="preserve">
+    <value>Supprimer l'invite</value>
+  </data>
+  <data name="cardRestrictionProfileCreatedSuccessfully" xml:space="preserve">
+    <value>Profil de restriction de carte créé avec succès.</value>
+  </data>
+  <data name="cardRestrictionProfileUpdatedSuccessfully" xml:space="preserve">
+    <value>Profil de restriction de carte mis à jour avec succès.</value>
+  </data>
+  <data name="noMorePromptsCanBeAdded" xml:space="preserve">
+    <value>Aucune autre invite ne peut être ajoutée.</value>
+  </data>
+  <data name="deletePromptTitle" xml:space="preserve">
+    <value>Supprimer l'invite</value>
+  </data>
+  <data name="deletePromptMessage" xml:space="preserve">
+    <value>Êtes-vous sûr de supprimer l'invite sélectionnée ?</value>
+  </data>
+  <data name="promptAddedSuccessfully" xml:space="preserve">
+    <value>Invite ajoutée avec succès</value>
+  </data>
+  <data name="promptDeletedSuccessfully" xml:space="preserve">
+    <value>Invite supprimée avec succès</value>
+  </data>
+  <data name="seqAlreadyUsed" xml:space="preserve">
+    <value>Ce numéro de séquence est déjà utilisé</value>
+  </data>
+  <data name="seqRange" xml:space="preserve">
+    <value>La séquence doit être comprise entre 1 et 10</value>
+  </data>
+  <data name="profileIdAlreadyExists" xml:space="preserve">
+    <value>Cet ID de profil {0} existe déjà. Veuillez utiliser une valeur unique.</value>
+  </data>
+  <data name="transactionsPerDay" xml:space="preserve">
+    <value>Transactions par jour</value>
+  </data>
+  <data name="message" xml:space="preserve">
+    <value>Message</value>
+  </data>
+  <data name="sequenceIsRequired" xml:space="preserve">
+    <value>La séquence ne peut être vide</value>
+  </data>
+  <data name="yes" xml:space="preserve">
+    <value>Oui</value>
+  </data>
+  <data name="no" xml:space="preserve">
+    <value>Non</value>
+  </data>
+</root>

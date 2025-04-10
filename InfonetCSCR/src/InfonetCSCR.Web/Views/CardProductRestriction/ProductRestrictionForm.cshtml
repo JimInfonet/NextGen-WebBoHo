@@ -1,0 +1,176 @@
+﻿@section Head {
+  <link href="~/css/cardProductRestriction.css" rel="stylesheet" asp-append-version="true" />
+}
+
+@model ProductRestrictionViewModel
+@inject IApplicationConfig _config
+@inject IViewLocalizer localizer
+@{
+  ViewData["Title"] = @localizer["pageTitle"];
+  bool validProfileId = (bool)(ViewData["ProfileId"] != null);
+}
+
+<input id="departmentHidden" type="hidden" value="@Model.Dept" />
+<input id="subDeptHidden" type="hidden" value="@Model.SubDept" />
+<input id="subDetailHidden" type="hidden" value="@Model.SubDetail" />
+<input id="stockCodeHidden" type="hidden" value="@Model.StockCode" />
+<input id="isProfileRestrctionForm" type="hidden" value="@ViewData["ProfileId"]" />
+
+<input id="mode" hidden value="@ViewData["Mode"]" />
+<input id="isProductRestrictionExist" hidden value="@ViewData["isProductRestrictionExist"]" />
+<input id="isProductRestrictionAdded" hidden value="@ViewData["isProductRestrictionAdded"]" />
+<input id="isDepartmentAndStockCodeNull" hidden value="@ViewData["isDepartmentAndStockCodeNull"]" />
+<input type="hidden" id="cardCode" value="@ViewData["CardCode"]" />
+<input type="hidden" id="tendCodeData" value="@ViewData["TendCodeData"]" />
+<input type="hidden" id="fromGrid" value="@ViewData["FromGrid"]" />
+
+<input id="emptyMessage" type="hidden" value="@localizer["emptyMessage"]" />
+<input id="productLinkAlreadyExists" hidden value="@localizer["productLinkAlreadyExists"]" />
+<input id="failedToAddProductRestriction" hidden value="@localizer["failedToAddProductRestriction"]" />
+<input id="pleaseSelectDeptSubDeptSubDetailStockCode" hidden value="@localizer["pleaseSelectDeptSubDeptSubDetailStockCode"]" />
+<input id="failedToLoadStockCodes" hidden value="@localizer["failedToLoadStockCodes"]" />
+<input id="anErrorHasOccuredWhileLoadingStockCodes" hidden value="@localizer["anErrorHasOccuredWhileLoadingStockCodes"]" />
+<input id="failedToLoadDepartments" hidden value="@localizer["failedToLoadDepartments"]" />
+<input id="anErrorHasOccuredWhileLoadingDepartment" hidden value="@localizer["anErrorHasOccuredWhileLoadingDepartment"]" />
+<input id="failedToLoadSubDepartment" hidden value="@localizer["failedToLoadSubDepartment"]" />
+<input id="anErrorHasOccuredWhileLoadingSubDepartment" hidden value="@localizer["anErrorHasOccuredWhileLoadingSubDepartment"]" />
+<input id="failedToLoadSubDetails" hidden value="@localizer["failedToLoadSubDetails"]" />
+<input id="anErrorHasOccuredWhileLoadingSubDetails" hidden value="@localizer["anErrorHasOccuredWhileLoadingSubDetails"]" />
+<input id="completeText" hidden value="@localizer["complete"]" />
+<input id="cancelText" hidden value="@localizer["cancel"]" />
+<input id="select" hidden value="@localizer["select"]" />
+
+<form class="p-3 mt-2" asp-controller="CardProductRestriction" asp-action="UpdateProductRestriction" id="productRestrictionForm">
+  <div class="p-2">
+    <div class="d-flex justify-content-between">
+      <h3 class="h3 fw-bold mb-3">@localizer["pageTitle"]</h3>
+    </div>
+    <div class="container body-content p-2 container-max-width">
+      <div class="mt-3 col" id="addTenders">
+        <div class="row m-3 row">
+          <div hidden>
+            <input asp-for="CardDescription" id="cardDescription" type="text" />
+            <input asp-for="CardNumber" id="cardNumber" type="text" />
+            <input asp-for="ProfileId" id="profileId" type="text" />
+            <input asp-for="PreCardDescription" id="preCardDescription" type="text" />
+            <input asp-for="PreCardNumber" id="preCardNumber" type="text" />
+            <input asp-for="PreProfileId" id="preProfileId" type="text" />
+            <input asp-for="PreBankCardId" id="preBankCardId" type="text" />
+            <input asp-for="PreCardProductCode" id="preCardProductCode" type="text" />
+            <input asp-for="PreCardProductDescription" id="preCardProductDescription" type="text" />
+            <input asp-for="PreDept" id="preDepartment" type="text">
+            <input asp-for="PreSubDept" id="preSubDept" type="text">
+            <input asp-for="PreSubDetail" id="preSubDetail" type="text">
+            <input asp-for="PreStockCode" id="preStockCode" type="text">
+            <input asp-for="PreDescription" id="preDescription" type="text" />
+            <input asp-for="PreAmount" id="preAmount" type="number" />
+
+            @*Card Definition parameters for back button functionality*@
+            <input name="cardCode" value="@ViewData["CardCode"]" />
+            <input name="tendCodeData" value="@ViewData["TendCodeData"]" />
+            <input name="fromGrid" value="@ViewData["FromGrid"]" />
+          </div>
+
+          <div class="row gap-3 pt-3">
+            <div class="col">
+              @if (validProfileId)
+              {
+                <label asp-for="ProfileId" class="mb-2">@localizer["profileId"]</label>
+                <input asp-for="ProfileId" id="profileId" type="text" class="col infonet-input stock-item-form-input w-100" disabled />
+                <span asp-validation-for="ProfileId" class="text-danger"></span>
+              }
+              else
+              {
+                <label asp-for="BankCardId" class="mb-2">@localizer["bankCardId"]</label>
+                <input asp-for="BankCardId" id="bankCardId" type="text" class="col infonet-input stock-item-form-input w-100" disabled />
+                <span asp-validation-for="BankCardId" class="text-danger"></span>
+              }
+            </div>
+            <div class="col">
+              <label class="mb-2">@(validProfileId ? localizer["profileName"] : localizer["cardDescription"])</label>
+              <input id="cardDescriptionField" type="text" class="col infonet-input stock-item-form-input w-100" disabled />
+            </div>
+            <div class="col"></div>
+          </div>
+          @if (!validProfileId)
+          {
+            <div class="row gap-3 pt-3">
+              <div class="col">
+                <label asp-for="CardProductCode" class="mb-2">@localizer["cardProductCode"]</label>
+                <input asp-for="CardProductCode" type="text" id="cardProductCode" class="col infonet-input stock-item-form-input w-100" />
+                <span asp-validation-for="CardProductCode" class="text-danger" id="cardProductCodeValidationText" hidden></span>
+              </div>
+              <div class="col">
+                <label asp-for="CardProductDescription" class="mb-2">@localizer["cardProductName"]</label>
+                <input asp-for="CardProductDescription" type="text" id="cardProductName" class="col infonet-input stock-item-form-input w-100" />
+                <span asp-validation-for="CardProductDescription" class="text-danger"></span>
+              </div>
+              <div class="col"></div>
+            </div>
+          }
+          <div class="row gap-3 pt-3">
+            <div class="col">
+              <label class="form-check-label mt-1" for="department" id="class">@localizer["department"]</label>
+              <select asp-for="Dept" id="department" class="form-select infonet-input stock-item-form-input w-100" aria-label="Select">
+                <option value="">@localizer["select"]</option>
+              </select>
+              <span asp-validation-for="Dept" class="text-danger"></span>
+            </div>
+            <div class="col">
+              <label class="form-check-label mt-1" for="subDept" id="class">@localizer["subDept"]</label>
+              <select asp-for="SubDept" id="subDept" class="form-select infonet-input stock-item-form-input w-100" aria-label="Select">
+                <option value="">@localizer["select"]</option>
+              </select>
+              <span asp-validation-for="SubDept" class="text-danger"></span>
+            </div>
+            <div class="col">
+              <label class="form-check-label mt-1" for="subDetail" id="class">@localizer["subDetail"]</label>
+              <select asp-for="SubDetail" id="subDetail" class="form-select infonet-input stock-item-form-input w-100" aria-label="Select">
+                <option value="">@localizer["select"]</option>
+              </select>
+              <span asp-validation-for="SubDetail" class="text-danger"></span>
+            </div>
+          </div>
+          <div class="row gap-3 pt-3">
+            <div class="col">
+              <label class="form-check-label mb-2" for="stockCode" id="class">@localizer["stockCode"]</label>
+              <input asp-for="StockCode" type="text" id="stockCode" class="col infonet-input stock-item-form-input w-100" readonly placeholder="@localizer["select"]"
+              onclick="showStockTable()"/>
+              <span asp-validation-for="StockCode" class="text-danger"></span>
+            </div>
+            <div class="col">
+              <label asp-for="Description" class="mb-2">@localizer["description"]</label>
+              <input asp-for="Description" type="text" id="description" class="col infonet-input stock-item-form-input w-100" disabled />
+              <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="col">
+              @if (!validProfileId)
+              {
+                <label asp-for="Amount" class="mb-2">@localizer["amount"]</label>
+                <input asp-for="Amount" type="number" id="amount" data-val="true" data-val-number="@localizer["numberTypeError"]"
+                     class="col infonet-input stock-item-form-input w-100" onkeydown="return event.keyCode !== 69" />
+                <span asp-validation-for="Amount" class="text-danger"></span>
+              }
+            </div>
+          </div>
+          <div class="pt-3">
+            <div class="mt-4 d-flex justify-content-end">
+              <button id="btn-cancel" type="button" class="btn btn-footer btn-danger text-center me-2" disabled>
+                @localizer["cancel"]
+              </button>
+              <button id="btn-complete" type="submit" class="btn btn-footer btn-primary text-center ms-2" disabled>
+                @localizer["save"]
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<partial name="_StockCodeModal"></partial>
+
+@section Scripts {
+  <script src="~/js/productRestrictionForm.js" asp-append-version="true"></script>
+}

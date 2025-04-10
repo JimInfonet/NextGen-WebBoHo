@@ -1,0 +1,162 @@
+﻿@section Head {
+  <link rel="stylesheet" href="~/css/stockItemReport.css" asp-append-version="true" />
+}
+
+@inject IApplicationConfig _config
+@inject IViewLocalizer localizer
+@{
+  ViewData["Title"] = @localizer["pageTitle"];
+}
+
+<div class="min-h-100 p-4">
+  <div class="d-flex justify-content-between">
+    <h3 class="h3 fw-bold mb-3">@localizer["pageTitle"]</h3>
+  </div>
+
+  <div class="row border border-2 m-4">
+    <div class="row">
+      <div class="col-4 stock">
+        <p class="d-inline-block me-3 fw-bold">@localizer["stockCode"]:</p>
+        <p class="d-inline-block me-3">@ViewBag.StockCode</p>
+      </div>
+      <div class="col-3">
+        <p class="d-inline-block me-3 fw-bold">@localizer["vendorPart"]:</p>
+        <p class="d-inline-block me-3">@ViewBag.VendorPart</p>
+      </div>
+      <div class="col-5 d-flex">
+        <p class="me-3 fw-bold">@localizer["vendor"]:</p>
+        <p class="me-3 text-ellipsis" title="@ViewBag.Vendor">@ViewBag.Vendor</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <p class="d-inline-block me-3 fw-bold">@localizer["description"]:</p>
+        <p class="d-inline-block me-3">@ViewBag.Description</p>
+      </div>
+    </div>
+  </div>
+  <div class="row border border-2 m-4 rounded w-90 h-50">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="sale-tab" data-bs-toggle="tab" data-bs-target="#sale" type="button" role="tab" aria-controls="sale" aria-selected="true">@localizer["sales"]</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="purchase-tab" data-bs-toggle="tab" data-bs-target="#purchase" type="button" role="tab" aria-controls="purchase" aria-selected="false">@localizer["purchases"]</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="report-tab" data-bs-toggle="tab" data-bs-target="#report" type="button" role="tab" aria-controls="report" aria-selected="false">@localizer["reports"]</button>
+      </li>
+    </ul>
+    <div class="tab-content h-50" id="myTabContent">
+      @*Sale Tab*@
+      <div class="tab-pane fade show active overflow-auto" id="sale" role="tabpanel" aria-labelledby="sale-tab" style="position:relative;">
+        @{
+          ViewData["QuantityViewData"] = ViewBag.SalesQuantityViewData;
+          ViewData["MethodName"] = "GetSaleDetails";
+          <partial name="_StockItemReportTabQuantity" view-data="ViewData"></partial>
+        }
+
+        @{
+          ViewData["AmountViewData"] = ViewBag.SalesAmountViewData;
+          ViewData["MethodName"] = "GetSaleDetails";
+          <partial name="_StockItemReportTabAmount" view-data="ViewData"></partial>
+        }
+      </div>
+
+      @*Purchases Tab*@
+      <div class="tab-pane fade overflow-auto" id="purchase" role="tabpanel" aria-labelledby="purchase-tab" style="position:relative;">
+        @{
+          ViewData["QuantityViewData"] = ViewBag.PurchasesQuantityViewData;
+          ViewData["MethodName"] = "GetPurchaseDetails";
+          <partial name="_StockItemReportTabQuantity" view-data="ViewData"></partial>
+        }
+
+        @{
+          ViewData["AmountViewData"] = ViewBag.PurchasesAmountViewData;
+          ViewData["MethodName"] = "GetPurchaseDetails";
+          <partial name="_StockItemReportTabAmount" view-data="ViewData"></partial>
+        }
+      </div>
+
+      <!-- Modal for Sale and Purchase tabs -->
+      <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modalTitle">@localizer["details"]</h5>
+              <button type="button" class="close" data-dismiss="modal" onclick="$('#modal').modal('toggle')" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="row border border-2 m-2 w-90" id="stockDetails" hidden>
+                <div class="border border-1 d-flex flex-row tableHeader">
+                  <label class="col text-end">@localizer["date"]</label>
+                  <label class="col text-end" id="purchaseModalTH" hidden>@localizer["purchaseNo"]</label>
+                  <label class="col text-end" id="saleModalTH" hidden>@localizer["saleNo"]</label>
+                  <label class="col text-end">@localizer["quantity"]</label>
+                  <label class="col text-end">@localizer["amount"]</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      @*Report Tab*@
+      <div class="tab-pane fade" id="report" role="tabpanel" aria-labelledby="report-tab">
+        <div class="d-inline-flex col-12 m-3">
+          <div class="d-inline-flex col-6">
+            <div class="d-inline-flex me-2 fw-bold">@localizer["startDate"]</div>
+            <input class="d-inline-flex" id="startDate" type="date" name="date">
+          </div>
+          <div class="d-inline-flex col-6">
+            <div class="d-inline-flex me-2 fw-bold">@localizer["endDate"]</div>
+            <input class="d-inline-flex" id="endDate" type="date" name="date">
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="form-check m-3">
+            <input type="radio" class="form-check-input" id="InvertoryStockHistoryReport" name="SelectReport" value="stockitemhistory">
+            <label class="form-check-label" for="InvertoryStockHistoryReport">@localizer["inventoryStockHistoryReport"]</label><br>
+          </div>
+          <div class="form-check m-3">
+            <input type="radio" class="form-check-input" id="SalesAnalysisByProduct" name="SelectReport" value="salesanalysisbyproduct">
+            <label class="form-check-label" for="SalesAnalysisByProduct">@localizer["salesAnalysisByProduct"]</label><br>
+          </div>
+          <div class="form-check m-3">
+            <input type="radio" class="form-check-input" id="VendorPurchasesByProduct" name="SelectReport" value="vendorpurchasesbyproduct">
+            <label class="form-check-label" for="VendorPurchasesByProduct">@localizer["vendorPurchasesByProduct"]</label>
+          </div>
+          <div class="button-container">
+            <button id="loadReportButton" onclick="displayStockItemReport()" class="btn btn-primary btn-load-report my-2" type="button" disabled>
+              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              @localizer["loading"]...
+            </button>
+          </div>
+          <div>
+            <iframe class="border-2 p-2 col-12" id="IframeReportViewer" src="@_config.ReportBaseUrl" scrolling="yes" hidden>
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="m-4">
+    <button id="btn-back" onclick="history.back(-1)" type="button" class="btn btn-back btn-outline-danger float-end">@localizer["back"]</button>
+  </div>
+</div>
+
+<input id="reportBaseUrl" type="hidden" value="@_config.ReportBaseUrl" />
+<input id="stockCode" type="hidden" value="@ViewBag.StockCode" />
+<input id="stockDescription" type="hidden" value="@ViewBag.Description" />
+<input id="language" type="hidden" value="@_config.Language" />
+<input id="errorMessage" type="hidden" value="@localizer["errorMessage"]" />
+<input id="endDateAheadOfStartDate" type="hidden" value="@localizer["endDateAheadOfStartDate"]" />
+<input id="loadReportBtnText" type="hidden" value="@localizer["loadReport"]" />
+
+@section Scripts {
+  <script src="~/js/stockItemReports.js" asp-append-version="true"></script>
+}

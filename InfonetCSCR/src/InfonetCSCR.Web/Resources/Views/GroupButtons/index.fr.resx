@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="button" xml:space="preserve">
+    <value>Bouton</value>
+  </data>
+  <data name="buttonDefinedSuccessfully" xml:space="preserve">
+    <value>Bouton définis avec succès</value>
+  </data>
+  <data name="buttonSettingsExchangedSuccessfully" xml:space="preserve">
+    <value>Le réglages du bouton échangé avec succès</value>
+  </data>
+  <data name="buttonSuccessfullyDeleted" xml:space="preserve">
+    <value>Bouton supprimées avec succès</value>
+  </data>
+  <data name="buttonType" xml:space="preserve">
+    <value>Type de Bouton</value>
+  </data>
+  <data name="buttonUpdatedSuccessfully" xml:space="preserve">
+    <value>Bouton mis à jour avec succès</value>
+  </data>
+  <data name="cancel" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="changeButtonSettings" xml:space="preserve">
+    <value>Changer le réglage du bouton</value>
+  </data>
+  <data name="changeSetting" xml:space="preserve">
+    <value>Modifier la Configuration</value>
+  </data>
+  <data name="defineButton" xml:space="preserve">
+    <value>Définir le bouton</value>
+  </data>
+  <data name="description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="firstLine" xml:space="preserve">
+    <value>Première ligne</value>
+  </data>
+  <data name="fuelButtons" xml:space="preserve">
+    <value>Boutons d'Essence</value>
+  </data>
+  <data name="groupButtons" xml:space="preserve">
+    <value>Boutons de Groupe</value>
+  </data>
+  <data name="hotButtons" xml:space="preserve">
+    <value>Touche rapide</value>
+  </data>
+  <data name="invalidImageFolderPath" xml:space="preserve">
+    <value>Invalide image répertoire chemin. Veuillez contacter l'administrateur système.</value>
+  </data>
+  <data name="isThatOk" xml:space="preserve">
+    <value>Est-ce correct?</value>
+  </data>
+  <data name="noButtonDescription" xml:space="preserve">
+    <value>Auncune description de bouton</value>
+  </data>
+  <data name="noButtonSelected" xml:space="preserve">
+    <value>Aucun bouton sélectionné</value>
+  </data>
+  <data name="nonDefine" xml:space="preserve">
+    <value>Non défini</value>
+  </data>
+  <data name="openItems" xml:space="preserve">
+    <value>Items Ouverts</value>
+  </data>
+  <data name="pleaseSelectStockItem" xml:space="preserve">
+    <value>Sélectionner un article</value>
+  </data>
+  <data name="product" xml:space="preserve">
+    <value>Article</value>
+  </data>
+  <data name="productLabel" xml:space="preserve">
+    <value>Produit</value>
+  </data>
+  <data name="secondLine" xml:space="preserve">
+    <value>Deuxième ligne</value>
+  </data>
+  <data name="select" xml:space="preserve">
+    <value>Sélectionner</value>
+  </data>
+  <data name="selectStock" xml:space="preserve">
+    <value>Sélectionnez les actions</value>
+  </data>
+  <data name="selectStockItemAndTypeTheTextToAppearOnTheButtonToDefine" xml:space="preserve">
+    <value>Sélectionner un article et taper le texte à apparaître sur le bouton</value>
+  </data>
+  <data name="setGroupButtons" xml:space="preserve">
+    <value>Configurer les Boutons de Groupe</value>
+  </data>
+  <data name="stockCode" xml:space="preserve">
+    <value>No d'article</value>
+  </data>
+  <data name="stockNotFound" xml:space="preserve">
+    <value>Inventaire Introuvable</value>
+  </data>
+  <data name="thisButtonWillNotDisplayProductDescriptionIsThatOk" xml:space="preserve">
+    <value>Ce bouton n'affiche aucune description d'article.</value>
+  </data>
+  <data name="undefineButton" xml:space="preserve">
+    <value>Bouton non défini</value>
+  </data>
+  <data name="undefined" xml:space="preserve">
+    <value>Indéfinie</value>
+  </data>
+</root>

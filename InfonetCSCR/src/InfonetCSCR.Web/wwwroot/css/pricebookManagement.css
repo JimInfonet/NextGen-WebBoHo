@@ -1,0 +1,117 @@
+.vendorOptionsList {
+  height: 30rem;
+}
+thead th {
+  vertical-align: middle;
+}
+
+select {
+  overflow-x: auto;
+}
+
+.form-check {
+  padding-left: 2.2rem !important;
+}
+
+.table-container {
+  background: #F3F5F7;
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+}
+
+.page-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.hr--sm {
+  opacity: 0.12;
+  margin: 0 0 0.75rem 0;
+}
+
+.nav-link:is(.active) {
+  font-weight: bolder;
+}
+
+.modal-dialog-bg {
+  width: 800px !important;
+  max-width: 800px !important;
+  margin: 1.75rem auto !important;
+}
+
+.table-center td, .table-center th {
+  text-align: center;
+}
+
+.input-field-prepend {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+}
+
+@media (min-width: 1200px) {
+  .input-field-prepend {
+    width: 80px;
+  }
+}
+
+.trans-type {
+  min-width: 105px;
+}
+
+#table-container--transfers .dataTables_scrollHeadInner,
+#table-container--transfers .table {
+  min-width: max(98%, 510px) !important;
+}
+
+.selectAllCheckboxLabel {
+  min-width: 160px;
+  margin-left: 5px;
+  overflow-wrap: break-word;
+}
+
+.product {
+  margin-bottom: 7px;
+}
+
+@media (max-width: 1400px) {
+  .storeSelectionBox {
+    margin-top: 0px;
+  }
+
+  .selectStores {
+    margin-top: -30px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .storeSelectionBox {
+    margin-top: -33px;
+  }
+
+  .selectStores {
+    margin-top: -10px;
+  }
+}
+
+#label-printing-format {
+  margin-bottom: 2rem;
+  padding: 20px;
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+  border-radius: 10px;
+}
+
+#label-printing-page-orientation {
+  margin-bottom: 2rem;
+  padding: 20px;
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+  border-radius: 10px;
+}
+
+@media (max-width: 1100px) {
+  #label-printing-format,
+  #label-printing-page-orientation {
+    padding: 10px;
+  }
+}

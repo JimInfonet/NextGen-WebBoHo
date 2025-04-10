@@ -1,0 +1,77 @@
+@section Head {
+  <link href="~/css/cashDraws.css" rel="stylesheet" asp-append-version="true" />
+}
+
+@inject IApplicationConfig _config
+@inject IViewLocalizer localizer
+@inject IHttpContextAccessor httpContextAccessor
+@{
+  ViewData["Title"] = @localizer["cashDrawSetup"];
+}
+
+<input type="hidden" id="notUsed" value="@localizer["notUsed"]" />
+<input type="hidden" id="youHaveToEnterNameOnButton" value="@localizer["youHaveToEnterNameOnButton"]" />
+<input type="hidden" id="pleaseSelectStockItem" value="@localizer["pleaseSelectStockItem"]" />
+<input type="hidden" id="pleaseEnterValidAmount" value="@localizer["pleaseEnterValidAmount"]" />
+<input type="hidden" id="amountCannotBeNegative" value="@localizer["amountCannotBeNegative"]" />
+<input type="hidden" id="theButtonNameAlreadyExists" value="@localizer["theButtonNameAlreadyExists"]" />
+<input type="hidden" id="theAmountMustBeBetween" value="@localizer["theAmountMustBeBetween"]" />
+<input type="hidden" id="cashDrawAddedSuccessfully" value="@localizer["cashDrawAddedSuccessfully"]" />
+<input type="hidden" id="cashDrawUpdatedSuccessfully" value="@localizer["cashDrawUpdatedSuccessfully"]" />
+<input type="hidden" id="buttonSuccessfullyDisableld" value="@localizer["buttonSuccessfullyDisableld"]" />
+<input type="hidden" id="coinBillButtonHasToBeSelectedBeforeUpdate" value="@localizer["coinBillButtonHasToBeSelectedBeforeUpdate"]" />
+<input type="hidden" id="coinBillButtonHasToBeSelectedBeforeDisable" value="@localizer["coinBillButtonHasToBeSelectedBeforeDisable"]" />
+
+<div class="mt-2 mb-3 pageTitleContainer">
+  <h3><strong>@localizer["cashDrawSetup"]</strong></h3>
+</div>
+
+<div class="row cashDrawLayoutContainer">
+  <div class="col-lg-12 col-xl-7 mb-4 cashDrawLeftContainer">
+    <div class="cashDrawButtonsTitle">
+      <h5><strong>@localizer["cashLoans"]</strong></h5>
+    </div>
+
+    <div class="cashDrawLayout">
+      <div class="cashDrawButtonsContainer">
+        <div>
+          <h5><strong>@localizer["coinRolls"]</strong></h5>
+          <div id="cashDrawButtonsContainerLeft" class="cashDrawButtonsContainerLeft"></div>
+        </div>
+
+        <div>
+          <h5><strong>@localizer["bills"]</strong></h5>
+          <div id="cashDrawButtonsContainerRight" class="cashDrawButtonsContainerRight"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-12 col-xl-5 mb-4 cashDrawRightContainer">
+    <div class="cashDrawFormTitle">
+      <h5><strong>@localizer["changeButtons"]</strong></h5>
+    </div>
+
+    <div class="cashDrawFormContainer">
+      <div class="inputContainer">
+        <label class="my-2">@localizer["nameOnButton"] :</label>
+        <input id="nameOnButton" type="text" class="infonet-input clear-selected-input-on-keypress w-100" autocomplete="off" maxlength="10" />
+      </div>
+
+      <div class="inputContainer">
+        <label class="my-2">@localizer["amountAddedPerClick"] :</label>
+        <input id="amountAddedPerClick" type="number" class="infonet-input clear-selected-input-on-keypress w-100" min="0" max="999999" />
+      </div>
+
+
+      <div id="changeButtonSettingButtons" class="changeButtonSettingButtons">
+        <button id="updateButton" class="btn btn-primary" onclick="addOrUpdateButtonClicked()">@localizer["updateButton"]</button>
+        <button id="disableButton" class="btn btn-danger" onclick="disableButtonClicked()">@localizer["disableButton"]</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+@section Scripts {
+  <script src="~/js/cashDraws.js" asp-append-version="true"></script>
+  }

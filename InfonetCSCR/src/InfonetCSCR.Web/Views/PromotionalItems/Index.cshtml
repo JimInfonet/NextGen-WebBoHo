@@ -1,0 +1,255 @@
+﻿@section Head {
+  <link href="~/css/promotionalItems.css" rel="stylesheet" asp-append-version="true" />
+}
+
+@inject IViewLocalizer localizer
+
+@{
+  ViewData["Title"] = @localizer["pageTitle"];
+  ViewData["discountTypeError"] = @localizer["discountPercentageError"];
+}
+
+@* These fields is to store the localized texts in the DOM *@
+<input id="error-message-for-list-load" type="hidden" value="@localizer["errorMessageForListLoad"]" />
+<input id="item-exist" type="hidden" value="@localizer["itemExist"]" />
+<input id="item-exist-message" type="hidden" value="@localizer["itemExistMessage"]" />
+<input id="invalid-date-range" type="hidden" value="@localizer["invalidDateRange"]" />
+<input id="promotion-id-exist-message" type="hidden" value="@localizer["promotionIdExistMessage"]" />
+<input id="promotion-id-exist-title" type="hidden" value="@localizer["promotionIdExistTitle"]" />
+<input id="discount-percentage-error" type="hidden" value="@localizer["discountPercentageError"]" />
+<input id="datatable-product-selection-error" type="hidden" value="@localizer["datatableProductSelectionError"]" />
+<input id="maximumValueForQuantityError" type="hidden" value="@localizer["maximumValueForQuantityError"]" />
+<input id="maximumValueForAmountError" type="hidden" value="@localizer["maximumValueForAmountError"]" />
+<input id="maximumSumOfQuantityError" type="hidden" value="@localizer["maximumSumOfQuantityError"]" />
+<input id="department" type="hidden" value="@localizer["department"]" />
+<input id="subDepartment" type="hidden" value="@localizer["subDepartment"]" />
+<input id="subDetail" type="hidden" value="@localizer["subDetail"]" />
+<input id="link" type="hidden" value="@localizer["link"]" />
+<input id="deleteMessage" type="hidden" value="@localizer["deleteMessage"]" />
+<input id="delete" type="hidden" value="@localizer["delete"]" />
+<input id="stockCodeMsg" type="hidden" value="@localizer["stockCodeMsg"]" />
+<input id="departmentMsg" type="hidden" value="@localizer["departmentMsg"]" />
+<input id="subdepartmentMSg" type="hidden" value="@localizer["subdepartmentMSg"]" />
+<input id="detailMsg" type="hidden" value="@localizer["detailMsg"]" />
+<input id="search" type="hidden" value="@localizer["search"]" />
+<input id="promoItemDeleteErrorMessage" type="hidden" value="@localizer["promoItemDeleteErrorMessage"]" />
+<input id="deleteMessageOfItem" type="hidden" value="@localizer["deleteMessageOfItem"]" />
+<input id="deleteItem" type="hidden" value="@localizer["deleteItem"]" />
+<input id="clickOnAItem" type="hidden" value="@localizer["clickOnAItem"]" />
+<input id="invalidProductCode" type="hidden" value="@localizer["invalidProductCode"]" />
+<input id="floatItemError" type="hidden" value="@localizer["floatItemError"]" />
+<input id="enterValueOfStockCode" type="hidden" value="@localizer["enterValueOfStockCode"]" />
+<input id="stockCodeExists" type="hidden" value="@localizer["stockCodeExists"]" />
+<input id="amount-field" type="hidden" value="@localizer["amount"]" />
+<input id="qty-field" type="hidden" value="@localizer["qty"]" />
+<input id="edit" type="hidden" value="@localizer["edit"]" />
+<input id="thisItemIsAlreadyInPromo" type="hidden" value="@localizer["thisItemIsAlreadyInPromo", "{0}"]" />
+<input id="dept" type="hidden" value="@localizer["dept"]" />
+<input id="subDept" type="hidden" value="@localizer["subDept"]" />
+<input id="subDetail" type="hidden" value="@localizer["subDetail"]" />
+<input id="startDateTmpData" type="date" hidden />
+<input id="endDateTmpData" type="date" hidden />
+<input id="addedSuccessMessage" type="hidden" value="@localizer["addedSuccessMessage"]" />
+<input id="updatedSuccessMessage" type="hidden" value="@localizer["updatedSuccessMessage"]" />
+<input id="deleteSuccessMessage" type="hidden" value="@localizer["deleteSuccessMessage"]" />
+<input id="countShowingMessage" type="hidden" value="@localizer["countShowingMessage"]" />
+
+@model PromoHeaderViewModel
+
+<div class="px-3 py-2 mt-2">
+  <div class="d-flex justify-content-between">
+    <h3 class="h3 fw-bold mb-3">@localizer["systemPromotionalItemsDefinitions"]</h3>
+  </div>
+  <div class="page-content p-4 h-100">
+    <label class="fs-5 fw-bold">@localizer["promotions"]</label>
+    <div class="col-5 d-flex flex-column pt-3" style="height:250px; width:60%" id="promotional-list-id">
+      <select class="form-select col" size="5" id="promotional-items-container-id">
+      </select>
+    </div>
+    <div class="mt-3 h6 fw-bold d-flex" id="count-display"></div>
+
+    <form class="pt-3 mt-2" id="promotional-item-form" onsubmit="addPromotionalItem(event)">
+      <label class="fs-5 fw-bold">@localizer["promotionalItemDetails"]</label>
+      <div class="page-content p-3">
+        <div class="row gap-3 pt-3">
+          <div class="col">
+            <label asp-for="PromoId" class="mb-2">@localizer["promotionId"]</label>
+            <input asp-for="PromoId" id="promo-id" class="infonet-input stock-item-form-input w-100 clear-selected-input-on-keypress only-digit-decimal" maxlength="6" />
+            <span asp-validation-for="PromoId" class="text-danger"></span>
+          </div>
+          <div class="col">
+            <label asp-for="Description" class="mb-2">@localizer["description"]</label>
+            <input asp-for="Description" id="description" class="infonet-input stock-item-form-input w-100" />
+            <span asp-validation-for="Description" class="text-danger"></span>
+          </div>
+        </div>
+        <div class="row gap-3 pt-3">
+          <div class="col">
+            <label asp-for="Items" class="mb-2">@localizer["promoItems"]</label>
+            <input asp-for="Items" id="items" class="infonet-input stock-item-form-input w-100 clear-selected-input-on-keypress only-digit" min="1" max="99" onfocusout="handleOnFocusOutOfItems(this.value)" />
+            <span asp-validation-for="Items" class="text-danger"></span>
+          </div>
+          <div class="col">
+            <label asp-for="DiscType" class="mb-2">@localizer["discountType"]</label>
+            <select asp-for="DiscType" id="discountType-select" class="form-select col infonet-input stock-item-form-input">
+              <option value="%">@localizer["percantageSymbol"] - @localizer["percentage"]</option>
+              <option value="$">@localizer["dollarSymbol"] - @localizer["dollar"]</option>
+              <option value="P">@localizer["unitPriceSymbol"] - @localizer["unitPrice"]</option>
+              <option value="B">@localizer["byItemSymbol"] - @localizer["byItem"]</option>
+            </select>
+          </div>
+        </div>
+        <div class="row gap-3 pt-3">
+          <div class="col" id="ammount" style="display:block">
+            <label asp-for="Price" class="mb-2">@localizer["amount"]</label>
+            <input asp-for="Price" id="price" class="infonet-input stock-item-form-input w-100" />
+            <span asp-validation-for="Price" class="text-danger"></span>
+          </div>
+          <div class="col" style="display:block"></div>
+          <div class="col" id="radio-section-id" style="display:none">
+            <label class="mb-2"></label>
+            <div class="d-flex justify-content-center">
+              <div class="form-check col-xl-4 col-lg-6 mt-1 mb-1">
+                <input asp-for="PrType" class="form-check-input mt-2" type="radio" value="optDollar" name="prType">
+                <label class="form-check-label mt-1" asp-for="PrType">@localizer["dollar"]</label>
+              </div>
+              <div class="form-check col-xl-4 col-lg-6 mt-1 mb-1">
+                <input asp-for="PrType" class="form-check-input mt-2" type="radio" value="optPercentage" name="prType">
+                <label class="form-check-label mt-1" asp-for="PrType">@localizer["percentage"]</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row gap-3 pt-3">
+          <div class="col">
+            <label asp-for="StartDate" class="mb-2">@localizer["startDate"]</label>
+            <input asp-for="StartDate" id="start-date" type="date" class="infonet-input stock-item-form-input w-100" />
+            <span asp-validation-for="StartDate" class="text-danger"></span>
+          </div>
+          <div class="col">
+            <label asp-for="EndDate" class="mb-2">@localizer["endDate"]</label>
+            <input asp-for="EndDate" id="end-date" type="date" class="infonet-input stock-item-form-input w-100" />
+            <span asp-validation-for="EndDate" class="text-danger"></span>
+          </div>
+        </div>
+        <div class="row gap-3 pt-3">
+          <div class="col">
+            <label asp-for="Day" class="mb-2">@localizer["selectADay"]</label>
+            <select asp-for="Day" id="day-select" class="form-select col infonet-input stock-item-form-input">
+              <option value="0">@localizer["undefined"]</option>
+              <option value="1">@localizer["sunday"]</option>
+              <option value="2">@localizer["monday"]</option>
+              <option value="3">@localizer["tuesday"]</option>
+              <option value="4">@localizer["wednesday"]</option>
+              <option value="5">@localizer["thursday"]</option>
+              <option value="6">@localizer["friday"]</option>
+              <option value="7">@localizer["saturday"]</option>
+            </select>
+          </div>
+          <div class="col" style="display:block"></div>
+        </div>
+      </div>
+      <div class="row gap-3 pt-3">
+        <div class="col-6">
+          <strong id="OnSinleClickMessageDiv"></strong>
+        </div>
+        <div class="col">
+          <strong><label>@localizer["startDate"] :</label></strong>
+          <strong><span id="start-date-span"></span></strong>
+        </div>
+        <div class="col">
+          <strong><label>@localizer["endDate"] :</label></strong>
+          <strong><span id="end-date-span"></span></strong>
+        </div>
+      </div>
+
+      <div class="mt-3">
+        <label class="fs-5 fw-bold">@localizer["promotionalItemsGrid"]</label>
+        <div class=" body-content p-2">
+          <div class="container overflow-scroll custom-grid-scrollbar border-2" style="max-width:3000px;">
+            <table id="promotionalItem-grid" class="table table-striped" style="width:100%">
+              <thead class="datatable-allignment">
+                <tr>
+                  <th id="DTItem">@localizer["item"]</th>
+                  <th id="DTLink">@localizer["link"]</th>
+                  <th id="DTQty">@localizer["qty"]</th>
+                  <th id="DTStockCode">@localizer["stockCode"]</th>
+                  <th id="DTDept">@localizer["dept"]</th>
+                  <th id="DTSubDept">@localizer["subDept"]</th>
+                  <th id="DTSubDetail">@localizer["subDetail"]</th>
+                  <th id="DTDescription">@localizer["description"]</th>
+                  <th id="DTAmount">@localizer["amount"]</th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="mt-4" id="primary-button-section-id" style="display:none">
+        <div class="d-flex mt-3 justify-content-between">
+          <button id="btn-delete-item" onclick="deleteItem()" type="button" class="btn btn-cancel btn-outline-danger align-content-center">@localizer["delete"]&nbsp;@localizer["item"]</button>
+          <div></div>
+          <div class="d-flex gap-3">
+            <button id="btn-cancel" onclick="cancelButtonClicked()" type="button" class="btn btn-cancel btn-outline-danger align-content-center">@localizer["cancel"]</button>
+            <button id="btn-save" type="submit" class="btn btn-save text-center">@localizer["save"]</button>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <div class="mt-4" id="secondary-button-section-id" style="display:block">
+      <div class="d-flex gap-3 col-xl-8 col-lg-9">
+        <button id="btn-add" onclick="handleAddButtonClick()" type="button" class="btn btn-footer btn-primary text-center align-items-center">@localizer["add"]</button>
+        <button id="btn-delete" onclick="handleDeleteButtonClick()" type="button" class="btn btn-footer btn-danger text-center align-items-center">@localizer["delete"]</button>
+        <button id="btn-edit" onclick="handleEditButtonClick()" type="button" class="btn btn-footer btn-primary align-items-center">@localizer["edit"]</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="dropdownSelectModal" tabindex="1" role="dialog" area-labelledby="exampleModalLiveLabel" area-modal="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="dropdownSelect" id="dropdownSelectId">
+        <div class="dropdownSelectInput">
+          <select id="dropdownSelectInputId" class="form-select col infonet-input stock-item-form-input linkEodGroupSelect" aria-label="Select Input" onchange="promotionalItemSelect(this.options[this.selectedIndex].value)">
+          </select>
+        </div>
+        <div class="d-flex gap-3 mt-3">
+          <button class="btn btn-primary" id="dropdwonSelectApplyButtonId" onclick="promotionalItemFormApplyButtonClicked()">@localizer["apply"]</button>
+          <button class="btn btn-outline-danger ms-1" onclick="promotionalItemFormCancelButtonClicked()">@localizer["cancel"]</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<partial name="_StockCodeModal"></partial>
+
+<div class="modal fade" id="inputModalId" tabindex="1" role="dialog" area-labelledby="exampleModalLiveLabel" area-modal="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 id="inputModalTitleId" class="modal-title"></h5>
+        <button id="inputModalCloseButtonId" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="ms-3 mt-4">
+        <p id="inputModalMessageId"></p>
+      </div>
+      <div class="modal-body">
+        <input type="number" class="col infonet-input w-100 clear-selected-input-on-keypress" id="inputModalValueId">
+      </div>
+      <div class="modal-footer">
+        <button id="inputModalApplyButtonId" type="button" class="btn btn-primary btn-sm btn-default" onclick="handleInputModalApplyButtonClick()">@localizer["apply"]</button>
+        <button id="inputModalCancelButtonId" type="button" class="btn btn-danger btn-sm btn-default" data-bs-dismiss="modal">@localizer["cancel"]</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+@section Scripts
+  {
+  <script src="~/js/promotionalItems.js" asp-append-version="true"></script>
+}

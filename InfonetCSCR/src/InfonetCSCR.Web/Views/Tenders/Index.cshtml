@@ -1,0 +1,95 @@
+﻿@section Head {
+  <link href="~/css/tenders.css" rel="stylesheet" asp-append-version="true" />
+}
+
+@model TenderViewModel
+@inject IApplicationConfig _config
+@inject IViewLocalizer localizer
+@{
+  ViewData["Title"] = @localizer["pageTitle"];
+}
+
+<input type="hidden" id="detailsFor" value="@localizer["detailsFor"]" />
+<input type="hidden" id="failedToUpdateTenderDetails" value="@localizer["failedToUpdateTenderDetails"]" />
+<input type="hidden" id="failedToAddTender" value="@localizer["failedToAddTender"]" />
+<input type="hidden" id="failedToLoadTender" value="@localizer["failedToLoadTender"]" />
+<input type="hidden" id="anErrorHasOccuredWhileLoadingTenders" value="@localizer["anErrorHasOccuredWhileLoadingTenders"]" />
+<input type="hidden" id="pleaseSelectATender" value="@localizer["pleaseSelectATender"]" />
+<input type="hidden" id="failedToDeleteTender" value="@localizer["failedToDeleteTender"]" />
+<input type="hidden" id="anErrorHasOccuredWhileDeletingTender" value="@localizer["anErrorHasOccuredWhileDeletingTender"]" />
+<input type="hidden" id="failedToUpdateResetSequence" value="@localizer["failedToUpdateResetSequence"]" />
+<input type="hidden" id="tenderCannotBeDeleted" value="@localizer["tenderCannotBeDeleted"]" />
+<input type="hidden" id="tenderCannotBeDeletedModalTitle" value="@localizer["tenderCannotBeDeletedModalTitle"]" />
+<input type="hidden" id="anErrorHasOccuredWhileUpdatingResetSequence" value="@localizer["anErrorHasOccuredWhileUpdatingResetSequence"]" />
+<input type="hidden" id="tenderDeletedSuccessfully" value="@localizer["tenderDeletedSuccessfully"]" />
+<input type="hidden" id="tenderAddedSuccessfully" value="@localizer["tenderAddedSuccessfully"]" />
+<input type="hidden" id="tenderUpdatedSuccessfully" value="@localizer["tenderUpdatedSuccessfully"]" />
+
+<input type="hidden" id="isTenderDetailsUpdated" value="@ViewData["isTenderDetailsUpdated"]" />
+<input type="hidden" id="isTenderAdded" value="@ViewData["isTenderAdded"]" />
+
+<form class="p-3 mt-2" asp-controller="Tenders" asp-action="UpdateTender" id="tendersForm">
+  <div class="p-2">
+    <div class="d-flex justify-content-between">
+      <h3 class="h3 fw-bold mb-3">@localizer["systemTenderDefinitions"]</h3>
+    </div>
+
+    <div class="container body-content p-2" style="max-width:3000px;">
+      @*Tenders Datatable Section*@
+      <div class="container overflow-scroll custom-grid-scrollbar border-2" style="max-width:3000px;">
+        <table id="tenders-grid" class="table table-striped" style="width:100%">
+          <thead>
+            <tr>
+              <th id="DTCode">@localizer["code"]</th>
+              <th id="DTShortName">@localizer["shortName"]</th>
+              <th id="DTFullName">@localizer["fullName"]</th>
+              <th id="DTClass">@localizer["class"]</th>
+              <th id="DTExchangeRate">@localizer["exchangeRate"]</th>
+              <th id="DTSequence">@localizer["sequence"]</th>
+              <th id="DTCardCode">@localizer["cardCode"]</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+
+      <div class="container m-0">
+        <p class="fw-bold fst-italic text-danger">@localizer["doubleClickInstruction"]</p>
+      </div>
+
+      <div class="buttons-container justify-content-between mt-3">
+        <div class="buttons-group">
+          <button id="btn-add" type="button" class="btn btn-footer btn-primary text-center align-items-center">@localizer["add"]</button>
+          <button id="btn-delete" type="button" class="btn btn-footer btn-danger text-center align-items-center">@localizer["delete"]</button>
+          <button id="btn-edit" type="button" class="btn btn-footer btn-primary align-items-center">@localizer["edit"]</button>
+        </div>
+        <div class="buttons-group">
+          <button id="btn-resetSequence" type="button" class="btn btn-footer btn-primary">@localizer["resetSequence"]</button>
+          <button id="btn-editCardDefinition" onclick="onClickEditCardDefinition()" type="button" class="btn btn-footer btn-primary" hidden>@localizer["editCardDefinition"]</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  @*Delete Tender Confirm modal*@
+  <div class="modal fade" id="deleteTenderConfirmModal" tabindex="1" role="dialog" area-labelledby="exampleModalLiveLabel" area-modal="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">@localizer["deleteTender"]</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>@localizer["doYouWantToDeleteThisTender"]</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-cancel btn-outline-danger align-content-center btn-sm me-2" data-bs-dismiss="modal">@localizer["no"]</button>
+          <button type="button" id="deleteTenderConfirmModalYesButtonControl" class="btn btn-primary btn-sm btn-save">@localizer["yes"]</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+@section Scripts
+  {
+  <script src="~/js/tenders.js" asp-append-version="true"></script>
+}

@@ -1,0 +1,14 @@
+﻿.infonet-control {
+    padding: 10px;
+    padding-right: 30px;
+    gap: 10px;
+    border: 1px solid rgba(38, 83, 188, 0.2);
+    border-radius: 6px;
+    background-color: #F5F7FF;
+    color: #4A6578;
+}
+
+.option-separetor {
+    font-size: 0.25px;
+    background-color: grey;
+}

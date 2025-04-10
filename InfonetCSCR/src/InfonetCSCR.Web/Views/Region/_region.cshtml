@@ -1,0 +1,60 @@
+@model RegionViewModel
+@inject IViewLocalizer localizer
+
+<div class="container body-content p-2" style="max-width:3000px;">
+  <div class="d-flex justify-content-between">
+    <h5 class="h5 fw-bold mb-3">@localizer["regions"]</h5>
+  </div>
+  @*Region Datatable Section*@
+  <div id="region-table" class="container custom-grid-scrollbar border-2" style="max-width:3000px;">
+    <table id="region-grid" class="table table-striped" style="width:100%">
+      <thead>
+        <tr>
+          <th id="RegionId">@localizer["regionId"]</th>
+          <th id="RegionName">@localizer["regionName"]</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+
+  <div class="p-2 row">
+    <div class="d-flex gap-3 col-xl-8 col-lg-9 align-items-center">
+      <button id="region-btn-add" type="button" class="btn btn-footer btn-primary text-center align-items-center">@localizer["newRegion"]</button>
+      <button id="region-btn-delete" type="button" class="btn btn-footer btn-danger text-center align-items-center">@localizer["deleteRegion"]</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="regionFormModal" tabindex="1" role="dialog" area-modal="true">
+  <div class="modal-dialog modal-dialog-centered region-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 id="region-form-section-title" class="modal-title">@localizer["regionForm"]</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="region-form">
+          <div class="row gap-3 p-3">
+            <div class="col">
+              <label class="mb-2">@localizer["regionId"]</label>
+              <input id="region-id" type="text" maxlength="6" class="infonet-input w-100 not-editable" />
+              <span id="validation-for-region-id" class="text-danger">@localizer["idFieldIsRequired"]</span>
+            </div>
+          </div>
+          <div class="row gap-3 p-3">
+            <div class="col">
+              <label class="mb-2">@localizer["regionName"]</label>
+              <input id="region-name" type="text" maxlength="25" class="infonet-input w-100" />
+              <span id="validation-for-region-name" class="text-danger">@localizer["nameFieldIsRequired"]</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-cancel btn-outline-danger align-content-center btn-sm me-2" data-bs-dismiss="modal">@localizer["cancel"]</button>
+        <button type="button" class="btn btn-primary btn-sm btn-save" onclick="onRegionCompleteClick()">@localizer["complete"]</button>
+      </div>
+    </div>
+  </div>
+</div>

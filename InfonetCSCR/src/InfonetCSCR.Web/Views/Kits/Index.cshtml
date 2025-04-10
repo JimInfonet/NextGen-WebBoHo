@@ -1,0 +1,89 @@
+﻿@section Head {
+  <link href="~/css/kits.css" rel="stylesheet" asp-append-version="true" />
+}
+
+@model KitsViewModel
+@inject IViewLocalizer localizer
+@inject IApplicationConfig _config
+
+@{
+  ViewData["Title"] = localizer["kitMaintenance"];
+}
+
+<input id="addKitItem" type="hidden" value="@localizer["addKitItem"]" />
+<input id="deleteKitItemTitle" type="hidden" value="@localizer["deleteKitItemTitle"]" />
+<input id="deleteKitItemMessage" type="hidden" value="@localizer["deleteKitItemMessage"]" />
+<input id="kitItemAlreadyAdded" type="hidden" value="@localizer["kitItemAlreadyAdded", "{0}"]" />
+<input id="kitItemAddedSuccessfully" type="hidden" value="@localizer["kitItemAddedSuccessfully"]" />
+<input id="kitCanNotContainOtherKits" type="hidden" value="@localizer["kitCanNotContainOtherKits", "{0}", "{1}"]" />
+<input id="kitItemUpdatedSuccessfully" type="hidden" value="@localizer["kitItemUpdatedSuccessfully"]" />
+<input id="kitItemDeletedSuccessfully" type="hidden" value="@localizer["kitItemDeletedSuccessfully"]" />
+<input id="anErrorHasOccuredWhileLoadingKits" type="hidden" value="@localizer["anErrorHasOccuredWhileLoadingKits"]" />
+<input id="quantityHasToBeLowerThanOrEqualTo" type="hidden" value="@localizer["quantityHasToBeLowerThanOrEqualTo"]" />
+<input id="quantityHasToBePositiveNumericValue" type="hidden" value="@localizer["quantityHasToBePositiveNumericValue"]" />
+<input id="anErrorHasOccuredWhileLoadingKitItems" type="hidden" value="@localizer["anErrorHasOccuredWhileLoadingKitItems"]" />
+
+<div class="p-3 mt-2 d-flex justify-content-between">
+  <h3 class="h3 fw-bold mb-3">@localizer["definedKits"]</h3>
+</div>
+
+<div class="m-3">
+  <div class="body-content p-2">
+    <div class="container" style="max-width:3000px;">
+      <table id="kits-grid" class="table table-striped" width="20%">
+        <thead>
+          <tr>
+            <th width="25%" id="DTCode">@localizer["stockCode"]</th>
+            <th width="35%" id="DTDesc">@localizer["description"]</th>
+            <th width="20%" id="DTDept">@localizer["dept"]</th>
+            <th width="20%" id="DTPrice">@localizer["price"]</th>
+          </tr>
+        </thead>
+        <tfoot>
+          <tr>
+            <th class="input" width="25%" scope="col"></th>
+            <th class="input" width="35%" scope="col"></th>
+            <th class="input" width="20%" scope="col"></th>
+            <th class="input" width="20%" scope="col"></th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="m-3">
+  <div class="body-content p-2">
+    <div class="container" style="max-width:3000px;">
+      <table id="kit-items-grid" class="table table-striped" width="20%">
+        <thead>
+          <tr>
+            <th width="25%">@localizer["stockCode"]</th>
+            <th width="50%">@localizer["description"]</th>
+            <th width="25%">@localizer["quantity"]</th>
+          </tr>
+        </thead>
+        <tfoot>
+          <tr>
+            <th class="input" width="25%" scope="col"></th>
+            <th class="input" width="50%" scope="col"></th>
+            <th class="input" width="25%" scope="col"></th>
+          </tr>
+        </tfoot>
+      </table>
+
+      @*Button section*@
+      <div class="d-flex gap-3 col-xl-8 col-lg-9">
+        <button id="kit-item-btn-add" type="button" class="btn btn-footer btn-primary text-center align-items-center" onclick="addKitItem()">@localizer["add"]</button>
+        <button id="kit-item-btn-delete" type="button" class="btn btn-footer btn-danger text-center align-items-center" onclick="deleteKitItem()">@localizer["delete"]</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<partial name="_StockCodeModal"></partial>
+
+@section Scripts
+{
+  <script src="~/js/kits.js" asp-append-version="true"></script>
+}

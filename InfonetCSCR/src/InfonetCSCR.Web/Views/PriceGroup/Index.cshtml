@@ -1,0 +1,45 @@
+﻿@section Head {
+  <link href="~/css/priceGroup.css" rel="stylesheet" asp-append-version="true" />
+}
+
+@inject IApplicationConfig _config
+@inject IViewLocalizer localizer
+@inject IHttpContextAccessor httpContextAccessor
+
+@{
+  ViewData["Title"] = @localizer["priceGroups"];
+}
+
+<input id="priceGroupAddedSuccessfully" type="hidden" value="@localizer["priceGroupAddedSuccessfully"]" />
+<input id="idAlreadyExists" type="hidden" value="@localizer["idAlreadyExists", "{0}"]" />
+<input id="deletePriceGroupTitle" type="hidden" value="@localizer["deletePriceGroupTitle"]" />
+<input id="deletePriceGroupMessage" type="hidden" value="@localizer["deletePriceGroupMessage"]" />
+<input id="priceGroupDeletedSuccessfully" type="hidden" value="@localizer["priceGroupDeletedSuccessfully"]" />
+
+<input id="linkStoreToThePriceGroup" type="hidden" value="@localizer["linkStoreToThePriceGroup"]" />
+
+<input id="storeAddedSuccessfully" type="hidden" value="@localizer["storeAddedSuccessfully"]" />
+<input id="storeDeletedSuccessfully" type="hidden" value="@localizer["storeDeletedSuccessfully"]" />
+<input id="deleteStoreTitle" type="hidden" value="@localizer["deleteStoreTitle"]" />
+<input id="deleteStoreMessage" type="hidden" value="@localizer["deleteStoreMessage"]" />
+
+<form class="p-3 mt-2" asp-controller="priceGroup" asp-action="priceGroups" id="priceGroupForm">
+  <div class="p-2">
+    <div class="d-flex justify-content-between">
+      <h3 class="h3 fw-bold">@localizer["priceGroupAndStoresSettings"]</h3>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 col-xl-6">
+        <partial name="_priceGroup" view-data="ViewData"></partial>
+      </div>
+      
+      <div class="col-lg-12 col-xl-6">
+        <partial name="_store" view-data="ViewData"></partial>
+      </div>
+    </div>
+  </div>
+</form>
+
+@section Scripts {
+  <script src="~/js/priceGroup.js" asp-append-version="true"></script>
+}

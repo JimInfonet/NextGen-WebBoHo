@@ -1,0 +1,108 @@
+﻿@section Head {
+  <link href="~/css/stockDescriptionElements.css" rel="stylesheet" asp-append-version="true" />
+}
+
+@inject IApplicationConfig _config
+@inject IViewLocalizer localizer
+@inject IHttpContextAccessor httpContextAccessor
+@{
+  ViewData["Title"] = @localizer["stockDescriptionElements"];
+}
+
+<input id="idAlreadyExists" type="hidden" value="@localizer["idAlreadyExists", "{0}"]" />
+<input id="deleteMessage" type="hidden" value="@localizer["deleteMessage"]" />
+
+<input id="brandUpdatedSuccessfully" type="hidden" value="@localizer["brandUpdatedSuccessfully"]" />
+<input id="brandAddedSuccessfully" type="hidden" value="@localizer["brandAddedSuccessfully"]" />
+<input id="brandDeletedSuccessfully" type="hidden" value="@localizer["brandDeletedSuccessfully"]" />
+<input id="deleteBrandTitle" type="hidden" value="@localizer["deleteBrandTitle"]" />
+<input id="pleaseSelectABrand" type="hidden" value="@localizer["pleaseSelectABrand"]" />
+
+<input id="genericAddedSuccessfully" type="hidden" value="@localizer["genericAddedSuccessfully"]" />
+<input id="genericUpdatedSuccessfully" type="hidden" value="@localizer["genericUpdatedSuccessfully"]" />
+<input id="genericDeletedSuccessfully" type="hidden" value="@localizer["genericDeletedSuccessfully"]" />
+<input id="deleteGenericTitle" type="hidden" value="@localizer["deleteGenericTitle"]" />
+<input id="pleaseSelectAGeneric" type="hidden" value="@localizer["pleaseSelectAGeneric"]" />
+
+<input id="characteristicAddedSuccessfully" type="hidden" value="@localizer["characteristicAddedSuccessfully"]" />
+<input id="characteristicUpdatedSuccessfully" type="hidden" value="@localizer["characteristicUpdatedSuccessfully"]" />
+<input id="characteristicDeletedSuccessfully" type="hidden" value="@localizer["characteristicDeletedSuccessfully"]" />
+<input id="deleteCharacteristicTitle" type="hidden" value="@localizer["deleteCharacteristicTitle"]" />
+<input id="pleaseSelectACharacteristic" type="hidden" value="@localizer["pleaseSelectACharacteristic"]" />
+
+<input id="familyAddedSuccessfully" type="hidden" value="@localizer["familyAddedSuccessfully"]" />
+<input id="familyUpdatedSuccessfully" type="hidden" value="@localizer["familyUpdatedSuccessfully"]" />
+<input id="familyDeletedSuccessfully" type="hidden" value="@localizer["familyDeletedSuccessfully"]" />
+<input id="deleteFamilyTitle" type="hidden" value="@localizer["deleteFamilyTitle"]" />
+<input id="pleaseSelectAFamily" type="hidden" value="@localizer["pleaseSelectAFamily"]" />
+
+<input id="unitOfMeasureAddedSuccessfully" type="hidden" value="@localizer["unitOfMeasureAddedSuccessfully"]" />
+<input id="unitOfMeasureUpdatedSuccessfully" type="hidden" value="@localizer["unitOfMeasureUpdatedSuccessfully"]" />
+<input id="unitOfMeasureDeletedSuccessfully" type="hidden" value="@localizer["unitOfMeasureDeletedSuccessfully"]" />
+<input id="deleteUnitOfMeasureTitle" type="hidden" value="@localizer["deleteUnitOfMeasureTitle"]" />
+<input id="pleaseSelectAUnitOfMeasure" type="hidden" value="@localizer["pleaseSelectAUnitOfMeasure"]" />
+
+<input id="orderUnitAddedSuccessfully" type="hidden" value="@localizer["orderUnitAddedSuccessfully"]" />
+<input id="orderUnitUpdatedSuccessfully" type="hidden" value="@localizer["orderUnitUpdatedSuccessfully"]" />
+<input id="orderUnitDeletedSuccessfully" type="hidden" value="@localizer["orderUnitDeletedSuccessfully"]" />
+<input id="deleteOrderUnitTitle" type="hidden" value="@localizer["deleteOrderUnitTitle"]" />
+<input id="pleaseSelectAOrderUnit" type="hidden" value="@localizer["pleaseSelectAOrderUnit"]" />
+
+<input id="groupAddedSuccessfully" type="hidden" value="@localizer["groupAddedSuccessfully"]" />
+<input id="groupDeletedSuccessfully" type="hidden" value="@localizer["groupDeletedSuccessfully"]" />
+<input id="deleteGroupTitle" type="hidden" value="@localizer["deleteGroupTitle"]" />
+<input id="noFamilyLeftToAdd" type="hidden" value="@localizer["noFamilyLeftToAdd"]" />
+
+<form class="p-3 mt-2" asp-controller="stockDescriptionElements" asp-action="stockDescriptionElements" id="stockDescriptionElementsForm">
+  <div class="p-2">
+    <div class="d-flex justify-content-between">
+      <h3 class="h3 fw-bold">@localizer["stockDescriptionElements"]</h3>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 col-xl-6">
+        <partial name="_brand" view-data="ViewData"></partial>
+      </div>
+
+      <div class="col-lg-12 col-xl-6">
+        <partial name="_generic" view-data="ViewData"></partial>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12 col-xl-6">
+        <partial name="_characteristic" view-data="ViewData"></partial>
+      </div>
+      
+      <div class="col-lg-12 col-xl-6">
+        <partial name="_family" view-data="ViewData"></partial>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12 col-xl-6">
+        <partial name="_unitOfMeasure" view-data="ViewData"></partial>
+      </div>
+      
+      <div class="col-lg-12 col-xl-6">
+        <partial name="_orderUnit" view-data="ViewData"></partial>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12 col-xl-12">
+        <partial name="_group" view-data="ViewData"></partial>
+      </div>
+    </div>
+  </div>
+</form>
+
+@section Scripts {
+  <script src="~/js/StockDescriptionElements/brand.js" asp-append-version="true"></script>
+  <script src="~/js/StockDescriptionElements/generic.js" asp-append-version="true"></script>
+  <script src="~/js/StockDescriptionElements/characteristic.js" asp-append-version="true"></script>
+  <script src="~/js/StockDescriptionElements/family.js" asp-append-version="true"></script>
+  <script src="~/js/StockDescriptionElements/unitOfMeasure.js" asp-append-version="true"></script>
+  <script src="~/js/StockDescriptionElements/orderUnit.js" asp-append-version="true"></script>
+  <script src="~/js/StockDescriptionElements/group.js" asp-append-version="true"></script>
+  <script src="~/js/StockDescriptionElements/stockDescriptionElements.js" asp-append-version="true"></script>
+}

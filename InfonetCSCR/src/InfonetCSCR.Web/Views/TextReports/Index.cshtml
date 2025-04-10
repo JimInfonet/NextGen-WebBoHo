@@ -1,0 +1,205 @@
+﻿@section Head {
+  <link href="~/css/textReports.css" rel="stylesheet" asp-append-version="true" />
+}
+
+@inject IViewLocalizer localizer
+@inject IApplicationConfig _config
+
+@{
+  ViewData["Title"] = @localizer["textReports"];
+}
+
+<input id="lclFetchingData" type="hidden" value="@localizer["fetchingData"]" />
+<input id="lclRunReport" type="hidden" value="@localizer["runReport"]" />
+<input id="lclExportToExcel" type="hidden" value="@localizer["exportToExcel"]" />
+<input id="appFolderPath" type="hidden" value="@(_config.IsBackOffice ? _config.FileConfig.BackOfficeFolderPath : _config.FileConfig.HeadOfficeFolderPath)" />
+<input id="lclEmail" type="hidden" value="@localizer["email"]" />
+<input id="lclInvalidRecipientEmail" type="hidden" value="@localizer["invalidRecipientEmail"]" />
+<input id="lclSuccessfullySentMailTo" type="hidden" value="@localizer["successfullySentMailTo"]" />
+<input id="recipientEmail" type="hidden" value="@_config.SendToEmailAddr" />
+
+<div class="px-3 py-2 mt-2">
+  <div class="row">
+    <div class="col-lg-12">
+      <h3 class="fw-bold mb-3">@localizer["textReports"]</h3>
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <div id="textReportsListContainer" class="col-xl-6 col-xs-6">
+      <select class="form-select col" size="14" id="textReportsList" asp-items="ViewBag.AllTextReporsList"></select>
+    </div>
+
+    <div id="textReportsFilterContainer" class="col-xl-6 col-xs-6" hidden>
+      <div class="my-2">
+        <h5><strong>@localizer["selectReportFilters"]</strong></h5>
+      </div>
+      <div id="textReportsFilter">
+        <div id="rowStore" class="row my-2">
+          <div class="col-xxl-4 col-xl-5 col-lg-4 align-content-center">
+            <label>@localizer["store"]</label>
+          </div>
+          <div class="col-xxl-8 col-xl-7 col-lg-8">
+            @if (_config.IsBackOffice)
+            {
+              <select id="storesList" class="form-control form-select infonet-input w-100" asp-items="ViewBag.AllStoresList" disabled></select>
+            }
+            else
+            {
+              <select id="storesList" class="form-control form-select infonet-input w-100" asp-items="ViewBag.AllStoresList"></select>
+            }
+          </div>
+        </div>
+
+        <div id="rowReadingDate" class="row my-2 text-reports-filter-fields">
+          <div class="col-xxl-4 col-xl-5 col-lg-4 align-content-center">
+            <label>@localizer["readingDate"]</label>
+          </div>
+          <div class="col-xxl-8 col-xl-7 col-lg-8">
+            <input id="readingDate" type="date" class="infonet-input w-100" value="@ViewBag.CurrentDate" />
+          </div>
+        </div>
+
+        <div id="rowStartDate" class="row my-2 text-reports-filter-fields">
+          <div class="col-xxl-4 col-xl-5 col-lg-4 align-content-center">
+            <label>@localizer["startDate"]</label>
+          </div>
+          <div class="col-xxl-8 col-xl-7 col-lg-8">
+            <input id="startDate" type="date" class="infonet-input w-100" value="@ViewBag.CurrentDate" />
+          </div>
+        </div>
+
+        <div id="rowEndDate" class="row my-2 text-reports-filter-fields">
+          <div class="col-xxl-4 col-xl-5 col-lg-4 align-content-center">
+            <label>@localizer["endDate"]</label>
+          </div>
+          <div class="col-xxl-8 col-xl-7 col-lg-8">
+            <input id="endDate" type="date" class="infonet-input w-100" value="@ViewBag.CurrentDate" />
+          </div>
+        </div>
+
+        <div id="rowTerminalID" class="row my-2 text-reports-filter-fields">
+          <div class="col-xxl-4 col-xl-5 col-lg-4 align-content-center">
+            <label>@localizer["terminalID"]</label>
+          </div>
+          <div class="col-xxl-8 col-xl-7 col-lg-8">
+            <input id="terminalID" type="text" class="infonet-input w-100" />
+          </div>
+        </div>
+
+        <div id="rowStartCard" class="row my-2 text-reports-filter-fields">
+          <div class="col-xxl-4 col-xl-5 col-lg-4 align-content-center">
+            <label>@localizer["startCard"]</label>
+          </div>
+          <div class="col-xxl-8 col-xl-7 col-lg-8">
+            <input id="startCard" type="text" class="infonet-input w-100" />
+          </div>
+        </div>
+
+        <div id="rowEndCard" class="row my-2 text-reports-filter-fields">
+          <div class="col-xxl-4 col-xl-5 col-lg-4 align-content-center">
+            <label>@localizer["endCard"]</label>
+          </div>
+          <div class="col-xxl-8 col-xl-7 col-lg-8">
+            <input id="endCard" type="text" class="infonet-input w-100" />
+          </div>
+        </div>
+
+        <div id="rowSaleDate" class="row my-2 text-reports-filter-fields">
+          <div class="col-xxl-4 col-xl-5 col-lg-4 align-content-center">
+            <label>@localizer["saleDate"]</label>
+          </div>
+          <div class="col-xxl-8 col-xl-7 col-lg-8">
+            <input id="saleDate" type="date" class="infonet-input w-100" value="@ViewBag.CurrentDate" />
+          </div>
+        </div>
+
+        <div id="rowStartCustomer" class="row my-2 text-reports-filter-fields">
+          <div class="col-xxl-4 col-xl-5 col-lg-4 align-content-center">
+            <label>@localizer["startCustomer"]</label>
+          </div>
+          <div class="col-xxl-8 col-xl-7 col-lg-8">
+            <input id="startCustomer" type="text" class="infonet-input w-100" />
+          </div>
+        </div>
+
+        <div id="rowEndCustomer" class="row my-2 text-reports-filter-fields">
+          <div class="col-xxl-4 col-xl-5 col-lg-4 align-content-center">
+            <label>@localizer["endCustomer"]</label>
+          </div>
+          <div class="col-xxl-8 col-xl-7 col-lg-8">
+            <input id="endCustomer" type="text" class="infonet-input w-100" />
+          </div>
+        </div>
+
+        <div id="rowStartEmployee" class="row my-2 text-reports-filter-fields">
+          <div class="col-xxl-4 col-xl-5 col-lg-4 align-content-center">
+            <label>@localizer["startEmployee"]</label>
+          </div>
+          <div class="col-xxl-8 col-xl-7 col-lg-8">
+            <input id="startEmployee" type="text" class="infonet-input w-100" />
+          </div>
+        </div>
+
+        <div id="rowEndEmployee" class="row my-2 text-reports-filter-fields">
+          <div class="col-xxl-4 col-xl-5 col-lg-4 align-content-center">
+            <label>@localizer["endEmployee"]</label>
+          </div>
+          <div class="col-xxl-8 col-xl-7 col-lg-8">
+            <input id="endEmployee" type="text" class="infonet-input w-100" />
+          </div>
+        </div>
+
+        <div id="rowStartDepartment" class="row my-2 text-reports-filter-fields">
+          <div class="col-xxl-4 col-xl-5 col-lg-4 align-content-center">
+            <label>@localizer["startDepartment"]</label>
+          </div>
+          <div class="col-xxl-8 col-xl-7 col-lg-8">
+            <input id="startDepartment" type="text" class="infonet-input w-100" />
+          </div>
+        </div>
+
+        <div id="rowEndDepartment" class="row my-2 text-reports-filter-fields">
+          <div class="col-xxl-4 col-xl-5 col-lg-4 align-content-center">
+            <label>@localizer["endDepartment"]</label>
+          </div>
+          <div class="col-xxl-8 col-xl-7 col-lg-8">
+            <input id="endDepartment" type="text" class="infonet-input w-100" />
+          </div>
+        </div>
+
+        <div id="textReportsFilterButtonsContainer" class="row my-2">
+          <div class="col-lg-7 align-content-center">
+            <div id="rowSummaryByGrade" class="text-reports-filter-fields">
+              <input id="chkInput" type="checkbox" /> <label for="chkInput">@localizer["summaryByGrade"]</label>
+            </div>
+          </div>
+
+          <div class="col-lg-5">
+            <button id="btnRunReport" class="btn btn-primary float-end">@localizer["runReport"]</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-12">
+      <pre id="textReportViewer"></pre>
+    </div>
+  </div>
+
+  <div class="row">
+    <div id="textReportFooterButtonContainer" class="col-lg-12 gap-4 d-flex justify-content-center">
+      <button id="btnPrintReport" class="btn btn-footer btn-primary text-center align-items-center" disabled>@localizer["printReport"]</button>
+      <button id="btnExportToExcel" class="btn btn-footer btn-primary text-center align-items-center" style="display: none;" disabled onclick="generateExcelReport()">@localizer["exportToExcel"]</button>
+      <button id="btnEmailReport" class="btn btn-footer btn-primary text-center align-items-center" disabled @(_config.IsBackOffice ? "" : "hidden") onclick="emailTextReport()">@localizer["email"]</button>
+    </div>
+  </div>
+</div>
+
+
+@section Scripts
+{
+  <script src="~/js/textReports.js" asp-append-version="true"></script>
+}

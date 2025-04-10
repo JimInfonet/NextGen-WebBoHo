@@ -1,0 +1,31 @@
+﻿.btn-save, .btn-cancel, .btn-back {
+  width: 150px;
+  height: 50px;
+  border-radius: 4px;
+}
+
+.btn-save {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+.transaction {
+  padding-top: 2.5rem;
+}
+
+.prompt-section {
+  display: flex;
+  justify-content: space-between;
+}
+
+.dataTables_scrollBody {
+  scrollbar-width: none;
+}
+
+.no-wrap{
+  white-space: nowrap;
+}
+
+.margin-top-5px {
+  margin-top: 5px;
+}

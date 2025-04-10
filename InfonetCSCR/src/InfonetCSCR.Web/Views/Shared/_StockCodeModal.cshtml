@@ -1,0 +1,31 @@
+@section Head {
+  <link href="~/css/_StockCodeModal.css" rel="stylesheet" asp-append-version="true" />
+}
+
+@inject IViewLocalizer localizer
+
+<div class="modal fade" id="stockCodeDescriptionDataTableModal" tabindex="1" role="dialog" area-modal="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="container overflow-y-scroll custom-grid-scrollbar border-2" id="addKitItemTable" style="width:100%">
+        <table id="stockCodeDescriptionDataTable" class="table table-striped" width="100%">
+          <thead>
+            <tr>
+              <th width="50%">@localizer["stockCode"]</th>
+              <th width="50%">@localizer["description"]</th>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+              <th class="input substring-search" width="50%" scope="col"></th>
+              <th class="input substring-search" width="50%" scope="col"></th>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-cancel btn-outline-danger align-content-center btn-sm me-2" data-bs-dismiss="modal">@localizer["cancel"]</button>
+      </div>
+    </div>
+  </div>
+</div>

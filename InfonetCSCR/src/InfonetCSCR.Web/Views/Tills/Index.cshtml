@@ -1,0 +1,124 @@
+@section Head {
+  <link href="~/css/tills.css" rel="stylesheet" asp-append-version="true" />
+}
+
+@inject IApplicationConfig _config
+@inject IViewLocalizer localizer
+@{
+  ViewData["Title"] = @localizer["tills"];
+}
+
+<input id="tillAddedSuccessfully" type="hidden" value="@localizer["tillAddedSuccessfully", "{0}"]" />
+<input id="trainingModeTillAddedSuccessfully" type="hidden" value="@localizer["trainingModeTillAddedSuccessfully", "{0}"]" />
+<input id="payAtThePumpTillAddedSuccessfully" type="hidden" value="@localizer["payAtThePumpTillAddedSuccessfully"]" />
+<input id="tooManyTillsAreDefined" type="hidden" value="@localizer["tooManyTillsAreDefined"]" />
+<input id="cannotDeleteOnActiveOrProcessingIsTrue" type="hidden" value="@localizer["cannotDeleteOnActiveOrProcessingIsTrue"]" />
+<input id="cannotDeleteDueToTransactions" type="hidden" value="@localizer["cannotDeleteDueToTransactions"]" />
+<input id="deleteTillTitle" type="hidden" value="@localizer["deleteTillTitle"]" />
+<input id="deleteTillMessage" type="hidden" value="@localizer["deleteTillMessage"]" />
+<input id="tillDeletedSuccessfully" type="hidden" value="@localizer["tillDeletedSuccessfully"]" />
+<input id="payPumpTillAlreadyExists" type="hidden" value="@localizer["payPumpTillAlreadyExists"]" />
+<input id="flipActiveUpdatedSuccessfully" type="hidden" value="@localizer["flipActiveUpdatedSuccessfully"]" />
+<input id="flipProcessUpdatedSuccessfully" type="hidden" value="@localizer["flipProcessUpdatedSuccessfully"]" />
+
+<form class="p-3 mt-2" asp-controller="Tills" asp-action="UpdateTills" id="TillsForm">
+  <div class="p-2">
+    <div class="d-flex justify-content-between">
+      <h3 class="h3 fw-bold mb-3">@localizer["tillDefinitions"]</h3>
+    </div>
+
+    <div class="container body-content p-2" style="max-width:3000px;">
+      @*Tills Datatable Section*@
+      <div class="container custom-grid-scrollbar border-2" style="max-width:3000px;">
+        <table id="tills-grid" class="table table-striped" style="width:100%">
+          <thead>
+            <tr>
+              <th width="7%" id="Till">@localizer["till"]</th>
+              <th width="7%" id="Active">@localizer["active"]</th>
+              <th width="7%" id="Processing">@localizer["processing"]</th>
+              <th width="7%" id="Float">@localizer["float"]</th>
+              <th width="7%" id="Cash">@localizer["cash"]</th>
+              <th width="7%" id="CashBonusFloat">@localizer["cashBonusFloat"]</th>
+              <th width="7%" id="CashBonus">@localizer["cashBonus"]</th>
+              <th width="10%" id="OpenDate">@localizer["openDate"]</th>
+              <th width="10%" id="OpenTime">@localizer["openTime"]</th>
+              <th width="7%" id="ShiftNum">@localizer["shiftNum"]</th>
+              <th width="10%" id="ShiftDate">@localizer["shiftDate"]</th>
+              <th width="7%" id="UserOn">@localizer["userOn"]</th>
+              <th width="7%" id="PosID">@localizer["posID"]</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+
+      <div class="p-2 row">
+        <div class="d-flex gap-3 col-xl-8 col-lg-9">
+          <button id="btn-add" type="button" class="btn btn-footer btn-primary text-center align-items-center" onclick="onAddTillBtnClick()">
+            <span id="btn-add-spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" hidden></span>
+            &nbsp;@localizer["add"]
+          </button>
+          <button id="btn-delete" type="button" class="btn btn-footer btn-danger text-center align-items-center" onclick="onDeleteTillBtnClick()">@localizer["delete"]</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div id="changeStatusDiv" class="col-md-12 col-xl-5">
+        <div class="container body-content p-2" style="max-width:3000px;">
+          <div class="d-flex justify-content-center">
+            <h6 class="h6 fw-bold mb-3">@localizer["changeTillStatus"]</h6>
+          </div>
+
+          <div class="p-2 row">
+            <div class="d-flex gap-3 justify-content-center">
+              <button id="flip-active-btn" type="button" class="btn btn-footer btn-primary text-center align-items-center" onclick="onFlipActiveBtnClick()">
+                @localizer["flipActive"]
+              </button>
+              <button id="flip-processing-btn" type="button" class="btn btn-footer btn-primary align-items-center" onclick="onFlipProecssingBtnClick()">
+                @localizer["flipProcessing"]
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="trainingModeDiv" class="col-md-6 col-xl-3">
+        <div class="container body-content p-2" style="max-width:3000px;">
+          <div class="d-flex justify-content-center">
+            <h6 class="h6 fw-bold mb-3">@localizer["trainingMode"]</h6>
+          </div>
+
+          <div class="p-2 row">
+            <div class="d-flex gap-3 justify-content-center">
+              <button id="training-mode-add-btn" type="button" class="btn btn-footer btn-primary text-center align-items-center" onclick="onTrainingModeAddBtnClick()">
+                <span id="training-mode-add-btn-spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" hidden></span>
+                &nbsp;@localizer["add"]
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="payAtThePumpDiv" class="col-md-6 col-xl-4">
+        <div class="container body-content p-2" style="max-width:3000px;">
+          <div class="d-flex justify-content-center">
+            <h6 class="h6 fw-bold mb-3">@localizer["payAtThePump"]</h6>
+          </div>
+
+          <div class="p-2 row">
+            <div class="d-flex gap-3 justify-content-center">
+              <button id="pay-at-the-pump-add-btn" type="button" class="btn btn-footer btn-primary text-center align-items-center" onclick="onPayAtThePumpeAddBtnClick()">
+                <span id="pay-at-the-pump-add-btn-spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" hidden></span>
+                &nbsp;@localizer["add"]
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+@section Scripts {
+  <script src="~/js/tills.js" asp-append-version="true"></script>
+}

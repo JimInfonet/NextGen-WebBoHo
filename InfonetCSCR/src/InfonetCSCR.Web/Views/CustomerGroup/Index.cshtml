@@ -1,0 +1,63 @@
+﻿@section Head {
+  <link href="~/css/cardDefinitionGrid.css" rel="stylesheet" asp-append-version="true" />
+  <link href="~/css/customerGroup.css" rel="stylesheet" asp-append-version="true" />
+}
+
+@inject IViewLocalizer localizer
+
+@{
+  bool custMem = ViewData["CUST_MEM"]?.ToString() == "Customer";
+  ViewData["Title"] = custMem ? localizer["customerGroup"] : localizer["memberGroup"];
+}
+
+<input id="anErrorHasOccurredWhileLoadingCustomerGroups" type="hidden" value="@localizer["anErrorHasOccurredWhileLoadingCustomerGroups"]" />
+<input id="delete" type="hidden" value="@localizer["delete"]" />
+<input id="selectACustomerGroup" type="hidden" value="@localizer["selectACustomerGroup"]" />
+<input id="selectAMemberGroup" type="hidden" value="@localizer["selectAMemberGroup"]" />
+<input id="confirmDeleteCustomerGroup" type="hidden" value="@localizer["confirmDeleteCustomerGroup", "{0}"]" />
+<input id="confirmDeleteMemberGroup" type="hidden" value="@localizer["confirmDeleteMemberGroup"]" />
+<input id="CUST_MEM" type="hidden" value="@ViewData["CUST_MEM"]" />
+<input id="customerGroupDeletedSuccessfully" type="hidden" value="@localizer["customerGroupDeletedSuccessfully"]" />
+<input id="memberGroupDeletedSuccessfully" type="hidden" value="@localizer["memberGroupDeletedSuccessfully"]" />
+<input id="failedToDeleteCustomerGroup" type="hidden" value="@localizer["failedToDeleteCustomerGroup"]" />
+<input id="failedToDeleteMemberGroup" type="hidden" value="@localizer["failedToDeleteMemberGroup"]" />
+<input id="seeMore" type="hidden" value="@localizer["seeMore"]" />
+<input id="seeLess" type="hidden" value="@localizer["seeLess"]" />
+
+<div class="p-3 mt-2 d-flex justify-content-between">
+  <h3 class="h3 fw-bold mb-3">
+    @(custMem ? localizer["customerGroup"] : localizer["memberGroup"])
+  </h3>
+</div>
+
+<div class="m-3">
+  <div class="body-content p-2">
+    <div class="container overflow-scroll custom-grid-scrollbar border-2 max-width-3000">
+      <table id="customer-group" class="table table-striped">
+        <thead>
+          <tr>
+            <th width="10%" id="DTGroupID">@localizer["groupID"]</th>
+            <th width="20%" id="DTGroupName">@localizer["groupName"]</th>
+            <th width="10%" id="DTDiscountType">@localizer["discountType"]</th>
+            <th width="15%" id="DTDiscountRate">@localizer["discountRate"]</th>
+            <th width="20%" id="DTDiscountName">@localizer["discountName"]</th>
+            <th width="25%" id="DTLoyaltyFooter">@localizer["loyaltyFooter"]</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+
+    <div class="d-flex gap-3">
+      <button id="btn-add" type="button" class="btn btn-footer btn-primary text-center align-items-center">@localizer["add"]</button>
+      <button id="btn-edit" type="button" class="btn btn-footer btn-primary text-center align-items-center">@localizer["edit"]</button>
+      <button id="btn-delete" type="button" class="btn btn-footer btn-danger text-center align-items-center">@localizer["delete"]</button>
+      <button id="btn-copy" type="button" class="btn btn-footer btn-primary text-center align-items-center">@localizer["copy"]</button>
+    </div>
+  </div>
+
+</div>
+
+@section Scripts
+  {
+  <script src="~/js/CustomerGroup/customerGroup.js" asp-append-version="true"></script>
+  }

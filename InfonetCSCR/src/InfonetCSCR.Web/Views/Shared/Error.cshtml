@@ -1,0 +1,26 @@
+﻿@inject IViewLocalizer localizer
+@model ErrorViewModel
+
+<title>@localizer["ErrorTitle"]</title>
+
+<head>
+  <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+</head>
+<div class="d-flex justify-content-center">
+  <div style="margin:100px">
+    <h1 class="text-danger">@localizer["ErrorTitle"].</h1>
+    <h2 class="text-danger">@localizer["ErrorMessage"]</h2>
+    <h5>@ViewData["errorMessage"]?.ToString()</h5>
+
+    @if (Model.ShowRequestId)
+    {
+      <p>
+        <strong>@localizer["RequestID"]: </strong> <code>@Model.RequestId</code>
+      </p>
+    }
+  </div>
+</div>
+
+<div class="d-flex justify-content-center">
+  <button type="button" onclick="safelyNavigateTo('/Home')" class="btn btn-primary text-center">GO TO HOMEPAGE</button>
+</div>

@@ -1,0 +1,63 @@
+﻿@section Head {
+	<link href="~/css/commission.css" rel="stylesheet" asp-append-version="true" />
+}
+
+@inject IApplicationConfig _config
+@inject IViewLocalizer localizer
+
+@{
+	ViewData["Title"] = @localizer["pageTitle"];
+}
+
+<input type="hidden" id="deleteCommissionTitle" value="@localizer["deleteCommissionTitle"]" />
+<input id="deleteCommissionConfirmation" type="hidden" value="@localizer["deleteCommissionConfirmation", "{0}"]" />
+<input type="hidden" id="commissionAdded" value="@localizer["commissionAdded"]" />
+<input type="hidden" id="commissionUpdate" value="@localizer["commissionUpdate"]" />
+<input type="hidden" id="commissionDeleted" value="@localizer["commissionDeleted"]" />
+<input type="hidden" id="pleaseSelectACommission" value="@localizer["pleaseSelectACommission"]" />
+
+<form class="p-3 mt-2" id="commissionForm">
+	<div class="p-2">
+		<div class="d-flex justify-content-between">
+			<h3 class="h3 fw-bold mb-3">@localizer["employeeCommissionDefinition"]</h3>
+		</div>
+
+		<div class="container body-content p-2" style="max-width:3000px;">
+			@*Commission Datatable Section*@
+			<div class="container overflow-scroll custom-grid-scrollbar border-2" style="max-width:3000px;">
+				<table id="commissions-grid" class="table table-striped" style="width:100%">
+					<thead>
+						<tr>
+							<th id="DTCode">@localizer["employeeID"]</th>
+							<th id="DTShortName">@localizer["employeeName"]</th>
+							<th id="DTFullName">@localizer["department"]</th>
+							<th id="DTClass">@localizer["subDept"]</th>
+							<th id="DTExchangeRate">@localizer["subDetail"]</th>
+							<th id="DTSequence">@localizer["stockCode"]</th>
+							<th id="DTCardCode">@localizer["groupName"]</th>
+							<th id="DTCardCode">@localizer["commissionPercentage"]</th>
+							<th id="DTCardCode">@localizer["commissionAmount"]</th>
+							<th id="DTCardCode">@localizer["apply"]</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
+
+			<div class="p-2 row">
+				<div class="d-flex gap-3 col-xl-8 col-lg-9">
+					<button id="btnAddCommission" type="button" class="btn btn-footer btn-primary text-center align-items-center">@localizer["add"]</button>
+					<button id="btnEditCommission" type="button" class="btn btn-footer btn-primary align-items-center">@localizer["edit"]</button>
+					<button id="btnDeleteCommission" type="button" class="btn btn-footer btn-danger text-center align-items-center">@localizer["delete"]</button>
+				</div>
+			</div>
+		</div>
+
+		<div id="commissionModalContainer"></div>
+	</div>
+</form>
+
+@section Scripts {
+	<script src="~/js/commission.js" asp-append-version="true"></script>
+}
+
+

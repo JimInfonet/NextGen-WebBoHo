@@ -1,0 +1,367 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="cardDefinitions" xml:space="preserve">
+    <value>Card Definitions</value>
+  </data>
+  <data name="checkInAndCheckOut" xml:space="preserve">
+    <value>Check-in and Check-out</value>
+  </data>
+  <data name="customers" xml:space="preserve">
+    <value>Customers</value>
+  </data>
+  <data name="members" xml:space="preserve">
+    <value>Members</value>
+  </data>
+  <data name="dataMaintenance" xml:space="preserve">
+    <value>Data Maintenance</value>
+  </data>
+  <data name="emptyMessage" xml:space="preserve">
+    <value>No data available in table</value>
+  </data>
+  <data name="info" xml:space="preserve">
+    <value>Showing _START_  to _END_  of _TOTAL_ entries</value>
+  </data>
+  <data name="infoForPaginationFalse" xml:space="preserve">
+    <value>Showing _TOTAL_ entries.</value>
+  </data>
+  <data name="infoEmpty" xml:space="preserve">
+    <value>Showing 0 to 0 of 0 entries</value>
+  </data>
+  <data name="infoEmptyForPaginationFalse" xml:space="preserve">
+    <value>Showing 0 entries</value>
+  </data>
+  <data name="infonetBackOffice" xml:space="preserve">
+    <value>Infonet Back Office</value>
+  </data>
+  <data name="infonetHeadOffice" xml:space="preserve">
+    <value>Infonet Head Office</value>
+  </data>
+  <data name="inventory" xml:space="preserve">
+    <value>Inventory</value>
+  </data>
+  <data name="lengthMenu" xml:space="preserve">
+    <value>Show _MENU_ entries</value>
+  </data>
+  <data name="loading" xml:space="preserve">
+    <value>Loading</value>
+  </data>
+  <data name="no" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="ok" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="policies" xml:space="preserve">
+    <value>Policies</value>
+  </data>
+  <data name="posScreenSetup" xml:space="preserve">
+    <value>POS Screen Setup</value>
+  </data>
+  <data name="pricebookTransfer" xml:space="preserve">
+    <value>Pricebook Transfer</value>
+  </data>
+  <data name="productCategories" xml:space="preserve">
+    <value>Product Categories</value>
+  </data>
+  <data name="kits" xml:space="preserve">
+    <value>Kits</value>
+  </data>
+  <data name="promotion" xml:space="preserve">
+    <value>Promotional Items</value>
+  </data>
+  <data name="reports" xml:space="preserve">
+    <value>Reports</value>
+  </data>
+  <data name="routineMaintenance" xml:space="preserve">
+    <value>Routine Maintenance</value>
+  </data>
+  <data name="select" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="signOut" xml:space="preserve">
+    <value>Sign Out</value>
+  </data>
+  <data name="stockItems" xml:space="preserve">
+    <value>Stock Items</value>
+  </data>
+  <data name="stockReceiving" xml:space="preserve">
+    <value>Stock Receiving</value>
+  </data>
+  <data name="tenders" xml:space="preserve">
+    <value>Tenders</value>
+  </data>
+  <data name="yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="zeroRecords" xml:space="preserve">
+    <value>No records found</value>
+  </data>
+  <data name="purchasingAndReceiving" xml:space="preserve">
+    <value>Purchasing and Receiving</value>
+  </data>
+  <data name="pricebookManagement" xml:space="preserve">
+    <value>Price Book Management</value>
+  </data>
+  <data name="stockTakes" xml:space="preserve">
+    <value>Stock Takes</value>
+  </data>
+  <data name="anErrorHasOccurredWhileExportingFile" xml:space="preserve">
+    <value>An error has occurred while exporting file.</value>
+  </data>
+  <data name="successfullyExportedTo" xml:space="preserve">
+    <value>Successfully exported to</value>
+  </data>
+  <data name="search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="done" xml:space="preserve">
+    <value>Done</value>
+  </data>
+  <data name="invalidNumberWarningMessage" xml:space="preserve">
+    <value>Please enter a valid number.</value>
+  </data>
+  <data name="goBackConfirmationMessage" xml:space="preserve">
+    <value>Your changes may not be saved if you leave this page. 
+Do you wish to continue?</value>
+  </data>
+  <data name="goBackConfirmationTitle" xml:space="preserve">
+    <value>Unsaved Changes Warning</value>
+  </data>
+  <data name="all" xml:space="preserve">
+    <value>ALL</value>
+  </data>
+  <data name="defaultErrorMessage" xml:space="preserve">
+    <value>An unexpected error has occurred!</value>
+  </data>
+  <data name="pleaseEnterANumericValue" xml:space="preserve">
+    <value>Please enter a numeric value.</value>
+  </data>
+  <data name="discountsNotBeingUsed" xml:space="preserve">
+    <value>Discounts NOT Being Used</value>
+  </data>
+  <data name="discountTable" xml:space="preserve">
+    <value>Discount Table</value>
+  </data>
+  <data name="taxes" xml:space="preserve">
+    <value>Taxes</value>
+  </data>
+  <data name="theDiscountTableIsNotBeingUsed" xml:space="preserve">
+    <value>The discount table is not being used.</value>
+  </data>
+  <data name="bottleReturn" xml:space="preserve">
+    <value>Bottle Return</value>
+  </data>
+  <data name="hotButtons" xml:space="preserve">
+    <value>Hot Buttons</value>
+  </data>
+  <data name="cardRestrictionProfile" xml:space="preserve">
+    <value>Card Restriction Profile</value>
+  </data>
+  <data name="memberGroup" xml:space="preserve">
+    <value>Member Group</value>
+  </data>
+  <data name="functionButtons" xml:space="preserve">
+    <value>Function Buttons</value>
+  </data>
+  <data name="customerGroup" xml:space="preserve">
+    <value>Customer Group</value>
+  </data>
+  <data name="groupButtons" xml:space="preserve">
+    <value>Group Buttons</value>
+  </data>
+  <data name="cashDraws" xml:space="preserve">
+    <value>Cash Draws</value>
+  </data>
+  <data name="negativePositiveCardsInput" xml:space="preserve">
+    <value>Negative/Positive Cards Input</value>
+  </data>
+  <data name="restrictions" xml:space="preserve">
+    <value>Restrictions</value>
+  </data>
+  <data name="users" xml:space="preserve">
+    <value>Users</value>
+  </data>
+  <data name="stockDescriptionElements" xml:space="preserve">
+    <value>Stock Description Elements</value>
+  </data>
+  <data name="associatedCharges" xml:space="preserve">
+    <value>Associated Charges</value>
+  </data>
+  <data name="reasons" xml:space="preserve">
+    <value>Reasons</value>
+  </data>
+  <data name="vendors" xml:space="preserve">
+    <value>Vendors</value>
+  </data>
+  <data name="infoFiltered" xml:space="preserve">
+    <value>(filtered from _MAX_ total entries)</value>
+  </data>
+  <data name="registers" xml:space="preserve">
+    <value>Registers</value>
+  </data>
+  <data name="excelReports" xml:space="preserve">
+    <value>Excel Reports</value>
+  </data>
+  <data name="fuelPriceChange" xml:space="preserve">
+    <value>Fuel Price Change</value>
+  </data>
+  <data name="tills" xml:space="preserve">
+    <value>Tills</value>
+  </data>
+  <data name="policiesByClass" xml:space="preserve">
+    <value>Policies by Class</value>
+  </data>
+  <data name="policiesByEntity" xml:space="preserve">
+    <value>Policies by Entity</value>
+  </data>
+  <data name="electronicJournal" xml:space="preserve">
+    <value>Electronic Journal</value>
+  </data>
+  <data name="textReports" xml:space="preserve">
+    <value>Text Reports</value>
+  </data>
+  <data name="storeShifts" xml:space="preserve">
+    <value>Store Shifts</value>
+  </data>
+  <data name="logAddErrorMessage" xml:space="preserve">
+    <value>An error has occurred while adding log</value>
+  </data>
+  <data name="logAddSuccessMessage" xml:space="preserve">
+    <value>Log added to</value>
+  </data>
+  <data name="electronicJournal" xml:space="preserve">
+    <value>Electronic Journal</value>
+  </data>
+  <data name="stores" xml:space="preserve">
+    <value>Stores</value>
+  </data>
+  <data name="regions" xml:space="preserve">
+    <value>Regions</value>
+  </data>
+  <data name="sendDataToStores" xml:space="preserve">
+    <value>Send Data to Stores</value>
+  </data>
+  <data name="priceGroups" xml:space="preserve">
+    <value>Price Groups</value>
+  </data>
+</root>

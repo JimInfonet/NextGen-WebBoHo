@@ -1,0 +1,40 @@
+﻿.report-settings {
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+#filter-type {
+  width: 20rem !important;
+}
+
+#filter-operator {
+  width: 5rem !important;
+}
+
+#filter-value {
+  width: 15rem !important;
+}
+
+#electronic-journal-grid td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+
+.electronic-journal-btn-footer {
+    padding: 0.5rem 1rem;
+    min-width: 150px;
+    min-height: 50px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: 1024px) {
+    .electronic-journal-btn-footer {
+        min-width: 100px;
+    }
+}

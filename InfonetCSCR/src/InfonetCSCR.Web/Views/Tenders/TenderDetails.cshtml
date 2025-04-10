@@ -1,0 +1,224 @@
+﻿@section Head{
+  <link href="~/css/tenders.css" rel="stylesheet" asp-append-version="true" />
+}
+
+@model TenderViewModel
+@inject IApplicationConfig _config
+@inject IViewLocalizer localizer
+@{
+  ViewData["Title"] = @localizer["pageTitle"];
+}
+
+<input id="payoutCodeHidden" type="hidden" value="@Model.PayoutCode" />
+<input type="hidden" id="modelData" name="modelData" value='@Json.Serialize(Model)' />
+
+<input id="detailsFor" type="hidden" value="@localizer["detailsFor"]" />
+<input id="failedToLoadPayout" type="hidden" value="@localizer["failedToLoadPayout"]" />
+<input id="anErrorHasOccuredWhileLoadingPayout" type="hidden" value="@localizer["anErrorHasOccuredWhileLoadingPayout"]" />
+<input id="baseCurrCantBeInactiveErrorMessage" type="hidden" value="@localizer["baseCurrCantBeInactiveErrorMessage"]" />
+<input id="failedToUpdateTender" type="hidden" value="@localizer["failedToUpdateTender"]" />
+
+<input id="baseCurrCantBeInactive" type="hidden" value="@ViewData["BaseCurrCantBeInactive"]" />
+<input id="isTenderDetailsUpdated" type="hidden" value="@ViewData["IsTenderDetailsUpdated"]" />
+
+<form class="mt-2" asp-controller="Tenders" asp-action="UpdateTender" id="tendersForm" onsubmit="return handleUpdateTender(event)">
+  @*Add Section*@
+  <div class="mt-3 col" id="addTenders" hidden>
+    <input asp-for="Code" id="tendCode" type="text" />
+    <input asp-for="ShortName" type="text" id="shortName" />
+    <input asp-for="FullName" type="text" id="fullName" />
+    <input asp-for="Class" type="text" id="class" />
+    <input asp-for="Instances" type="number" id="instances" />
+    <input asp-for="AcctCode" type="text" id="acctCode" />
+    <input asp-for="PreviousCardCode" type="number" id="previousCardCode" />
+  </div>
+
+  <div class="p-3">
+    <div class="d-flex justify-content-between">
+      <h3 class="h3 fw-bold mb-3">@localizer["pageTitle"]</h3>
+    </div>
+
+    <div class="body-content p-2">
+      @*Details Section*@
+      <div class="mt-3 p-3 col" id="tendersDetails">
+        <div class="">
+          <span class="section-title" id="detailsForText">@localizer["detailsFor"] @ViewData["ShortName"]</span>
+          <hr class="section-underline" />
+        </div>
+
+        <div class="p-2 row">
+          <div class="row gap-2 pt-3">
+            <div class="col">
+              <label asp-for="MinAmount" class="mb-2">@localizer["minAmount"]</label>
+              <input asp-for="MinAmount" id="minAmount" type="number" data-val="true"
+                     value="@Model.MinAmount?.ToString("G29")" data-val-number="@localizer["pleaseEnterAValidNumber"]" 
+                     class="col infonet-input stock-item-form-input w-100 edit-mode-control"
+                     onkeypress="return onlyDigitDecimalPlusMinusKeyPress(event)" />
+              <span asp-validation-for="MinAmount" class="text-danger"></span>
+            </div>
+            <div class="col">
+              <label asp-for="MaxAmount" class="mb-2">@localizer["maxAmount"]</label>
+              <input asp-for="MaxAmount" type="number" id="maxAmount" data-val="true"  
+                     value="@Model.MaxAmount?.ToString("G29")" data-val-number="@localizer["pleaseEnterAValidNumber"]" 
+                     class="col infonet-input stock-item-form-input w-100 edit-mode-control"
+                     onkeypress="return onlyDigitDecimalPlusMinusKeyPress(event)" />
+              <span asp-validation-for="MaxAmount" class="text-danger"></span>
+            </div>
+            <div class="col">
+              <label asp-for="SmallestUnit" class="mb-2">@localizer["smallestAcceptedUnit"]</label>
+              <input asp-for="SmallestUnit" type="number" id="smallestUnit" data-val="true" 
+                     value="@Model.SmallestUnit?.ToString("G29")" data-val-number="@localizer["pleaseEnterAValidNumber"]" 
+                     class="col infonet-input stock-item-form-input w-100 edit-mode-control" onkeydown="return event.keyCode !== 69" />
+              <span asp-validation-for="SmallestUnit" class="text-danger"></span>
+            </div>
+          </div>
+
+          <div class="row gap-2 pt-3">
+            <div class="col">
+              <label asp-for="ExchangeRate" class="mb-2">@localizer["exchangeRate"]</label>
+              <input asp-for="ExchangeRate" id="exchangeRate" type="number" data-val="true" 
+                     data-val-number="@localizer["pleaseEnterAValidNumber"]" min="-9999" max="99999"
+                     class="col infonet-input stock-item-form-input w-100 clear-selected-input-on-keypress edit-mode-control"
+                     onkeypress="return onlyDigitDecimalPlusMinusKeyPress(event)" />
+              <span asp-validation-for="ExchangeRate" class="text-danger"></span>
+            </div>
+            <div class="col">
+              <label asp-for="Sequence" class="mb-2">@localizer["sequence"]</label>
+              <input asp-for="Sequence" type="text" id="sequence" data-val="true" 
+                     data-val-number="@localizer["pleaseEnterAValidNumber"]"
+                     class="col infonet-input stock-item-form-input w-100 clear-selected-input-on-keypress edit-mode-control" />
+              <span asp-validation-for="Sequence" class="text-danger"></span>
+            </div>
+            <div class="col">
+              <label asp-for="CardCode" id="cardCodeLabel" class="mb-2">@localizer["cardCode"]</label>
+              <input asp-for="CardCode" type="number" id="cardCode" data-val="true" data-val-number="@localizer["pleaseEnterAValidNumber"]" class="col infonet-input clear-selected-input-on-keypress only-digit w-100 edit-mode-control" min="-32767" max="32767" />
+              <span asp-validation-for="CardCode" class="text-danger"></span>
+            </div>
+          </div>
+
+          <div class="row gap-2 pt-3">
+            <div class="col">
+              <label asp-for="PrintCopies" class="mb-2">@localizer["copiesToPrint"]</label>
+              <input asp-for="PrintCopies" type="number" id="printCopies" data-val="true" data-val-number="@localizer["pleaseEnterAValidNumber"]" class="col infonet-input stock-item-form-input clear-selected-input-on-keypress only-digit w-100 edit-mode-control" min="0" max="255" onkeydown="return event.keyCode !== 69" />
+              <span asp-validation-for="PrintCopies" class="text-danger"></span>
+            </div>
+            <div class="col">
+              @if (Model.Class == "CASH")
+              {
+                <label class="form-check-label mt-1" for="payoutCode" id="payoutLabel">@localizer["linkedToThePayOut"]</label>
+                <select asp-for="PayoutCode" id="payoutCode" class="form-select infonet-input stock-item-form-input w-100 edit-mode-control" aria-label="Select">
+                  <option value="">@localizer["select"]</option>
+                </select>
+              }
+            </div>
+            <div class="col"></div>
+          </div>
+
+          <div class="form-check mt-4 ps-5 col-6">
+            <input asp-for="ExactChangeCheckBox" class="form-check-input stock-item-form-input edit-mode-control" type="checkbox" id="exactChange">
+            <label class="form-check-label ms-1" for="exactChange">
+              @localizer["exactChange"]
+            </label>
+          </div>
+
+          <div class="form-check mt-4 col-6">
+            <input asp-for="InactiveCheckBox" class="form-check-input stock-item-form-input edit-mode-control" type="checkbox" id="inactive">
+            <label class="form-check-label ms-1" for="inactive">
+              @localizer["inactive"]
+            </label>
+          </div>
+
+          <div class="form-check mt-2 ps-5 col-6">
+            <input asp-for="GiveChangeCheckBox" class="form-check-input stock-item-form-input edit-mode-control" type="checkbox" id="giveChange">
+            <label class="form-check-label ms-1" for="giveChange">
+              @localizer["giveChangeOnThisTender"]
+            </label>
+          </div>
+
+          <div class="form-check mt-2 col-6">
+            <input asp-for="AcceptAsPaymentCheckBox" class="form-check-input stock-item-form-input edit-mode-control" type="checkbox" id="acceptAsPayment">
+            <label class="form-check-label ms-1" for="acceptAsPayment">
+              @localizer["acceptAsPayment"]
+            </label>
+          </div>
+
+          <div class="form-check mt-2 ps-5 col-6">
+            <input asp-for="GiveAsRefundCheckBox" class="form-check-input stock-item-form-input edit-mode-control" type="checkbox" id="giveAsRefund">
+            <label class="form-check-label ms-1" for="giveAsRefund">
+              @localizer["giveOutOnARefund"]
+            </label>
+          </div>
+
+          <div class="form-check mt-2 col-6">
+            <input asp-for="CanAdjustCheckBox" class="form-check-input stock-item-form-input edit-mode-control" type="checkbox" id="useItOrLoseIt">
+            <label class="form-check-label ms-1" for="useItOrLoseIt">
+              @localizer["useItOrLoseIt"]
+            </label>
+          </div>
+
+          <div class="form-check mt-2 ps-5 col-6">
+            <input asp-for="BankableCheckBox" class="form-check-input stock-item-form-input edit-mode-control" type="checkbox" id="bankable">
+            <label class="form-check-label ms-1" for="bankable">
+              @localizer["canBeDepositedInABank"]
+            </label>
+          </div>
+
+          <div class="form-check mt-2 col-6">
+            <input asp-for="IncludeInCloseCheckBox" class="form-check-input stock-item-form-input edit-mode-control" type="checkbox" id="includeInClose">
+            <label class="form-check-label ms-1" for="includeInClose">
+              @localizer["includeInTillClose"]
+            </label>
+          </div>
+
+          <div class="form-check mt-2 ps-5 col-6">
+            <input asp-for="PutInDrawerCheckBox" class="form-check-input stock-item-form-input edit-mode-control" type="checkbox" id="putInDrawer">
+            <label class="form-check-label ms-1" for="putInDrawer">
+              @localizer["openTheCashDrawer"]
+            </label>
+          </div>
+
+          <div class="form-check mt-2 col-6">
+            <input asp-for="SignatureCheckBox" class="form-check-input stock-item-form-input edit-mode-control" type="checkbox" id="signature">
+            <label class="form-check-label ms-1" for="signature">
+              @localizer["printSignatureLine"]
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-2 row">
+        <div class="d-flex gap-3 col justify-content-end">
+          <button id="btn-cancel" type="button" class="btn btn-outline-danger btn-cancel text-center ms-2">@localizer["cancel"]</button>
+          <button id="btn-save" type="submit" class="btn btn-primary text-center btn-save ms-2">@localizer["save"]</button>
+          <button id="btn-edit" onclick="setEditMode(true)" type="button" class="btn btn-primary btn-footer text-center ms-2">@localizer["edit"]</button>
+          <button id="btn-back" type="button" class="btn btn-outline-danger btn-footer text-center ms-2">@localizer["back"]</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  @*Update Confirm modal*@
+  <div class="modal fade" id="changeCardCodeConfirmModal" tabindex="1" role="dialog" area-labelledby="exampleModalLiveLabel" area-modal="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">@localizer["changeCardCode"]</h5>
+          <button type="button" id="changeCardCodeConfirmModalCloseButtonControl" class="btn-close" data-bs-dismiss="modal" />
+        </div>
+        <div class="modal-body">
+          <p>@localizer["changeCardCodeWarningText"]</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="changeCardCodeConfirmModalNoButtonControl" class="btn btn-cancel btn-outline-danger align-content-center btn-sm me-2" data-bs-dismiss="modal">@localizer["no"]</button>
+          <button type="button" id="changeCardCodeConfirmModalYesButtonControl" class="btn btn-primary btn-sm btn-save">@localizer["yes"]</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</form>
+@section Scripts
+  {
+  <script src="~/js/tenderDetails.js" asp-append-version="true"></script>
+}

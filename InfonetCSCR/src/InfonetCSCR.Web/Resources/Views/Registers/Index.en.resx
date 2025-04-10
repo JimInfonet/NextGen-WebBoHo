@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="cashDrawer" xml:space="preserve">
+    <value>Cash Drawer</value>
+  </data>
+  <data name="customerDisplay" xml:space="preserve">
+    <value>Customer Display</value>
+  </data>
+  <data name="customerDisplayName" xml:space="preserve">
+    <value>Customer Display Name</value>
+  </data>
+  <data name="customerDisplayPort" xml:space="preserve">
+    <value>Customer Display Port</value>
+  </data>
+  <data name="labelPrinterDriver" xml:space="preserve">
+    <value>Label Printer Driver</value>
+  </data>
+  <data name="MSR" xml:space="preserve">
+    <value>MSR</value>
+  </data>
+  <data name="openCode" xml:space="preserve">
+    <value>Open Code</value>
+  </data>
+  <data name="OPOSCashDrawerDeviceName" xml:space="preserve">
+    <value>OPOS Cash Drawer Device Name</value>
+  </data>
+  <data name="OPOSCustomerDisplayDeviceName" xml:space="preserve">
+    <value>OPOS Customer Display Device Name</value>
+  </data>
+  <data name="OPOSLabelPrinterDevice" xml:space="preserve">
+    <value>OPOS Label Printer Device Name</value>
+  </data>
+  <data name="OPOSMSRDeviceName" xml:space="preserve">
+    <value>OPOS MSR Device Name</value>
+  </data>
+  <data name="OPOSReceiptPrinterDeviceName" xml:space="preserve">
+    <value>OPOS Receipt Printer Device Name</value>
+  </data>
+  <data name="OPOSScaleDeviceName" xml:space="preserve">
+    <value>OPOS Scale Device Name</value>
+  </data>
+  <data name="OPOSScannerDeviceName" xml:space="preserve">
+    <value>OPOS Scanner Device Name</value>
+  </data>
+  <data name="receiptPrinter" xml:space="preserve">
+    <value>Receipt Printer</value>
+  </data>
+  <data name="receiptPrinterDriver" xml:space="preserve">
+    <value>Receipt Printer Driver</value>
+  </data>
+  <data name="registerNumber" xml:space="preserve">
+    <value>Register Number</value>
+  </data>
+  <data name="registerSettings" xml:space="preserve">
+    <value>Register Settings</value>
+  </data>
+  <data name="reportPrinter" xml:space="preserve">
+    <value>Report Printer</value>
+  </data>
+  <data name="reportPrinterFont" xml:space="preserve">
+    <value>Report Printer Font</value>
+  </data>
+  <data name="reportPrinterFontSize" xml:space="preserve">
+    <value>Report Printer Font Size</value>
+  </data>
+  <data name="scale" xml:space="preserve">
+    <value>Scale</value>
+  </data>
+  <data name="scanner" xml:space="preserve">
+    <value>Scanner</value>
+  </data>
+  <data name="scannerPort" xml:space="preserve">
+    <value>Scanner Port</value>
+  </data>
+  <data name="scannerSettings" xml:space="preserve">
+    <value>Scanner Settings</value>
+  </data>
+  <data name="shelfLabelPrinter" xml:space="preserve">
+    <value>Shelf Label Printer</value>
+  </data>
+  <data name="useCashDrawer" xml:space="preserve">
+    <value>Use Cash Drawer?</value>
+  </data>
+  <data name="useCustomerDisplay" xml:space="preserve">
+    <value>Use Customer Display?</value>
+  </data>
+  <data name="useLabelPrinter" xml:space="preserve">
+    <value>Use Label Printer?</value>
+  </data>
+  <data name="useMSR" xml:space="preserve">
+    <value>Use MSR?</value>
+  </data>
+  <data name="useOPOSCashDrawer" xml:space="preserve">
+    <value>Use OPOS Cash Drawer?</value>
+  </data>
+  <data name="useOPOSCustomerDisplay" xml:space="preserve">
+    <value>Use OPOS Customer Display?</value>
+  </data>
+  <data name="useOPOSLabelPrinter" xml:space="preserve">
+    <value>Use OPOS Label Printer?</value>
+  </data>
+  <data name="useOPOSMSR" xml:space="preserve">
+    <value>Use OPOS MSR?</value>
+  </data>
+  <data name="useOPOSReceiptPrinter" xml:space="preserve">
+    <value>Use OPOS Receipt Printer?</value>
+  </data>
+  <data name="useOPOSScale" xml:space="preserve">
+    <value>Use OPOS Scale?</value>
+  </data>
+  <data name="useOPOSScanner" xml:space="preserve">
+    <value>Use OPOS Scanner?</value>
+  </data>
+  <data name="useReceiptPrinter" xml:space="preserve">
+    <value>Use Receipt Printer?</value>
+  </data>
+  <data name="useScale" xml:space="preserve">
+    <value>Use Scale?</value>
+  </data>
+  <data name="useScanner" xml:space="preserve">
+    <value>Use Scanner?</value>
+  </data>
+  <data name="add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="registerRange" xml:space="preserve">
+    <value>Register Number must be between 0 and 32767</value>
+  </data>
+  <data name="registerCanNotBeEmpty" xml:space="preserve">
+    <value>Register Number can not be empty</value>
+  </data>
+  <data name="registerAlreadyExists" xml:space="preserve">
+    <value>Register Number already exists</value>
+  </data>
+  <data name="deleteRegisterTitle" xml:space="preserve">
+    <value>Delete Register</value>
+  </data>
+  <data name="deleteRegisterMessage" xml:space="preserve">
+    <value>Are you sure to delete Register {0}?</value>
+  </data>
+  <data name="registerAddedSuccessfully" xml:space="preserve">
+    <value>Register added successfully</value>
+  </data>
+  <data name="registerUpdatedSuccessfully" xml:space="preserve">
+    <value>Register updated successfully</value>
+  </data>
+  <data name="registerDeletedSuccessfully" xml:space="preserve">
+    <value>Register deleted successfully</value>
+  </data>
+  <data name="portNumRange" xml:space="preserve">
+    <value>Port number can not be greater than 255</value>
+  </data>
+</root>

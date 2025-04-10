@@ -1,0 +1,22 @@
+﻿@*Intentionally a blank page is served as the home page*@
+@inject IViewLocalizer localizer
+@inject IApplicationConfig _config
+
+@{
+  ViewData["Title"] = @localizer["pageTitle"];
+}
+
+<div>
+  <iframe class="border-2 p-2 col-12" id="IframeReportViewer" src="@_config.ReportBaseUrl" scrolling="yes" hidden>
+  </iframe>
+</div>
+
+<script>
+  localStorage.setItem("_globalIsEditing", false);
+  localStorage.setItem("menuClicked", "no");
+  localStorage.setItem("selectedMenu", null);
+  localStorage.setItem("selectedCriteria", null);
+  localStorage.setItem("searchText", null);
+  localStorage.setItem("persistPagination", null);
+  localStorage.setItem("DataTables_stock-items-grid_/StockItems", {});
+</script>

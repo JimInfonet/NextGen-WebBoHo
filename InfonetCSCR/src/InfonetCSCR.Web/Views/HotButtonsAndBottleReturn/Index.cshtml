@@ -1,0 +1,230 @@
+﻿@section Head {
+  <link href="~/css/hotButtonsAndBottleReturn.css" rel="stylesheet" asp-append-version="true" />
+}
+
+@inject IViewLocalizer localizer
+@{
+  bool isHotButtons = ViewData["pageType"]?.ToString() == "HotButtons";
+
+  if (isHotButtons)
+  {
+    ViewData["Title"] = @localizer["setHotButtons"];
+  }
+  else
+  {
+    ViewData["Title"] = @localizer["setBottleReturnButtons"];
+  }
+}
+
+<input type="hidden" id="pageType" value="@isHotButtons.ToString()" />
+<input type="hidden" id="pageText" value="@localizer["page"]" />
+<input type="hidden" id="buttonOnPage" value="@localizer["buttonOnPage", "{0}", "{1}"]" />
+<input type="hidden" id="defineButtonOnPage" value="@localizer["defineButtonOnPage", "{0}", "{1}"]" />
+<input type="hidden" id="undefined" value="@localizer["undefined"]" />
+<input type="hidden" id="stockNotFound" value="@localizer["stockNotFound"]" />
+<input type="hidden" id="pleaseEnterValidBottlePrice" value="@localizer["pleaseEnterValidBottlePrice"]" />
+<input type="hidden" id="productAlreadyExistsInTheSystem" value="@localizer["productAlreadyExistsInTheSystem", "{0}"]" />
+<input type="hidden" id="pleaseEnterProductName" value="@localizer["pleaseEnterProductName"]" />
+<input type="hidden" id="pleaseEnterAnIntegerValueForQuantity" value="@localizer["pleaseEnterAnIntegerValueForQuantity"]" />
+<input type="hidden" id="noButtonDescription" value="@localizer["noButtonDescription"]" />
+<input type="hidden" id="isThatOk" value="@localizer["isThatOk"]" />
+<input type="hidden" id="thisButtonWillNotDisplayProductDescriptionIsThatOk" value="@localizer["thisButtonWillNotDisplayProductDescriptionIsThatOk"]" />
+<input type="hidden" id="noButtonSelected" value="@localizer["noButtonSelected"]" />
+<input type="hidden" id="pleaseSelectStockItem" value="@localizer["pleaseSelectStockItem"]" />
+<input type="hidden" id="buttonDefinedSuccessfully" value="@localizer["buttonDefinedSuccessfully"]" />
+<input type="hidden" id="buttonSuccessfullyDeleted" value="@localizer["buttonSuccessfullyDeleted"]" />
+<input type="hidden" id="pageNameUpdatedSuccessfully" value="@localizer["pageNameUpdatedSuccessfully"]" />
+<input type="hidden" id="buttonColorUpdatedSuccessfully" value="@localizer["buttonColorUpdatedSuccessfully"]" />
+<input type="hidden" id="ok" value="@localizer["ok"]" />
+<input type="hidden" id="cancel" value="@localizer["cancel"]" />
+<div class="mt-2 mb-3 pageTitleContainer">
+  @if (isHotButtons)
+  {
+    <h2><strong>@localizer["setupHotButtons"]</strong></h2>
+  }
+  else
+  {
+    <h2><strong>@localizer["setBottleReturnButtons"]</strong></h2>
+  }
+</div>
+
+<div class="row hotButtonLayoutContainer">
+  <div class="col-lg-12 col-xl-6 mb-4">
+    @if (isHotButtons)
+    {
+      <h5><strong>@localizer["hotButtons"]</strong></h5>
+    }
+    else
+    {
+      <h5><strong>@localizer["bottleReturnButtons"]</strong></h5>
+    }
+    <div id="bottleReturnButtons">
+      <div id="hot-button-container" class="hotButtonContainer">
+      </div>
+      <div class="pageSettingsContainer">
+        <div class="pageNumberTitleContainer">
+          <div class="pageControlButtons">
+            <button id="pageControlUpButton" class="btn btn-footer btn-primary pageControlButton" onclick="pageControlUpButtonClicked()"><iconify-icon class="pageControlIcon" icon="bxs:up-arrow"></iconify-icon></button>
+            <button id="pageControlDownButton" class="btn btn-footer btn-primary pageControlButton" onclick="pageControlDownButtonClicked()"><iconify-icon class="pageControlIcon" icon="bxs:down-arrow"></iconify-icon></button>
+          </div>
+          @* This empty div has been introduced so that the page number don't get selected automatically while up or low arrow are disabled and clicked *@
+          <div>
+            <h5></h5>
+          </div>
+          <div class="pageTitle">
+            <p id="pageTitleText" class="pageTitleText"></p>
+          </div>
+        </div>
+
+        @if (isHotButtons)
+        {
+          <div>
+            <button class="btn btn-primary changePageButton" onclick="changePageButtonClicked()">@localizer["changePage"]</button>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-12 col-xl-6 mb-4">
+    @if (isHotButtons)
+    {
+      <h5><strong>@localizer["changeButtonSettings"]</strong></h5>
+    }
+    else
+    {
+      <h5><strong>@localizer["changeBottleReturnButtonSettings"]</strong></h5>
+    }
+
+    <div class="changeButtonSetting">
+      @if (!isHotButtons)
+      {
+        <p id="inputProductNameReturningBottleText" hidden><strong>@localizer["inputProductNameReturningBottle"]</strong></p>
+      }
+      <div class="changeButtonSettingContainer">
+        <div class="changeButtonSettingLeftContainer">
+          <div class="changeButtonSettingButton">
+            <div class="changeButtonSettingDescriptionContainer" id="changeButtonSettingDescriptionContainer">
+              <p id="changeButtonSettingButtonTextFirstLine" class="changeButtonSettingButtonText"></p>
+              <p id="changeButtonSettingButtonTextSecondLine" class="changeButtonSettingButtonText"></p>
+            </div>
+
+            <div class="changeButtonSettingUndefinedTextContainer" id="changeButtonSettingUndefinedTextContainer">
+              <p id="changeButtonSettingUndefinedText" class="changeButtonSettingUndefinedText"></p>
+            </div>
+          </div>
+
+          @if (isHotButtons)
+          {
+            <div id="changeButtonSettingTextContainer" hidden class="changeButtonSettingTextContainer">
+              <div id="selectStockItemTextContainer">
+                <p class="changeButtonSettingText">@localizer["selectStockItemAndTypeTheTextToAppearOnTheButtonToDefine"]</p>
+              </div>
+
+              <div id="showStockItemDataContainer">
+                <p><strong>@localizer["description"]: </strong> <span id="changeButtonSettingDescription"></span></p>
+              </div>
+            </div>
+          }
+        </div>
+
+        <div class="changeButtonSettingRightContainer">
+          <h5><strong id="selectedButtonTitleData">@localizer["noButtonSelected"]</strong></h5>
+          @if (isHotButtons)
+          {
+            <p><strong>@localizer["productLabel"] : <span id="productText">@localizer["undefined"]</span></strong></p>
+          }
+          <div class="changeButtonSettingForm">
+            <div class="inputContainer" @(isHotButtons ? "hidden" : "")>
+              <label class="my-2">@localizer["product"] :</label>
+              <input id="productCode" type="text" class="infonet-input clear-selected-input-on-keypress w-100" autocomplete="off" maxlength="16" />
+            </div>
+
+            <div class="inputContainer">
+              <label class="my-2">@localizer["firstLine"] :</label>
+              <input id="firstLine" type="text" class="infonet-input clear-selected-input-on-keypress w-100" autocomplete="off" maxlength="10" />
+            </div>
+
+            <div class="inputContainer">
+              <label class="my-2">@localizer["secondLine"] :</label>
+              <input id="secondLine" type="text" class="infonet-input clear-selected-input-on-keypress w-100" autocomplete="off" maxlength="10" />
+            </div>
+
+            <div class="inputContainer">
+              <label class="my-2">@localizer["defaultQuantity"] :</label>
+              <input id="defaultQuantity" type="number" class="infonet-input clear-selected-input-on-keypress w-100" min="0" max="999" />
+            </div>
+
+            <div class="inputContainer" @(isHotButtons ? "hidden" : "")>
+              <label class="my-2">@localizer["price"] :</label>
+              <input id="price" type="number" class="infonet-input clear-selected-input-on-keypress only-digit-decimal w-100" min="0" max="999.99" />
+            </div>
+
+            <div id="changeButtonSettingButtons" hidden class="changeButtonSettingButtons">
+              <button class="btn btn-primary" onclick="changeColorButtonClicked()">@localizer["changeColor"]</button>
+              <button class="btn btn-danger" onclick="undefineButtonClicked()">@localizer["undefineButton"]</button>
+            </div>
+
+            <div id="changeButtonDefineButton" hidden class="changeButtonDefineButton">
+              @if (isHotButtons)
+              {
+                <button id="selectStockButtonId" onclick="selectStockClicked()" class="btn btn-primary me-2">@localizer["selectStock"]</button>
+              }
+              <button id="defineButtonId" onclick="defineHotButton()" class="btn btn-primary"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+@*Hot Buttons Pages Modal*@
+<div class="modal fade" id="hotButtonsPagesModal" tabindex="1" role="dialog" area-labelledby="exampleModalLiveLabel" area-modal="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">@localizer["changePage"]</h5>
+      </div>
+      <div class="modal-body">
+        <div class="d-flex flex-column mb-3">
+          <label class="my-2">@localizer["pageId"]</label>
+          <select class="form-select col" id="pageIdOptions">
+          </select>
+        </div>
+
+        <div>
+          <label class="my-2">@localizer["pageName"]</label>
+          <input id="pageName" type="text" class="infonet-input clear-selected-input-on-keypress w-100" maxlength="20" />
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary btn-sm btn-save" onclick="changePageCompleteButtonClicked()">@localizer["complete"]</button>
+        <button type="button" class="btn btn-cancel btn-outline-danger align-content-center btn-sm me-2" data-bs-dismiss="modal">@localizer["cancel"]</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="colorPickerModal" tabindex="1" role="dialog" area-labelledby="exampleModalLiveLabel" area-modal="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header hotButtonsAndBottleReturn-modal-header">
+        <h5 class="modal-title">@localizer["color"]</h5>
+      </div>
+      <div class="modal-body">
+        <div class="colorPickerContainer">
+          <div class="color-picker"></div>
+        </div>
+        <div class="hotButtonsAndBottleReturn-modal-footer">@localizer["clickOnTheBoxAboveToOpenTheColorPicker"]</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<partial name="_StockCodeModal"></partial>
+
+@section Scripts {
+  <script src="~/js/hotButtonsAndBottleReturn.js" asp-append-version="true"></script>
+  }

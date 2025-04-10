@@ -1,0 +1,88 @@
+﻿<link href="~/css/_AddEditPolicySettingModal.css" rel="stylesheet" asp-append-version="true" />
+
+@inject IViewLocalizer localizer
+
+<input type="hidden" id="lclAddPolicySetting" value="@localizer["addPolicySetting", "{0}"]" />
+<input type="hidden" id="lclEditPolicySetting" value="@localizer["editPolicySetting", "{0}"]" />
+<input type="hidden" id="lclCount" value="@localizer["count"]" />
+<input type="hidden" id="lclCode" value="@localizer["code"]" />
+<input type="hidden" id="lclDescription" value="@localizer["description"]" />
+<input type="hidden" id="lclName" value="@localizer["name"]" />
+<input type="hidden" id="lclGroup" value="@localizer["group"]" />
+<input type="hidden" id="lclGroupName" value="@localizer["groupName"]" />
+<input type="hidden" id="lclDepartment" value="@localizer["department"]" />
+<input type="hidden" id="lclSubDepartment" value="@localizer["subDepartment"]" />
+<input type="hidden" id="lclSubDetail" value="@localizer["subDetail"]" />
+<input type="hidden" id="lclSaleType" value="@localizer["saleType"]" />
+<input type="hidden" id="lclReasonCode" value="@localizer["reasonCode"]" />
+<input type="hidden" id="lclReasonDescription" value="@localizer["reasonDescription"]" />
+<input type="hidden" id="lclTaxName" value="@localizer["taxName"]" />
+<input type="hidden" id="lclCategory" value="@localizer["category"]" />
+<input type="hidden" id="lclRegister" value="@localizer["register"]" />
+<input type="hidden" id="lclRegionID" value="@localizer["regionID"]" />
+<input type="hidden" id="lclRegionName" value="@localizer["regionName"]" />
+<input type="hidden" id="lclPriceGroupID" value="@localizer["priceGroupID"]" />
+<input type="hidden" id="lclPriceGroupName" value="@localizer["priceGroupName"]" />
+<input type="hidden" id="lclPrinter" value="@localizer["printer"]" />
+<input type="hidden" id="lclUom" value="@localizer["uom"]" />
+<input type="hidden" id="lclNoValueSupplied" value="@localizer["noValueSupplied"]" />
+<input type="hidden" id="lclSelectALevel" value="@localizer["selectALevel"]" />
+<input type="hidden" id="lclSelectASetting" value="@localizer["selectASetting"]" />
+<input type="hidden" id="lclRangeError" value="@localizer["rangeError", "{0}", "{1}"]" />
+<input type="hidden" id="lclDuplicatePolicySettingError" value="@localizer["duplicatePolicySettingError"]" />
+<input type="hidden" id="lclInvalidInitUserID" value="@localizer["invalidInitUserID"]" />
+<input type="hidden" id="lclSelectLevel" value="@localizer["selectLevel"]" />
+<input type="hidden" id="lclSelectSetting" value="@localizer["selectSetting"]" />
+<input type="hidden" id="lclAddPolicySettingSuccess" value="@localizer["addPolicySettingSuccess", "{0}"]" />
+<input type="hidden" id="lclEditPolicySettingSuccess" value="@localizer["editPolicySettingSuccess", "{0}"]" />
+<input type="hidden" id="lclSetVendError" value="@localizer["setVendError"]" />
+<input type="hidden" id="maximum45CharactersAreAllowed" value="@localizer["maximum45CharactersAreAllowed"]" />
+
+<div class="modal fade" id="addEditPolicySettingModal" tabindex="1" role="dialog" area-modal="true">
+	<div class="modal-dialog modal-dialog-centered policy-by-class-modal reduced">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 id="addEditPolicySettingModalTitle" class="modal-title"></h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div id="addEditPolicySettingModalFieldsContainer" class="col-lg-12">
+						<div class="row p-2">
+							<div class="col-lg-4 align-content-center">
+								<label class="control-label">@localizer["level"]</label>
+							</div>
+							<div class="col-lg-8">
+								<select id="ddlLevel" class="form-control form-select infonet-input" onchange="handleLevelSettingChangeAsync('ddlLevel', 'txtValue')"></select>
+							</div>
+						</div>
+						<div class="row p-2">
+							<div class="col-lg-4 align-content-center">
+								<label class="control-label">@localizer["value"]</label>
+							</div>
+							<div class="col-lg-8">
+								<input id="txtValue" type="text" class="form-control infonet-input">
+							</div>
+						</div>
+						<div class="row p-2">
+							<div class="col-lg-4 align-content-center">
+								<label class="control-label">@localizer["setting"]</label>
+							</div>
+							<div class="col-lg-8">
+								<select id="ddlSetting" class="form-control form-select infonet-input" onchange="handleLevelSettingChangeAsync('ddlSetting', 'txtSetting')"></select>
+								<input id="txtSetting" type="text" class="form-control infonet-input" onkeyup="handletxtSettingChange(this.value)">
+								<small id="txtSettingError" class="text-danger validation-message" hidden>@localizer["maximum45CharactersAreAllowed"]</small>
+								<input id="tmSetting" type="time" class="form-control infonet-input" hidden>
+							</div>
+						</div>
+					</div>
+					<div id="addEditPolicySettingModalGridContainer" class="col-lg-7" hidden></div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-cancel btn-outline-danger align-content-center btn-sm me-2" data-bs-dismiss="modal">@localizer["cancel"]</button>
+				<button type="button" class="btn btn-primary btn-sm btn-save" onclick="addEditPolicySetting()">@localizer["save"]</button>
+			</div>
+		</div>
+	</div>
+</div>

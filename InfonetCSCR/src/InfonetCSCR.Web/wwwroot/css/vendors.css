@@ -1,0 +1,113 @@
+﻿.grid-table-row {
+  cursor: pointer;
+}
+
+.body-content {
+  background-color: var(--color-white);
+}
+
+th {
+  text-align: center;
+  vertical-align: middle;
+}
+
+select {
+  padding-right: 30px !important;
+}
+
+#vendorsForm #vendors-grid__footer {
+  position: relative;
+}
+
+#vendorsForm #vendors-grid__footer .dataTables_scrollFootInner {
+  width: auto !important;
+}
+
+#vendorsForm #vendors-grid__footer table {
+  width: 100% !important;
+}
+
+.width-fit-content {
+  width: fit-content !important;
+}
+
+table thead th {
+  font-size: 16px !important;
+}
+
+#vendorsForm #deleteVendorConfirmModal .message {
+  font-size: 16px !important;
+}
+
+.name-col-width {
+  min-width: 300px !important;
+}
+
+.address-col-width {
+  min-width: 300px !important;
+}
+
+.city-col-width {
+  min-width: 190px !important;
+}
+
+.province-col-width {
+  min-width: 190px !important;
+}
+
+.country-col-width {
+  min-width: 200px !important;
+}
+
+.postal-code-col-width {
+  min-width: 140px !important;
+}
+
+.phone-col-width {
+  min-width: 140px !important;
+}
+
+.fax-col-width {
+  min-width: 140px !important;
+}
+
+.email-col-width {
+  min-width: 500px !important;
+}
+
+.tax-number {
+  min-width: 190px !important;
+}
+
+.contact-name-col-width {
+  min-width: 300px !important;
+}
+
+
+@media screen and (min-width: 1900px) and (max-width: 2000px) {
+  #vendors-grid_wrapper #dataTable-body-container {
+    height: 430px !important;
+  }
+}
+
+#vendors-grid th {
+  white-space: nowrap;
+}
+
+#vendors-grid .dataTables_empty {
+  text-align: left;
+  padding-left: 40rem;
+}
+
+@media (min-width: 1000px) and (max-width: 1200px) {
+  #vendors-grid .dataTables_empty {
+    padding-left: 18rem;
+  }
+}
+
+@media (min-width: 1366px) and (max-width: 1400px) {
+  #vendors-grid .dataTables_empty {
+    padding-left: 30rem;
+  }
+}
+

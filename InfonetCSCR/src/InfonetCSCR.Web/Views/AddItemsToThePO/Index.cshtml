@@ -1,0 +1,121 @@
+﻿@section Head {
+  <link href="~/css/AddItemsToThePO.css" rel="stylesheet" asp-append-version="true" />
+}
+
+@inject IApplicationConfig _config
+@inject IViewLocalizer localizer
+@inject IHttpContextAccessor httpContextAccessor
+@{
+  ViewData["Title"] = @localizer["pageTitle"];
+}
+
+<input id="search" type="hidden" value="@localizer["search"]" />
+<input id="_done" type="hidden" value="@localizer["done"]" />
+<input id="_cancel" type="hidden" value="@localizer["cancel"]" />
+<input id="_select" type="hidden" value="@localizer["select"]" />
+<input id="_partNumber" type="hidden" value="@localizer["partNumber"]" />
+<input id="_stockCode" type="hidden" value="@localizer["stockCode"]" />
+<input id="_vendorId" type="hidden" value="@localizer["vendorId"]" />
+<input id="_description" type="hidden" value="@localizer["description"]" />
+<input id="_duplicateConfirmationTitle" type="hidden" value="@localizer["duplicateConfirmationTitle"]" />
+<input id="_duplicateConfirmationMessage" type="hidden" value="@localizer["duplicateConfirmationMessage"]" />
+
+<div class="px-3 py-2 mt-2">
+  <div class="d-flex justify-content-between px-3">
+    <h3 class="h3 fw-bold">@localizer["addItemsToThePO"]</h3>
+  </div>
+
+  <div class="page-content p-3 h-100">
+    <div class="row px-3 py-1 py-xl-2">
+      <div class="form-check col-6">
+        <input class="form-check-input" type="radio" name="showByOption" id="vendorPartsForTheVendorX" value="VendorPartsForTheVendorX" checked>
+        <label class="form-check-label" for="vendorPartsForTheVendorX" id="vendorPartsForTheVendorXLabel">@localizer["vendorPartsForTheVendorX"] </label>
+      </div>
+      <div class="form-check col-6">
+        <input class="form-check-input" type="radio" name="showByOption" id="nonVendorParts" value="NonVendorParts">
+        <label class="form-check-label" for="nonVendorParts">@localizer["nonVendorParts"]</label>
+      </div>
+    </div>
+    <div class="row px-3 py-1 py-xl-2">
+      <div class="form-check col-6">
+        <input class="form-check-input" type="radio" name="showByOption" id="vendorPartsForOtherVendors" value="VendorPartsForOtherVendors">
+        <label class="form-check-label" for="vendorPartsForOtherVendors">@localizer["vendorPartsForOtherVendors"]</label>
+      </div>
+      <div class="form-check col-6">
+        <input class="form-check-input" type="radio" name="showByOption" id="allVendorParts" value="AllVendorParts">
+        <label class="form-check-label" for="allVendorParts">@localizer["allVendorParts"]</label>
+      </div>
+    </div>
+
+    <div class="mt-3 mt-xl-4">
+      <table class="table table-striped" id="table--vendor-parts">
+        <thead>
+          <tr>
+            <th width="15%" scope="col">@localizer["partNumber"]</th>
+            <th width="15%" scope="col">@localizer["stockCode"]</th>
+            <th width="15%" scope="col">@localizer["vendorId"]</th>
+            <th width="45%" scope="col">@localizer["description"]</th>
+            <th width="10%" scope="col">@localizer["select"]</th>
+          </tr>
+        </thead>
+        <tfoot>
+          <tr>
+            <th class="input substring-search" width="15%" scope="col"></th>
+            <th class="input substring-search" width="15%" scope="col"></th>
+            <th class="input substring-search" width="15%" scope="col"></th>
+            <th class="input substring-search" width="45%" scope="col"></th>
+            <th class="input hidden-field" width="10%" scope="col"></th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <div class="d-flex justify-content-end gap-3 mb-2">
+      <button class="btn btn-footer btn-outline-danger" onclick="handleGoBackToPreviousPage()">@localizer["cancel"]</button>
+      <button class="btn btn-footer btn-primary" onclick="handleDoneButtonClick()">@localizer["done"]</button>
+    </div>
+  </div>
+
+  <div class="modal fade" id="duplicateConfirmationModal" tabindex="1" role="dialog" area-modal="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+      <div class="modal-content modal">
+        <div class="modal-header">
+          <h5 id="confirmModalTitleId" class="modal-title">@localizer["duplicateConfirmationTitle"]</h5>
+          <button id="confirmationModalClose" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" />
+        </div>
+        <div class="modal-body">
+          <h6 class="mb-3 mb-xl-4">@localizer["duplicateConfirmationMessage"]</h6>
+
+          <table class="table table-striped" id="table--vendor-parts--duplicates">
+            <thead>
+              <tr>
+                <th class="w-15" width="15%" scope="col">@localizer["partNumber"]</th>
+                <th class="w-15" width="15%" scope="col">@localizer["stockCode"]</th>
+                <th class="w-15" width="15%" scope="col">@localizer["vendorId"]</th>
+                <th class="w-45" width="45%" scope="col">@localizer["description"]</th>
+                <th class="w-10" width="10%" scope="col">@localizer["select"]</th>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                <th class="input substring-search" width="15%" scope="col"></th>
+                <th class="input substring-search" width="15%" scope="col"></th>
+                <th class="input substring-search" width="15%" scope="col"></th>
+                <th class="input substring-search" width="45%" scope="col"></th>
+                <th class="input hidden-field" width="10%" scope="col"></th>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button id="confirmationModalCancel" class="btn btn-footer btn-outline-danger me-2" data-bs-dismiss="modal">@localizer["cancel"]</button>
+          <button id="confirmationModalConfirm" class="btn btn-footer btn-primary">@localizer["done"]</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+@section Scripts {
+  <script src="~/js/AddItemsToThePO.js" asp-append-version="true"></script>
+}

@@ -1,0 +1,173 @@
+﻿@section Head {
+  <link href="~/css/stockItems.css" rel="stylesheet" asp-append-version="true" />
+}﻿
+
+@model IEnumerable<StockItemViewModel>
+@inject IApplicationConfig _config
+@inject IViewLocalizer localizer
+@{
+  ViewData["Title"] = @localizer["pageTitle"];
+}
+
+<input id="info" type="hidden" value="@localizer["info"]" />
+<input id="lengthMenu" type="hidden" value="@localizer["lengthMenu"]" />
+
+<div class="p-4 accordion">
+
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingOne">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        @localizer["searchCriteria"]
+      </button>
+    </h2>
+    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <div class="container">
+
+          <div class="row">
+            <div class="col-6 row">
+              <div class="form-check col-xl-4 col-lg-6 mt-1 mb-1">
+                <input class="form-check-input mt-2" id="stockCode" type="radio" name="selectCriteria" value="stockCode" onchange="reFilterData()">
+                <label class="form-check-label mt-1" for="stockCode">@localizer["stockCode"]</label>
+              </div>
+              <div class="col-6 mt-1 mb-1" style="height: 25px;">
+                <input class="form-control m-1" id="stockCodeSearchText" type="text" name="selectCriteria" onkeyup="debounceFilterData()" hidden>
+              </div>
+            </div>
+            <div class="col-6 row">
+              <div class="form-check col-xl-4 col-lg-6 mt-1 mb-1">
+                <input class="form-check-input mt-2" id="vendor" type="radio" name="selectCriteria" value="vendor" onchange="reFilterData()">
+                <label class="form-check-label mt-1" for="vendor">@localizer["vendors"]</label>
+              </div>
+              <div class="dropdown col-6 mt-1 mb-1" style="height: 25px;">
+                <select class="form-select col-3" aria-label="Default select example" id="selectVendor" onchange="filterData()" hidden>
+                  <option value="All" selected>All</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-6 row">
+              <div class="form-check col-xl-4 col-lg-6 mt-1 mb-1">
+                <input class="form-check-input mt-2" id="description" type="radio" name="selectCriteria" value="description" onchange="reFilterData()">
+                <label class="form-check-label mt-1" for="description">@localizer["description"]</label>
+              </div>
+              <div class="col-6 mt-1 mb-1" style="height: 25px;">
+                <input class="form-control m-1" id="descriptionSearchText" type="text" name="selectCriteria" onkeyup="debounceFilterData()" hidden>
+              </div>
+            </div>
+            <div class="col-6 row">
+              <div class="form-check col-xl-4 col-lg-6 mt-1 mb-1">
+                <input class="form-check-input mt-2" id="alternateCode" type="radio" name="selectCriteria" value="alternateCode" onchange="reFilterData()">
+                <label class="form-check-label mt-1" for="alternateCode">@localizer["alternateCode"]</label>
+              </div>
+              <div class="dropdown col-6 mt-1 mb-1" style="height: 25px;">
+                <input class="form-control m-1" id="alternateCodeSearchText" type="text" name="selectCriteria" onkeyup="debounceFilterData()" hidden>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-6 row">
+              <div class="form-check col-xl-4 col-lg-6 mt-1 mb-1">
+                <input class="form-check-input mt-2" id="keyword" type="radio" name="selectCriteria" value="keyword" onchange="reFilterData()">
+                <label class="form-check-label mt-1" for="keyword">@localizer["keyword"]</label>
+              </div>
+              <div class="col-6 mt-1 mb-1" style="height: 25px;">
+                <input class="form-control m-1" id="keywordSearchText" type="text" name="selectCriteria" onkeyup="debounceFilterData()" hidden>
+              </div>
+            </div>
+            <div class="col-6 row">
+              <div class="form-check col-xl-4 col-lg-6 mt-1 mb-1">
+                <input class="form-check-input mt-2" id="priceType" type="radio" name="selectCriteria" value="priceType" onchange="reFilterData()">
+                <label class="form-check-label mt-1" for="priceType">@localizer["priceType"]</label>
+              </div>
+              <div class="dropdown col-6 mt-1 mb-1" style="height: 25px;">
+                <select class="form-select col" aria-label="Default select example" id="selectPriceType" onchange="filterData()" hidden>
+                  <option value="All" selected>@localizer["all"]</option>
+                  <option value="R">R - @localizer["regularPrice"]</option>
+                  <option value="S">S - @localizer["salePricing"]</option>
+                  <option value="F">F - @localizer["firstUnitPricing"]</option>
+                  <option value="I">I - @localizer["incrementalPricing"]</option>
+                  <option value="X">X - @localizer["xForPricing"]</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-6 row">
+              <div class="form-check col-xl-4 col-lg-6 mt-1 mb-1">
+                <input class="form-check-input mt-2" id="vendorPart" type="radio" name="selectCriteria" value="vendorPart" onchange="reFilterData()">
+                <label class="form-check-label mt-1" for="vendorPart">@localizer["vendorPart"]</label>
+              </div>
+              <div class="col-6 mt-1 mb-1" style="height: 25px;">
+                <input class="form-control m-1" id="vendorPartSearchText" type="text" name="selectCriteria" onkeyup="debounceFilterData()" hidden>
+              </div>
+            </div>
+            <div class="col-6 row">
+              <div class="form-check col mt-1 mb-1">
+                <input class="form-check-input mt-2" id="saleItemsOnly" type="radio" name="selectCriteria" value="saleItemsOnly" onchange="reFilterData()">
+                <label class="form-check-label mt-1" for="saleItemsOnly">@localizer["saleItemsOnly"]</label>
+              </div>
+            </div>
+          </div>
+          @if (_config.IsBackOffice)
+          {
+            <div class="row">
+              <div class="col-6 row">
+                <div class="form-check col mt-1 mb-1">
+                  <input class="form-check-input mt-2" id="taxExemptItemsOnly" type="radio" name="selectCriteria" value="taxExemptItemsOnly" onchange="reFilterData()" @((ViewData["TaxExemptPolicy"]?.ToString().ToLower() == "true") ? "" : "disabled")>
+                  <label class="form-check-label mt-1" for="taxExemptItemsOnly" @((ViewData["TaxExemptPolicy"]?.ToString().ToLower() == "true") ? "" : "disabled")>@localizer["taxExemptItemsOnly"]</label>
+                </div>
+              </div>
+              <div class="col-6 row">
+                <div class="form-check col mt-1 mb-1" style="height: 25px;">
+                  <input class="form-check-input mt-2" id="inactiveItemsOnly" type="radio" name="selectCriteria" value="inactiveItemsOnly" onchange="reFilterData()">
+                  <label class="form-check-label mt-1" for="inactiveItemsOnly">@localizer["inactiveItemsOnly"]</label>
+                </div>
+              </div>
+            </div>
+          }
+          <div class="row">
+            <div class="col-6 row">
+              <div class="form-check col mt-1 mb-1">
+                <input class="form-check-input mt-2" id="departments" type="radio" name="selectCriteria" value="departments" onchange="reFilterData()">
+                <label class="form-check-label mt-1" for="departments">@localizer["department"], @localizer["subDepartment"], @localizer["subDetail"]</label>
+              </div>
+            </div>
+            <div class="form-check col-6 mt-1 mb-1" style="height: 25px;">
+              <input class="form-check-input mt-2" id="scalableItemsOnly" type="radio" name="selectCriteria" value="scalableItemsOnly" onchange="reFilterData()">
+              <label class="form-check-label mt-1" for="scalableItemsOnly">@localizer["scalableItemsOnly"]</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="dropdown col-3 mt-3 mb-3" style="height: 25px;">
+              <select class="form-select col-3" aria-label="Default select example" id="selectDepartment" onchange="departmentChange('department')" hidden>
+                <option value="All" selected>All</option>
+              </select>
+            </div>
+
+            <div class="dropdown col-3 mt-3 mb-3" style="height: 25px;">
+              <select class="form-select col-3" aria-label="Default select example" id="selectSubDepartment" onchange="departmentChange('subDepartment')" hidden>
+                <option value="All" selected>All</option>
+              </select>
+            </div>
+
+            <div class="dropdown col-3 mt-3 mb-3" style="height: 25px;">
+              <select class="form-select col-3" aria-label="Default select example" id="selectSubDetail" onchange="filterData()" hidden>
+                <option value="All">All</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+@section Scripts
+  {
+  <script src="~/js/stockItems.js" asp-append-version="true"></script>
+}

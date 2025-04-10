@@ -1,0 +1,22 @@
+﻿.tableHeader {
+  background-color: #14bac2;
+}
+
+.tableData {
+  background-color: #c0ffc0;
+}
+
+.btn-back, btn-load-report {
+  width: 150px !important;
+  height: 50px !important;
+  border-radius: 4px;
+}
+
+.button-container {
+  display: flex !important;
+  justify-content: center;
+}
+
+#stockItemReportTabQuantityGrid, #stockItemReportTabAmountGrid {
+  min-width: 1500px;
+}

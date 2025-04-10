@@ -1,0 +1,125 @@
+﻿.form-section-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+
+.excel-report-item-form {
+  background-color: var(--color-white);
+}
+
+.radioButton {
+  margin-bottom: 15px;
+  cursor: pointer !important;
+}
+
+  .radioButton label, .radioButton input {
+    cursor: pointer !important;
+  }
+
+.generateButtonDiv {
+  display: flex;
+  justify-content: center;
+  padding: 5px;
+  margin-top: 30px;
+}
+
+.infonet-control {
+  padding: 10px;
+  padding-right: 30px;
+  gap: 10px;
+  border: 1px solid rgba(38, 83, 188, 0.2);
+  border-radius: 6px;
+  background-color: #F5F7FF;
+  color: #4A6578;
+}
+
+.selectDateDiv {
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+  .selectDateDiv label {
+    margin-right: 10px;
+    min-width: 80px
+  }
+
+  .selectDateDiv input {
+    max-width: 300px !important;
+    min-width: 250px !important;
+  }
+
+.criteriaDiv {
+  margin-top: 20px;
+}
+
+.dateRangeDiv {
+  display: flex;
+  justify-content: space-between
+}
+
+.radioButtonsDiv {
+  display: flex;
+  justify-content: space-around;
+}
+
+.criteria-select {
+  max-width: 250px !important;
+}
+
+.w-300 {
+    width: 300px;
+}
+
+.criteriaSelectDiv {
+  justify-content: start;
+  align-items: center;
+  margin-top: 30px;
+}
+
+  .criteriaSelectDiv label {
+    margin-right: 10px;
+  }
+
+  .criteriaSelectDiv input {
+    max-width: 300px !important;
+  }
+
+.selectDateRangeDiv {
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+.selectOnlyDateDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.storesDiv {
+  align-items: center;
+  justify-content: center !important;
+  margin-top: 30px;
+}
+
+  .storesDiv label {
+    margin-right: 10px;
+    min-width: 80px
+  }
+
+  .storesDiv input {
+    max-width: 300px !important;
+    min-width: 300px !important;
+  }
+
+.selectStoresDiv{
+  display: flex;
+  justify-content: center;
+}
+
+.disabled-label {
+  color: gray;
+  cursor: not-allowed;
+}

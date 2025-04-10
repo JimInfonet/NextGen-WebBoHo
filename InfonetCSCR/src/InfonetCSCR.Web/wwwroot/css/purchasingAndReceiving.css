@@ -1,0 +1,47 @@
+.table-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 10px;
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+tbody, thead {
+  cursor: default !important;
+}
+
+.vendorOptionsList {
+  height: 250px !important;
+}
+
+.purchasing-receiving-post-modal {
+  max-width: 700px;
+  width: 80%;
+}
+
+#shift-id-input {
+  position: absolute !important;
+  width: 250px;
+  margin-left: 1px;
+  margin-top: -45px;
+  outline: none !important;
+  border: none !important;
+  height: 43px;
+}
+
+#shift-number-input {
+  position: absolute !important;
+  width: 250px;
+  margin-left: 1px;
+  margin-top: -45px;
+  outline: none !important;
+  border: none !important;
+  height: 43px;
+}
+
+#shift-id-select, #shift-number-select {
+  width: 100% !important;
+}

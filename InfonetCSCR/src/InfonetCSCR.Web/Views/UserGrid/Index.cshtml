@@ -1,0 +1,189 @@
+﻿@section Head {
+  <link href="~/css/userAndUserGroup.css" rel="stylesheet" asp-append-version="true" />
+}
+
+@inject IViewLocalizer localizer
+@inject IHttpContextAccessor _httpContextAccessor
+
+@{
+  bool timeSheetsAndHaveUserIdPolicy = (bool)ViewData["timeSheetsAndHaveUserIdPolicy"];
+  ViewData["Title"] = localizer["usersAndUserGroups"];
+}
+
+<input id="anErrorHasOccurredWhileLoadingUserGrid" type="hidden" value="@localizer["anErrorHasOccurredWhileLoadingUserGrid"]" />
+<input id="timeSheetsAndHaveUserIdPolicy" type="hidden" value="@ViewData["timeSheetsAndHaveUserIdPolicy"].ToString()" />
+<input id="delete" type="hidden" value="@localizer["delete"]" />
+<input id="confirmDeleteUserDetails" type="hidden" value="@localizer["confirmDeleteUserDetails", "{0}"]" />
+<input id="userDeletedSuccessfully" type="hidden" value="@localizer["userDeletedSuccessfully"]" />
+<input id="selectAUser" type="hidden" value="@localizer["selectAUser"]" />
+<input id="failedToDeleteUser" type="hidden" value="@localizer["failedToDeleteUser"]" />
+<input id="unAuthorizedOperation" type="hidden" value="@localizer["unAuthorizedOperation"]" />
+<input id="notAuthorizedMessage" type="hidden" value="@localizer["notAuthorizedMessage"]" />
+<input id="loggedInUserCode" type="hidden" value="@_httpContextAccessor.HttpContext.Session.GetString("UserCode")" />
+<input id="anErrorHasOccurredWhileLoadingGroupInfoGrid" type="hidden" value="@localizer["anErrorHasOccurredWhileLoadingGroupInfoGrid"]" />
+<input id="userAddedToTheGroupSuccessfully" type="hidden" value="@localizer["userAddedToTheGroupSuccessfully"]" />
+<input id="userRemovedFromTheGroupSuccessfully" type="hidden" value="@localizer["userRemovedFromTheGroupSuccessfully"]" />
+<input id="anErrorHasOccurredWhileLoadingUserGroupGrid" type="hidden" value="@localizer["anErrorHasOccurredWhileLoadingUserGroupGrid"]" />
+<input id="selectAUserGroup" type="hidden" value="@localizer["selectAUserGroup"]" />
+<input id="confirmDeleteUserGroup" type="hidden" value="@localizer["confirmDeleteUserGroup", "{0}"]" />
+<input id="groupDeletedSuccessfully" type="hidden" value="@localizer["groupDeletedSuccessfully"]" />
+<input id="failedToDeleteGroup" type="hidden" value="@localizer["failedToDeleteGroup"]" />
+<input id="groupCreatedSuccessfully" type="hidden" value="@localizer["groupCreatedSuccessfully"]" />
+<input id="anErrorHasOccurredWhileLoadingGroupMembers" type="hidden" value="@localizer["anErrorHasOccurredWhileLoadingGroupMembers"]" />
+<input id="loggedInUserSecurityLevel" type="hidden" value="@ViewData["loggedInUserSecurityLevel"]" />
+<input id="U_CHGPASS" type="hidden" value="@ViewData["U_CHGPASS"].ToString()" />
+<input id="emptyPasswordModalMessage" type="hidden" value="@localizer["emptyPasswordModalMessage"]" />
+<input id="passwordNotMatchedModalMessage" type="hidden" value="@localizer["passwordNotMatchedModalMessage"]" />
+<input id="passwordChangedSuccessfully" type="hidden" value="@localizer["passwordChangedSuccessfully", "{0}"]" />
+<input id="removeUserModalTitle" type="hidden" value="@localizer["removeUserModalTitle"]" />
+<input id="removeGroupModalTitle" type="hidden" value="@localizer["removeGroupModalTitle"]" />
+
+<div class="p-3 mt-2 d-flex justify-content-between">
+  <h3 class="h3 fw-bold mb-3">
+    @localizer["usersAndUserGroups"]
+  </h3>
+</div>
+
+<div class="mx-3">
+  <div class="user-body-content p-2">
+    <div>
+      <div class="d-flex justify-content-end">
+        <button id="btn-change-password" type="button" class="btn btn-footer btn-primary text-center" onclick="changePasswordButtonClick()">
+          @localizer["changeUsersPassword"]
+        </button>
+      </div>
+      <div class="border-bottom margin-x-13px">
+        <p class="form-section-title">
+          @localizer["users"]
+        </p>
+      </div>
+      <div class="row pt-3">
+        <div class="col-lg-12 col-xl-8">
+          <div class="container border-2 max-width-3000">
+            <table id="data-table-user-grid" class="table table-striped">
+              <thead>
+                <tr>
+                  @if (timeSheetsAndHaveUserIdPolicy)
+                  {
+                    <th width="25%">@localizer["code"]</th>
+                    <th width="30%">@localizer["name"]</th>
+                    <th width="25%">@localizer["id"]</th>
+                    <th width="20%">@localizer["type"]</th>
+                  }
+                  else
+                  {
+                    <th width="50%">@localizer["code"]</th>
+                    <th width="50%">@localizer["name"]</th>
+                  }
+                </tr>
+              </thead>
+            </table>
+          </div>
+
+          <div class="d-flex gap-3 justify-content-end padding-10px">
+            <button id="btn-user-grid-add" type="button" class="btn btn-footer btn-primary text-center align-items-center">@localizer["newUser"]</button>
+            <button id="btn-user-grid-edit" type="button" class="btn btn-footer btn-primary text-center align-items-center">@localizer["edit"]</button>
+            <button id="btn-user-grid-delete" type="button" class="btn btn-footer btn-danger text-center align-items-center">@localizer["removeUser"]</button>
+          </div>
+        </div>
+        <div class="col-lg-12 col-xl-4">
+          <div class="container border-2 max-width-3000 padding-top-30px">
+            <table id="data-table-group-info-grid" class="table table-striped">
+              <thead>
+                <tr>
+                  <th width="50%">@localizer["group"]</th>
+                  <th width="50%">@localizer["groupName"]</th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+          <div class="d-flex justify-content-end padding-10px">
+            <select id="add-to-group" class="form-select infonet-input width-250px display-none" aria-label="Select">
+              <option value="" disabled selected>@localizer["addToGroup"]</option>
+            </select>
+
+            <button id="btn-remove-from-group" type="button" class="btn btn-danger text-center align-items-center display-none">
+              @localizer["removeFromGroup"]
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="border-bottom margin-x-13px pt-3">
+        <p class="form-section-title">
+          @localizer["userGroups"]
+        </p>
+      </div>
+      <div class="row pt-3">
+        <div class="col-lg-12 col-xl-8">
+          <div class="container border-2 max-width-3000">
+            <table id="data-table-user-groups-grid" class="table table-striped">
+              <thead>
+                <tr>
+                  <th width="25%">@localizer["group"]</th>
+                  <th width="50%">@localizer["name"]</th>
+                  <th width="25%">@localizer["securityLevel"]</th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+
+          <div class="d-flex gap-3 justify-content-end padding-10px">
+                <button id="btn-user-group-grid-add" type="button" class="btn btn-footer btn-primary text-center align-items-center">@localizer["newGroup"]</button>
+                <button id="btn-user-group-grid-delete" type="button" class="btn btn-footer btn-danger text-center align-items-center">@localizer["removeGroup"]</button>
+          </div>
+        </div>
+        <div class="col-lg-12 col-xl-4">
+          <div class="container border-2 max-width-3000">
+            <table id="data-table-group-members-grid" class="table table-striped">
+              <thead>
+                <tr>
+                  <th width="40%">@localizer["code"]</th>
+                  <th width="60%">@localizer["name"]</th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+@*Change Password Modal*@
+<div class="modal fade" id="changePasswordModal" tabindex="1" role="dialog" area-labelledby="exampleModalLiveLabel" area-modal="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">@localizer["passwordMaintenance"]</h5>
+      </div>
+      <div class="modal-body">
+        <div class="d-flex justify-content-center">
+          <h3 class="h3 fw-bold">
+            @localizer["userPasswordMaintenance"]
+          </h3>
+        </div>
+        <label class="my-2">@localizer["selectAUserLebel"]</label>
+        <select id="select-a-user" class="form-select infonet-input w-100" aria-label="Select">
+          <option value="" disabled selected></option>
+        </select>
+        <label class="my-2">@localizer["enterNewPassword"]</label>
+        <input id="input-password" type="password" class="infonet-input clear-selected-input-on-keypress w-100" maxlength="31" />
+        <label class="my-2">@localizer["reEnterNewPassword"]</label>
+        <input id="input-confirm-password" type="password" class="infonet-input clear-selected-input-on-keypress w-100" maxlength="31" />
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary btn-sm btn-save" onclick="changeUserPassword()">@localizer["changePassword"]</button>
+        <button type="button" class="btn btn-cancel btn-outline-danger align-content-center btn-sm me-2" data-bs-dismiss="modal">@localizer["cancel"]</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+@section Scripts
+  {
+  <script src="~/js/UserAndUserGroup/userGrid.js" asp-append-version="true"></script>
+  <script src="~/js/UserAndUserGroup/groupInfoGrid.js" asp-append-version="true"></script>
+  <script src="~/js/UserAndUserGroup/userGroupGrid.js" asp-append-version="true"></script>
+  <script src="~/js/UserAndUserGroup/groupMembersGrid.js" asp-append-version="true"></script>
+  <script src="~/js/UserAndUserGroup/changePassword.js" asp-append-version="true"></script>
+  }

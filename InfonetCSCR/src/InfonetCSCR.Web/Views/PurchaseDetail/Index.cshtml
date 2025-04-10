@@ -1,0 +1,381 @@
+﻿@section Head {
+  <link href="~/css/purchaseDetail.css" rel="stylesheet" asp-append-version="true" />
+}
+
+@inject IApplicationConfig _config
+@inject IViewLocalizer localizer
+@{
+  ViewData["Title"] = @localizer["purchaseOrderInformationOfThePO"];
+  bool poChargesPolicy = (bool)ViewData["POChargesPolicy"]!;
+}
+
+<input type="hidden" id="selectedPoNumber" value="@ViewData["SelectedPoNumber"]?.ToString()" />
+<input type="hidden" id="popdFilePolicy" value="@ViewData["POPDFilePolicy"]?.ToString()" />
+
+@*Localization Texts*@
+<input type="hidden" id="searchText" value="@localizer["search"]" />
+<input type="hidden" id="orderQuantityText" value="@localizer["orderQuantity"]" />
+<input type="hidden" id="packingQuantityText" value="@localizer["packingQuantity"]" />
+<input type="hidden" id="receivedQuantityText" value="@localizer["receivedQuantity"]" />
+<input type="hidden" id="costText" value="@localizer["cost"]" />
+<input type="hidden" id="applyGSTText" value="@localizer["applyGST"]" />
+<input type="hidden" id="buyerText" value="@localizer["buyer"]" />
+<input type="hidden" id="shipViaText" value="@localizer["shipVia"]" />
+<input type="hidden" id="fobText" value="@localizer["fob"]" />
+<input type="hidden" id="freightText" value="@localizer["freight"]" />
+<input type="hidden" id="customerAccountText" value="@localizer["customerAccount"]" />
+<input type="hidden" id="invoiceNumberText" value="@localizer["invoiceNumber"]" />
+<input type="hidden" id="termsText" value="@localizer["terms"]" />
+<input type="hidden" id="notesText" value="@localizer["notes"]" />
+<input type="hidden" id="poDateText" value="@localizer["poDate"]" />
+<input type="hidden" id="toBeDeliveredText" value="@localizer["toBeDelivered"]" />
+<input type="hidden" id="dateReceivedText" value="@localizer["dateReceived"]" />
+<input type="hidden" id="subTotalText" value="@localizer["subTotal"]" />
+<input type="hidden" id="surchargeDiscountText" value="@localizer["surchargeDiscount"]" />
+<input type="hidden" id="taxTotalText" value="@localizer["taxTotal"]" />
+<input type="hidden" id="totalText" value="@localizer["total"]" />
+<input type="hidden" id="youShouldEnterNumericValueForOrderQty" value="@localizer["youShouldEnterNumericValueForOrderQty"]" />
+<input type="hidden" id="decimalPointsAreNotAllowedForThisProduct" value="@localizer["decimalPointsAreNotAllowedForThisProduct"]" />
+<input type="hidden" id="orderQuantityShouldBeIn" value="@localizer["orderQuantityShouldBeIn"]" />
+<input type="hidden" id="orderQuantityShouldBeInRangeWithoutDecimal" value="@localizer["orderQuantityShouldBeInRangeWithoutDecimal"]" />
+<input type="hidden" id="minimumValueForPackingQty" value="@localizer["minimumValueForPackingQty"]" />
+<input type="hidden" id="packingQuantityShouldBeIn" value="@localizer["packingQuantityShouldBeIn"]" />
+<input type="hidden" id="youShouldEnterNumericValueForReceivedQuantity" value="@localizer["youShouldEnterNumericValueForReceivedQuantity"]" />
+<input type="hidden" id="receivedQuantityShouldBeIn" value="@localizer["receivedQuantityShouldBeIn"]" />
+<input type="hidden" id="decimalPointsAreNotAllowedForThisProductReceivedQuantity" value="@localizer["decimalPointsAreNotAllowedForThisProductReceivedQuantity"]" />
+<input type="hidden" id="receivedQuantityCantBeMoreThanOrderedQuantity" value="@localizer["receivedQuantityCantBeMoreThanOrderedQuantity"]" />
+<input type="hidden" id="youCantAllowCostPerUnitTobeMoreThat50Percent" value="@localizer["youCantAllowCostPerUnitTobeMoreThat50Percent", "{0}"]" />
+<input type="hidden" id="cannotBeMoreThanChar" value="@localizer["cannotBeMoreThanChar", "{0}", "{1}"]" />
+<input type="hidden" id="invoiceText" value="@localizer["invoice"]" />
+<input type="hidden" id="noInvoiceEnteredDoYouWantToUseTheDefault" value="@localizer["noInvoiceEnteredDoYouWantToUseTheDefault"]" />
+<input type="hidden" id="postedItem" value="@localizer["postedItem"]" />
+<input type="hidden" id="youAreNotAllowedToDeleteThisPostedItem" value="@localizer["youAreNotAllowedToDeleteThisPostedItem"]" />
+<input type="hidden" id="pleaseSelectAPurchaseDetailBeforeDeleting" value="@localizer["pleaseSelectAPurchaseDetailBeforeDeleting"]" />
+<input type="hidden" id="purchaseDetailSuccessfullyDeleted" value="@localizer["purchaseDetailSuccessfullyDeleted"]" />
+<input type="hidden" id="youShouldEnterNumericValueForSurchargeDiscount" value="@localizer["youShouldEnterNumericValueForSurchargeDiscount"]" />
+<input type="hidden" id="youShouldEnterNumericValueForReorderMaximum" value="@localizer["youShouldEnterNumericValueForReorderMaximum"]" />
+<input type="hidden" id="youShouldEnterNumericValueForReorderPoint" value="@localizer["youShouldEnterNumericValueForReorderPoint"]" />
+<input type="hidden" id="taxesSuccessfullyAdded" value="@localizer["taxesSuccessfullyAdded"]" />
+<input type="hidden" id="taxesSuccessfullyDeleted" value="@localizer["taxesSuccessfullyDeleted"]" />
+<input type="hidden" id="confirmDeletion" value="@localizer["confirmDeletion"]" />
+<input type="hidden" id="areYouSureYouWantToDeleteIt" value="@localizer["areYouSureYouWantToDeleteIt"]" />
+<input type="hidden" id="youShouldEnterAValueForCost" value="@localizer["youShouldEnterAValueForCost"]" />
+<input type="hidden" id="invalidNumberWarningMessage" value="@localizer["invalidNumberWarningMessage"]" />
+<input type="hidden" id="pleaseSelectPartNumber" value="@localizer["pleaseSelectPartNumber"]" />
+<input type="hidden" id="taxable" value="@localizer["taxable"]" />
+<input type="hidden" id="costCanNotBeZero" value="@localizer["costCanNotBeZero"]" />
+<input type="hidden" id="costShouldBeIn" value="@localizer["costShouldBeIn"]" />
+<input type="hidden" id="receivedQuantityShouldBeInRangeWithoutDecimal" value="@localizer["receivedQuantityShouldBeInRangeWithoutDecimal"]" />
+<input type="hidden" id="orderQuantityShouldBeInRangeWithoutDecimal" value="@localizer["orderQuantityShouldBeInRangeWithoutDecimal"]" />
+<input type="hidden" id="itemsAreAddedSuccessfully" value="@localizer["itemsAreAddedSuccessfully"]" />
+
+<div class="m-3">
+  <h3>@localizer["purchaseOrderInformationOfThePO"]</h3>
+</div>
+
+<div class="m-2">
+  <div class="headerAddress">
+    <div class="addressBox">
+      <div class="d-flex addressBoxInputSection">
+        <label class="headerAddressInputLabel">@localizer["to"] :</label>
+        <div id="headerToAddressInputToAddress" disabled class="infonet-input toAddressTextArea addressBoxInput"></div>
+      </div>
+      <div class="d-flex addressBoxInputSection">
+        <label class="headerAddressInputLabel">@localizer["phone"] :</label>
+        <input id="headerToAddressInputPhone" disabled class="infonet-input addressBoxInput" />
+      </div>
+      <div class="d-flex addressBoxInputSection">
+        <label class="headerAddressInputLabel">@localizer["fax"] :</label>
+        <input id="headerToAddressInputFax" disabled class="infonet-input addressBoxInput" />
+      </div>
+      <div class="d-flex addressBoxInputSection">
+        <label class="headerAddressInputLabel">@localizer["account"] :</label>
+        <input id="headerToAddressInputAccount" disabled class="infonet-input addressBoxInput" />
+      </div>
+    </div>
+
+    <div class="addressBox">
+      <div class="d-flex addressBoxInputSection">
+        <label class="headerAddressInputLabel">@localizer["from"] :</label>
+        <div id="headerFromAddressInputFromAddress" class="infonet-input fromAddressTextArea addressBoxInput"></div>
+      </div>
+      <div class="d-flex addressBoxInputSection">
+        <label class="headerAddressInputLabel">@localizer["phone"] :</label>
+        <input id="headerFromAddressInputPhone" disabled class="infonet-input addressBoxInput" />
+      </div>
+      <div class="d-flex addressBoxInputSection">
+        <label class="headerAddressInputLabel">@localizer["fax"] :</label>
+        <input id="headerFromAddressInputFax" disabled class="infonet-input addressBoxInput" />
+      </div>
+    </div>
+  </div>
+
+  <div class="headerAddress">
+    <div class="addressBox">
+      <div class="d-flex addressBoxInputSection">
+        <label class="headerAddressInputLabelRight">@localizer["customerAccount"] :</label>
+        <input id="customerAccountInputId" class="infonet-input addressBoxInputRight" readonly onclick="editHeaderDataClick('CustomerAccount')" />
+      </div>
+      <div class="d-flex addressBoxInputSection">
+        <label class="headerAddressInputLabelRight">@localizer["poNumber"] :</label>
+        <input id="poNumberInputId" disabled class="infonet-input addressBoxInputRight" />
+      </div>
+      <div class="d-flex addressBoxInputSection">
+        <label class="headerAddressInputLabelRight">@localizer["poDate"] :</label>
+        <input id="poDateInputId" type="date" class="infonet-input addressBoxInputRight" readonly onclick="editHeaderDataClick('PODate')" />
+      </div>
+      <div class="d-flex addressBoxInputSection">
+        <label class="headerAddressInputLabelRight">@localizer["toBeDelivered"] :</label>
+        <input id="toBeDeliveredDateInputId" type="date" class="infonet-input addressBoxInputRight" readonly onclick="editHeaderDataClick('ToBeDelivered')" />
+      </div>
+      <div class="d-flex addressBoxInputSection">
+        <label class="headerAddressInputLabelRight">@localizer["dateReceived"] :</label>
+        <input id="dateReceivedInputId" type="date" class="infonet-input addressBoxInputRight" readonly onclick="editHeaderDataClick('DateReceived')" />
+      </div>
+      @if (@ViewData["POPDFilePolicy"]?.ToString() == "True")
+      {
+        <div class="d-flex addressBoxInputSection">
+          <label class="headerAddressInputLabelRight">@localizer["invoiceNumber"] :</label>
+          <input id="invoiceNumberInputId" class="infonet-input addressBoxInputRight" readonly onclick="editHeaderDataClick('InvoiceNumber')" />
+        </div>
+      }
+      else
+      {
+        <div class="d-flex addressBoxInputSection">
+          <label class="headerAddressInputLabelRight">@localizer["terms"] :</label>
+          <input id="termsInputId" class="infonet-input addressBoxInputRight" readonly onclick="editHeaderDataClick('Terms')" />
+        </div>
+      }
+    </div>
+
+    <div class="addressBox">
+      <div class="d-flex addressBoxInputSection">
+        <label class="headerAddressInputLabel">@localizer["buyer"] :</label>
+        <input id="buyerInputId" class="infonet-input addressBoxInput" readonly onclick="editHeaderDataClick('Buyer')" />
+      </div>
+      <div class="d-flex addressBoxInputSection">
+        <label class="headerAddressInputLabel">@localizer["shipVia"] :</label>
+        <input id="shipViaInputId" class="infonet-input addressBoxInput" readonly onclick="editHeaderDataClick('ShipVia')" />
+      </div>
+      <div class="d-flex addressBoxInputSection">
+        <label class="headerAddressInputLabel">@localizer["fob"] :</label>
+        <input id="fobInputId" class="infonet-input addressBoxInput" readonly onclick="editHeaderDataClick('FOB')" />
+      </div>
+      <div class="d-flex addressBoxInputSection">
+        <label class="headerAddressInputLabel">@localizer["freight"] :</label>
+        <input id="freightInputId" class="infonet-input addressBoxInput" readonly onclick="editHeaderDataClick('Freight')" />
+      </div>
+    </div>
+  </div>
+
+  <div class="m-2">
+    <div class="container body-content p-2 pb-2" style="max-width:3000px;">
+      <div class="container custom-grid-scrollbar border-2" style="max-width:3000px;">
+        <table id="purchaseDetail-grid" class="table table-striped" style="width:100%">
+          <thead>
+            <tr>
+              <th hidden id="DTPurchaseNo">@localizer["#"]</th>
+              <th id="DTLineNumber">@localizer["#"]</th>
+              <th id="DTPartNumber">@localizer["part#"]</th>
+              <th id="DTOrderedQuantity">@localizer["orderQuantity"]</th>
+              <th id="DTUnitOfMeasure">@localizer["orderUnit"]</th>
+              <th id="DTUnitQuantity">@localizer["packingQuantity"]</th>
+              <th id="DTReceivedQuantity">@localizer["receivedQuantity"]</th>
+              <th id="DTPoCost">@localizer["cost"]</th>
+              <th id="DTCalculateDiscount">@localizer["calculateDiscount"]</th>
+              <th id="DTDescription">@localizer["description"]</th>
+              <th id="DTExtCost">@localizer["exactCost"]</th>
+              <th id="DTApplyGST">@localizer["taxable"]</th>
+              <th id="DTGST">@localizer["taxAmount"]</th>
+              <th id="DTPosted">@localizer["posted"]</th>
+              <th id="DTStockCode">@localizer["stockCode"]</th>
+              <th id="DTProductVendor">@localizer["productVendor"]</th>
+              <th id="DTCharges">@localizer["charges"]</th>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+              <th hidden class="input" scope="col"></th>
+              <th hidden class="input" scope="col"></th>
+              <th class="input" scope="col"></th>
+              <th hidden class="input" scope="col"></th>
+              <th hidden class="input" scope="col"></th>
+              <th hidden class="input" scope="col"></th>
+              <th hidden class="input" scope="col"></th>
+              <th hidden class="input" scope="col"></th>
+              <th hidden class="input" scope="col"></th>
+              <th class="input" scope="col"></th>
+              <th hidden class="input" scope="col"></th>
+            </tr>
+          </tfoot>
+        </table>
+
+        <div class="table-buttons">
+          <button class="btn btn-primary" onclick="handleAddFromListClick()">@localizer["addFromList"]</button>
+          <button class="btn btn-danger" onclick="deleteButtonClicked()">@localizer["deleteItem"]</button>
+          <button class="btn btn-primary" onclick="editMinMaxButtonClicked()">@localizer["editMinMax"]</button>
+          <button class="btn btn-primary" onclick="inputSurchargeButtonClicked()">@localizer["inputSurcharge"]</button>
+          <button class="btn btn-primary" id="addTaxButtonId" onclick="addTaxButtonClicked()">@localizer["addTax"]</button>
+          <button class="btn btn-danger" id="deleteTaxButtonId" onclick="deleteTaxButtonClicked()">@localizer["deleteTax"]</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="headerAddress">
+    <div class="addressBox">
+      <div class="d-flex addressBoxInputSection">
+        <label class="headerAddressInputLabel">@localizer["notes"] :</label>
+        <textarea id="notesInputId" class="infonet-input notesTextArea addressBoxInput" readonly onclick="editHeaderDataClick('Notes')"></textarea>
+      </div>
+    </div>
+
+    <div class="addressBox">
+      <div class="d-flex addressBoxInputSection">
+        <label class="headerAddressInputLabel">@localizer["subTotal"] :</label>
+        <input id="subTotalInputId" class="infonet-input addressBoxInput summaryInput" readonly />
+      </div>
+      <div class="d-flex addressBoxInputSection">
+        <label class="headerAddressInputLabel">@localizer["surchargeDiscount"] :</label>
+        <input id="surchargeDiscountInputId" readonly class="infonet-input addressBoxInput summaryInput" />
+      </div>
+      <div class="d-flex addressBoxInputSection">
+        <label class="headerAddressInputLabel">@localizer["taxTotal"] :</label>
+        <input id="taxTotalInputId" readonly class="infonet-input addressBoxInput summaryInput" />
+      </div>
+      @if (poChargesPolicy)
+      {
+        <div class="d-flex addressBoxInputSection">
+          <label class="headerAddressInputLabel">@localizer["charges"] :</label>
+          <input id="chargesInputId" readonly class="infonet-input addressBoxInput summaryInput" />
+        </div>
+      }
+      <div class="d-flex addressBoxInputSection">
+        <label class="headerAddressInputLabel">@localizer["total"] :</label>
+        <input id="totalInputId" class="infonet-input addressBoxInput summaryInput" readonly />
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="pageFooter m-3">
+  <button id="btn-back" onclick="goToPurchasingAndReceivingPage()" type="button" class="btn btn-back btn-outline-danger">@localizer["back"]</button>
+</div>
+
+@*Edit Detail Modal*@
+<div class="modal fade" id="purchaseDetailInputModal" tabindex="1" role="dialog" area-labelledby="exampleModalLiveLabel" area-modal="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        <label id="modalLabelId" class="mb-2"></label>
+        <input id="modalInputId" type="number" class="infonet-input w-100" onkeypress="return onlyDigitDecimalPlusMinusKeyPress(event)" />
+        <select id="modalInputSelectId" class="form-select infonet-input" aria-label="Select Product type">
+          <option value="true">True</option>
+          <option value="false">False</option>
+        </select>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary btn-sm btn-save" onclick="modalSaveButtonClicked()">@localizer["save"]</button>
+        <button type="button" class="btn btn-cancel btn-outline-danger align-content-center btn-sm me-2" data-bs-dismiss="modal">@localizer["cancel"]</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+@*Edit Purchase Header Modal*@
+<div class="modal fade" id="purchaseHeaderInputModal" tabindex="1" role="dialog" area-labelledby="exampleModalLiveLabel" area-modal="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body d-flex flex-column">
+        <label id="purchaseHeaderModalLabelId" class="mb-2"></label>
+        <input id="purchaseHeaderModalInputId" type="text" class="infonet-input w-100" />
+        <textarea id="purchaseHeaderModalInputTextAreaId" class="infonet-input notesTextArea"></textarea>
+        <input id="purchaseHeaderModalInputDateId" max="2079-06-06" type="date" class="infonet-input" />
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary btn-sm btn-save" onclick="purchaseHeaderModalSaveButtonClicked()">@localizer["save"]</button>
+        <button type="button" class="btn btn-cancel btn-outline-danger align-content-center btn-sm me-2" data-bs-dismiss="modal">@localizer["cancel"]</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+@*Input Surcharge Modal*@
+<div class="modal fade" id="inputSurchargeModal" tabindex="1" role="dialog" area-labelledby="exampleModalLiveLabel" area-modal="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">@localizer["inputSurchargeDiscount"]</h5>
+      </div>
+      <div class="modal-body d-flex flex-column">
+        <div class="d-flex">
+          <div class="form-check me-3">
+            <input class="form-check-input" type="radio" name="by" id="byDollar" value="$" checked>
+            <label class="form-check-label" for="byDollar">
+              @localizer["by$"]
+            </label>
+          </div>
+          <div class="form-check me-3">
+            <input class="form-check-input" type="radio" name="by" id="byPercent" value="%">
+            <label class="form-check-label" for="byPercent">
+              @localizer["by%"]
+            </label>
+          </div>
+        </div>
+        <div>
+          <label id="surchargeDiscountModalLabelId" class="mb-2">@localizer["surchargeDiscount"]</label>
+          <input id="surchargeDiscountModalInputId" class="infonet-input w-100" />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary btn-sm btn-save" onclick="inputSurchargeModalApplyButtonClicked()">@localizer["apply"]</button>
+        <button type="button" class="btn btn-cancel btn-outline-danger align-content-center btn-sm me-2" data-bs-dismiss="modal">@localizer["cancel"]</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+@*Edit Min/Max Modal*@
+<div class="modal fade" id="editMinMaxModal" tabindex="1" role="dialog" area-labelledby="exampleModalLiveLabel" area-modal="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">@localizer["changeReorderPoint"]</h5>
+      </div>
+      <div class="modal-body d-flex flex-column">
+        <div class="mt-2">
+          <label class="mb-2">@localizer["partNumber"]</label>
+          <select id="partNumberModalSelectInputId" class="form-select part-number-select infonet-input stock-item-form-input w-100" onchange="partNumberOptionChnaged(this.options[this.selectedIndex].value)" aria-label="Select Category">
+            <option value="">@localizer["select"]</option>
+            @foreach (var vendorPart in ViewBag.VendorParts)
+            {
+              <option value="@vendorPart.PartNo">@vendorPart.PartNo - @vendorPart.Description</option>
+            }
+          </select>
+          <p class="mt-2" id="partNumberModalData"></p>
+        </div>
+        <div class="mt-2">
+          <label id="reorderPointModalLabelId" class="mb-2">@localizer["reorderPoint"]</label>
+          <input id="reorderPointModalInputId" type="number" class="infonet-input w-100" />
+        </div>
+        <div class="mt-2">
+          <label id="reorderMaximumModalLabelId" class="mb-2">@localizer["reorderMaximum"]</label>
+          <input id="reorderMaximumModalInputId" type="number" class="infonet-input w-100" />
+        </div>
+        <div class="mt-2">
+          <label id="quantityInStockModalLabelId" class="mb-2">@localizer["quantityInStock"]</label>
+          <input id="quantityInStockModalInputId" disabled type="text" class="infonet-input w-100" />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary btn-sm btn-save" id="editMinMaxModalChangeButtonId" onclick="editMinMaxModalChangeButtonClicked()">@localizer["change"]</button>
+        <button type="button" class="btn btn-cancel btn-outline-danger align-content-center btn-sm me-2" data-bs-dismiss="modal">@localizer["cancel"]</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+@section Scripts
+  {
+  <script src="~/js/purchaseDetail.js" asp-append-version="true"></script>
+}

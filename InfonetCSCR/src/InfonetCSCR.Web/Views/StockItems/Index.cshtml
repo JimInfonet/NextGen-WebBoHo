@@ -1,0 +1,101 @@
+@section Head {
+  <link href="~/css/stockItems.css" rel="stylesheet" asp-append-version="true" />
+}
+
+@model IEnumerable<StockItemViewModel>
+@inject IApplicationConfig _config
+@inject IViewLocalizer localizer
+@{
+  ViewData["Title"] = @localizer["pageTitle"];
+}
+
+<input id="makeActive" type="hidden" value="@localizer["makeActive"]" />
+<input id="makeInactive" type="hidden" value="@localizer["makeInactive"]" />
+<input id="makeItKit" type="hidden" value="@localizer["makeItKit"]" />
+<input id="alreadyAKit" type="hidden" value="@localizer["alreadyAKit"]" />
+<input id="removeKit" type="hidden" value="@localizer["removeKit"]" />
+<input id="errorMessage" type="hidden" value="@localizer["errorMessage"]" />
+<input id="selectBeforeDeletingMessage" type="hidden" value="@localizer["selectBeforeDeletingMessage"]" />
+<input id="deleteSaleItemWarning" type="hidden" value="@localizer["deleteSaleItemWarning"]" />
+<input id="deleteStockItemWarning" type="hidden" value="@localizer["deleteStockItemWarning"]" />
+<input id="selectItemAlert" type="hidden" value="@localizer["selectItemAlert"]" />
+<input id="selectItemBeforeCopyAlert" type="hidden" value="@localizer["selectItemBeforeCopyAlert"]" />
+<input id="selectItemBeforeActiveOrInactiveAlert" type="hidden" value="@localizer["selectItemBeforeActiveOrInactiveAlert"]" />
+<input id="selectItemBeforeMakingKitAlert" type="hidden" value="@localizer["selectItemBeforeMakingKitAlert"]" />
+<input id="selectedStockItemsStockCode" hidden />
+<input id="selectedStockItemsDescription" hidden />
+<input id="showDetails" type="hidden" value="@localizer["showDetails"]" />
+<input id="hideDetails" type="hidden" value="@localizer["hideDetails"]" />
+<input id="filter" type="hidden" value="@localizer["filter"]" />
+<input id="warning" type="hidden" value="@localizer["warning"]" />
+<input id="isFromStockForm" type="hidden" value="@ViewData["isFromStockForm"]?.ToString()" />
+<div id="isBackOffice" hidden>@_config.IsBackOffice</div>
+<div id="isServerSidePagination" hidden>@_config.IsServerSidePagination</div>
+<input type="hidden" id="thisItemIsAlreadyInKit" value="@localizer["thisItemIsAlreadyInKit", "{0}"]">
+
+
+<partial name="/Views/StockItems/SearchCriteria.cshtml" view-data="ViewData"></partial>
+<div class="p-4 button-group">
+  <div class="p-0 row justify-content-end">
+    <div class="col-xl col-lg-3 p-2 text-center fit-content">
+      <a asp-action="Index" asp-controller="StockItemForm" class="btn btn-primary wd" type="button">@localizer["add"]</a>
+    </div>
+    <div class="col-xl col-lg-3 p-2 text-center fit-content">
+      <a class="btn btn-danger wd" onclick="deleteProduct()">@localizer["delete"]</a>
+    </div>
+    <div class="col-xl col-lg-3 p-2 text-center fit-content">
+      <a class="btn btn-primary wd" onclick="copyProductByStockCode()">@localizer["copy"]</a>
+    </div>
+    <div class="col-xl col-lg-3 p-2 text-center fit-content">
+      <a id="makeItKitButton" class="btn btn-primary wd" onclick="kitButtonClicked()">@localizer["makeItKit"]</a>
+    </div>
+    @if (_config.IsBackOffice)
+    {
+      <div class="col-xl col-lg-3 p-2 text-center fit-content" id="makeInactiveDiv">
+        <a class="btn btn-primary wd" id="makeInactiveButton" value="@localizer["makeInactive"]" onclick="activeButtonClicked()">@localizer["makeInactive"]</a>
+      </div>
+    }
+
+    <div class="col-xl col-lg-3 p-2 text-center fit-content">
+      <a class="btn btn-primary wd" id="detailsButton" onclick="toggleDetails()">@localizer["showDetails"]</a>
+    </div>
+    @if (_config.IsBackOffice)
+    {
+      <div class="col-xl col-lg-3 p-2 text-center fit-content" id="reportsDiv">
+        <a class="btn btn-primary wd" type="button" id="reportsButton" onclick="reportsClick()">@localizer["reports"]</a>
+      </div>
+    }
+  </div>
+</div>
+
+<div class="p-4">
+
+  <div class="container overflow-scroll custom-grid-scrollbar">
+    <table id="stock-items-grid" class="table table-striped" style="width:100%">
+      <thead>
+        <tr>
+          <th id="DTStockCode">@localizer["stockCode"]</th>
+          <th id="DTDescription">@localizer["description"]</th>
+          <th id="DTVendor">@localizer["vendors"]</th>
+          <th id="DTVendorPart">@localizer["vendorPart"]</th>
+          <th id="DTDepartment">@localizer["department"]</th>
+          <th id="DTSubDepartment">@localizer["subDepartment"]</th>
+          <th id="DTCost">@localizer["cost"]</th>
+          <th id="DTPrice">@localizer["price"]</th>
+          <th id="DTAvailable">@localizer["available"]</th>
+          <th hidden id="DTIsActive">IsActive</th>
+          <th hidden id="DTIsKit">IsKit</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+
+  <div class="container">
+    <p class="fw-bold fst-italic text-danger">@localizer["doubleClickInstruction"]</p>
+  </div>
+</div>
+
+@section Scripts
+  {
+  <script src="~/js/stockItems.js" asp-append-version="true"></script>
+}

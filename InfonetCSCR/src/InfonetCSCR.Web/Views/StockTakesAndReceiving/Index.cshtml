@@ -1,0 +1,403 @@
+@section Head {
+  <link href="~/css/stockItems.css" rel="stylesheet" asp-append-version="true" />
+}
+
+@inject IApplicationConfig _config
+@inject IViewLocalizer localizer
+@{
+  bool isStockTakes = ViewData["stockCountType"]?.ToString() == "StockTakes";
+  string importFilePath = !isStockTakes ? _config.FileConfig.ImportFilePathForStockReceiving.ToString()
+                            : _config.FileConfig.ImportFilePathForStockTakes.ToString();
+
+  if (isStockTakes)
+  {
+    ViewData["Title"] = @localizer["StockTakesPageTitle"];
+  }
+  else
+  {
+    ViewData["Title"] = @localizer["pageTitle"];
+  }
+}
+
+<input id="search" type="hidden" value="@localizer["search"]" />
+<input id="errorMessage" type="hidden" value="@localizer["errorMessage"]" />
+<input id="successfullyAdded" type="hidden" value="@localizer["successfullyAdded"]" />
+<input id="failedToAdd" type="hidden" value="@localizer["failedToAdd"]" />
+<input id="successfullyDeleted" type="hidden" value="@localizer["successfullyDeleted"]" />
+<input id="failedToDelete" type="hidden" value="@localizer["failedToDelete"]" />
+<input id="costCantBeGreaterThan" type="hidden" value="@localizer["costCantBeGreaterThan",9999.99]" />
+<input id="pleaseEnterANumericValueAsInvoiceNumber" type="hidden" value="@localizer["pleaseEnterANumericValueAsInvoiceNumber"]" />
+<input id="pleaseEnterTheInvoiceNumber" type="hidden" value="@localizer["pleaseEnterTheInvoiceNumber"]" />
+<input id="invoice" type="hidden" value="@localizer["invoice"]" />
+<input id="stockReceive" type="hidden" value="@localizer["stockReceive"]" />
+<input id="stockReceived" type="hidden" value="@localizer["stockReceived"]" />
+<input id="successfullySuspended" type="hidden" value="@localizer["successfullySuspended"]" />
+<input id="failedToSuspend" type="hidden" value="@localizer["failedToSuspend"]" />
+<input id="successfullyUnsuspended" type="hidden" value="@localizer["successfullyUnsuspended"]" />
+<input id="failedToUnsuspend" type="hidden" value="@localizer["failedToUnsuspend"]" />
+<input id="successfullyProcessed" type="hidden" value="@localizer["successfullyProcessed"]" />
+<input id="failedToProcess" type="hidden" value="@localizer["failedToProcess"]" />
+<input id="language" type="hidden" value="@_config.Language" />
+<input id="areYouSureYouWantToDeleteThisEntry" type="hidden" value="@localizer["areYouSureYouWantToDeleteThisEntry"]">
+<input id="areYouSureYouWantToDeleteAll" type="hidden" value="@localizer["areYouSureYouWantToDeleteAll"]">
+<input id="changePriceBasedOnMarginSetup" type="hidden" value="@localizer["changePriceBasedOnMarginSetup"]">
+<input id="doYouWantToChangeThePrice" type="hidden" value="@localizer["doYouWantToChangeThePrice"]">
+<input id="process" type="hidden" value="@localizer["process"]">
+<input id="processing" type="hidden" value="@localizer["processing"]">
+<input id="exportSelectedStocks" type="hidden" value="@localizer["exportSelectedStocks"]">
+<input id="exporting" type="hidden" value="@localizer["exporting"]">
+<input id="failedToExport" type="hidden" value="@localizer["failedToExport"]">
+<input id="accessDatabaseOptionIsNotSupported" type="hidden" value="@localizer["accessDatabaseOptionIsNotSupported"]">
+<input id="doYouWantToPrintTheLogFile" type="hidden" value="@localizer["doYouWantToPrintTheLogFile"]">
+<input id="import" type="hidden" value="@localizer["import"]">
+<input id="stockImportErrorReport" type="hidden" value="@localizer["stockImportErrorReport"]">
+<input id="theFollowingRecordsAreNotLoaded" type="hidden" value="@localizer["theFollowingRecordsAreNotLoaded"]">
+<input id="missingStockCodeInfo" type="hidden" value="@localizer["missingStockCodeInfo"]">
+<input id="stockCodeDoesNotExist" type="hidden" value="@localizer["stockCodeDoesNotExist"]">
+<input id="stockCodeIsAKit" type="hidden" value="@localizer["stockCodeIsAKit"]">
+<input id="missingQuantityInfo" type="hidden" value="@localizer["missingQuantityInfo"]">
+<input id="missingCostInfo" type="hidden" value="@localizer["missingCostInfo"]">
+<input id="missingInvoiceInfo" type="hidden" value="@localizer["missingInvoiceInfo"]">
+<input id="successfullyImported" type="hidden" value="@localizer["successfullyImported"]">
+<input id="successfullyExportedTo" type="hidden" value="@localizer["successfullyExportedTo"]">
+<input id="invalidFileType" type="hidden" value="@localizer["invalidFileType"]">
+<input id="anErrorHasOccurredWhileImportingFile" type="hidden" value="@localizer["anErrorHasOccurredWhileImportingFile"]">
+<input id="anErrorHasOccurredWhileExportingFile" type="hidden" value="@localizer["anErrorHasOccurredWhileExportingFile"]">
+<input id="fileDoesNotExist" type="hidden" value="@localizer["fileDoesNotExist",@importFilePath]">
+<input id="userCode" type="hidden" value="@ViewData["UserCode"]?.ToString()" />
+<input id="isAutoImportExport" type="hidden" value="@_config.FileConfig.IsAutoImportExport.ToString()" />
+<input id="importFilePath" type="hidden" value="@importFilePath" />
+<input id="exportFolderPath" type="hidden" value="@_config.FileConfig.ExportFolderPath.ToString()" />
+<input id="stockCountType" type="hidden" value="@ViewData["stockCountType"]?.ToString()" />
+<input id="quantityDataEntryError" type="hidden" value="@localizer["quantityDataEntryError"]">
+<input id="quantityOutOfRangeError" type="hidden" value="@localizer["quantityOutOfRangeError"]">
+<input id="all" type="hidden" value="@localizer["all"]">
+<input id="undefined" type="hidden" value="@localizer["undefined"]">
+<input id="invoiceRange" type="hidden" value="@localizer["invoiceRange"]">
+<input id="invoiceRangeFromZero" type="hidden" value="@localizer["invoiceRangeFromZero"]">
+<input id="fieldMustBeNumeric" type="hidden" value="@localizer["fieldMustBeNumeric"]">
+<input id="quantityRange" type="hidden" value="@localizer["quantityRange"]">
+<input id="costRange" type="hidden" value="@localizer["costRange"]">
+<input id="edit" type="hidden" value="@localizer["edit"]">
+<input id="cost" type="hidden" value="@localizer["cost"]">
+<input id="quantity" type="hidden" value="@localizer["quantity"]">
+<input id="costCantBeMoreThanXWhenQuantityIsY" type="hidden" value="@localizer["costCantBeMoreThanXWhenQuantityIsY"]">
+<input id="quantityCantBeMoreThanXWhenCostIsY" type="hidden" value="@localizer["quantityCantBeMoreThanXWhenCostIsY"]">
+<input id="quantityCantBeLessThanXWhenCostIsY" type="hidden" value="@localizer["quantityCantBeLessThanXWhenCostIsY"]">
+<input id="calculateAllSalesConfirmationMessage" type="hidden" value="@localizer["calculateAllSalesConfirmationMessage"]">
+<input id="calculateAllSalesConfirmationTitle" type="hidden" value="@localizer["calculateAllSalesConfirmationTitle"]">
+<input id="failedToCalculateAllSales" type="hidden" value="@localizer["failedToCalculateAllSales"]">
+<input id="processAborted" type="hidden" value="@localizer["processAborted"]">
+<input id="stockReceiving" type="hidden" value="@localizer["stockReceiving"]">
+<input id="stockTakes" type="hidden" value="@localizer["StockTakesPageTitle"]">
+<input id="maximumCharactersAllowedInvoice" type="hidden" value="@localizer["maximumCharactersAllowedInvoice"]">
+<input id="maximumCharactersAllowedCost" type="hidden" value="@localizer["maximumCharactersAllowedCost"]">
+<input id="maximumCharactersAllowedQuantity" type="hidden" value="@localizer["maximumCharactersAllowedQuantity"]">
+<input id="stockTakesQuantityOutOfRangeError" type="hidden" value="@localizer["stockTakesQuantityOutOfRangeError"]">
+<input id="stockTakesExtraCountOutOfRangeError" type="hidden" value="@localizer["stockTakesExtraCountOutOfRangeError"]">
+<input id="stockCodeMissingInfo" type="hidden" value="@localizer["stockCodeMissingInfo"]">
+<input id="qtyMissingInfo" type="hidden" value="@localizer["qtyMissingInfo"]">
+<input id="costMissingInfo" type="hidden" value="@localizer["costMissingInfo"]">
+<input id="extraQuantityMissingInfo" type="hidden" value="@localizer["extraQuantityMissingInfo"]">
+<input id="invoiceMissingInfo" type="hidden" value="@localizer["invoiceMissingInfo"]">
+<input id="dateMissingInfo" type="hidden" value="@localizer["dateMissingInfo"]">
+<input id="stockUpdate" type="hidden" value="@localizer["stockUpdate"]">
+<input id="countCantBeMoreThan" type="hidden" value="@localizer["countCantBeMoreThan"]">
+<input id="theSelectedStockCodeIsAlreadyInUse" type="hidden" value="@localizer["theSelectedStockCodeIsAlreadyInUse"]">
+
+<div class="m-3">
+  @if (isStockTakes)
+  {
+    <h3><strong>@localizer["StockTakesPageTitle"]</strong></h3>
+  }
+  else
+  {
+    <h3><strong>@localizer["stockReceive"]</strong></h3>
+  }
+</div>
+
+<div class="m-3">
+  <div class=" body-content p-2">
+    <div class="mt-4">
+      <div class="row border-2 px-4">
+        <h5><strong>@localizer["listStocks"]</strong></h5>
+        <div class="dropdown col-3 mt-1 mb-1">
+          <select class="form-select col" aria-label="Default select example" id="select-stock-type" onchange="handleListTypeChange()">
+            <option value="All" selected>@localizer["selectAllStock"]</option>
+            <option value="Vendor">@localizer["selectVendor"]</option>
+            <option value="Category">@localizer["category"]</option>
+            @if (isStockTakes)
+            {
+              <option value="Month">@localizer["selectMonth"]</option>
+            }
+          </select>
+        </div>
+        <div class="dropdown col-3 mt-1 mb-1" hidden>
+          <select class="form-select col-3" aria-label="Default select example" id="select-vendor" onchange="loadStocks()">
+            <option value="All" selected>All</option>
+          </select>
+        </div>
+        <div class="dropdown col-3 mt-1 mb-3" hidden>
+          <select class="form-select col-3" aria-label="Default select example" id="select-department" onchange="handleCategoryChange('department')">
+            <option value="All" selected>All</option>
+          </select>
+        </div>
+
+        <div class="dropdown col-3 mt-1 mb-3" hidden>
+          <select class="form-select col-3" aria-label="Default select example" id="select-sub-department" onchange="handleCategoryChange('subDepartment')">
+            <option value="All" selected>All</option>
+          </select>
+        </div>
+
+        <div class="dropdown col-3 mt-1 mb-3" hidden>
+          <select class="form-select col-3" aria-label="Default select example" id="select-sub-detail" onchange="loadStocks()">
+            <option value="All" selected>All</option>
+          </select>
+        </div>
+      </div>
+
+
+      @if (isStockTakes)
+      {
+        <div class="row border-2 px-4">
+          <div class="dropdown col-3 mt-1 mb-3" hidden>
+            <select class="form-select col-3" aria-label="Default select example" id="select-month" onchange="handleMonthChange()">
+              <option value="1">@localizer["january"]</option>
+              <option value="2">@localizer["february"]</option>
+              <option value="3">@localizer["march"]</option>
+              <option value="4">@localizer["april"]</option>
+              <option value="5">@localizer["may"]</option>
+              <option value="6">@localizer["june"]</option>
+              <option value="7">@localizer["july"]</option>
+              <option value="8">@localizer["august"]</option>
+              <option value="9">@localizer["september"]</option>
+              <option value="10">@localizer["october"]</option>
+              <option value="11">@localizer["november"]</option>
+              <option value="12">@localizer["december"]</option>
+            </select>
+          </div>
+          <div class="col-3 mt-1 mb-3"></div>
+          <div class="col-3 mt-1 mb-3"></div>
+          <div class="col-3 mt-1 mb-3" hidden>
+            <button id="btn-load" type="button" class="btn btn-default text-center btn-outline-success" style="height:fit-content" onclick="loadButtonClicked()" disabled>@localizer["load"]</button>
+          </div>
+        </div>
+      }
+
+      <div class="container custom-grid-scrollbar border-2 p-4" style="max-width:3000px;">
+        <table id="stock-grid" class="table table-striped" style="width:100%">
+          @if (isStockTakes)
+          {
+            <thead class="datatable-allignment">
+              <tr>
+                <th width="40%" id="DTCode">@localizer["stockCode"]</th>
+                <th width="40%" id="DTDescription">@localizer["description"]</th>
+                <th width="20%" id="DTSelect">@localizer["select"]</th>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                <th class="input" width="40%" scope="col"></th>
+                <th class="input" width="40%" scope="col"></th>
+                <th class="input" width="20%" scope="col" hidden></th>
+              </tr>
+            </tfoot>
+          }
+          else
+          {
+            <thead class="datatable-allignment">
+              <tr>
+                <th width="25%" id="DTCode">@localizer["stockCode"]</th>
+                <th width="25%" id="DTVendorPart">@localizer["vendorPart"]</th>
+                <th width="40%" id="DTDescription">@localizer["description"]</th>
+                <th width="10%" id="DTSelect">@localizer["select"]</th>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                <th class="input" width="25%" scope="col"></th>
+                <th class="input" width="25%" scope="col"></th>
+                <th class="input" width="40%" scope="col"></th>
+                <th class="input" width="10%" scope="col" hidden></th>
+              </tr>
+            </tfoot>
+          }
+        </table>
+      </div>
+
+      <input class="form-check-input stock-item-form-input ms-4 mb-4" type="checkbox" id="check-box-select-all">
+      <label class="form-check-label ms-1 mb-4" for="check-box-select-all">@localizer["selectAll"]</label>
+      <div id="loading-screen" style="display: none;">
+        <div class="d-flex justify-content-center">
+          <div class="spinner-border" style="width: 3rem; height: 3rem;"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-4 border-bottom">
+      <div class="border-bottom mx-3">
+        <h5>
+          <strong id="stock-received-quantity-update-title">
+            @(isStockTakes ? @localizer["stockCounts"] : @localizer["stockReceived"])
+          </strong>
+        </h5>
+      </div>
+
+      <div class="container">
+        <div class="row gap-3 pt-3">
+          <div class="col toggle-visibility-on-product-type">
+            <label class="mb-2">@localizer["quantity"]</label>
+            <input class="col infonet-input w-100" type="number" id="stock-received-quantity" min="-9999" max="99999" disabled />
+          </div>
+          @if (!isStockTakes)
+          {
+            <div class="col toggle-visibility-on-product-type">
+              <label class="mb-2">@localizer["cost"]</label>
+              <input class="col infonet-input stock-item-form-input clear-selected-input-on-keypress only-digit-decimal w-100" type="number" id="stock-received-cost" min="0" max="9999.99" disabled />
+              <span class="text-danger"></span>
+            </div>
+            <div class="col toggle-visibility-on-product-type">
+              <label class="mb-2 w-100">@localizer["invoice"]</label>
+              <input class="col infonet-input stock-item-form-input clear-selected-input-on-keypress only-digit-decimal w-100" type="number" id="stock-received-invoice" min="0" max="9999999999" disabled />
+              <span class="text-danger"></span>
+            </div>
+          }
+          else
+          {
+            <div class="col toggle-visibility-on-product-type">
+              <label class="mb-2">@localizer["extraCount"]</label>
+              <input class="col infonet-input stock-item-form-input w-100" type="number" id="stock-takes-extra-count" disabled />
+              <span class="text-danger"></span>
+            </div>
+          }
+        </div>
+
+        <div class="mx-3 mt-4"></div>
+        <div class="d-flex justify-content-between px-3">
+          <div class="d-flex gap-3">
+          </div>
+          <div class="d-flex gap-3 mb-4">
+            <button id="btn-accept" type="button" class="btn btn-default text-center btn-outline-success" onclick="acceptButtonClicked()" disabled>@localizer["accept"]</button>
+            <button id="btn-clear" type="button" class="btn btn-default text-center btn-outline-danger align-content-center" onclick="clearButtonClicked()" disabled>@localizer["clear"]</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="height:20px"></div>
+    <div class="container custom-grid-scrollbar border-2 p-4" style="max-width:3000px;">
+      <table id="receive-grid" class="table table-striped" style="width:100%">
+        @if (isStockTakes)
+        {
+          <thead class="datatable-allignment">
+            <tr>
+              <th width="10%" id="DTNumber">@localizer["number"]</th>
+              <th width="20%" id="DTStockCode">@localizer["stockCode"]</th>
+              <th width="30%" id="DTDescription">@localizer["description"]</th>
+              <th width="10%" id="DTCount">@localizer["count"]</th>
+              <th width="10%" id="DTSystem">@localizer["system"]</th>
+              <th width="10%" id="DTInitial">@localizer["initial"]</th>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+              <th class="input" width="10%" scope="col" hidden></th>
+              <th class="input" width="20%" scope="col"></th>
+              <th class="input" width="30%" scope="col"></th>
+              <th class="input" width="10%" scope="col" hidden></th>
+              <th class="input" width="10%" scope="col" hidden></th>
+              <th class="input" width="10%" scope="col" hidden></th>
+            </tr>
+          </tfoot>
+        }
+        else
+        {
+          <thead class="datatable-allignment">
+            <tr>
+              <th width="10%" id="DTNumber">@localizer["number"]</th>
+              <th width="10%" id="DTInvoice">@localizer["invoice"]</th>
+              <th width="20%" id="DTStockCode">@localizer["stockCode"]</th>
+              <th width="30%" id="DTDescription">@localizer["description"]</th>
+              <th width="10%" id="DTQuantity">@localizer["quantity"]</th>
+              <th width="10%" id="DTCost">@localizer["cost"]</th>
+              <th width="10%" id="DTAmount">@localizer["amount"]</th>
+            </tr>
+          </thead>
+        }
+
+      </table>
+    </div>
+    <div class="d-flex justify-content-between px-3">
+    <div class="d-flex gap-3"></div>
+    <div class="d-flex flex-wrap gap-2">
+      @if (!isStockTakes)
+      {
+        <button id="btn-batch-report" type="button" class="btn btn-default text-center btn-outline-primary" onclick="displayStockTakesAndReceivingReport()">@localizer["batchReport"]</button>
+      }
+      else
+      {
+        <button id="btn-variance-report" type="button" class="btn btn-default text-center btn-outline-primary" onclick="displayStockTakesAndReceivingReport()">@localizer["varianceReport"]</button>
+      }
+
+      <button id="btn-process" type="button" class="btn btn-default text-center btn-outline-primary">@localizer["process"]</button>
+      <input type="file" id="file-input" onchange="onFileSelected(event)" style="display: none;">
+      <button id="btn-export" type="button" class="btn btn-default text-center btn-outline-primary">@localizer["exportSelectedStocks"]</button>
+      <button id="btn-import" type="button" class="btn btn-default text-center btn-outline-primary" onclick="handleFileInput()">@localizer["importFromFile"]</button>
+      <button id="btn-suspend" type="button" class="btn btn-default text-center btn-outline-danger">@localizer["suspend"]</button>
+      <button id="btn-unsuspend" type="button" class="btn btn-default text-center btn-outline-success">@localizer["unsuspend"]</button>
+      <button id="btn-delete" type="button" class="btn btn-default text-center btn-outline-danger" disabled>@localizer["delete"]</button>
+      <button id="btn-delete-all" type="button" class="btn btn-default text-center btn-outline-danger">@localizer["deleteAll"]</button>
+    </div>
+  </div>
+  </div>
+</div>
+
+@if (isStockTakes)
+{
+  <div class="modal fade" id="editCount" tabindex="1" role="dialog" area-labelledby="exampleModalLiveLabel" area-modal="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">@localizer["editCount"]</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Edit Count"></button>
+        </div>
+        <div class="modal-body">
+          <label class="mb-2">@localizer["count"]</label>
+          <input id="editCountinput" type="text" class="infonet-input w-100" required />
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="editQuantityForStockTakes" class="btn btn-primary btn-sm btn-save" onclick="editQty()">@localizer["accept"]</button>
+          <button type="button" class="btn btn-cancel btn-outline-danger align-content-center btn-sm me-2" data-bs-dismiss="modal">@localizer["cancel"]</button>
+        </div>
+      </div>
+    </div>
+  </div>
+}
+
+<div class="modal fade" id="inputModalId" tabindex="1" role="dialog" area-labelledby="exampleModalLiveLabel" area-modal="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 id="inputModalTitleId" class="modal-title"></h5>
+        <button id="inputModalCloseButtonId" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="ms-3 mt-4">
+        <p id="inputModalMessageId"></p>
+      </div>
+      <div class="modal-body">
+        <input class="col infonet-input w-100" id="inputModalValueId">
+      </div>
+      <div class="modal-footer">
+        <button id="inputModalOkButtonId" type="button" class="btn btn-primary btn-sm btn-default" onclick="handleInputModalOkButtonClick()">@localizer["ok"]</button>
+        <button id="inputModalCancelButtonId" type="button" class="btn btn-danger btn-sm btn-default" data-bs-dismiss="modal" onclick="handleInputModalCancelButtonClick()">@localizer["cancel"]</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+@section Scripts
+  {
+  <script src="~/js/stockTakesAndReceiving.js" asp-append-version="true"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.56/pdfmake.min.js" integrity="sha384-fgVitjWjaRuWW9z+9oh3fA6Kd22xJZ5P9mH5N0T4K5Xkdo54rAKRMC/GdVCKhgyT" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.56/vfs_fonts.js" integrity="sha384-UAA3vlTPq9dwxB61awBFhR7Y5uBFOKQWuZueu4C6uI48gjIoqI/OTmYWEYWZXbGR" crossorigin="anonymous"></script>
+}

@@ -1,0 +1,45 @@
+﻿select option {
+  background-color: var(--color-white);
+}
+
+.btn-price, .btn-details, .btn-transfer, .btn-pricebook {
+  width: 150px;
+  height: 50px;
+  background: rgba(38, 83, 188, 0.1);
+  border-radius: 4px;
+  color: var(--color-primary);
+}
+
+.btn-save {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+.form-section-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.customer-form {
+  background-color: var(--color-white);
+}
+
+.input-grid-space-balancer {
+  background: transparent;
+  border: 1px solid var(--color-white);
+  padding: 10px;
+  border-radius: 6px;
+  outline: none;
+}
+
+.p-rel {
+  position: relative !important;
+}
+
+.p-abs {
+  position: absolute !important;
+}
+
+.pr-30 {
+  padding-right: 30px !important;
+}

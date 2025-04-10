@@ -1,0 +1,276 @@
+﻿#hot-button-container {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  gap: 10px;
+  padding: 10px;
+  background-color: #80808033;
+}
+
+.hot-button {
+  width: 50px;
+  height: 50px;
+  background-color: #EFEFEF;
+  color: #000000;
+  border-top: 2px solid #fff;
+  border-left: 2px solid #fff;
+  border-bottom: 1px solid #fff;
+  border-right: 1px solid #fff;
+  border-radius: 2px 2px;
+  box-shadow: 2px 2px 1px 1px #00000080;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.pageNumberTitleContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hotButtonContainer {
+  border-radius: 10px;
+}
+
+.hotButtonLayoutContainer {
+  width: 100%;
+  margin-left: 0px;
+}
+
+.pageSettingsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-top: 10px;
+  background-color: #ebe8e8;
+  border-radius: 10px;
+}
+
+.pageControlButtons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pageControlButton {
+  min-height: 10px !important;
+  min-width: 15px !important;
+  border: none;
+  background-color: var(--color-primary);
+  margin: 2px 0px;
+  align-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.pageTitleText{
+  font-size: 18px;
+}
+
+.pageControlIcon {
+  color: white;
+  padding-bottom: 2px;
+}
+
+.pageTitle {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.changePageButton {
+  font-size: 15px;
+  min-width: 60px !important;
+  min-height: 30px !important;
+}
+
+.changeButtonSetting {
+  margin-top: 10px;
+  padding: 10px;
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+  border-radius: 10px;
+}
+
+.changeButtonSettingContainer {
+  display: flex;
+  align-items: center;
+  height: 100% !important;
+  width: 100%;
+}
+
+.changeButtonSettingLeftContainer {
+  flex: 35%;
+  height: 100%;
+  width: 100%;
+  margin-bottom: auto;
+  margin-top: 20px;
+}
+
+.changeButtonSettingRightContainer {
+  flex: 75%;
+  height: 100%;
+  width: 100%;
+}
+
+.changeButtonSettingButton {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  text-align: center;
+  width: 160px;
+  height: 160px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+}
+
+.changeButtonSettingUndefinedTextContainer {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-top: 16px;
+}
+
+.changeButtonSettingButtonText {
+  text-align: center;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.changeButtonSettingTextContainer {
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  text-align: center;
+  align-content: center;
+  align-items: center;
+  max-width: 180px;
+  max-height: 180px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 30px;
+}
+
+.changeButtonSettingText {
+  text-align: center;
+  align-content: center;
+  align-items: center;
+}
+
+.changeButtonSettingForm {
+  padding: 5px;
+}
+
+.inputContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px 0px;
+}
+
+.inputContainer input {
+  max-width: 200px;
+}
+
+.inputContainer label {
+  margin-right: 20px;
+  margin-left: 10px;
+}
+
+.colorPickerContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 25px;
+}
+
+.pickr .pcr-button {
+  width: 4em;
+  height: 4em;
+}
+
+.hotButtonsAndBottleReturn-modal-footer {
+  color: red;
+  margin: 10px;
+}
+
+.changeButtonSettingButtons {
+  display: flex;
+  margin-top: 50px;
+  align-content: center;
+  justify-content: center;
+}
+
+.changeButtonSettingButtons button {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.changeButtonDefineButton {
+  display: flex;
+  margin-top: 50px;
+  align-content: center;
+  justify-content: center;
+}
+
+#changeButtonSettingDescription {
+  overflow-wrap: break-word;
+}
+
+#bottleReturnButtons {
+  position: relative;
+  margin-top: 10px;
+  padding: 10px;
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+  border-radius: 10px;
+  height: calc(100% - 34px);
+}
+
+.pickr .pcr-button::after{
+  border: 1px solid black;
+  border-radius: 3px;
+}
+
+@media (min-width: 1366px) {
+  .changeButtonSetting {
+    min-height: 470px;
+  }
+
+  .pageSettingsContainer {
+    position: absolute;
+    margin-bottom: 15px;
+    width: -webkit-fill-available;
+    margin-right: 12px;
+  }
+}
+
+@media (min-width: 1366px) and (max-width: 1400px) {
+  #hot-button-container {
+    column-gap: 5px;
+    row-gap: 10px;
+  }
+
+  .changeButtonSetting {
+    min-height: 400px;
+  }
+
+  .pageTitleText {
+    font-size: 15px;
+  }
+
+  .hot-button {
+    margin-bottom: 0px;
+  }
+}

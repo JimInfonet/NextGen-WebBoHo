@@ -1,0 +1,13 @@
+﻿.form-section-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.customer-card-modal {
+  max-width: 820px;
+}
+
+.footer-btn {
+  display: flex;
+  justify-content: flex-end;
+}

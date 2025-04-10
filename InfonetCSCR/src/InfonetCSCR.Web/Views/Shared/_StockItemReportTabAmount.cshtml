@@ -1,0 +1,183 @@
+﻿@inject IViewLocalizer localizer
+
+<div class="row border border-2 m-2 overflow-auto" id="stockItemReportTabAmountGrid">
+  <div class="fw-bold">@localizer["amount"]</div>
+  <div class="border border-1 d-flex flex-row tableHeader">
+    <label class="col text-end">@localizer["year"]</label>
+    <label class="col text-end">Jan</label>
+    <label class="col text-end">Feb</label>
+    <label class="col text-end">Mar</label>
+    <label class="col text-end">Apr</label>
+    <label class="col text-end">May</label>
+    <label class="col text-end">Jun</label>
+    <label class="col text-end">Jul</label>
+    <label class="col text-end">Aug</label>
+    <label class="col text-end">Sep</label>
+    <label class="col text-end">Oct</label>
+    <label class="col text-end">Nov</label>
+    <label class="col text-end">Dec</label>
+    <label class="col text-end">@localizer["total"]</label>
+  </div>
+
+  @foreach (var element in ViewData["AmountViewData"] as List<StockItemReportAmountViewModel>)
+  {
+    <div class="border border-1 d-flex flex-row tableData">
+      <label class="col text-end">@element.Year</label>
+      @if (element.AmountJan < 0)
+      {
+        <label class="col text-end" onclick="ShowDetails('@element.Year','1','@ViewData["methodName"]')">
+          -$@(-element.AmountJan)
+        </label>
+      }
+      else
+      {
+        <label class="col text-end" onclick="ShowDetails('@element.Year','1','@ViewData["methodName"]')">
+          $@element.AmountJan
+        </label>
+      }
+      @if (element.AmountFeb < 0)
+      {
+        <label class="col text-end" onclick="ShowDetails('@element.Year','2','@ViewData["methodName"]')">
+          -$@(-element.AmountFeb)
+        </label>
+      }
+      else
+      {
+        <label class="col text-end" onclick="ShowDetails('@element.Year','2','@ViewData["methodName"]')">
+          $@element.AmountFeb
+        </label>
+      }
+      @if (element.AmountMar < 0)
+      {
+        <label class="col text-end" onclick="ShowDetails('@element.Year','3','@ViewData["methodName"]')">
+          -$@(-element.AmountMar)
+        </label>
+      }
+      else
+      {
+        <label class="col text-end" onclick="ShowDetails('@element.Year','3','@ViewData["methodName"]')">
+          $@element.AmountMar
+        </label>
+      }
+      @if (element.AmountApr < 0)
+      {
+        <label class="col text-end" onclick="ShowDetails('@element.Year','4','@ViewData["methodName"]')">
+          -$@(-element.AmountApr)
+        </label>
+      }
+      else
+      {
+        <label class="col text-end" onclick="ShowDetails('@element.Year','4','@ViewData["methodName"]')">
+          $@element.AmountApr
+        </label>
+      }
+      @if (element.AmountMay < 0)
+      {
+        <label class="col text-end" onclick="ShowDetails('@element.Year','5','@ViewData["methodName"]')">
+          -$@(-element.AmountMay)
+        </label>
+      }
+      else
+      {
+        <label class="col text-end" onclick="ShowDetails('@element.Year','5','@ViewData["methodName"]')">
+          $@element.AmountMay
+        </label>
+      }
+      @if (element.AmountJun < 0)
+      {
+        <label class="col text-end" onclick="ShowDetails('@element.Year','6','@ViewData["methodName"]')">
+          -$@(-element.AmountJun)
+        </label>
+      }
+      else
+      {
+        <label class="col text-end" onclick="ShowDetails('@element.Year','6','@ViewData["methodName"]')">
+          $@element.AmountJun
+        </label>
+      }
+      @if (element.AmountJul < 0)
+      {
+        <label class="col text-end" onclick="ShowDetails('@element.Year','7','@ViewData["methodName"]')">
+          -$@(-element.AmountJul)
+        </label>
+      }
+      else
+      {
+        <label class="col text-end" onclick="ShowDetails('@element.Year','7','@ViewData["methodName"]')">
+          $@element.AmountJul
+        </label>
+      }
+      @if (element.AmountAug < 0)
+      {
+        <label class="col text-end" onclick="ShowDetails('@element.Year','8','@ViewData["methodName"]')">
+          -$@(-element.AmountAug)
+        </label>
+      }
+      else
+      {
+        <label class="col text-end" onclick="ShowDetails('@element.Year','8','@ViewData["methodName"]')">
+          $@element.AmountAug
+        </label>
+      }
+      @if (element.AmountSep < 0)
+      {
+        <label class="col text-end" onclick="ShowDetails('@element.Year','9','@ViewData["methodName"]')">
+          -$@(-element.AmountSep)
+        </label>
+      }
+      else
+      {
+        <label class="col text-end" onclick="ShowDetails('@element.Year','9','@ViewData["methodName"]')">
+          $@element.AmountSep
+        </label>
+      }
+      @if (element.AmountOct < 0)
+      {
+        <label class="col text-end" onclick="ShowDetails('@element.Year','10','@ViewData["methodName"]')">
+          -$@(-element.AmountOct)
+        </label>
+      }
+      else
+      {
+        <label class="col text-end" onclick="ShowDetails('@element.Year','10','@ViewData["methodName"]')">
+          $@element.AmountOct
+        </label>
+      }
+      @if (element.AmountNov < 0)
+      {
+        <label class="col text-end" onclick="ShowDetails('@element.Year','11','@ViewData["methodName"]')">
+          -$@(-element.AmountNov)
+        </label>
+      }
+      else
+      {
+        <label class="col text-end" onclick="ShowDetails('@element.Year','11','@ViewData["methodName"]')">
+          $@element.AmountNov
+        </label>
+      }
+      @if (element.AmountDec < 0)
+      {
+        <label class="col text-end" onclick="ShowDetails('@element.Year','12','@ViewData["methodName"]')">
+          -$@(-element.AmountDec)
+        </label>
+      }
+      else
+      {
+        <label class="col text-end" onclick="ShowDetails('@element.Year','12','@ViewData["methodName"]')">
+          $@element.AmountDec
+        </label>
+      }
+
+      @if (element.AmountTotal < 0)
+      {
+        <label class="col text-end">-$@(-element.AmountTotal)</label>
+      }
+      else
+      {
+        <label class="col text-end">$@element.AmountTotal</label>
+      }
+    </div>
+  }
+
+</div>
+

@@ -1,0 +1,522 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="accountNo" xml:space="preserve">
+    <value>Compte# NO120</value>
+  </data>
+  <data name="amount" xml:space="preserve">
+    <value>Montant</value>
+  </data>
+  <data name="amt" xml:space="preserve">
+    <value>Montant</value>
+  </data>
+  <data name="arCustomerSalesReport" xml:space="preserve">
+    <value>Rapport des Soldes de Compte Clients</value>
+  </data>
+  <data name="attnJenBiggar" xml:space="preserve">
+    <value>À l'attention de Jen Biggar</value>
+  </data>
+  <data name="attnSerge" xml:space="preserve">
+    <value>À l'attention de : Serge</value>
+  </data>
+  <data name="autochtones" xml:space="preserve">
+    <value>Autochtones</value>
+  </data>
+  <data name="autochtonesEtExemption" xml:space="preserve">
+    <value>Autochtones Et Exemption</value>
+  </data>
+  <data name="avgSales" xml:space="preserve">
+    <value>Ventes moyennes</value>
+  </data>
+  <data name="cardName" xml:space="preserve">
+    <value>Nom de la carte</value>
+  </data>
+  <data name="cardNumber" xml:space="preserve">
+    <value>Numéro de carte</value>
+  </data>
+  <data name="charges" xml:space="preserve">
+    <value>Frais</value>
+  </data>
+  <data name="cost" xml:space="preserve">
+    <value>Coût</value>
+  </data>
+  <data name="creditSlip" xml:space="preserve">
+    <value>Numéro de bordereau de crédit</value>
+  </data>
+  <data name="customerCode" xml:space="preserve">
+    <value>Code de Client</value>
+  </data>
+  <data name="customerName" xml:space="preserve">
+    <value>Nom du Client</value>
+  </data>
+  <data name="customerSalesDetailReport" xml:space="preserve">
+    <value>Rapport à la clientèle Détails ventes</value>
+  </data>
+  <data name="date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="dateOrTime" xml:space="preserve">
+    <value>Date/Heure</value>
+  </data>
+  <data name="departmentalSalesSummary" xml:space="preserve">
+    <value>Sommaire des ventes par département</value>
+  </data>
+  <data name="departmentalSalesSummaryReportPeriod" xml:space="preserve">
+    <value>Période du rapport sommaire des ventes départementales :</value>
+  </data>
+  <data name="depositAmount" xml:space="preserve">
+    <value>Montant du Dépôt</value>
+  </data>
+  <data name="description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="disc" xml:space="preserve">
+    <value>Disque</value>
+  </data>
+  <data name="discAmount" xml:space="preserve">
+    <value>Montant de la remise</value>
+  </data>
+  <data name="discount" xml:space="preserve">
+    <value>Escomte</value>
+  </data>
+  <data name="dollar" xml:space="preserve">
+    <value>Dollar</value>
+  </data>
+  <data name="dollarAmount" xml:space="preserve">
+    <value>Montant en dollars</value>
+  </data>
+  <data name="dollarOrLitreOfFuel" xml:space="preserve">
+    <value>$/L de carburant</value>
+  </data>
+  <data name="endDate" xml:space="preserve">
+    <value>Date de Fin</value>
+  </data>
+  <data name="exciseTaxExempt" xml:space="preserve">
+    <value>Exonération de la taxe d'accise</value>
+  </data>
+  <data name="exempt" xml:space="preserve">
+    <value>Exempter</value>
+  </data>
+  <data name="familyName" xml:space="preserve">
+    <value>Nom de famille</value>
+  </data>
+  <data name="faxNo" xml:space="preserve">
+    <value>Télécopieur# 633-8819</value>
+  </data>
+  <data name="fleetCardSaleReport" xml:space="preserve">
+    <value>---- Rapport de Ventes des Cartes de Flotte ----</value>
+  </data>
+  <data name="fngtrFuelSalesReport" xml:space="preserve">
+    <value>Rapport de vente de carburant FNGTR</value>
+  </data>
+  <data name="friday" xml:space="preserve">
+    <value>Vendredi</value>
+  </data>
+  <data name="from" xml:space="preserve">
+    <value>De</value>
+  </data>
+  <data name="fuel" xml:space="preserve">
+    <value>Carburant</value>
+  </data>
+  <data name="fuelDailySalesReport" xml:space="preserve">
+    <value>Carburant rapport des ventes quotidien</value>
+  </data>
+  <data name="fuelDollarsSummary" xml:space="preserve">
+    <value>synthèse de carburant dollars</value>
+  </data>
+  <data name="fuelDollarsSummaryReportPeriod" xml:space="preserve">
+    <value>Période du rapport sommaire sur les dollars en carburant :</value>
+  </data>
+  <data name="fuelGst" xml:space="preserve">
+    <value>TPS sur le carburant</value>
+  </data>
+  <data name="fuelLitresSummary" xml:space="preserve">
+    <value>Synthèse de carburant litres</value>
+  </data>
+  <data name="fuelLitresSummaryReportPeriod" xml:space="preserve">
+    <value>Période du rapport sommaire sur les litres de carburant :</value>
+  </data>
+  <data name="fuelSalesDailyReport" xml:space="preserve">
+    <value>RAPPORT QUOTIDIEN DES VENTES DE CARBURANT</value>
+  </data>
+  <data name="gasTotalAfterDisc" xml:space="preserve">
+    <value>Total de gaz après remise</value>
+  </data>
+  <data name="grandTotal" xml:space="preserve">
+    <value>TOTAL</value>
+  </data>
+  <data name="incl" xml:space="preserve">
+    <value>Incl</value>
+  </data>
+  <data name="industrialRoad107" xml:space="preserve">
+    <value>107 chemin industriel</value>
+  </data>
+  <data name="industrialRoad146" xml:space="preserve">
+    <value>146 chemin industriel</value>
+  </data>
+  <data name="invoiceNo" xml:space="preserve">
+    <value>Facture # 49245</value>
+  </data>
+  <data name="jbiggarEmail" xml:space="preserve">
+    <value>jbiggar@north60petro.com</value>
+  </data>
+  <data name="line" xml:space="preserve">
+    <value>Numér</value>
+  </data>
+  <data name="litres" xml:space="preserve">
+    <value>Litres</value>
+  </data>
+  <data name="member" xml:space="preserve">
+    <value>Membre</value>
+  </data>
+  <data name="miscellaneous" xml:space="preserve">
+    <value>Divers</value>
+  </data>
+  <data name="monday" xml:space="preserve">
+    <value>Lundi</value>
+  </data>
+  <data name="net" xml:space="preserve">
+    <value>Montant Netis</value>
+  </data>
+  <data name="nonAutochtones" xml:space="preserve">
+    <value>Non-Autochtones</value>
+  </data>
+  <data name="nonMember" xml:space="preserve">
+    <value>Non membre</value>
+  </data>
+  <data name="nonStatus" xml:space="preserve">
+    <value>Sans statut</value>
+  </data>
+  <data name="north60FleetCardInvoiceWorksheet" xml:space="preserve">
+    <value>Feuille de calcul de facture de carte de flotte North 60</value>
+  </data>
+  <data name="north60FleetCardReport" xml:space="preserve">
+    <value>Registre</value>
+  </data>
+  <data name="north60Petroleum" xml:space="preserve">
+    <value>Nord 60 Pétrole</value>
+  </data>
+  <data name="phoneNo" xml:space="preserve">
+    <value>Téléphone# 633-8837</value>
+  </data>
+  <data name="phoneNoStr" xml:space="preserve">
+    <value>Numéro de téléphone</value>
+  </data>
+  <data name="price" xml:space="preserve">
+    <value>Prix</value>
+  </data>
+  <data name="printedOn" xml:space="preserve">
+    <value>Imprimé Sur</value>
+  </data>
+  <data name="product" xml:space="preserve">
+    <value>Article</value>
+  </data>
+  <data name="productName" xml:space="preserve">
+    <value>Nom de l'article</value>
+  </data>
+  <data name="produit" xml:space="preserve">
+    <value>Produit</value>
+  </data>
+  <data name="qty" xml:space="preserve">
+    <value>Qté</value>
+  </data>
+  <data name="quantity" xml:space="preserve">
+    <value>Quantité</value>
+  </data>
+  <data name="quartzRoad" xml:space="preserve">
+    <value>9029 Quartz Road</value>
+  </data>
+  <data name="reason" xml:space="preserve">
+    <value>Raisons</value>
+  </data>
+  <data name="rebate" xml:space="preserve">
+    <value>Rabais</value>
+  </data>
+  <data name="reportPeriod" xml:space="preserve">
+    <value>Période du rapport :</value>
+  </data>
+  <data name="saleAmount" xml:space="preserve">
+    <value>$ Trans.</value>
+  </data>
+  <data name="saleNo" xml:space="preserve">
+    <value># de Trans.</value>
+  </data>
+  <data name="sales" xml:space="preserve">
+    <value>Ventes</value>
+  </data>
+  <data name="salesByHourForThePeriodOf" xml:space="preserve">
+    <value>Ventes à l'heure pour la période de</value>
+  </data>
+  <data name="salesByHourReport" xml:space="preserve">
+    <value>Chiffre d'affaires par rapport Hour</value>
+  </data>
+  <data name="salesDetailFamilyGroup" xml:space="preserve">
+    <value>Détail des ventes par groupe famille</value>
+  </data>
+  <data name="salesSummaryFamilyGroup" xml:space="preserve">
+    <value>Sommaire des ventes par groupe famille</value>
+  </data>
+  <data name="salesSummaryFuelProducts" xml:space="preserve">
+    <value>RÉSUMÉ DES VENTES - PRODUITS CARBURANT</value>
+  </data>
+  <data name="saleTotal" xml:space="preserve">
+    <value>Total des ventes</value>
+  </data>
+  <data name="saturday" xml:space="preserve">
+    <value>Samedi</value>
+  </data>
+  <data name="shiftDate" xml:space="preserve">
+    <value>Date du quart de travail</value>
+  </data>
+  <data name="site" xml:space="preserve">
+    <value>Site</value>
+  </data>
+  <data name="startDate" xml:space="preserve">
+    <value>Date de Début</value>
+  </data>
+  <data name="status" xml:space="preserve">
+    <value>Statut</value>
+  </data>
+  <data name="stockCodeOrDesc" xml:space="preserve">
+    <value>Article /Desc.</value>
+  </data>
+  <data name="store" xml:space="preserve">
+    <value>Magasin</value>
+  </data>
+  <data name="subtotal" xml:space="preserve">
+    <value>Sous-total</value>
+  </data>
+  <data name="sunday" xml:space="preserve">
+    <value>Dimanche</value>
+  </data>
+  <data name="tax" xml:space="preserve">
+    <value>Taxes</value>
+  </data>
+  <data name="taxes" xml:space="preserve">
+    <value>Taxes</value>
+  </data>
+  <data name="taxExemptPrice" xml:space="preserve">
+    <value>Prix ​​hors taxe</value>
+  </data>
+  <data name="tendAmount" xml:space="preserve">
+    <value>Montant payé</value>
+  </data>
+  <data name="thursday" xml:space="preserve">
+    <value>Jeudi</value>
+  </data>
+  <data name="time" xml:space="preserve">
+    <value>Heure</value>
+  </data>
+  <data name="total" xml:space="preserve">
+    <value>Total articles vendus</value>
+  </data>
+  <data name="totalAfterGstRemoved" xml:space="preserve">
+    <value>Total après suppression de la TPS</value>
+  </data>
+  <data name="totalAmountOwingAfterDiscount" xml:space="preserve">
+    <value>Montant total dû après escompte</value>
+  </data>
+  <data name="totalDollarsCollected" xml:space="preserve">
+    <value>Total des dollars collectés</value>
+  </data>
+  <data name="totalFleetCardSaleAmount" xml:space="preserve">
+    <value>Quantité Totale de Ventes de Carte de Flotte</value>
+  </data>
+  <data name="totalFleetCardSaleVolume" xml:space="preserve">
+    <value>Volume Total de Ventes de Carte de Flotte</value>
+  </data>
+  <data name="totalFleetCardTenderedAmount" xml:space="preserve">
+    <value>Montant Total des paiements par Cartes de Flotte</value>
+  </data>
+  <data name="totalFLSR" xml:space="preserve">
+    <value>Total articles vendus</value>
+  </data>
+  <data name="totalFor" xml:space="preserve">
+    <value>Total pour</value>
+  </data>
+  <data name="totalSalesPercentage" xml:space="preserve">
+    <value>% des ventes totales</value>
+  </data>
+  <data name="tps" xml:space="preserve">
+    <value>TPS</value>
+  </data>
+  <data name="transactionDate" xml:space="preserve">
+    <value>Date de transaction</value>
+  </data>
+  <data name="treatyNo" xml:space="preserve">
+    <value>Treaty No.</value>
+  </data>
+  <data name="tuesday" xml:space="preserve">
+    <value>Mardi</value>
+  </data>
+  <data name="tvq" xml:space="preserve">
+    <value>TVQ</value>
+  </data>
+  <data name="type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="typeOfFuel" xml:space="preserve">
+    <value>Type d’Essence</value>
+  </data>
+  <data name="vendorId" xml:space="preserve">
+    <value>Fournisseur I.D. # 82604</value>
+  </data>
+  <data name="volume" xml:space="preserve">
+    <value>Volume</value>
+  </data>
+  <data name="wednesday" xml:space="preserve">
+    <value>Mercredi</value>
+  </data>
+  <data name="whiteHorseP9" xml:space="preserve">
+    <value>Whitehorse, Yukon Y1A 4P9</value>
+  </data>
+  <data name="whiteHorseT7" xml:space="preserve">
+    <value>Whitehorse, Yukon Y1A 2T7</value>
+  </data>
+  <data name="whiteHorseV1" xml:space="preserve">
+    <value>Whitehorse, Yukon Y1A 2V1</value>
+  </data>
+  <data name="ytgAccountNo" xml:space="preserve">
+    <value>Compte# YU130</value>
+  </data>
+  <data name="ytgBuilding" xml:space="preserve">
+    <value>YTG Building 277</value>
+  </data>
+  <data name="ytgFaxNo" xml:space="preserve">
+    <value>Télécopieur# 393-6463</value>
+  </data>
+  <data name="ytgFleetCardInvoiceWorksheet" xml:space="preserve">
+    <value>Feuille de calcul de facture de carte de flotte YTG</value>
+  </data>
+  <data name="ytgFleetCardReport" xml:space="preserve">
+    <value>Rapport de carte de flotte YTG</value>
+  </data>
+  <data name="ytgFleetVehicleAgency" xml:space="preserve">
+    <value>Agence de véhicules de flotte YTG</value>
+  </data>
+  <data name="ytgPhoneNo" xml:space="preserve">
+    <value>Téléphone# 667-5096</value>
+  </data>
+  <data name="ytgVendorId" xml:space="preserve">
+    <value>Fournisseur I.D. # CDTirecraft</value>
+  </data>
+  <data name="yukonTireCentreInc" xml:space="preserve">
+    <value>Yukon Tire Centre Inc</value>
+  </data>
+</root>

@@ -1,0 +1,81 @@
+@section Head {
+  <link href="~/css/stores.css" rel="stylesheet" asp-append-version="true" />
+}
+
+@model StoreViewModel
+@inject IApplicationConfig _config
+@inject IViewLocalizer localizer
+@{
+  ViewData["Title"] = @localizer["stores"];
+}
+
+<input type="hidden" id="storeAddedSuccessfully" value="@localizer["storeAddedSuccessfully"]" />
+<input type="hidden" id="storeUpdatedSuccessfully" value="@localizer["storeUpdatedSuccessfully"]" />
+<input type="hidden" id="storeDeletedSuccessfully" value="@localizer["storeDeletedSuccessfully"]" />
+<input type="hidden" id="storeCopiedSuccessfully" value="@localizer["storeCopiedSuccessfully"]" />
+<input type="hidden" id="deleteStoreTitle" value="@localizer["deleteStoreTitle"]" />
+<input type="hidden" id="deleteStoreMessage" value="@localizer["deleteStoreMessage", "{0}"]" />
+<input type="hidden" id="storeNotSelected" value="@localizer["storeNotSelected"]" />
+<input type="hidden" id="copyStoreTitle" value="@localizer["copyStoreTitle"]" />
+<input type="hidden" id="copyStoreMessage" value="@localizer["copyStoreMessage", "{0}"]" />
+
+<input id="isStoreAdded" type="hidden" value="@ViewData["isStoreAdded"]" />
+<input id="isStoreUpdated" type="hidden" value="@ViewData["isStoreUpdated"]" />
+<input id="isStoreCopied" type="hidden" value="@ViewData["isStoreCopied"]" />
+<input id="seeMore" type="hidden" value="@localizer["seeMore"]" />
+<input id="seeLess" type="hidden" value="@localizer["seeLess"]" />
+
+<form class="p-3 mt-2" asp-controller="Stores" asp-action="UpdateStore" id="StoresForm">
+  <div class="p-2">
+    <div class="d-flex justify-content-between">
+      <h3 class="h3 fw-bold mb-3">@localizer["newStoreSettings"]</h3>
+    </div>
+
+    <div class="container body-content p-2" style="max-width:3000px;">
+      @*Stores Datatable Section*@
+      <div class="container custom-grid-scrollbar border-2" style="max-width:3000px;">
+        <table id="stores-grid" class="table table-striped" style="width:100%">
+          <thead>
+            <tr>
+              <th width="7%" id="StoreId">@localizer["storeId"]</th>
+              <th width="9%" id="StoreName">@localizer["storeName"]</th>
+              <th width="11%" id="StoreAddress">@localizer["storeAddress"]</th>
+              <th width="7%" id="City">@localizer["city"]</th>
+              <th width="5%" id="Province">@localizer["province"]</th>
+              <th width="7%" id="PostalCode">@localizer["postalCode"]</th>
+              <th width="8%" id="Phone">@localizer["phone"]</th>
+              <th width="8%" id="Fax">@localizer["fax"]</th>
+              <th width="9%" id="ContactPers">@localizer["contactPers"]</th>
+              <th width="7%" id="IsWarehouse">@localizer["isWarehouse"]</th>
+              <th width="22%" id="UploadPath">@localizer["uploadPath"]</th>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+              <th class="input substring-search" width="20%" scope="col"></th>
+              <th class="input substring-search" width="40%" scope="col"></th>
+              <th class="input substring-search" width="0%" scope="col" hidden></th>
+              <th class="input substring-search" width="0%" scope="col" hidden></th>
+              <th class="input substring-search" width="0%" scope="col" hidden></th>
+              <th class="input substring-search" width="0%" scope="col" hidden></th>
+              <th class="input substring-search" width="40%" scope="col"></th>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+
+      <div class="p-2 row">
+        <div class="d-flex gap-3 col-xl-8 col-lg-9">
+          <button id="btn-add" type="button" class="btn btn-footer btn-primary text-center align-items-center">@localizer["add"]</button>
+          <button id="btn-delete" type="button" class="btn btn-footer btn-danger text-center align-items-center">@localizer["delete"]</button>
+          <button id="btn-edit" type="button" class="btn btn-footer btn-primary align-items-center">@localizer["edit"]</button>
+          <button id="btn-copy" type="button" class="btn btn-footer btn-primary align-items-center">@localizer["copy"]</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+@section Scripts {
+  <script src="~/js/stores.js" asp-append-version="true"></script>
+}

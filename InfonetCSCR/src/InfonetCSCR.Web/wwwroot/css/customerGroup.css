@@ -1,0 +1,57 @@
+﻿
+.max-width-3000 {
+  max-width: 3000px;
+}
+
+.grid-table-row {
+  cursor: pointer;
+}
+
+.body-content {
+  background-color: var(--color-white);
+}
+
+th {
+  text-align: center;
+  vertical-align: middle;
+}
+
+select {
+  padding-right: 30px !important;
+}
+
+.display-none {
+  display: none;
+}
+
+.form-section-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#discount-chart-table td:hover {
+  background-color: #f5f5f5;
+}
+
+#discount-chart-table th {
+  border-right: 1px solid black;
+}
+
+#discount-chart-table td {
+  border-right: 1px solid black;
+  height: 35px;
+}
+
+#discount-chart-table {
+  border: 1px solid black;
+}
+
+#btn-add-new-row, .btn-delete-this-row {
+  min-width: auto;
+  min-height: auto;
+  font-size: x-large;
+}
+
+.min-width-270px {
+  min-width: 270px;
+}

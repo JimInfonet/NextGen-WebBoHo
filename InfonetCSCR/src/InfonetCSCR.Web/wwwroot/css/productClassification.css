@@ -1,0 +1,115 @@
+﻿.table-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.table-button {
+  padding: 5px;
+  color: var(--color-white);
+  background-color: var(--color-primary);
+  border-radius: 5px;
+  border: none;
+}
+
+.modal-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.table-button-red {
+  background-color: var(--bs-danger);
+}
+
+.table-button-green {
+  background-color: green;
+}
+
+.newEodGroupForm {
+  padding-top: 20px;
+}
+
+.eodGroupCheckboxes {
+  border: 1px solid grey;
+  border-radius: 10px;
+  padding: 10px 20px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  overflow-y: scroll;
+  max-height: 250px;
+}
+
+.taxesCheckboxes {
+  border: 1px solid grey;
+  border-radius: 10px;
+  padding: 10px 20px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  overflow-y: scroll;
+  max-height: 250px;
+}
+
+.linkEodGroupInput {
+  border-radius: 10px;
+  padding: 10px 20px 0px 20px;
+  margin-top: 10px;
+}
+
+.linkEodGroupSelect {
+  overflow-y: scroll;
+  max-height: 250px;
+}
+
+.taxesModal {
+  max-width: 600px;
+  width: 80%;
+}
+
+.productDiscountCodeModal {
+  max-width: 600px;
+  width: 80%;
+}
+
+.eodGroupModal {
+  max-width: 550px;
+  width: 80%;
+}
+
+.modal-content {
+  border: 3px solid black;
+}
+
+.taxExemptModal {
+  max-width: 600px;
+  width: 80%;
+}
+
+.wrappper {
+  position: relative !important;
+  width: 100% !important;
+}
+
+.newTECategoryInput {
+  position: absolute !important;
+  width: 300px;
+  margin-right: -20px;
+  outline: none !important;
+  border-right: none !important;
+}
+
+.newTECategorySelect {
+  width: 100% !important;
+}
+
+.wd {
+  min-width: 156px;
+}
+
+.fit-content {
+  max-width: fit-content;
+}

@@ -1,0 +1,384 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="account" xml:space="preserve">
+    <value>Compte</value>
+  </data>
+  <data name="addFromList" xml:space="preserve">
+    <value>Ajouter à partir de la liste</value>
+  </data>
+  <data name="apply" xml:space="preserve">
+    <value>Appliquer</value>
+  </data>
+  <data name="addTax" xml:space="preserve">
+    <value>Ajouter une taxe</value>
+  </data>
+  <data name="back" xml:space="preserve">
+    <value>Recule</value>
+  </data>
+  <data name="buyer" xml:space="preserve">
+    <value>Acheteur</value>
+  </data>
+  <data name="by$" xml:space="preserve">
+    <value>Par $</value>
+  </data>
+  <data name="by%" xml:space="preserve">
+    <value>Par %</value>
+  </data>
+  <data name="calculateDiscount" xml:space="preserve">
+    <value>Calculer Escomte</value>
+  </data>
+  <data name="cancel" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="cannotBeMoreThanChar" xml:space="preserve">
+    <value>{0} peut pas contenir plus de {1} caractères.</value>
+  </data>
+  <data name="change" xml:space="preserve">
+    <value>Modifier</value>
+  </data>
+  <data name="changeReorderPoint" xml:space="preserve">
+    <value>Modifier le Point de Commande</value>
+  </data>
+  <data name="charges" xml:space="preserve">
+    <value>Frais</value>
+  </data>
+  <data name="cost" xml:space="preserve">
+    <value>Coût</value>
+  </data>
+  <data name="customerAccount" xml:space="preserve">
+    <value>Compte Client</value>
+  </data>
+  <data name="dateReceived" xml:space="preserve">
+    <value>Date de Réception</value>
+  </data>
+  <data name="decimalPointsAreNotAllowedForThisProduct" xml:space="preserve">
+    <value>Les points décimaux ne sont pas autorisés pour la quantité commandée de ce produit.</value>
+  </data>
+  <data name="decimalPointsAreNotAllowedForThisProductReceivedQuantity" xml:space="preserve">
+    <value>Les points décimaux ne sont pas autorisés pour la quantité commandée de ce produits</value>
+  </data>
+  <data name="deleteItem" xml:space="preserve">
+    <value>Supprimer un article</value>
+  </data>
+  <data name="deleteTax" xml:space="preserve">
+    <value>Supprimer une taxe</value>
+  </data>
+  <data name="description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="editMinMax" xml:space="preserve">
+    <value>Éditer Min/Max</value>
+  </data>
+  <data name="exactCost" xml:space="preserve">
+    <value>Coût Externe.</value>
+  </data>
+  <data name="fax" xml:space="preserve">
+    <value>Télécopieur</value>
+  </data>
+  <data name="fob" xml:space="preserve">
+    <value>GOUSSET</value>
+  </data>
+  <data name="freight" xml:space="preserve">
+    <value>Fret</value>
+  </data>
+  <data name="from" xml:space="preserve">
+    <value>De</value>
+  </data>
+  <data name="inputSurcharge" xml:space="preserve">
+    <value>Entrée Surcharge</value>
+  </data>
+  <data name="inputSurchargeDiscount" xml:space="preserve">
+    <value>Entrée Surcharge/Escompte</value>
+  </data>
+  <data name="invoice" xml:space="preserve">
+    <value>Facture #</value>
+  </data>
+  <data name="invoiceNumber" xml:space="preserve">
+    <value># Facture</value>
+  </data>
+  <data name="minimumValueForPackingQty" xml:space="preserve">
+    <value>La valeur minimale pour la quantité d'emballage est de 1</value>
+  </data>
+  <data name="noInvoiceEnteredDoYouWantToUseTheDefault" xml:space="preserve">
+    <value>No Invoice # entered. Do you want to use the default?F</value>
+  </data>
+  <data name="notes" xml:space="preserve">
+    <value>Notes</value>
+  </data>
+  <data name="orderQuantityShouldBeIn" xml:space="preserve">
+    <value>Qté commande doit être comprise entre -214748.3648 et 214748.3647</value>
+  </data>
+  <data name="orderQuantityShouldBeInRangeWithoutDecimal" xml:space="preserve">
+    <value>Qté Commande doit être comprise entre -214748 et 214748</value>
+  </data>
+  <data name="orderQuantity" xml:space="preserve">
+    <value>Qté Commande</value>
+  </data>
+  <data name="orderUnit" xml:space="preserve">
+    <value>Unité Ord</value>
+  </data>
+  <data name="packingQuantityShouldBeIn" xml:space="preserve">
+    <value>Qté par paquet doit être comprise entre 1 et 32767.</value>
+  </data>
+  <data name="packingQuantity" xml:space="preserve">
+    <value>Qté par Paquet</value>
+  </data>
+  <data name="part#" xml:space="preserve">
+    <value>Partie#</value>
+  </data>
+  <data name="partNumber" xml:space="preserve">
+    <value>Numéro d'Article</value>
+  </data>
+  <data name="phone" xml:space="preserve">
+    <value>Téléphone</value>
+  </data>
+  <data name="pleaseSelectAPurchaseDetailBeforeDeleting" xml:space="preserve">
+    <value>Veuillez sélectionner un détail d'achat avant de supprimer</value>
+  </data>
+  <data name="poDate" xml:space="preserve">
+    <value>P.O. Date</value>
+  </data>
+  <data name="poNumber" xml:space="preserve">
+    <value>P.O. Numéro</value>
+  </data>
+  <data name="postedItem" xml:space="preserve">
+    <value>Article publié</value>
+  </data>
+  <data name="purchaseOrderInformationOfThePO" xml:space="preserve">
+    <value>Bon de commande Information de PO</value>
+  </data>
+  <data name="quantityInStock" xml:space="preserve">
+    <value>Quantité en Stock</value>
+  </data>
+  <data name="receivedQuantityShouldBeIn" xml:space="preserve">
+    <value>Réception Quantité doit être comprise entre -214748.3648 et 214748.3647.</value>
+  </data>
+  <data name="receivedQuantityShouldBeInRangeWithoutDecimal" xml:space="preserve">
+    <value>Réception Quantité doit être comprise entre -214748 et 214748</value>
+  </data>
+  <data name="receivedQuantityCantBeMoreThanOrderedQuantity" xml:space="preserve">
+    <value>Réception Quantité peut pas be plus de Séquence Quantité</value>
+  </data>
+  <data name="receivedQuantity" xml:space="preserve">
+    <value>Quantité Reçue</value>
+  </data>
+  <data name="reorderMaximum" xml:space="preserve">
+    <value>Commande Maximale</value>
+  </data>
+  <data name="reorderPoint" xml:space="preserve">
+    <value>Point de Commande</value>
+  </data>
+  <data name="save" xml:space="preserve">
+    <value>Sauvegarder</value>
+  </data>
+  <data name="search" xml:space="preserve">
+    <value>Rechercher</value>
+  </data>
+  <data name="shipVia" xml:space="preserve">
+    <value>Transporté par</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value>Informations sur le bon de commande du bon de commande</value>
+  </data>
+  <data name="subTotal" xml:space="preserve">
+    <value>Sous-total</value>
+  </data>
+  <data name="surchargeDiscount" xml:space="preserve">
+    <value>Surcharge / Escompte</value>
+  </data>
+  <data name="taxable" xml:space="preserve">
+    <value>Imposable</value>
+  </data>
+  <data name="taxAmount" xml:space="preserve">
+    <value>Montant de la Taxe.</value>
+  </data>
+  <data name="taxesSuccessfullyAdded" xml:space="preserve">
+    <value>Taxes ajout avec succès</value>
+  </data>
+  <data name="taxesSuccessfullyDeleted" xml:space="preserve">
+    <value>Taxes supprimées avec succès</value>
+  </data>
+  <data name="taxTotal" xml:space="preserve">
+    <value>Taxe Totaux</value>
+  </data>
+  <data name="terms" xml:space="preserve">
+    <value>Terme</value>
+  </data>
+  <data name="to" xml:space="preserve">
+    <value>à</value>
+  </data>
+  <data name="toBeDelivered" xml:space="preserve">
+    <value>Être livrés</value>
+  </data>
+  <data name="total" xml:space="preserve">
+    <value>Totaux</value>
+  </data>
+  <data name="youAreNotAllowedToDeleteThisPostedItem" xml:space="preserve">
+    <value>Vous n'êtes pas autorisé à supprimer cet élément publié</value>
+  </data>
+  <data name="youCantAllowCostPerUnitTobeMoreThat50Percent" xml:space="preserve">
+    <value>Vous ne pouvez pas autoriser une modification du coût par unité de plus de 50 %. Le coût unitaire actuel est de {0}.</value>
+  </data>
+  <data name="youShouldEnterAValueForCost" xml:space="preserve">
+    <value>Vous devez saisir une valeur pour Coût</value>
+  </data>
+  <data name="youShouldEnterNumericValueForReceivedQuantity" xml:space="preserve">
+    <value>Vous devez entrer une valeur numérique pour la quantité reçue.</value>
+  </data>
+  <data name="youShouldEnterNumericValueForOrderQty" xml:space="preserve">
+    <value>Vous devez saisir une valeur numérique sauf zéro pour Séquence Quantité</value>
+  </data>
+  <data name="youShouldEnterNumericValueForReorderMaximum" xml:space="preserve">
+    <value>Vous devez entrer une valeur numérique pour Quantité maximum</value>
+  </data>
+  <data name="youShouldEnterNumericValueForReorderPoint" xml:space="preserve">
+    <value>Vous devez entrer une valeur numérique pour Quantité minimum</value>
+  </data>
+  <data name="youShouldEnterNumericValueForSurchargeDiscount" xml:space="preserve">
+    <value>Vous devez entrer une valeur numérique pour Surcharge/Escompte</value>
+  </data>
+  <data name="areYouSureYouWantToDeleteIt" xml:space="preserve">
+    <value>Êtes-vous sur de vouloir la supprimer?</value>
+  </data>
+  <data name="invalidNumberWarningMessage" xml:space="preserve">
+    <value>Entrer un numéro valide</value>
+  </data>
+  <data name="purchaseDetailSuccessfullyDeleted" xml:space="preserve">
+    <value>Détail d'achat supprimé avec succès</value>
+  </data>
+  <data name="confirmDeletion" xml:space="preserve">
+    <value>Confirmer la suppression</value>
+  </data>
+  <data name="select" xml:space="preserve">
+    <value>Sélectionner</value>
+  </data>
+  <data name="pleaseSelectPartNumber" xml:space="preserve">
+    <value>Veuillez sélectionner une Numéro d'Article</value>
+  </data>
+  <data name="costCanNotBeZero" xml:space="preserve">
+    <value>Le coût ne peut pas être nul</value>
+  </data>
+  <data name="costShouldBeIn" xml:space="preserve">
+    <value>Coût doit être comprise entre -214748.3648 et 214748.3647.</value>
+  </data>
+  <data name="itemsAreAddedSuccessfully" xml:space="preserve">
+    <value>Les articles sont ajoutés au bon de commande avec succès</value>
+  </data>
+</root>

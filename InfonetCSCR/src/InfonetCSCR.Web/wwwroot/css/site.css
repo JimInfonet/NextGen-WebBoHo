@@ -1,0 +1,379 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+  background-color: #F9F9F9;
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+}
+
+:root {
+  --color-primary: #2653BC;
+  --color-white: #FFFFFF;
+  --color-border: #ced4da;
+}
+
+.infonet-input, .infonet-input:read-only {
+  background-color: #F5F7FF;
+  border: 1px solid rgba(38, 83, 188, 0.2);
+  padding: 10px;
+  border-radius: 6px;
+  outline: none;
+}
+
+.not-editable:read-only, .infonet-input:disabled {
+  background-color: #d1d7f0 !important;
+  border: 1px solid rgba(38, 83, 188, 0.2);
+  padding: 10px;
+  border-radius: 6px;
+  outline: none;
+  cursor: not-allowed;
+}
+
+.option-separetor {
+  font-size: 0.25px;
+  background-color: grey;
+}
+
+.bg-primary-color {
+  background-color: var(--color-primary);
+}
+
+.sidebar {
+  z-index: 100;
+}
+
+.sidebar-logo {
+  max-height: 40px;
+}
+
+.sidebar-icon {
+  font-size: 33px;
+  font-weight: bold;
+}
+
+.nav-item-menu {
+  color: var(--color-white) !important;
+}
+
+.nav-item-menu-disabled {
+  cursor: default !important;
+}
+
+.nav-selected-item-menu {
+  color: var(--color-primary) !important;
+  font-weight: bold !important;
+}
+
+.sidebar-menu-text {
+  font-size: 15px;
+  margin-left: 15px !important;
+}
+
+@media (max-width: 1366px) {
+  .sidebar-menu-text {
+    font-size: 14px;
+  }
+}
+
+.selected {
+  background-color: var(--color-white);
+}
+
+.selected-nav-link {
+  background-color: var(--color-primary) !important;
+  color: var(--color-white) !important;
+  font-weight: bold !important;
+}
+
+.sidebar-submenu-text {
+  font-size: 13px;
+}
+
+.signout-button {
+  background-color: var(--color-primary);
+  border: none;
+  text-align: start;
+  margin-left: 0px;
+}
+
+.custom-footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: var(--color-primary);
+  color: white;
+  z-index: 99;
+  max-height: 30px;
+}
+
+.custom-footer-content {
+  text-align: right;
+}
+
+.custom-footer-text {
+  margin: 2px 2px 2px 0px;
+  font-size: 13px;
+}
+
+.custom-footer-img {
+  max-height: 17px;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 7px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #d6dee1;
+  border-radius: 20px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #a8bbbf;
+}
+
+.custom-grid-scrollbar::-webkit-scrollbar {
+  width: 15px;
+}
+
+.custom-grid-scrollbar::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.custom-grid-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #d6dee1;
+  border-radius: 20px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+.custom-grid-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #a8bbbf;
+}
+
+.btn-primary {
+  background-color: #2653BC !important;
+}
+
+.btn {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 26px;
+}
+
+.btn-footer {
+  padding: 0.5rem 1rem;
+  min-width: 150px;
+  min-height: 50px;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-cancel,
+.btn-save,
+.btn-default,
+.btn-back {
+  text-align: center;
+  min-width: 150px;
+  height: 50px;
+  border-radius: 4px;
+}
+
+.custom-table-height {
+  max-height: 225px;
+  overflow-x: hidden !important;
+}
+
+.section-title {
+  font-style: normal;
+  font-weight: 1000;
+  font-size: 17px;
+  line-height: 30px;
+  color: #002540;
+}
+
+.body-title {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 40px;
+  color: #002540;
+}
+
+.body-content {
+  background-color: var(--color-white);
+  margin-top: 20px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+.section-underline {
+  opacity: 0.12;
+  margin: 0.75rem 0;
+}
+
+.table-icon {
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.toast-error {
+  background-color: #dc3545 !important;
+}
+
+.toast-warning {
+  background-color: #ffc107 !important;
+}
+
+.toast-success {
+  background-color: #51a351 !important;
+}
+
+.dataTable-head-container {
+  overflow-x: hidden !important;
+}
+
+#dataTable-body-container {
+  overflow-y: scroll !important;
+  overflow-x: scroll;
+}
+
+.selected-grid-row {
+  background-color: var(--color-primary) !important;
+}
+
+.selected-grid-row td {
+  color: var(--color-white) !important;
+}
+
+.highlight-for-error {
+  border: 2px solid red;
+}
+
+.datatable-allignment th {
+  vertical-align: middle;
+}
+
+.dataTable thead th {
+  vertical-align: middle !important;
+}
+
+.dataTable-text-left {
+  text-align: left !important;
+}
+
+.dataTable-text-center {
+  text-align: center !important;
+}
+
+.dataTable-text-right {
+  text-align: right !important;
+}
+
+.sidebar-options {
+  height: 800px !important;
+  width: 100%;
+  overflow-y: scroll !important;
+}
+
+.editable-option-input {
+  position: absolute !important;
+  width: 300px;
+  margin-right: -20px;
+  outline: none !important;
+  border: none !important;
+}
+
+.cursor-pointer{
+  cursor: pointer;
+}
+
+.editable-option-select {
+  width: 100% !important;
+}
+
+.disabled-nav-link {
+  color: var(--color-primary) !important;
+  font-size: 13px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.datatable-cancel-button {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.dataTables_scrollHeadInner table {
+  margin: 0 auto;
+  width: 100%;
+  table-layout: fixed;
+}
+
+tbody {
+  cursor: pointer !important;
+}
+
+.pageTitleContainer {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  margin-left: 10px;
+}
+
+.not-editable:read-only {
+  background-color: #d1d7f0;
+  border: 1px solid rgba(38, 83, 188, 0.2);
+  padding: 10px;
+  border-radius: 6px;
+  outline: none;
+  cursor: not-allowed;
+}
+
+#confirmModalMessageId {
+  overflow-wrap: break-word;
+}
+
+.hidden-field {
+  visibility: hidden;
+}
+
+.page-content {
+  background-color: var(--color-white);
+}
+
+.page-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+th, td, p {
+  font-size: 15px;
+}
+
+.text-ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  max-width: 100%;
+}
+
+#alertModelMessageId {
+  word-wrap: break-word !important;
+  white-space: pre-wrap !important;
+}

@@ -1,0 +1,567 @@
+﻿@section Head {
+  <link href="~/css/productClassification.css" rel="stylesheet" asp-append-version="true" />
+}
+
+@inject IApplicationConfig _config
+@inject IViewLocalizer localizer
+@{
+  ViewData["Title"] = @localizer["productClassification"];
+}
+
+<input type="hidden" id="userCode" value="@ViewData["UserCode"]?.ToString()" />
+<input type="hidden" id="taxExemptByRatePolicy" value="@ViewData["TaxExemptByRatePolicy"]?.ToString()" />
+<input type="hidden" id="taxExemptTypePolicy" value="@ViewData["TaxExemptTypePolicy"]?.ToString()" />
+
+@*Localization Texts*@
+<input type="hidden" id="appModeBackOffice" value="@_config.IsBackOffice.ToString()">
+<input type="hidden" id="eodGroupIdShouldBeNumericValueBetween0And255" value="@localizer["eodGroupIdShouldBeNumericValueBetween0And255"]" />
+<input type="hidden" id="eodGroupNameShouldNotBeBlank" value="@localizer["eodGroupNameShouldNotBeBlank"]" />
+<input type="hidden" id="thisEodGroupIdAlreadyExists" value="@localizer["thisEodGroupIdAlreadyExists"]" />
+<input type="hidden" id="queryToConinueDeleteEodGroup" value="@localizer["queryToConinueDeleteEodGroup", "{0}"]" />
+<input type="hidden" id="deleteEodGroup" value="@localizer["deleteEodGroup"]" />
+<input type="hidden" id="eodGroupIdText" value="@localizer["eodGroupId"]" />
+<input type="hidden" id="selectBeforeDeletingMessage" value="@localizer["selectBeforeDeletingMessage"]" />
+<input type="hidden" id="back" value="@localizer["back"]" />
+<input type="hidden" id="dept" value="@localizer["dept"]" />
+<input type="hidden" id="subDept" value="@localizer["subDept"]" />
+<input type="hidden" id="cancel" value="@localizer["cancel"]" />
+<input type="hidden" id="delete" value="@localizer["delete"]" />
+<input type="hidden" id="add" value="@localizer["add"]" />
+<input type="hidden" id="confirmGoBackAlert" value="@localizer["confirmGoBackAlert"]" />
+<input type="hidden" id="theDetailsMustBeBetween1And4" value="@localizer["theDetailsMustBeBetween1And4"]" />
+<input type="hidden" id="theCountDetailsMustBeBetween1And9" value="@localizer["theCountDetailsMustBeBetween1And9"]" />
+<input type="hidden" id="categoryCodeAlreadyExists" value="@localizer["categoryCodeAlreadyExists", "{0}"]" />
+<input type="hidden" id="confirmCancelAlert" value="@localizer["confirmCancelAlert"]" />
+<input type="hidden" id="theCategoryCodeMustNotBeBlank" value="@localizer["theCategoryCodeMustNotBeBlank"]" />
+<input type="hidden" id="theCategoryNameMustNotBeBlank" value="@localizer["theCategoryNameMustNotBeBlank"]" />
+<input type="hidden" id="theSubCategoryCodeMustNotBeBlank" value="@localizer["theSubCategoryCodeMustNotBeBlank"]" />
+<input type="hidden" id="theSubCategoryNameMustNotBeBlank" value="@localizer["theSubCategoryNameMustNotBeBlank"]" />
+<input type="hidden" id="categoryIsTheFuelCategoryAndCannotBeDeleted" value="@localizer["categoryIsTheFuelCategoryAndCannotBeDeleted", "{0}"]" />
+<input type="hidden" id="categoryIsUsedForStockItems" value="@localizer["categoryIsUsedForStockItems", "{0}", "{1}"]" />
+<input type="hidden" id="confirmDelete" value="@localizer["confirmDelete"]" />
+<input type="hidden" id="youHaveSelectedSameTaxMoreThanOneTime" value="@localizer["youHaveSelectedSameTaxMoreThanOneTime"]" />
+<input type="hidden" id="pleaseSelectStockCodes" value="@localizer["pleaseSelectStockCodes"]" />
+<input type="hidden" id="pleaseSelectTaxes" value="@localizer["pleaseSelectTaxes"]" />
+<input type="hidden" id="pleaseSelectCharges" value="@localizer["pleaseSelectCharges"]" />
+<input type="hidden" id="taxesSuccessfullyDeleted" value="@localizer["taxesSuccessfullyDeleted"]" />
+<input type="hidden" id="taxesSuccessfullyAdded" value="@localizer["taxesSuccessfullyAdded"]" />
+<input type="hidden" id="chargesSuccessfullyDeleted" value="@localizer["chargesSuccessfullyDeleted"]" />
+<input type="hidden" id="chargesSuccessfullyAdded" value="@localizer["chargesSuccessfullyAdded"]" />
+<input type="hidden" id="taxExemptSuccessfullyDeleted" value="@localizer["taxExemptSuccessfullyDeleted"]" />
+<input type="hidden" id="taxExemptSuccessfullyAdded" value="@localizer["taxExemptSuccessfullyAdded"]" />
+<input type="hidden" id="newTECategoryText" value="@localizer["newTECategory"]" />
+<input type="hidden" id="taxType" value="@localizer["taxType"]" />
+<input type="hidden" id="quantityPerPkgRange" value="@localizer["quantityPerPkgRange"]" />
+<input type="hidden" id="baseUnitQuantityRange" value="@localizer["baseUnitQuantityRange"]" />
+<input type="hidden" id="taxFreePriceRange" value="@localizer["taxFreePriceRange"]" />
+<input type="hidden" id="productDiscountCodeSuccessfullyAdded" value="@localizer["productDiscountCodeSuccessfullyAdded"]" />
+<input type="hidden" id="productDiscountCodeSuccessfullyDeleted" value="@localizer["productDiscountCodeSuccessfullyDeleted"]" />
+<input type="hidden" id="discountCodeShouldBeBetween0And99Inclusive" value="@localizer["discountCodeShouldBeBetween0And99Inclusive"]" />
+<input type="hidden" id="allSelectedEODGroupsWillBeDeletedContinue" value="@localizer["allSelectedEODGroupsWillBeDeletedContinue"]" />
+<input type="hidden" id="noProducts" value="@localizer["noProducts"]" />
+<input type="hidden" id="youAreGoingToAdd" value="@localizer["youAreGoingToAdd", "{0}", "{1}"]" />
+<input type="hidden" id="youAreGoingToDelete" value="@localizer["youAreGoingToDelete", "{0}", "{1}"]" />
+<input type="hidden" id="areYouSureToDeleteTaxExemptCategory" value="@localizer["areYouSureToDeleteTaxExemptCategory", "{0}"]" />
+<input type="hidden" id="areYouSureToDeleteProductDiscountCodeForCategory" value="@localizer["areYouSureToDeleteProductDiscountCodeForCategory", "{0}"]" />
+<input type="hidden" id="areYouSureYouWantToDeleteCategory" value="@localizer["areYouSureYouWantToDeleteCategory", "{0}"]" />
+<input type="hidden" id="subCategoryCodeAlreadyExists" value="@localizer["subCategoryCodeAlreadyExists", "{0}"]" />
+<input type="hidden" id="areYouSureYouWantToDeleteSubCategory" value="@localizer["areYouSureYouWantToDeleteSubCategory", "{0}"]" />
+<input type="hidden" id="subCategoryIsUsedForStockItems" value="@localizer["subCategoryIsUsedForStockItems", "{0}", "{1}"]" />
+<input type="hidden" id="noProductsFor" value="@localizer["noProductsFor", "{0}"]" />
+<input type="hidden" id="theDetailCodeMustNotBeBlank" value="@localizer["theDetailCodeMustNotBeBlank"]" />
+<input type="hidden" id="theDetailNameMustNotBeBlank" value="@localizer["theDetailNameMustNotBeBlank"]" />
+<input type="hidden" id="detailCodeAlreadyExistsInputUniqueDetailCode" value="@localizer["detailCodeAlreadyExistsInputUniqueDetailCode", "{0}"]" />
+<input type="hidden" id="areYouSureYouWantToDeleteSubDetail" value="@localizer["areYouSureYouWantToDeleteSubDetail", "{0}"]" />
+<input type="hidden" id="subDetailIsUsedForStockItems" value="@localizer["subDetailIsUsedForStockItems", "{0}", "{1}"]" />
+<input type="hidden" id="subDetail" value="@localizer["subDetail"]" />
+<input type="hidden" id="categorySuccessfullyAdded" value="@localizer["categorySuccessfullyAdded"]" />
+<input type="hidden" id="categorySuccessfullyDeleted" value="@localizer["categorySuccessfullyDeleted", "{0}"]" />
+<input type="hidden" id="subCategorySuccessfullyAdded" value="@localizer["subCategorySuccessfullyAdded"]" />
+<input type="hidden" id="subCategorySuccessfullyDeleted" value="@localizer["subCategorySuccessfullyDeleted", "{0}"]" />
+<input type="hidden" id="subDetailSuccessfullyAdded" value="@localizer["subDetailSuccessfullyAdded"]" />
+<input type="hidden" id="subDetailSuccessfullyDeleted" value="@localizer["subDetailSuccessfullyDeleted", "{0}"]" />
+
+<div class="m-3">
+  <h3><strong>@localizer["productClassification"]</strong></h3>
+</div>
+
+<div class="m-3">
+  <div class="container body-content" style="max-width:3000px;">
+    <h5 class="p-2">
+      <strong>@localizer["categories"]</strong>
+    </h5>
+    <div class="container custom-grid-scrollbar border-2" style="max-width:3000px;">
+      <table id="categories-grid" class="table table-striped" style="width:100%">
+        <thead class="datatable-allignment">
+          <tr>
+            <th id="DTDeptId">@localizer["code"]</th>
+            <th id="DTDeptName">@localizer["name"]</th>
+            <th id="DTEODDetail">@localizer["detail"]</th>
+            <th id="DTEODGroup">@localizer["eod"]</th>
+            <th id="DTCntDetail">@localizer["countDetails"]</th>
+          </tr>
+        </thead>
+      </table>
+      <div class="p-4 button-group">
+        <div class="p-0 row justify-content-end">
+          @if (ViewData["EodGroupPolicy"]?.ToString()?.ToLower() == "true")
+          {
+            <div class="col-xl col-lg-3 p-2 text-center fit-content">
+              <button class="btn btn-primary wd" onclick="eodGroupButtonClick()">@localizer["eodGroup"]</button>
+            </div>
+          }
+
+          <div class="col-xl col-lg-3 p-2 text-center fit-content">
+            <button class="btn btn-primary wd" onclick="newCategoryButtonClick()">@localizer["newCategory"]</button>
+          </div>
+          <div class="col-xl col-lg-3 p-2 text-center fit-content">
+            <button id="categoryDeleteButtonId" class="btn btn-danger wd" onclick="deleteCategory()">@localizer["deleteCategory"]</button>
+          </div>
+
+          @if (_config.IsBackOffice)
+          {
+            <div class="col-xl col-lg-3 p-2 text-center fit-content">
+              <button id="taxesDepartmentButtonId" class="btn btn-primary wd" onclick="taxesOrChargesButtonClicked(true, 'Department')">@localizer["taxes"]</button>
+            </div>
+            <div class="col-xl col-lg-3 p-2 text-center fit-content">
+              <button id="chargesDepartmentButtonId" class="btn btn-primary wd" onclick="taxesOrChargesButtonClicked(false, 'Department')">@localizer["charges"]</button>
+            </div>
+          }
+
+          @if (ViewData["TaxExemptPolicy"]?.ToString()?.ToLower() == "true")
+          {
+            <div class="col-xl col-lg-3 p-2 text-center fit-content">
+              <button id="taxExemptDepartmentButtonId" class="btn btn-primary wd" onclick="taxExemptButtonClicked('Department')">@localizer["taxExempt"]</button>
+            </div>
+          }
+
+          <div class="col-xl col-lg-3 p-2 text-center fit-content">
+            <button id="productDiscountCodeDepartmentButtonId" class="btn btn-primary wd" onclick="productDiscountCodeButtonClicked('Department')">@localizer["productDiscountCodes"]</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="m-3">
+  <div class="container body-content p-2" style="max-width:3000px;">
+    <h5 class="p-2">
+      <strong>@localizer["subCategories"]</strong>
+    </h5>
+    <div class="container custom-grid-scrollbar border-2" style="max-width:3000px;">
+      <table id="subCategories-grid" class="table table-striped" style="width:100%">
+        <thead class="datatable-allignment">
+          <tr>
+            <th id="DTSubDeptId">@localizer["subDept"]</th>
+            <th id="DTName">@localizer["name"]</th>
+          </tr>
+        </thead>
+      </table>
+
+      <div class="p-4 button-group">
+        <div class="p-0 row justify-content-end">
+          <div class="col-xl col-lg-3 p-2 text-center fit-content">
+            <button class="btn btn-primary wd" onclick="newSubCategoryButtonClick()">@localizer["newSubCategory"]</button>
+          </div>
+          <div class="col-xl col-lg-3 p-2 text-center fit-content">
+            <button id="subCategoryDeleteButtonId" class="btn btn-danger wd" onclick="deleteSubCategory()">@localizer["deleteSubCategory"]</button>
+          </div>
+
+          @if (_config.IsBackOffice)
+          {
+            <div class="col-xl col-lg-3 p-2 text-center fit-content">
+              <button id="taxesSubDepartmentButtonId" class="btn btn-primary wd" onclick="taxesOrChargesButtonClicked(true, 'SubDepartment')">@localizer["taxes"]</button>
+            </div>
+            <div class="col-xl col-lg-3 p-2 text-center fit-content">
+              <button id="chargesSubDepartmentButtonId" class="btn btn-primary wd" onclick="taxesOrChargesButtonClicked(false, 'SubDepartment')">@localizer["charges"]</button>
+            </div>
+          }
+
+          @if (ViewData["TaxExemptPolicy"]?.ToString()?.ToLower() == "true")
+          {
+            <div class="col-xl col-lg-3 p-2 text-center fit-content">
+              <button id="taxExemptSubDepartmentButtonId" class="btn btn-primary wd" onclick="taxExemptButtonClicked('SubDepartment')">@localizer["taxExempt"]</button>
+            </div>
+          }
+
+          <div class="col-xl col-lg-3 p-2 text-center fit-content">
+            <button id="productDiscountCodeSubDepartmentButtonId" class="btn btn-primary" onclick="productDiscountCodeButtonClicked('SubDepartment')">@localizer["productDiscountCodes"]</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="m-3">
+  <div class=" body-content p-2">
+    <h5 class="p-2">
+      <strong>@localizer["details"]</strong>
+    </h5>
+    <div class="container custom-grid-scrollbar border-2" style="max-width:3000px;">
+      <table id="subDetail-grid" class="table table-striped" style="width:100%">
+        <thead class="datatable-allignment">
+          <tr>
+            <th id="DTDetail">@localizer["detail"]</th>
+            <th id="DTName">@localizer["name"]</th>
+          </tr>
+        </thead>
+      </table>
+      <div class="p-4 button-group">
+        <div class="p-0 row justify-content-end">
+          <div class="col-xl col-lg-3 p-2 text-center fit-content">
+            <button class="btn btn-primary wd" onclick="newDetailButtonClick()">@localizer["newDetails"]</button>
+          </div>
+          <div class="col-xl col-lg-3 p-2 text-center fit-content">
+            <button id="detailDeleteButtonId" class="btn btn-danger wd" onclick="deleteDetail()">@localizer["deleteDetail"]</button>
+          </div>
+
+          @if (_config.IsBackOffice)
+          {
+            <div class="col-xl col-lg-3 p-2 text-center fit-content">
+              <button id="taxesDetailButtonId" class="btn btn-primary wd" onclick="taxesOrChargesButtonClicked(true, 'Detail')">@localizer["taxes"]</button>
+            </div>
+            <div class="col-xl col-lg-3 p-2 text-center fit-content">
+              <button id="chargesDetailButtonId" class="btn btn-primary wd" onclick="taxesOrChargesButtonClicked(false, 'Detail')">@localizer["charges"]</button>
+            </div>
+          }
+
+          @if (ViewData["TaxExemptPolicy"]?.ToString()?.ToLower() == "true")
+          {
+            <div class="col-xl col-lg-3 p-2 text-center fit-content">
+              <button id="taxExemptDetailButtonId" class="btn btn-primary wd" onclick="taxExemptButtonClicked('Detail')">@localizer["taxExempt"]</button>
+            </div>
+          }
+
+          <div class="col-xl col-lg-3 p-2 text-center fit-content">
+            <button id="productDiscountCodeDetailButtonId" class="btn btn-primary wd" onclick="productDiscountCodeButtonClicked('Detail')">@localizer["productDiscountCodes"]</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+@*EOD Group Modal*@
+<div class="modal fade" id="eodGroupModal" tabindex="1" role="dialog" area-labelledby="exampleModalLiveLabel" area-modal="true">
+  <div class="modal-dialog modal-dialog-centered eodGroupModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">@localizer["eodGroup"]</h5>
+      </div>
+      <div class="modal-body">
+        <div class="modal-buttons">
+          <button id="newGroupButtonId" class="btn btn-primary mx-1" onclick="newGroupButtonClicked()">@localizer["newGroup"]</button>
+          <button id="deleteGroupButtonId" class="btn btn-danger mx-1" onclick="deleteEodGroupButtonClicked()">@localizer["deleteGroup"]</button>
+          <button id="linkGroupButtonId" class="btn btn-primary mx-1" onclick="linkEodGroupButtonClicked()">@localizer["linkGroup"]</button>
+        </div>
+        @*New Eod Group Form*@
+        <div class="newEodGroupForm" id="newEodGroupFormId">
+          <div>
+            <div class="my-1">
+              <label class="mb-2">@localizer["eodGroupId"]</label>
+              <input id="eodGroupId" type="number" data-val="true" data-val-number="test" class="infonet-input w-100 clear-selected-input-on-keypress only-digit" min="1" max="999" />
+            </div>
+
+            <div class="my-1">
+              <label class="mb-2">@localizer["eodGroupName"]</label>
+              <input id="eodGroupName" type="text" class="infonet-input clear-selected-input-on-keypress w-100" maxlength="20" />
+            </div>
+          </div>
+          <div class="pt-2">
+            <button class="btn btn-primary" onclick="newGroupCompleteButtonClicked()">@localizer["complete"]</button>
+            <button class="btn btn-outline-danger ms-1" onclick="newEodGroupFormCancelButtonClicked()">@localizer["cancel"]</button>
+          </div>
+        </div>
+
+        @*Delete EOD Group Form*@
+        <div class="deleteEodGroupForm" id="deleteEodGroupFormId">
+          <div id="eodGroupCheckboxesId" class="eodGroupCheckboxes custom-scrollbar"></div>
+          <div class="pt-2">
+            <button class="btn btn-danger" onclick="deleteEodGroupFormDeleteButtonClicked()">@localizer["delete"]</button>
+            <button class="btn btn-outline-danger ms-1" onclick="deleteEodGroupFormCancelButtonClicked()">@localizer["cancel"]</button>
+          </div>
+        </div>
+
+        @*Link EOD Group Form*@
+        <div class="linkEodGroupForm" id="linkEodGroupFormId">
+          <div class="linkEodGroupInput">
+            <label class="mb-2">@localizer["eodGroup"]</label>
+            <select id="linkEodGroupFormSelect" class="form-select col infonet-input stock-item-form-input linkEodGroupSelect" aria-label="Select EOD Group" onchange="linkEodGroupSelectChanged(this.options[this.selectedIndex].value)">
+            </select>
+              <div class="pt-2 mt-2">
+                <button class="btn btn-primary" id="linkEodGroupApplyButtonId" onclick="linkEodGroupFormApplyButtonClicked()">@localizer["apply"]</button>
+                <button class="btn btn-outline-danger ms-1" onclick="linkEodGroupFormCancelButtonClicked()">@localizer["cancel"]</button>
+              </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="eodGroupModalCancelButtonId" class="btn btn-cancel btn-outline-danger align-content-center btn-sm me-2" data-bs-dismiss="modal">@localizer["cancel"]</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+@*Edit Detail Modal*@
+<div class="modal fade" id="editDetailModal" tabindex="1" role="dialog" area-labelledby="exampleModalLiveLabel" area-modal="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">@localizer["editDetail"]</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <label class="mb-2">@localizer["detail"]</label>
+        <input id="editDetails" type="number" class="infonet-input clear-selected-input-on-keypress only-digit w-100" min="1" max="4" required />
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="editDetailsForDept" class="btn btn-primary btn-sm btn-save" onclick="editDetailsForDept()">@localizer["complete"]</button>
+        <button type="button" class="btn btn-cancel btn-outline-danger align-content-center btn-sm me-2" data-bs-dismiss="modal">@localizer["cancel"]</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+@*Edit Count Detail Modal*@
+<div class="modal fade" id="editCountDetailModal" tabindex="1" role="dialog" area-labelledby="exampleModalLiveLabel" area-modal="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">@localizer["editCountDetails"]</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <label class="mb-2">@localizer["countDetails"]</label>
+        <input id="editCountDetails" type="number" class="infonet-input clear-selected-input-on-keypress only-digit w-100" min="1" max="9" required />
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="editCountDetailsForDept" class="btn btn-primary btn-sm btn-save" onclick="editCountDetailsForDept()">@localizer["complete"]</button>
+        <button type="button" class="btn btn-cancel btn-outline-danger align-content-center btn-sm me-2" data-bs-dismiss="modal">@localizer["cancel"]</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+@*Add New Category Modal*@
+<div class="modal fade" id="addNewCategoryModal" tabindex="1" role="dialog" area-labelledby="exampleModalLiveLabel" area-modal="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">@localizer["newCategory"]</h5>
+      </div>
+      <div class="modal-body">
+        <label class="my-2">@localizer["code"]</label>
+        <input id="addNewCategoryCode" type="text" class="infonet-input clear-selected-input-on-keypress w-100" maxlength="10" />
+        <label class="my-2">@localizer["categoryName"]</label>
+        <input id="addNewCategoryName" type="text" class="infonet-input clear-selected-input-on-keypress w-100" maxlength="30" />
+        <label class="my-2">@localizer["details"]</label>
+        <input id="addNewCategoryDetails" type="number" class="infonet-input clear-selected-input-on-keypress w-100 only-digit" min="1" max="4"/>
+        <label class="my-2">@localizer["countDetails"]</label>
+        <input id="addNewCategoryCountDetails" type="number" class="infonet-input clear-selected-input-on-keypress w-100 only-digit" min="1" max="9" />
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary btn-sm btn-save" onclick="addNewCategory()">@localizer["complete"]</button>
+        <button type="button" class="btn btn-cancel btn-outline-danger align-content-center btn-sm me-2" data-bs-dismiss="modal">@localizer["cancel"]</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+@*Add New Sub Category Modal*@
+<div class="modal fade" id="addNewSubCategoryModal" tabindex="1" role="dialog" area-labelledby="exampleModalLiveLabel" area-modal="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">@localizer["newSubCategory"]</h5>
+      </div>
+      <div class="modal-body">
+        <label class="my-2">@localizer["subCode"]</label>
+        <input id="subCode" type="text" class="infonet-input clear-selected-input-on-keypress w-100" maxlength="10" />
+        <label class="my-2">@localizer["subName"]</label>
+        <input id="subName" type="text" class="infonet-input clear-selected-input-on-keypress w-100" maxlength="30" />
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary btn-sm btn-save" onclick="addNewSubCategory()">@localizer["complete"]</button>
+        <button type="button" class="btn btn-cancel btn-outline-danger align-content-center btn-sm me-2" data-bs-dismiss="modal">@localizer["cancel"]</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+@*Add New Detail Modal*@
+<div class="modal fade" id="addNewDetailModal" tabindex="1" role="dialog" area-labelledby="exampleModalLiveLabel" area-modal="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">@localizer["newDetails"]</h5>
+      </div>
+      <div class="modal-body">
+        <label class="my-2">@localizer["detailCode"]</label>
+        <input id="detailCode" type="text" class="infonet-input clear-selected-input-on-keypress w-100" maxlength="10"/>
+        <label class="my-2">@localizer["detailName"]</label>
+        <input id="detailName" type="text" class="infonet-input clear-selected-input-on-keypress w-100" maxlength="30" />
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary btn-sm btn-save" onclick="addNewDetail()">@localizer["complete"]</button>
+        <button type="button" class="btn btn-cancel btn-outline-danger align-content-center btn-sm me-2" data-bs-dismiss="modal">@localizer["cancel"]</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+@*Taxes or Charges Modal*@
+<div class="modal fade" id="taxesOrChargesModal" tabindex="1" role="dialog" area-labelledby="exampleModalLiveLabel" area-modal="true">
+  <div class="modal-dialog modal-dialog-centered taxesModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 id="taxesTitle" class="modal-title">@localizer["taxes"]</h5>
+        <h5 id="chargesTitle" class="modal-title">@localizer["charges"]</h5>
+      </div>
+      <div class="modal-body">
+        <h4 id="taxesOrChargesModalTitle"></h4>
+
+        @*Taxes or Charges list*@
+        <div class="d-flex flex-column my-3">
+          <select multiple class="form-select col" id="taxOrChargesOptions">
+          </select>
+        </div>
+
+        @*Products list*@
+        <div class="taxesProducts my-3">
+          <div id="taxOrChargesCheckboxes" class="taxesCheckboxes custom-scrollbar">
+          </div>
+          <div>
+            <div class="form-check mt-2 ms-2">
+              <input id="checkAllProductsForTaxOrCharges" class="form-check-input stock-item-form-input eodGroupFormInput clear-selected-input-on-keypress" type="checkbox">
+              <label class="form-check-label ms-1">
+                @localizer["selectAllProducts"]
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="taxesButtons" class="modal-footer">
+        <button type="button" class="btn btn-primary btn-save" onclick="addTaxesToProducts()">@localizer["add"]</button>
+        <button type="button" class="btn btn-danger btn-save" onclick="deleteTaxesFromProducts()">@localizer["remove"]</button>
+        <button type="button" class="btn btn-outline-danger align-content-center me-2 btn-cancel" data-bs-dismiss="modal">@localizer["cancel"]</button>
+      </div>
+
+      <div id="chargesButtons" class="modal-footer">
+        <button type="button" class="btn btn-primary btn-save" onclick="addChargesToProducts()">@localizer["add"]</button>
+        <button type="button" class="btn btn-danger btn-save" onclick="deleteChargesFromProducts()">@localizer["remove"]</button>
+        <button type="button" class="btn btn-outline-danger align-content-center me-2 btn-cancel" data-bs-dismiss="modal">@localizer["cancel"]</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+@*Set TE Category Modal*@
+<div class="modal fade" id="taxExemptCategoryModal" tabindex="1" role="dialog" area-labelledby="exampleModalLiveLabel" area-modal="true">
+  <div class="modal-dialog modal-dialog-centered taxExemptModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">@localizer["taxExemptCategory"]</h5>
+      </div>
+      <div class="modal-body">
+        <div id="taxExemptButtons" class="modal-buttons">
+          <button id="deleteGroupButtonId" class="btn btn-danger mx-1" onclick="deleteProductTaxExempt()">@localizer["deleteTECategory"]</button>
+          <button id="setTEGroupButtonId" class="btn btn-primary mx-1" onclick="setTaxExemptButtonClicked()">@localizer["setTECategory"]</button>
+        </div>
+
+        <div id="setTaxExemptCategoryForm">
+          <div>
+            @if ((@ViewData["TaxExemptByRatePolicy"]?.ToString() == "Yes" && @ViewData["TaxExemptTypePolicy"]?.ToString() != "SITE"))
+            {
+              <label class="my-2">@localizer["newTECategory"]</label>
+              <div class="wrapper">
+                <input id="newTECategoryInput" type="text" class="newTECategoryInput infonet-input clear-selected-input-on-keypress only-digit" maxlength="1" />
+                <select id="newTECategorySelect" class="newTECategorySelect form-select col infonet-input" aria-label="Select EOD Group" onchange="newTECategorySelectChanged(this.options[this.selectedIndex].value)">
+                </select>
+              </div>
+
+              <label class="my-2">@localizer["taxType"]</label>
+              <select id="taxTypeSelect" class="form-select col infonet-input stock-item-form-input linkEodGroupSelect" aria-label="Select EOD Group" onchange="taxTypeSelectChanged(this.options[this.selectedIndex].value)">
+              </select>
+
+              <label class="my-2">@localizer["equivalentUnits"]</label>
+              <input id="equivalentUnits" disabled type="number" class="infonet-input w-100" min="-99999" max="999999" />
+
+              <label class="my-2">@localizer["quantityPkg"]</label>
+              <input id="quantityPkg" type="number" class="infonet-input clear-selected-input-on-keypress only-digit-decimal-plus-minus w-100" min="-99999" max="999999" onkeyup="calculateEquivalentUnits()" />
+
+              <label class="my-2">@localizer["baseUnitQuantity"]</label>
+              <input id="baseUnitQuantity" type="number" class="infonet-input clear-selected-input-on-keypress only-digit w-100" min="1" max="999999" onkeyup="calculateEquivalentUnits()" />
+
+              <label class="my-2">@localizer["productCode"]</label>
+              <input id="productCode" type="text" maxlength="3" class="infonet-input clear-selected-input-on-keypress w-100" />
+            }
+            else
+            {
+              <label class="my-2">@localizer["newTECategory"]</label>
+              <div class="wrapper">
+                <input id="newTECategoryInput" type="text" class="newTECategoryInput infonet-input clear-selected-input-on-keypress" maxlength="1" />
+                <select id="newTECategorySelect" class="newTECategorySelect form-select col infonet-input" aria-label="Select EOD Group" onchange="newTECategorySelectChanged(this.options[this.selectedIndex].value)">
+                </select>
+              </div>
+
+              <label id="newTEPriceLabel" class="my-2">@localizer["newTEPrice"]</label>
+              <input id="newTEPrice" type="number" class="infonet-input w-100" min="-99999" max="999999" />
+
+              <label class="my-2">@localizer["equivalentUnits"]</label>
+              <input id="equivalentUnits" type="number" class="infonet-input w-100 clear-selected-input-on-keypress" min="-99999" max="999999" />
+            }
+          </div>
+
+          <div class="mt-3">
+            <button type="button" class="btn btn-primary" onclick="addNewTaxExempt()">@localizer["apply"]</button>
+            <button type="button" class="btn btn-outline-danger ms-1" onclick="setTaxExemptFormCancelButtonClicked()">@localizer["cancel"]</button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="setTaxExemptCancelButtonId" class="btn btn-cancel btn-outline-danger align-content-center btn-sm me-2" data-bs-dismiss="modal">@localizer["cancel"]</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+@*Product Discount Code Modal*@
+<div class="modal fade" id="productDiscountCodeModal" tabindex="1" role="dialog" area-labelledby="exampleModalLiveLabel" area-modal="true">
+  <div class="modal-dialog modal-dialog-centered productDiscountCodeModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">@localizer["productDiscountCodes"]</h5>
+      </div>
+      <div class="modal-body">
+        <div id="productDiscountCodeButtons" class="modal-buttons">
+          <button id="productDiscountCodeDeleteButtonId" class="btn btn-danger mx-1" onclick="deleteProductDiscountCode()">@localizer["deleteDiscountCode"]</button>
+          <button id="productDiscountCodeSetButtonId" class="btn btn-primary mx-1" onclick="setProductDiscountCodeModalButtonClicked()">@localizer["setDiscountCode"]</button>
+        </div>
+
+        <div id="productDiscountCodeForm">
+          <label class="my-2">@localizer["productDiscount"]</label>
+          <input id="productDiscount" type="number" class="infonet-input clear-selected-input-on-keypress only-digit w-100" min="0" max="99" />
+
+          <div class="mt-3">
+            <button type="button" class="btn btn-primary" onclick="setProductDiscountCodeModal()">@localizer["apply"]</button>
+            <button type="button" class="btn btn-outline-danger ms-1" onclick="productDiscountCodeFormCancelButtonClicked()">@localizer["cancel"]</button>
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="setProductDiscountCodeCancelButtonId" class="btn btn-cancel btn-outline-danger align-content-center btn-sm me-2" data-bs-dismiss="modal">@localizer["cancel"]</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+@section Scripts
+  {
+  <script src="~/js/ProductClassification/productClassification.js" asp-append-version="true"></script>
+  <script src="~/js/ProductClassification/categories.js" asp-append-version="true"></script>
+  <script src="~/js/ProductClassification/details.js" asp-append-version="true"></script>
+  <script src="~/js/ProductClassification/subCategories.js" asp-append-version="true"></script>
+}

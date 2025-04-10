@@ -1,0 +1,79 @@
+@section Head {
+  <link href="~/css/storeShifts.css" rel="stylesheet" asp-append-version="true" />
+}
+
+@model StoreShiftViewModel
+@inject IApplicationConfig _config
+@inject IViewLocalizer localizer
+@inject IHttpContextAccessor httpContextAccessor
+@{
+  ViewData["Title"] = @localizer["storeShifts"];
+}
+
+<input id="language" type="hidden" value="@_config.Language" />
+
+<input id="shiftCurrentDayStatement" type="hidden" value="@localizer["shiftCurrentDayStatement", "{0}"]" />
+<input id="storeShiftAddedSuccessfully" type="hidden" value="@localizer["storeShiftAddedSuccessfully"]" />
+<input id="atLeastOneShiftMustBeActive" type="hidden" value="@localizer["atLeastOneShiftMustBeActive"]" />
+<input id="mustHaveOneShiftDefined" type="hidden" value="@localizer["mustHaveOneShiftDefined"]" />
+<input id="deleteStoreShiftTitle" type="hidden" value="@localizer["deleteStoreShiftTitle"]" />
+<input id="deleteStoreShiftMessage" type="hidden" value="@localizer["deleteStoreShiftMessage"]" />
+<input id="storeShiftDeletedSuccessfully" type="hidden" value="@localizer["storeShiftDeletedSuccessfully"]" />
+
+<form class="p-3 mt-2" asp-controller="storeShifts" asp-action="UpdateStoreShifts" id="storeShiftsForm">
+  <div class="p-2">
+    <div class="d-flex justify-content-between">
+      <h3 class="h3 fw-bold mb-3">@localizer["maintainStoreShifts"]</h3>
+    </div>
+
+    <div class="container body-content p-2 max-width-3000px">
+      @*StoreShifts Datatable Section*@
+      <div class="container custom-grid-scrollbar border-2 max-width-3000px">
+        <table id="storeShifts-grid" class="table table-striped">
+          <thead>
+            <tr>
+              <th width="30%" id="Code">@localizer["shiftNumber"]</th>
+              <th width="40%" id="RestrictionsDescription">@localizer["startTime"]</th>
+              <th width="30%" id="AgeLimit">@localizer["activeStatus"]</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+
+      <div class="p-2 row">
+        <div class="d-flex gap-3 col-xl-8 col-lg-9">
+          <button id="btn-add" type="button" class="btn btn-footer btn-primary text-center align-items-center" onclick="onAddShiftBtnClick()">@localizer["addShift"]</button>
+          <button id="btn-delete" type="button" class="btn btn-footer btn-danger text-center align-items-center" onclick="onDeleteShiftBtnClick()">@localizer["deleteShift"]</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="p-3 row shift-current-day align-items-center">
+      <h6 id="localizedShiftCurrentDayStatement" class="h6 fw-bold"></h6>
+    </div>
+
+    <div id="setShiftValues" class="col-lg-12 col-xl-12">
+      <div class="container body-content p-2" style="max-width:3000px;">
+        <div class="d-flex justify-content-between">
+          <h5 class="h5 fw-bold mb-3">@localizer["setShiftValues"]</h5>
+        </div>
+
+        <div class="p-3 row">
+          <div class="col">
+            <label class="mb-2 set-or-change-start-time-title">@localizer["setOrChangeStartTime"]</label>
+            <input id="set-or-change-start-time" type="time" class="infonet-input w-100" onchange="setShiftValues(true)" />
+          </div>
+        
+          <div class="col align-checkbox-center">
+            <input class="form-check-input mt-2" id="shift-active" type="checkbox" value="shift-active" onchange="setShiftValues(false)" />
+            <label class="form-check-label mt-1" for="shift-active">@localizer["shiftActive"]</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+@section Scripts {
+  <script src="~/js/storeShifts.js" asp-append-version="true"></script>
+}

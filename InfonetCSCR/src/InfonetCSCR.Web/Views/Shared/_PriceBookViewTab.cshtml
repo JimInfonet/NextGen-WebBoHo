@@ -1,0 +1,346 @@
+﻿@inject IApplicationConfig _config
+@inject IViewLocalizer localizer
+
+@{
+  bool isBackOffice = _config.IsBackOffice;
+  LocalizedHtmlString? pendingTransferButtonText = isBackOffice ? localizer["saveAsPending"] : localizer["saveAsPendingTransfer"];
+}
+
+<input id="saveAsPendingTransfer" type="hidden" value="@pendingTransferButtonText" />
+
+<div class="tab-pane fade mt-3" id="view-tab-pane">
+  <div class="gap-4">
+    <div class="row gap-md-1 gap-xl-5 mb-5" id="store-and-price-setup">
+      @if (!isBackOffice)
+      {
+        <div class="col-4 d-flex flex-column">
+          <label class="fs-5 fw-bold" id="view__selected-store-or-other-options-label">@localizer["selectedStores"]</label>
+          <select multiple class="form-select col" id="view__selected-store-or-other-options">
+          </select>
+          <div class="form-group col-auto">
+            <input class="form-check-input mt-2" id="view__select-or-unselect-all-stores" type="checkbox" checked>
+            <label class="form-check-label mt-1" for="view__select-or-unselect-all-stores">@localizer["select/UnselectAll"]</label>
+          </div>
+        </div>
+      }
+      <div class="col">
+        @*Price Setup*@
+        <div id="priceSetUp">
+          <label class="mb-2 h5 fw-bold" id="priceSetupLabel">@localizer["priceSetup"]</label>
+          <hr class="hr--sm" />
+          <div class="col">
+            <div class="row mt-3 col align-items-center gap-md-1 gap-xl-4">
+              <div class="form-check col-6">
+                <input class="form-check-input mt-2" id="current-price" type="radio"
+                       onchange="handlePriceOptionChange()"
+                       name="price-option" value="current-price" checked>
+                <label class="form-check-label mt-1" for="current-price" id="current-price-or-cost-label">@localizer["currentPrice"]</label>
+              </div>
+
+              <div class="row col align-items-center">
+                <div class="form-check col-auto">
+                  <input class="form-check-input mt-2" id="future-price" type="radio"
+                         onchange="handlePriceOptionChange()"
+                         name="price-option" value="future-price">
+                  <label class="form-check-label mt-1" for="future-price" id="future-price-or-cost-label">@localizer["futurePrice"]</label>
+                </div>
+
+                <div class="col-auto">
+                  <select style="display: none;" class="form-select" id="select-order-no" onchange="handleOrderNoChange()">
+                    <option value="1" selected>1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="row mt-4 gap-md-1 gap-xl-5">
+              <div class="col">
+                <div class="col" id="price-type-div">
+                  <div class="row mb-4 col">
+                    <label class="my-1 form-label fw-bold" for="price-type">@localizer["type"]</label>
+                    <div class="col">
+                      <select class="form-select" id="price-type" onchange="handlePriceTypeChange()">
+                        <option value="r-regular-price" selected>@localizer["r-regularPrice"]</option>
+                        <option value="s-sale-pricing">@localizer["s-salePricing"]</option>
+                        <option value="f-first-unit-pricing">@localizer["f-firstUnitPricing"]</option>
+                        <option value="i-incremental-pricing">@localizer["i-incrementalPricing"]</option>
+                        <option value="x-x-for-pricing">@localizer["x-xForPricing"]</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="d-flex flex-column justify-content-center col">
+                  <div class="row mb-3">
+                    <label class="my-1 form-label fw-bold" id="price-units-label" style="display: none;">@localizer["priceUnits"]</label>
+                    <div class="btn-group col" role="group">
+                      <input type="radio" name="dollar-or-percentage" class="btn-check" id="currency-dollar" autocomplete="off" checked>
+                      <label class="btn btn-outline-primary" for="currency-dollar">$</label>
+
+                      <input type="radio" name="dollar-or-percentage" class="btn-check" id="currency-percentage" autocomplete="off">
+                      <label class="btn btn-outline-primary" for="currency-percentage" id="currency-percentage-label">%</label>
+                    </div>
+
+                    <div class="btn-group col-6" id="increase-or-decrease-wrapper" role="group">
+                      <input type="radio" name="increase-or-decrease" class="btn-check" id="increase" autocomplete="off" checked>
+                      <label class="btn btn-outline-primary" for="increase">+</label>
+
+                      <input type="radio" name="increase-or-decrease" class="btn-check" id="decrease" autocomplete="off">
+                      <label class="btn btn-outline-primary" for="decrease">-</label>
+                    </div>
+                  </div>
+                  <div class="btn-group col-12" id="margin-or-price-wrapper" role="group">
+                    <input type="radio" name="margin-or-price" class="btn-check" id="change-by-price" autocomplete="off">
+                    <label class="btn btn-outline-primary col-6" for="change-by-price">@localizer["price"]</label>
+
+                    <input type="radio" name="margin-or-price" class="btn-check" id="change-by-margin" autocomplete="off">
+                    <label class="btn btn-outline-primary col-6" for="change-by-margin">@localizer["margin"]</label>
+                  </div>
+                  <div class="btn-group col-12" id="cost-wrapper">
+                    <input type="button" name="change-by-cost" class="btn-check" id="change-by-cost">
+                    <label class="btn btn-outline-primary col" for="change-by-cost" id="change-by-cost-label" style="background-color: white; color: rgb(13, 110, 253);">@localizer["cost"]</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col">
+                @* Effective dates *@
+                <div class="row gap-3 mb-4 effective-dates-section" id="effective-dates-section" style="display: none;">
+                  <label class="my-1 form-label fw-bold">@localizer["effectiveDates"]</label>
+                  <div class="input-group effective-date--from">
+                    <span class="input-group-text input-field-prepend">@localizer["from"]</span>
+                    <input type="date" id="effective-date--from__control" class="form-control date-field" max="9999-12-31">
+                  </div>
+                  <div class="input-group effective-date--to">
+                    <span class="input-group-text input-field-prepend">@localizer["to"]</span>
+                    <input type="date" id="effective-date--to__control" class="form-control date-field" max="9999-12-31">
+                  </div>
+                  <div class="form-check" id="does-not-end" style="display: none;">
+                    <input class="form-check-input" type="checkbox" value="" id="does-not-end__input"
+                           onchange="handleEffectiveDatesDoesNotEnd()">
+                    <label class="form-check-label" for="does-not-end__input">@localizer["doesNotEnd"]</label>
+                  </div>
+                </div>
+
+                @* Regular price change table *@
+                <table class="table table-sm" id="price-change-input-table-wrapper">
+                  <thead>
+                    <tr>
+                      <th>@localizer["price"]</th>
+                      <th id="regular-price__input-column__header">@localizer["increasedBy"]</th>
+                    </tr>
+                  </thead>
+                  <tbody id="table--prices__body">
+                  </tbody>
+                </table>
+
+                @* Special price change table *@
+                <div class="row mb-3 special-pricing-section" id="special-pricing-section" style="display: none;">
+                  <label class="form-label fw-bold" id="special-pricing-section__header">@localizer["specialPricing"]</label>
+                  <div class="col">
+                    <table class="table table-sm special-price-change-input-table-wrapper" style="display: none;">
+                      <thead>
+                        <tr>
+                          <th class="special-price--from special-price--from__header">@localizer["from"]</th>
+                          <th class="special-price--to special-price--to__header">@localizer["to"]</th>
+                          <th class="special-price--price special-price--price__header">@localizer["price"]</th>
+                          <th width="10%"><button class="btn btn-sm btn-outline-success" id="add-blank-special-price-table-row-btn" onclick="addBlankSpecialPriceTableRow()">+</button></th>
+                        </tr>
+                      </thead>
+                      <tbody class="table--special-prices__body">
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                @* cost change table *@
+                <table class="table table-sm" id="cost-change-input-table-wrapper">
+                  <thead>
+                    <tr>
+                      <th id="regular-cost__input-column__header">@localizer["increasedBy"]</th>
+                    </tr>
+                  </thead>
+                  <tbody id="table--cost__body">
+                    <tr class="editable" id="regular-cost-table-row-${rowNumber}" onclick="handleRegularPriceTableCellEdit(0)">
+                      <td>
+                        <span class="regular-cost__text" id="regular-cost-0__text"></span>
+                        <input class="form-control regular-cost__input"
+                               id="regular-cost-0__input" type="number"
+                               value="0.00" min="0.00" style="display: none; width: 100px">
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <div class="d-flex justify-content-between gap-3">
+                  <button class="btn btn-primary flex-fill" id="prices-apply">@localizer["apply"]</button>
+                  <button class="btn btn-outline-danger flex-fill" id="prices-cancel" onclick="handleCancelButtonClick()">@localizer["cancel"]</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        @* Modal for comparison table *@
+        <div class="modal fade" id="comparison-modal" tabindex="-1" role="dialog" aria-labelledby="modalTitle">
+          <div class="modal-dialog modal-dialog-centered modal-dialog-bg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title fw-bolder" id="comparison-modal__title">@localizer["comparison"]</h5>
+                <button type="button" class="btn close" data-dismiss="comparison-modal" onclick="$('#comparison-modal').modal('toggle')" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body row px-5 pb-5 gap-5">
+                @* Before Section *@
+                <div class="col" id="comparison-section--before">
+                  <label class="fs-5 fw-bolder mb-3" id="comp--before__header">@localizer["currentPrice"]</label>
+                  @* Regular Price | Comp *@
+                  <table class="table table-bordered table-center regular-price-comparison-table" id="regular-price-comparison-table--before">
+                    <thead class="thead-light">
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">@localizer["margin-p"]</th>
+                        <th scope="col">@localizer["price"]</th>
+                      </tr>
+                    </thead>
+                    <tbody id="current-price-table__body">
+                    </tbody>
+                  </table>
+                  @* Special Section | Comp *@
+                  <div class="row mb-3 special-pricing-section" style="display: none;">
+                    <label class="form-label fw-bold comp__section-header">@localizer["specialPricing"]</label>
+                    <table class="table table-sm special-price-change-input-table-wrapper">
+                      <thead>
+                        <tr>
+                          <th class="special-price--from special-price--from__header">@localizer["from"]</th>
+                          <th class="special-price--to special-price--to__header">@localizer["to"]</th>
+                          <th class="special-price--price special-price--price__header">@localizer["price"]</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td class="special-price--from">0.00</td>
+                          <td class="special-price--to">0.00</td>
+                          <td class="special-price--price">0.00</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  @* Effective Dates | Comp*@
+                  <div class="row gap-3 mb-4 effective-dates-section" id="comp--before__effective-dates-section" style="display: none;">
+                    <label class="my-1 form-label fw-bold">@localizer["effectiveDates"]</label>
+                    <div class="input-group">
+                      <span class="input-group-text input-field-prepend">@localizer["from"]</span>
+                      <input type="date" class="form-control date-field" disabled>
+                    </div>
+                    <div class="input-group">
+                      <span class="input-group-text input-field-prepend">@localizer["to"]</span>
+                      <input type="date" class="form-control date-field" disabled>
+                    </div>
+                  </div>
+                </div>
+
+                @* After Section *@
+                <div class="col" id="comparison-section--after">
+                  <label class="fs-5 fw-bolder mb-3" id="comp--after__header">@localizer["newCurrentPrice"]</label>
+                  @* Regular Price | Comp *@
+                  <table class="table table-bordered table-center regular-price-comparison-table" id="regular-price-comparison-table--after">
+                    <thead class="thead-light">
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">@localizer["margin-p"]</th>
+                        <th scope="col">@localizer["price"]</th>
+                      </tr>
+                    </thead>
+                    <tbody id="regular-price-table__body">
+                    </tbody>
+                  </table>
+                  @* Special Section | Comp *@
+                  <div class="row mb-3 special-pricing-section" id="comp__special-pricing-section" style="display: none;">
+                  </div>
+                  @* Effective Dates | Comp *@
+                  <div class="row gap-3 mb-4 effective-dates-section" id="comp--after__effective-dates-section">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-5">
+      <label class="mb-2 h5 fw-bold">@localizer["products"]</label>
+      <hr class="hr--sm" />
+
+      <div class="mt-3 table-container">
+        <table class="table table-striped" id="table--products">
+          <thead class="thead-light">
+            <tr>
+              <th id="DTProductsCol1" scope="col" width="10%">@localizer["productId"]</th>
+              <th id="DTProductsCol2" scope="col" width="20%">@localizer["productName"]</th>
+              <th id="DTpackCost" scope="col" width="10%">@localizer["packageCost"]</th>
+              <th id="DTProductsCol3" scope="col" width="15%">@localizer["cost"]</th>
+              <th id="DTProductsCol4" scope="col" width="14%">@localizer["nPrice"]</th>
+              <th id="DTProductsCol5" scope="col" width="13%">@localizer["regPrice"]</th>
+              <th id="DTProductsCol6" scope="col" width="13%">@localizer["margin-p"]</th>
+              <th id="DTProductsCol7" scope="col" width="5%">@localizer["sel"]</th>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+              <th class="input" width="10%" scope="col"></th>
+              <th class="input" width="20%" scope="col"></th>
+              <th class="input hidden-field" width="10%" scope="col"></th>
+              <th class="input hidden-field" width="15%" scope="col"></th>
+              <th class="input hidden-field" width="14%" scope="col"></th>
+              <th class="input hidden-field" width="13%" scope="col"></th>
+              <th class="input hidden-field" width="13%" scope="col"></th>
+              <th class="input hidden-field" width="5%" scope="col"></th>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+
+      <div id="stockTransferOptions" class="my-3">
+        <h5>
+          <strong>@localizer["transferOptions"]</strong>
+        </h5>
+        <div class="d-flex form-group my-2">
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="addTransferOption" checked>
+            <label class="form-check-label" for="addTransferOption">
+              @localizer["add"]
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="updateTransferOption">
+            <label class="form-check-label" for="updateTransferOption">
+              @localizer["update"]
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="removeTransferOption">
+            <label class="form-check-label" for="removeTransferOption">
+              @localizer["remove"]
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group mt-1">
+        <input class="form-check-input mt-2" id="view__select-or-unselect-all-products"
+               type="checkbox" onclick="handleSelectOrUnselectAllProducts()">
+        <label class="form-check-label mt-1" for="view__select-or-unselect-all-products">@localizer["select/UnselectAll"]</label>
+      </div>
+      <div class="d-flex mt-2 gap-3">
+        <button class="btn btn-footer btn-primary btn-sm" id="vendor-products-btn" onclick="handleShowVendorProducts()" style="display: none;">@localizer["vendorProducts"]</button>
+        <button class="btn btn-footer btn-primary btn-sm" id="recent-changes-btn" onclick="handleShowRecentChanges()" style="display: none;">@localizer["recentChanges"]</button>
+        <button class="btn btn-footer btn-primary btn-sm" id="data-definition-btn" style="display: none" onclick="goToDataDefinition()">@localizer["dataDefinition"]</button>
+        <div class="flex-grow-1"></div>
+        <button class="btn btn-footer btn-primary btn-sm ml-auto" id="show-all-products-btn" onclick="handleShowAllProducts()">@localizer["showAllProducts"]</button>
+        <button class="btn btn-footer btn-primary btn-sm" id="save-as-pending-transfer-btn-view" onclick="handleSaveAsPendingTransfer()">@pendingTransferButtonText</button>
+      </div>
+    </div>
+  </div>
+</div>

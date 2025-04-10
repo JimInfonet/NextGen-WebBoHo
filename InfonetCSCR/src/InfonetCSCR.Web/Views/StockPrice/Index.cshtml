@@ -1,0 +1,608 @@
+﻿@section Head {
+  <link rel="stylesheet" href="~/css/stockPrice.css" asp-append-version="true" />
+  <link rel="stylesheet" href="~/css/formControl.css" asp-append-version="true" />
+}
+
+@inject IViewLocalizer localizer;
+@inject IApplicationConfig _config;
+
+@{
+  ViewBag.Title = $"{localizer["stockPriceFor"].Value.ToString()} - (" + @ViewData["StockCode"] + ")";
+}
+<input type="hidden" id="stockCode" value="@ViewData["StockCode"]">
+<input type="hidden" id="appModeBackOffice" value="@_config.IsBackOffice.ToString()">
+<input type="hidden" id="vendorSelectOptionPlaceholder" value="@localizer["selectVendor"]">
+<input type="hidden" id="vendorSelectButtonActiveText" value="@localizer["setAsActiveVendor"]">
+<input type="hidden" id="vendorSelectButtonInActiveText" value="@localizer["setAsInActiveVendor"]">
+<input type="hidden" id="vendorSelectConfirmModalActiveText" value="@localizer["doYouWantToActiveFollowingVendor"]">
+<input type="hidden" id="vendorSelectConfirmModalInActiveText" value="@localizer["doYouWantToInActiveFollowingVendor"]">
+<input type="hidden" id="costEditButtonText" value="@localizer["editCost"]">
+<input type="hidden" id="costUpdateButtonText" value="@localizer["updateCost"]">
+<input type="hidden" id="priceEditButtonText" value="@localizer["editPrice"]">
+<input type="hidden" id="textDelete" value="@localizer["delete"]">
+<input type="hidden" id="textEdit" value="@localizer["edit"]">
+<input type="hidden" id="regionControlPlaceHolder" value="@localizer["selectRegion"]">
+<input type="hidden" id="priceGroupControlPlaceHolder" value="@localizer["selectPriceGroup"]">
+<input type="hidden" id="storeControlPlaceHolder" value="@localizer["selectStore"]">
+<input type="hidden" id="quantity" value="@localizer["quantity"]">
+<input type="hidden" id="from" value="@localizer["from"]">
+<input id="confirmGoBackAlert" type="hidden" value="@localizer["confirmGoBackAlert"]" />
+<input type="hidden" id="rebateCantbeNullorZero" value="@localizer["rebateCantbeNullorZero"]">
+<input type="hidden" id="startDateCanNotBeNull" value="@localizer["startDateCanNotBeNull"]">
+<input type="hidden" id="endDateCanNotBeNull" value="@localizer["endDateCanNotBeNull"]">
+<input type="hidden" id="startDataCanNotBeGreaterThanEndDate" value="@localizer["startDataCanNotBeGreaterThanEndDate"]">
+<input type="hidden" id="specialPriceNotFoundOrCanNotBeZero" value="@localizer["specialPriceNotFoundOrCanNotBeZero"]">
+<input type="hidden" id="specialFromQuantityNotFoundOrCanNotBeZero" value="@localizer["specialFromQuantityNotFoundOrCanNotBeZero"]">
+<input type="hidden" id="specialToQuantityNotFoundOrCanNotBeZero" value="@localizer["specialToQuantityNotFoundOrCanNotBeZero"]">
+<input type="hidden" id="startDateNotFound" value="@localizer["startDateNotFound"]">
+<input type="hidden" id="endDateNotFound" value="@localizer["endDateNotFound"]">
+<input type="hidden" id="startDateCanNotBeGreaterThanEndDate" value="@localizer["startDateCanNotBeGreaterThanEndDate"]">
+<input type="hidden" id="stockCodeNotFound" value="@localizer["stockCodeNotFound"]">
+<input type="hidden" id="vendorIdNotFound" value="@localizer["vendorIdNotFound"]">
+<input type="hidden" id="failedToLoadVendors" value="@localizer["failedToLoadVendors"]">
+<input type="hidden" id="failedToUpdateVendorStatus" value="@localizer["failedToUpdateVendorStatus"]">
+<input type="hidden" id="effectiveDateStartCanNotBeNullOrEmpty" value="@localizer["effectiveDateStartCanNotBeNullOrEmpty"]">
+<input type="hidden" id="effectiveDateEndCanNotBeNullOrEmptyWhenDoesNotEndIsUnchecked" value="@localizer["effectiveDateEndCanNotBeNullOrEmptyWhenDoesNotEndIsUnchecked"]">
+<input type="hidden" id="someErrorOccuredRefreshAndTryAgain" value="@localizer["someErrorOccuredRefreshAndTryAgain"]">
+<input type="hidden" id="failedToDeleteStockSpecialPrice" value="@localizer["failedToDeleteStockSpecialPrice"]">
+<input type="hidden" id="pricesNotFound" value="@localizer["pricesNotFound"]">
+<input type="hidden" id="pleaseSelectaVendorToInsertReabte" value="@localizer["pleaseSelectaVendorToInsertReabte"]">
+<input type="hidden" id="failedToLoadVendorsAfterDeleteVendors" value="@localizer["failedToLoadVendorsAfterDeleteVendors"]">
+<input type="hidden" id="failedToLoadStockPriceData" value="@localizer["failedToLoadStockPriceData"]">
+<input type="hidden" id="failedToLoadStockCostAfterUpdatingStockCost" value="@localizer["failedToLoadStockCostAfterUpdatingStockCost"]">
+<input type="hidden" id="failedToLoadRegionsStockPrice" value="@localizer["failedToLoadRegionsStockPrice"]">
+<input type="hidden" id="failedToLoadPriceGroupsForStockPrice" value="@localizer["failedToLoadPriceGroupsForStockPrice"]">
+<input type="hidden" id="failedToLoadPolicyForStockPrice" value="@localizer["failedToLoadPolicyForStockPrice"]">
+<input type="hidden" id="updateVendorPartNo" value="@localizer["updateVendorPartNo"]">
+<input type="hidden" id="selectVendorBeforeEnteringVendorPart" value="@localizer["selectVendorBeforeEnteringVendorPart"]">
+<input type="hidden" id="theSellingPriceIs0" value="@localizer["theSellingPriceIs0"]">
+<input type="hidden" id="zeroPrice" value="@localizer["zeroPrice"]">
+<input type="hidden" id="pleaseSelectaVendorToAdd" value="@localizer["pleaseSelectaVendorToAdd"]">
+<input type="hidden" id="lastUpdateOn" value="@localizer["lastUpdateOn"]">
+<input type="hidden" id="selectAsActiveVendor" value="@localizer["selectAsActiveVendor", "{0}"]">
+<input type="hidden" id="unSelectActiveVendor" value="@localizer["unSelectActiveVendor"]">
+<input type="hidden" id="calculateMargin" value="@localizer["calculateMargin"]">
+<input type="hidden" id="recalculateTheMarginBasedOnPriceAndCost" value="@localizer["recalculateTheMarginBasedOnPriceAndCost"]">
+<input type="hidden" id="updatePrice" value="@localizer["updatePrice"]">
+<input type="hidden" id="doYouWantToUpdatePrice" value="@localizer["doYouWantToUpdatePrice"]">
+<input type="hidden" id="updateMargin" value="@localizer["updateMargin"]">
+<input type="hidden" id="doYouWantToUpdateMargin" value="@localizer["doYouWantToUpdateMargin"]">
+<input type="hidden" id="doYouWantToUpdateCost" value="@localizer["doYouWantToUpdateCost"]">
+<input type="hidden" id="doYouWantToUpdateVendorPartNo" value="@localizer["doYouWantToUpdateVendorPartNo"]">
+<input type="hidden" id="activeVendor" value="@localizer["activeVendor"]">
+<input type="hidden" id="specialPrices" value="@localizer["specialPrices"]">
+<input type="hidden" id="doYouWantToDeleteSpecialPrice" value="@localizer["doYouWantToDeleteSpecialPrice"]">
+<input type="hidden" id="rebateText" value="@localizer["rebate"]">
+<input type="hidden" id="doYouWantToDeleteRebate" value="@localizer["doYouWantToDeleteRebate"]">
+<input type="hidden" id="doYouWantToUnselectThisActiveVendorForAllTheStores" value="@localizer["doYouWantToUnselectThisActiveVendorForAllTheStores"]">
+<input type="hidden" id="inputaNumericValueGreaterThanZero" value="@localizer["inputaNumericValueGreaterThanZero"]">
+<input type="hidden" id="error" value="@localizer["error"]">
+<input type="hidden" id="updating" value="@localizer["updating"]">
+<input type="hidden" id="startDateHasToBeAfter" value="@localizer["startDateHasToBeAfter"]">
+<input type="hidden" id="noEndDateForTheOrderNumber" value="@localizer["noEndDateForTheOrderNumber"]">
+<input type="hidden" id="specialPriceCannotBeGreaterThan214748" value="@localizer["specialPriceCannotBeGreaterThan214748"]">
+
+<div class="p-3 mt-2">
+  <div>
+    <div class="d-flex justify-content-between align-content-center">
+      <span class="page-title">@localizer["pageTitle"]</span>
+    </div>
+    <span id="stockItemDescription" class="stock-price-description"></span>
+  </div>
+  <div class="stock-price-content p-3">
+    <div class="p-3">
+      @*Current Or Future Price Update Section*@
+      <div class="mt-3">
+        <div class="">
+          <span class="stock-price-form-title">@localizer["priceSectionTitle"]</span>
+          <hr class="stock-price-hr" />
+        </div>
+        <div class="row">
+          <div class="col d-flex justify-content-around mt-2">
+            <div class="form-check justify-content-space-between">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="radioButtonCurrent" onclick="toggleCurrentOrFuture(this);" value="current" checked>
+              <label class="form-check-label" for="radioButtonCurrent">@localizer["current"]</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="radioButtonFuture" onclick="toggleCurrentOrFuture(this);" value="future">
+              <label class="form-check-label" for="radioButtonFuture">@localizer["future"]</label>
+            </div>
+          </div>
+          <div class="col">
+            <select id="cboOrderNoSelectControl" class="form-select form-select-sm infonet-control" aria-label=".form-select-sm example" plcaeholder="Select Text">
+              <option value="1" selected>1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      @*Store Region or Price Group*@
+      @*Only for Head Office*@
+      @{
+        if (!_config.IsBackOffice)
+        {
+          <div class="mt-3">
+            <div class="">
+              <span class="stock-price-form-title">@localizer["regionSectionTitle"]</span>
+              <hr class="stock-price-hr" />
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="col">
+                  <label for="selectionControl" class="form-label">@localizer["selection"]</label>
+                  <select id="selectionControl" class="form-select form-select-sm infonet-control">
+                    <option value="ALL" selected>@localizer["all"]</option>
+                    <option value="R">@localizer["region"]</option>
+                    <option value="P">@localizer["priceGroup"]</option>
+                    <option value="S">@localizer["store"]</option>
+                  </select>
+                </div>
+                <div id="regionSelectionControlDiv" class="col">
+                  <label for="regionSelectionControl" class="form-label">@localizer["selectRegion"]</label>
+                  <select id="regionSelectionControl" class="form-select form-select-sm infonet-control"></select>
+                </div>
+                <div id="priceGroupSeclectionControlDiv" class="col">
+                  <label for="priceGroupSeclectionControl" class="form-label">@localizer["selectPriceGroup"]</label>
+                  <select id="priceGroupSeclectionControl" class="form-select form-select-sm infonet-control"></select>
+                </div>
+              </div>
+              <div class="mt-3">
+                <div id="storeSeclectionControlDiv" class="">
+                  <label for="storeSeclectionControl" class="form-label">@localizer["selectStore"]</label>
+                  <select id="storeSeclectionControl" class="form-select form-select-sm infonet-control"></select>
+                </div>
+              </div>
+            </div>
+          </div>
+        }
+      }
+
+      @*Vendor Section*@
+      <div class="mt-3">
+        <div class="">
+          <span class="stock-price-form-title">@localizer["vendor"]</span>
+          <hr class="stock-price-hr" />
+        </div>
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <select id="vendorSelectOptionControl" class="form-select form-select-sm infonet-control"></select>
+              <div class="row">
+                <div class="col-xs-6">
+                  <button type="button" id="addVendorButtonControl" class="btn btn-primary w-100 mt-3 button-group">@localizer["add"]</button>
+                </div>
+                <div class="col-xs-6 mt-3">
+                  <button type="button" id="deleteVendorButtonControl" class="btn btn-primary w-100 button-group">@localizer["delete"]</button>
+                  <button type="button" id="cancelVendorButtonControl" hidden class="btn btn-outline-danger w-100 button-group">@localizer["cancel"]</button>
+                </div>
+              </div>
+            </div>
+            <div id="colStockPriceList" class="col">
+              <div id="stockPriceVendorListSection" class="stock-price-list overflow-auto">
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <input id="stockPriceVendorPartControl" type="text" class="form-control form-control-sm infonet-control" maxlength="16" placeholder="@localizer["vendorPart"]">
+              </div>
+              <div class="row">
+                <div class="col-xs-6">
+                  <button type="button" id="updateVendorPartNoButtonControl" class="btn btn-primary w-100 mt-3 button-group">@localizer["updateVendorPartNo"]</button>
+                </div>
+                <div class="col-xs-6">
+                  <button type="button" id="vendorPartNoClearButtonControl" class="btn btn-outline-danger w-100 mt-3 button-group">@localizer["clear"]</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      @*Cost Section*@
+      <div class="mt-3">
+        <div class="">
+          <span class="stock-price-form-title">@localizer["cost"]</span>
+          <hr class="stock-price-hr" />
+        </div>
+        <div class="container">
+          <div class="row">
+            <div class="col" id="averageCostSection" style="display: none">
+              <div class="form-group">
+                <label for="averageCost" class="form-label">@localizer["averageCost"]</label>
+                <input id="averageCost" type="number" class="form-control form-control-sm infonet-control" disabled>
+              </div>
+            </div>
+            <div class="col" id="packCostSection">
+              <div class="form-group">
+                <label for="packCost" class="form-label">@localizer["packageCost"]</label>
+                <input id="packCost" type="number" class="form-control form-control-sm infonet-control" onkeypress="return ((event.charCode >= 48 && event.charCode <= 57) || event.charCode === 46)" placeholder="@localizer["packageCost"]" disabled>
+              </div>
+            </div>
+            <div class="col" id="standardCostSection">
+              <div class="form-group">
+                <label for="standardCost" class="form-label">@localizer["standardCost"]</label>
+                <input id="standardCost" type="number" class="form-control form-control-sm infonet-control" placeholder="@localizer["standardCost"]" disabled>
+              </div>
+            </div>
+          </div>
+          <div class="">
+            <span id="lastCostUpdateText" class="stock-price-form-update-date"></span>
+          </div>
+          <div id="costDateControls" class="mt-3">
+            <div class="row">
+              <div class="col">
+                <label>@localizer["effectiveDate"]</label>
+              </div>
+              <div class="col">
+                <div class="form-check">
+                  <input id="costDateEndCheckControl" class="form-check-input" type="checkbox">
+                  <label class="form-check-label" for="costDateEndCheckControl">@localizer["doesNotEnd"]</label>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="form-group me-1">
+                  <input id="costDateStartControl" type="date" max="2079-06-06" class="form-control form-control-sm infonet-control">
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <input id="costDateEndControl" type="date" max="2079-06-06" class="form-control form-control-sm infonet-control">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mt-3 row">
+            <div class="col">
+              <button type="button" id="editOrUpdateCostButtonControl" class="btn btn-primary w-100"></button>
+            </div>
+            <div class="col" id="editOrUpdateCostCancelButtonDiv">
+              <button type="button" id="editOrUpdateCostCancelButtonControl" class="btn btn-outline-danger w-100">@localizer["cancel"]</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      @*Price Section*@
+      <div class="mt-3">
+        <div class="">
+          <span class="stock-price-form-title">@localizer["prices"]</span>
+          <hr class="stock-price-hr" />
+        </div>
+        <div class="container">
+          <div class="stock-price-rebate-table overflow-auto custom-grid-scrollbar">
+            <table id="stockPriceTable" class="table table-striped table-sm table-bordered" width="100%">
+              <thead>
+                <tr class="text-center">
+                  <th>@localizer["price"] #</th>
+                  <th>@localizer["margin"]</th>
+                  <th>@localizer["price"]</th>
+                  <th>@localizer["action"]</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+          </div>
+          <div class="">
+            <span id="lastPriceUpdateText" class="stock-price-form-update-date"></span>
+          </div>
+          <div id="priceSectionEditControls" class="mt-3">
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label for="stockPriceMargin" class="form-label">@localizer["margin"]</label>
+                  <input id="stockPriceMargin" type="number" class="form-control form-control-sm infonet-control" placeholder="@localizer["margin"]">
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="stockPricePrice" class="form-label">@localizer["price"]</label>
+                  <input id="stockPricePrice" type="number" class="form-control form-control-sm infonet-control" placeholder="@localizer["price"]">
+                </div>
+              </div>
+            </div>
+            <div id="priceDateControls" class="mt-3">
+              <div class="row">
+                <div class="col">
+                  <label>@localizer["effectiveDate"]</label>
+                </div>
+                <div class="col">
+                  <div class="form-check">
+                    <input id="priceDateEndCheckControl" class="form-check-input" type="checkbox">
+                    <label class="form-check-label" for="priceDateEndCheckControl">@localizer["doesNotEnd"]</label>
+                    <input type="hidden" id="dateShouldBeGreaterThan" value="@localizer["dateShouldBeGreaterThan"]">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <div class="form-group me-1">
+                    <input id="priceDateStartControl" type="date" max="2079-06-06" class="form-control form-control-sm infonet-control">
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-group">
+                    <input id="priceDateEndControl" type="date" max="2079-06-06" class="form-control form-control-sm infonet-control">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row mt-3">
+              <div class="col">
+                <button id="editPriceButtonControl" type="button" class="btn btn-primary w-100">@localizer["updatePrice"]</button>
+              </div>
+              <div class="col">
+                <button id="cancelPriceButtonControl" type="button" class="btn btn-outline-danger w-100">@localizer["cancel"]</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      @*Special Price Section*@
+      <div class="mt-3">
+        <div class="price-update-section-header">
+          <span class="stock-price-form-title">@localizer["specialPrices"]</span>
+          <hr class="stock-price-hr" />
+        </div>
+        <div class="container">
+          @if (!_config.IsBackOffice && ViewData["UseARInvoices"]?.ToString() == "Yes")
+          {
+            <div class="row py-3">
+              <div class="col">
+                <div class="form-group">
+                  <label>@localizer["priceUnits"] :</label>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-check justify-content-space-between">
+                  <input class="form-check-input" type="radio" name="priceTypeForUseARInvoiceRadioButtons" id="priceTypeForUseARInvoiceOne" value="1" checked>
+                  <label class="form-check-label" for="priceTypeForUseARInvoiceOne">1</label>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="priceTypeForUseARInvoiceRadioButtons" id="priceTypeForUseARInvoiceTwo" value="2">
+                  <label class="form-check-label" for="priceTypeForUseARInvoiceTwo">2</label>
+                </div>
+              </div>
+            </div>
+          }
+          <div class="row">
+            <div class="col">
+              <select id="specialPriceTypeSelectControl" class="form-select form-select-sm infonet-control">
+                <option value="" disabled selected>-- @localizer["specialPriceType"] --</option>
+                <option value="R">@localizer["regularPrice"]</option>
+                <option value="S">@localizer["salePricing"]</option>
+                <option value="F">@localizer["firstUnitPricing"]</option>
+                <option value="I">@localizer["incrementalPricing"]</option>
+                <option value="X">@localizer["xforPricing"]</option>
+              </select>
+            </div>
+            <div class="col">
+              <span class="stock-price-form-title" id="promoText"></span>
+            </div>
+          </div>
+
+          <div class="stock-price-special-price-table overflow-auto custom-grid-scrollbar mt-3">
+            <table id="specialPriceTable" class="table table-striped table-sm table-bordered" width="100%">
+              <thead>
+                <tr class="text-center">
+                  <th id="specialPriceFrom">@localizer["from"] </th>
+                  <th>@localizer["to"] </th>
+                  <th>@localizer["prices"] </th>
+                  <th>@localizer["startDate"] </th>
+                  <th>@localizer["endDate"] </th>
+                  <th>@localizer["update"] </th>
+                  <th>@localizer["action"] </th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+          </div>
+          <div class="form-group mt-3">
+            <button id="addSpecialPriceButton" type="button" class="btn btn-primary w-100">@localizer["addSpecialPrice"]</button>
+          </div>
+        </div>
+      </div>
+
+      @*Rebate Section*@
+      <div class="mt-3">
+        <div class="">
+          <span class="stock-price-form-title">@localizer["rebate"]</span>
+          <hr class="stock-price-hr" />
+        </div>
+        <div class="container">
+          <div class="stock-price-rebate-table overflow-auto custom-grid-scrollbar">
+            <table id="stockPriceRebateTable" class="table table-striped table-sm table-bordered" width="100%">
+              <thead>
+                <tr class="text-center">
+                  <th>#</th>
+                  <th>@localizer["rebate"]</th>
+                  <th>@localizer["startDate"]</th>
+                  <th>@localizer["endDate"]</th>
+                  <th>@localizer["action"]</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+          </div>
+          <div class="form-group mt-3">
+            <button type="button" id="addRebateButton" class="btn btn-primary w-100">@localizer["addRebate"]</button>
+          </div>
+        </div>
+      </div>
+
+      @*Form Footer Section*@
+      <div class="mt-4">
+      </div>
+    </div>
+    <button id="btn-back" onclick="goBackToTheStockItemForm()" type="button" class="btn btn-back btn-outline-danger float-end mt-4">@localizer["back"]</button>
+  </div>
+</div>
+
+@*Delete Vendor Confirm modal*@
+<div class="modal fade" id="deleteVendorConfirmModal" tabindex="1" role="dialog" area-labelledby="exampleModalLiveLabel" area-modal="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">@localizer["deleteVendor"]</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>@localizer["doYouWantToDeleteThisVendor"]?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-cancel btn-outline-danger align-content-center btn-sm me-2" data-bs-dismiss="modal">@localizer["no"]</button>
+        <button type="button" id="deleteVendorConfirmModalYesButtonControl" class="btn btn-primary btn-sm btn-save">@localizer["yes"]</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+@*Add Rebate modal*@
+<div class="modal fade" id="addRebateModal" tabindex="1" role="dialog" area-labelledby="exampleModalLiveLabel" area-modal="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">@localizer["addRebate"]</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <input type="number" id="rebate" class="form-control form-control-sm infonet-control" onkeypress="return ((event.charCode >= 48 && event.charCode <= 57) || event.charCode === 46)" placeholder="@localizer["rebate"]">
+        </div>
+        <div class="form-group mt-3">
+          <label>@localizer["startDate"]</label>
+        </div>
+        <div class="form-group">
+          <input type="date" id="rebateStartDate" max="2079-06-06" class="form-control form-control-sm infonet-control" placeholder="effective date">
+        </div>
+        <div class="form-group mt-3">
+          <label>@localizer["endDate"]</label>
+        </div>
+        <div class="form-group">
+          <input type="date" id="rebateEndDate" max="2079-06-06" class="form-control form-control-sm infonet-control" placeholder="effective date">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-cancel btn-outline-danger align-content-center btn-sm me-2" data-bs-dismiss="modal">@localizer["cancel"]</button>
+        <button type="button" id="stockPriceRebateModalSaveButtonControl" class="btn btn-primary btn-sm btn-save"><span>@localizer["save"]</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+@*Add special price modal*@
+<div class="modal fade" id="addSpecialPriceModal" tabindex="1" role="dialog" area-labelledby="exampleModalLiveLabel" area-modal="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">@localizer["addSpecialPrice"]</h5>
+        <button type="button" id="addSpecialPriceModalClose" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <label>@localizer["priceUnits"] :</label>
+            </div>
+          </div>
+          @if (!_config.IsBackOffice && ViewData["UseARInvoices"]?.ToString() == "No")
+          {
+            <div class="col">
+              <div class="form-check justify-content-space-between">
+                <input class="form-check-input" type="radio" name="priceUnitRadioButtons" id="priceUnitDollar" value="$" checked>
+                <label class="form-check-label" for="priceUnitDollar">$</label>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="priceUnitRadioButtons" id="priceUnitPercent" value="%">
+                <label class="form-check-label" for="priceUnitPercent">%</label>
+              </div>
+            </div>
+          }
+          else
+          {
+            <div class="col">
+              <div class="form-check justify-content-space-between">
+                <input class="form-check-input" type="radio" name="priceUnitRadioButtons" id="priceUnitDollar" value="1" checked>
+                <label class="form-check-label" for="priceUnitDollar">1</label>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="priceUnitRadioButtons" id="priceUnitPercent" value="2">
+                <label class="form-check-label" for="priceUnitPercent">2</label>
+              </div>
+            </div>
+          }
+        </div>
+        <div id="effectiveDate">
+          <div class="form-group mt-3">
+            <label>@localizer["effectiveDate"] :</label>
+          </div>
+          <div class="form-group">
+            <input type="date" max="2079-06-06" class="form-control form-control-sm infonet-control" id="specialPriceStartDate" placeholder="effective date">
+          </div>
+          <div class="form-group mt-3">
+            <input type="date" max="2079-06-06" class="form-control form-control-sm infonet-control" id="specialPriceEndDate" placeholder="effective date">
+          </div>
+        </div>
+        <div class="form-group  mt-3" id="specialPriceForm">
+          <label id="specialPriceFormLable" for="specialPriceForm" class="form-label">@localizer["from"]</label>
+          <input type="number" id="specialPriceFormControl" maxlength="6" class="form-control form-control-sm infonet-control" placeholder="@localizer["from"]">
+        </div>
+        <div class="form-group mt-3" id="specialPriceTo">
+          <label for="specialPriceTo" class="form-label">@localizer["to"]</label>
+          <input type="number" id="specialPriceToControl" maxlength="6" class="form-control form-control-sm infonet-control" placeholder="@localizer["to"]">
+        </div>
+        <div class="form-group mt-3">
+          <label for="specialPrice" class="form-label">@localizer["price"]</label>
+          <input type="number" id="specialPriceControl" class="form-control form-control-sm infonet-control" placeholder="@localizer["price"]">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="addSpecialPriceModalClosefooterButton" class="btn btn-cancel btn-outline-danger align-content-center btn-sm me-2" data-bs-dismiss="modal">@localizer["cancel"]</button>
+        <button type="button" id="addSpecialPriceSaveButtonConrol" class="btn btn-primary btn-sm btn-save">@localizer["save"]</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+@*Update special price modal*@
+<div class="modal fade" id="editSpecialPriceModal" tabindex="1" role="dialog" area-labelledby="exampleModalLiveLabel" area-modal="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">@localizer["updateSpecialPrice"]</h5>
+        <button type="button" id="updateSpecialPriceModalClose" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group  mt-3" id="specialPriceForm">
+          <label id="specialPriceCodeLable" for="specialPriceForm" class="form-label">Code</label>
+          <input type="number" readonly id="specialPriceCode" maxlength="6" class="form-control form-control-sm infonet-control">
+        </div>
+        <div class="form-group mt-3">
+          <label for="specialPricePrice" class="form-label">@localizer["price"]</label>
+          <input type="number" id="specialPricePrice" maxlength="6" class="form-control form-control-sm infonet-control">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="editSpecialPriceModalClosefooterButton" class="btn btn-cancel btn-outline-danger align-content-center btn-sm me-2" data-bs-dismiss="modal">@localizer["cancel"]</button>
+        <button type="button" id="editSpecialPriceSaveButtonConrol" class="btn btn-primary btn-sm btn-save">@localizer["save"]</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+@section Scripts {
+  <script src="~/js/stockPrice.js" asp-append-version="true"></script>
+}

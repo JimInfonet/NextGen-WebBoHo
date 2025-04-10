@@ -1,0 +1,139 @@
+@section Head {
+  <link href="~/css/stores.css" rel="stylesheet" asp-append-version="true" />
+}
+
+@model StoreViewModel
+@inject IApplicationConfig _config
+@inject IViewLocalizer localizer
+
+@{
+  ViewData["Title"] = @localizer["storeForm"];
+  bool supportWarehousePolicy = ViewData["supportWarehousePolicy"]?.ToString()!.ToLower() == "true";
+}
+
+<input type="hidden" id="modelData" name="modelData" value="@Model" />
+
+<input id="storeDataPathBlank" type="hidden" value="@localizer["storeDataPathBlank"]" />
+<input id="storeIdAlreadyExist" type="hidden" value="@localizer["storeIdAlreadyExist", "{0}"]" />
+
+<input id="isAlreadyExist" type="hidden" value="@ViewData["isAlreadyExist"]" />
+<input id="isStoreAdded" type="hidden" value="@ViewData["isStoreAdded"]" />
+<input id="isStoreUpdated" type="hidden" value="@ViewData["isStoreUpdated"]" />
+<input id="isStoreCopied" type="hidden" value="@ViewData["isStoreCopied"]" />
+
+<form class="p-3 mt-2" asp-controller="Store" asp-action="SaveStore" id="storeForm" onsubmit="return handleUpdateStore(event)">
+  <div class="p-2">
+    <div class="d-flex justify-content-between">
+      <h3 class="h3 fw-bold mb-3">@localizer["storeForm"]</h3>
+    </div>
+
+    <div class="body-content p-2">
+      <div class="mt-3 col">
+        <div class="row m-3">
+          <div class="row gap-3 pt-3">
+            <div class="col">
+              <label asp-for="Store_ID" class="mb-2">@localizer["storeId"]</label>
+              <input asp-for="Store_ID" type="text" id="storeId" class="col infonet-input w-100 not-editable clear-selected-input-on-keypress" maxlength="6" required onkeydown="return event.key != 'Enter';" />
+              <span asp-validation-for="Store_ID" class="text-danger"></span>
+            </div>
+            <div class="col">
+              <label asp-for="Phone" class="mb-2">@localizer["phone"]</label>
+              <input asp-for="Phone" type="text" class="col infonet-input w-100 clear-selected-input-on-keypress edit-mode-control" maxlength="18" onkeydown="return event.key != 'Enter';" />
+              <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+          </div>
+
+          <div class="row gap-3 pt-3">
+            <div class="col">
+              <label asp-for="Store_Desc" class="mb-2">@localizer["storeName"]</label>
+              <input asp-for="Store_Desc" type="text" class="col infonet-input w-100 clear-selected-input-on-keypress edit-mode-control" maxlength="30" required onkeydown="return event.key != 'Enter';" />
+              <span asp-validation-for="Store_Desc" class="text-danger"></span>
+            </div>
+            <div class="col">
+              <label asp-for="Fax" class="mb-2">@localizer["fax"]</label>
+              <input asp-for="Fax" type="text" class="col infonet-input w-100 clear-selected-input-on-keypress edit-mode-control" maxlength="18" onkeydown="return event.key != 'Enter';" />
+              <span asp-validation-for="Fax" class="text-danger"></span>
+            </div>
+          </div>
+
+          <div class="row gap-3 pt-3">
+            <div class="col">
+              <label asp-for="Addr1" class="mb-2">@localizer["storeAddress"]</label>
+              <input asp-for="Addr1" type="text" class="col infonet-input w-100 clear-selected-input-on-keypress edit-mode-control" maxlength="30" onkeydown="return event.key != 'Enter';" />
+              <span asp-validation-for="Addr1" class="text-danger"></span>
+            </div>
+            <div class="col">
+              <label asp-for="Contact" class="mb-2">@localizer["contactPers"]</label>
+              <input asp-for="Contact" type="text" class="col infonet-input w-100 clear-selected-input-on-keypress edit-mode-control" maxlength="40" onkeydown="return event.key != 'Enter';" />
+              <span asp-validation-for="Contact" class="text-danger"></span>
+            </div>
+          </div>
+
+          <div class="row gap-3 pt-3">
+            <div class="col">
+              <label asp-for="City" class="mb-2">@localizer["city"]</label>
+              <input asp-for="City" type="text" class="col infonet-input w-100 clear-selected-input-on-keypress edit-mode-control" maxlength="25" onkeydown="return event.key != 'Enter';" />
+              <span asp-validation-for="City" class="text-danger"></span>
+            </div>
+            <div class="col">
+              <label asp-for="Province" class="mb-2">@localizer["province"]</label>
+              <input asp-for="Province" type="text" class="col infonet-input w-100 clear-selected-input-on-keypress edit-mode-control" maxlength="2" onkeydown="return event.key != 'Enter';" />
+              <span asp-validation-for="Province" class="text-danger"></span>
+            </div>
+          </div>
+
+          <div class="row gap-3 pt-3">
+            <div class="col">
+              <label asp-for="Post_Code" class="mb-2">@localizer["postalCode"]</label>
+              <input asp-for="Post_Code" type="text" class="col infonet-input w-100 clear-selected-input-on-keypress edit-mode-control" maxlength="7" onkeydown="return event.key != 'Enter';" />
+              <span asp-validation-for="Post_Code" class="text-danger"></span>
+            </div>
+            @if (supportWarehousePolicy)
+            {
+              <div class="form-check col d-flex align-items-center" id="is-warehouse-div">
+                <label asp-for="IsWarehouseCheckBox" class="form-check-label ms-1" for="isWarehouse">@localizer["isWarehouse"]</label>
+                <input asp-for="IsWarehouseCheckBox" class="form-check-input" type="checkbox" id="isWarehouse">
+              </div>
+            }
+          </div>
+
+          @if (supportWarehousePolicy)
+          {
+            <div class="row gap-3 pt-3">
+              <div class="col" id="upload-path">
+                <label asp-for="Data_Path" class="mb-2">@localizer["uploadPath"]</label>
+                <input asp-for="Data_Path" type="text" id="uploadPath" class="col infonet-input w-100 clear-selected-input-on-keypress edit-mode-control" maxlength="500" onkeydown="return event.key != 'Enter';" />
+                <span asp-validation-for="Data_Path" class="text-danger"></span>
+              </div>
+            </div>
+          }
+
+          <div class="col" hidden>
+            <label asp-for="IsAction" class="mb-2"></label>
+            <input asp-for="IsAction" type="text" id="addEditOrCopy" class="col infonet-input w-100 clear-selected-input-on-keypress edit-mode-control" maxlength="500" onkeydown="return event.key != 'Enter';" />
+            <span asp-validation-for="IsAction" class="text-danger"></span>
+          </div>
+          <div class="col" hidden>
+            <label asp-for="CopyStoreId" class="mb-2"></label>
+            <input asp-for="CopyStoreId" type="text" id="copyStoreId" class="col infonet-input w-100 clear-selected-input-on-keypress edit-mode-control" maxlength="500" onkeydown="return event.key != 'Enter';" />
+            <span asp-validation-for="CopyStoreId" class="text-danger"></span>
+          </div>
+        </div>
+
+        <div class="row pt-3 text-end">
+          <div class="mt-4 d-flex justify-content-end col">
+            <button id="btn-cancel" type="button" class="btn btn-footer btn-outline-danger text-center me-3 display-none">@localizer["cancel"]</button>
+            <button id="btn-complete" type="submit" class="btn btn-footer btn-primary text-center me-2">@localizer["complete"]</button>
+            <button id="btn-edit" type="button" class="btn btn-footer btn-primary text-center me-2 display-none">@localizer["edit"]</button>
+            <button id="btn-back" type="button" class="btn btn-footer btn-outline-danger text-center ms-2">@localizer["back"]</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</form>
+
+@section Scripts {
+  <script src="~/js/storeForm.js" asp-append-version="true"></script>
+}

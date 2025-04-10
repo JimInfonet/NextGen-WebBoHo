@@ -1,0 +1,54 @@
+﻿@section Head {
+  <link href="~/css/discountTable.css" rel="stylesheet" asp-append-version="true" />
+}
+
+@inject IViewLocalizer localizer
+@{
+  ViewData["Title"] = @localizer["discountTable"];
+}
+
+@*Localization Texts*@
+<input type="hidden" id="discountsCannotBeNegative" value="@localizer["discountsCannotBeNegative"]" />
+<input type="hidden" id="discountsCannotBeMoreThan100" value="@localizer["discountsCannotBeMoreThan100"]" />
+
+<div class="mt-2 discountTableTitleContainer">
+  <h3><strong>@localizer["discountTable"]</strong></h3>
+</div>
+
+<div class="customerDiscountCodesTitleContainer mt-1">
+  <h6><strong>@localizer["customerDiscountCodes"]</strong></h6>
+</div>
+
+<div class="discountTablePageContainer">
+  <div class="discountTableContainer">
+    <div class="productDiscountCodesTitleContainer">
+      <h6 class="productDiscountCodesTitle"><strong>@localizer["productDiscountCodes"]</strong></h6>
+    </div>
+    <div id="discountTableBody" class="discountTableBody">
+      <div id="tableContainer" class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="policySettingContainer">
+  <h5 class="mt-4"><strong>@localizer["currentDiscountPolicySettings"]</strong></h5>
+  <div class="discountTablePolicy mt-1">
+    <h6><strong>@localizer["useProductDiscounts"] : @(ViewData["IsProductDiscount"]?.ToString() == "True" ? @localizer["yes"] : @localizer["no"])</strong></h6>
+    <h6><strong>@localizer["useCustomerDiscounts"] : @(ViewData["IsCustomerDiscount"]?.ToString() == "True" ? @localizer["yes"] : @localizer["no"])</strong></h6>
+  </div>
+</div>
+
+@section Scripts {
+  <script src="~/js/discountTable.js" asp-append-version="true"></script>
+}

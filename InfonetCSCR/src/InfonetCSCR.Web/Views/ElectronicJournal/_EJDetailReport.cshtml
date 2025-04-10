@@ -1,0 +1,223 @@
+﻿@model IEnumerable<EJDetailsReportDataViewModel>
+@inject IViewLocalizer localizer
+
+@{
+  int currentPage = ViewBag.CurrentPage ?? 1;
+  int pageSize = ViewBag.PageSize ?? 10;
+  int totalRecords = ViewBag.TotalRecords ?? 0;
+  int totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
+}
+
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+<div class="container my-3">
+  <div class="d-flex justify-content-center align-items-center my-4">
+    <!-- Pagination Navigation -->
+    <nav aria-label="Page navigation">
+      <ul class="pagination justify-content-center">
+        <!-- First Page Button -->
+        <li class="page-item @(currentPage == 1 ? "disabled" : "")">
+          <a class="page-link" href="@Url.Action("ElectronicJournalDetailReport", new { pageNumber = 1, pageSize, totalRecords })">@localizer["first"].Value</a>
+        </li>
+
+        <!-- Previous Page Button -->
+        <li class="page-item @(currentPage == 1 ? "disabled" : "")">
+          <a class="page-link" href="@Url.Action("ElectronicJournalDetailReport", new { pageNumber = currentPage - 1, pageSize, totalRecords })">@localizer["previous"].Value</a>
+        </li>
+
+        <!-- Dynamic Page Numbers -->
+        @for (int i = Math.Max(1, currentPage - 2); i <= Math.Min(currentPage + 2, totalPages); i++)
+        {
+          <li class="page-item @(i == currentPage ? "active" : "")">
+            <a class="page-link" href="@Url.Action("ElectronicJournalDetailReport", new { pageNumber = i, pageSize, totalRecords })">@i</a>
+          </li>
+        }
+
+        <!-- Next Page Button -->
+        <li class="page-item @(currentPage == totalPages ? "disabled" : "")">
+          <a class="page-link" href="@Url.Action("ElectronicJournalDetailReport", new { pageNumber = currentPage + 1, pageSize, totalRecords })">@localizer["next"].Value</a>
+        </li>
+
+        <!-- Last Page Button -->
+        <li class="page-item @(currentPage == totalPages ? "disabled" : "")">
+          <a class="page-link" href="@Url.Action("ElectronicJournalDetailReport", new { pageNumber = totalPages, pageSize, totalRecords })">@localizer["last"].Value</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+  <br />
+
+  @{
+    var detailGroupBySaleNo = Model.GroupBy(x => x.SaleNo);
+
+    foreach (var detailBySaleNo in detailGroupBySaleNo)
+    {
+      var firstDetailBySaleNo = detailBySaleNo.First();
+
+      <div class="row">
+        <div class="col-lg-3 text-end">@localizer["saleNo"].Value</div>
+        <div class="col-lg-3 text-end">@firstDetailBySaleNo.SaleNo</div>
+        <div class="col-lg-3 text-end">@localizer["till"].Value</div>
+        <div class="col-lg-3 text-end">@firstDetailBySaleNo.Till</div>
+      </div>
+      <div class="row">
+        <div class="col-lg-3 text-end">@localizer["saleDate"].Value</div>
+        <div class="col-lg-3 text-end">@firstDetailBySaleNo.FormattedSaleDate</div>
+        <div class="col-lg-3 text-end">@localizer["type"].Value</div>
+        <div class="col-lg-3 text-end">@firstDetailBySaleNo.Type</div>
+      </div>
+      <div class="row">
+        <div class="col-lg-3 text-end">@localizer["shiftDate"].Value</div>
+        <div class="col-lg-3 text-end">@firstDetailBySaleNo.FormattedShiftDate</div>
+        <div class="col-lg-3 text-end">@localizer["customer"].Value</div>
+        <div class="col-lg-3 text-end">@firstDetailBySaleNo.Customer</div>
+      </div>
+      <div class="row">
+        <div class="col-lg-3 text-end">@localizer["cashier"].Value</div>
+        <div class="col-lg-3 text-end">@firstDetailBySaleNo.Cashier</div>
+        <div class="col-lg-3 text-end">@localizer["saleTime"].Value</div>
+        <div class="col-lg-3 text-end">@firstDetailBySaleNo.FormattedSaleTime</div>
+      </div>
+
+      <br />
+
+      var detailGroupByCode = detailBySaleNo.GroupBy(x => x.Code);
+
+      <table style="width: 100%; border-collapse: collapse;">
+        <thead>
+          <tr style="border-bottom: 2px solid black;">
+            <th>@localizer["id"].Value</th>
+            <th>@localizer["code"].Value</th>
+            <th>@localizer["description"].Value</th>
+            <th>@localizer["qty"].Value</th>
+            <th>@localizer["price"].Value</th>
+            <th>@localizer["disc"].Value</th>
+            <th>@localizer["amount"].Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          @foreach (var detailByCode in detailGroupByCode)
+          {
+            var firstDetailByCode = detailByCode.First();
+
+            if (firstDetailByCode.Type != "CANCEL" && firstDetailByCode.Type != "VOID" && firstDetailByCode.Type != "ARPAY")
+            {
+              if (firstDetailByCode.PumpID == 0)
+              {
+                <tr>
+                  <td>@firstDetailByCode.Id</td>
+                  <td>@firstDetailByCode.Code</td>
+                  <td>@firstDetailByCode.Description</td>
+                  <td>@firstDetailByCode.FormattedQty</td>
+                  <td>@firstDetailByCode.FormattedPrice</td>
+                  <td>@firstDetailByCode.FormattedDisc</td>
+                  <td>@firstDetailByCode.FormattedAmount</td>
+                </tr>
+              }
+              else
+              {
+                <tr>
+                  <td>@firstDetailByCode.Id</td>
+                  <td>@firstDetailByCode.Code</td>
+                  <td>@Html.Raw($"{firstDetailByCode.Description}<br />{localizer["pumpID"].Value} {firstDetailByCode.PumpID}")</td>
+                  <td>@firstDetailByCode.FormattedQty</td>
+                  <td>@firstDetailByCode.FormattedPrice</td>
+                  <td>@firstDetailByCode.FormattedDisc</td>
+                  <td>@firstDetailByCode.FormattedAmount</td>
+                </tr>
+              }
+            }
+
+            if (firstDetailByCode.Type == "VOID")
+            {
+              <tr>
+                <td>@firstDetailByCode.DelSeq</td>
+                <td>@firstDetailByCode.Code</td>
+                <td>@firstDetailByCode.Description</td>
+                <td>@firstDetailByCode.FormattedQty</td>
+                <td>@firstDetailByCode.FormattedPrice</td>
+                <td>@firstDetailByCode.FormattedDisc</td>
+                <td>@firstDetailByCode.FormattedAmount</td>
+              </tr>
+            }
+          }
+        </tbody>
+      </table>
+
+      <br />
+
+      <div class="row" style="border-bottom: 2px solid black;">
+        <div class="col-lg-2 text-end">@localizer["summary"].Value</div>
+        <div class="col-lg-4 text-end"></div>
+        <div class="col-lg-4 text-end">@localizer["amount"].Value</div>
+        <div class="col-lg-2 text-end"></div>
+      </div>
+
+      if (firstDetailBySaleNo.InvoiceDiscount != 0)
+      {
+        <div class="row">
+          <div class="col-lg-2 text-end">@localizer["invoiceDiscount"].Value</div>
+          <div class="col-lg-4 text-end"></div>
+          <div class="col-lg-4 text-end">@firstDetailBySaleNo.FormattedInvoiceDiscount</div>
+          <div class="col-lg-2 text-end"></div>
+        </div>
+      }
+
+      <br />
+
+      var detailGroupByTaxCode = detailBySaleNo.GroupBy(x => x.TaxCode);
+
+      foreach (var detailByTaxCode in detailGroupByTaxCode)
+      {
+        var firstDetailByTaxCode = detailByTaxCode.First();
+
+        <div class="row">
+          <div class="col-lg-3 text-start">@firstDetailByTaxCode.TaxName</div>
+          <div class="col-lg-6 text-start">@(firstDetailByTaxCode.TaxCode == "I" ? $"({localizer["included"].Value})" : "")</div>
+          <div class="col-lg-3 text-end">@(firstDetailByTaxCode.TaxCode == "I" ? firstDetailByTaxCode.FormattedTaxIncludedAmount : firstDetailByTaxCode.FormattedTaxAddedAmount)</div>
+        </div>
+      }
+
+      <br />
+
+      <div class="row">
+        <div class="col-lg-6 text-start">@localizer["totalAmount"].Value</div>
+        <div class="col-lg-6 text-end">@firstDetailBySaleNo.FormattedSaleAmt</div>
+      </div>
+
+      var detailGroupByTendName = detailBySaleNo.GroupBy(x => x.TendName);
+
+      foreach (var detailByTendName in detailGroupByTendName)
+      {
+        var firstDetailByTendName = detailByTendName.First();
+
+        <div class="row">
+          <div class="col-lg-3 text-start">@firstDetailByTendName.TendName</div>
+          <div class="col-lg-6 text-end">@firstDetailByTendName.CardNumber</div>
+          <div class="col-lg-3 text-end">@firstDetailByTendName.FormattedAmtUsed</div>
+        </div>
+      }
+
+      <div class="row">
+        <div class="col-lg-6 text-start">@localizer["totalTendered"].Value</div>
+        <div class="col-lg-6 text-end">@firstDetailBySaleNo.FormattedTendAmt</div>
+      </div>
+      <div class="row">
+        <div class="col-lg-6 text-start">@localizer["totalChange"].Value</div>
+        <div class="col-lg-6 text-end">@firstDetailBySaleNo.FormattedChangeAmt</div>
+      </div>
+
+      if (firstDetailBySaleNo.OverPaymentAmt != 0)
+      {
+        <div class="row">
+          <div class="col-lg-6 text-start">@localizer["overpayment"].Value</div>
+          <div class="col-lg-6 text-end">@firstDetailBySaleNo.FormattedOverPaymentAmt</div>
+        </div>
+      }
+
+      <div style="border-bottom: 2px solid black;"></div>
+      <br />
+    }
+  }
+</div>

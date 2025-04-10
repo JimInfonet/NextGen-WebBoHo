@@ -1,0 +1,486 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AcceptAsPayment" xml:space="preserve">
+    <value>Accepter comme paiement</value>
+  </data>
+  <data name="ACCT_CODE" xml:space="preserve">
+    <value>Compte</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Adresse</value>
+  </data>
+  <data name="AS_CODE" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="AS_DESC" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="AS_PRICE" xml:space="preserve">
+    <value>Reçu</value>
+  </data>
+  <data name="BANKABLE" xml:space="preserve">
+    <value>Peut être déposé à la banque</value>
+  </data>
+  <data name="BrandID" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="CANADJUST" xml:space="preserve">
+    <value>Ajustements</value>
+  </data>
+  <data name="CharacteristicID" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>Ville</value>
+  </data>
+  <data name="CL_ACODE" xml:space="preserve">
+    <value>Code régional</value>
+  </data>
+  <data name="CL_ADD1" xml:space="preserve">
+    <value>Adresse 1</value>
+  </data>
+  <data name="CL_ADD2" xml:space="preserve">
+    <value>Adresse 2</value>
+  </data>
+  <data name="CL_ARCUST" xml:space="preserve">
+    <value>Compte Client</value>
+  </data>
+  <data name="CL_CATEG" xml:space="preserve">
+    <value>Département</value>
+  </data>
+  <data name="CL_CELL" xml:space="preserve">
+    <value>Cellulaire</value>
+  </data>
+  <data name="CL_CITY" xml:space="preserve">
+    <value>Ville</value>
+  </data>
+  <data name="CL_CODE" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="CL_CONT1" xml:space="preserve">
+    <value>Contact 1</value>
+  </data>
+  <data name="CL_CONT2" xml:space="preserve">
+    <value>Contact 2</value>
+  </data>
+  <data name="CL_COUNTRY" xml:space="preserve">
+    <value>Pays</value>
+  </data>
+  <data name="CL_CURBAL" xml:space="preserve">
+    <value>Solde actuel</value>
+  </data>
+  <data name="CL_EMAIL" xml:space="preserve">
+    <value>Courriel</value>
+  </data>
+  <data name="CL_FAX" xml:space="preserve">
+    <value>Télécopieur</value>
+  </data>
+  <data name="CL_HISTBAL" xml:space="preserve">
+    <value>Historique de solde</value>
+  </data>
+  <data name="CL_HPAID" xml:space="preserve">
+    <value>Payé</value>
+  </data>
+  <data name="CL_LIMIT" xml:space="preserve">
+    <value>Limite de crédit</value>
+  </data>
+  <data name="CL_NAME" xml:space="preserve">
+    <value>Nom abrégé</value>
+  </data>
+  <data name="CL_OFF_PH" xml:space="preserve">
+    <value>Téléphone au bureau</value>
+  </data>
+  <data name="CL_PHONE" xml:space="preserve">
+    <value>Téléphone</value>
+  </data>
+  <data name="CL_POSTAL" xml:space="preserve">
+    <value>Code Postal</value>
+  </data>
+  <data name="CL_PROV" xml:space="preserve">
+    <value>Province</value>
+  </data>
+  <data name="CL_STATUS" xml:space="preserve">
+    <value>Statut</value>
+  </data>
+  <data name="CL_TOLL" xml:space="preserve">
+    <value>Sans frais</value>
+  </data>
+  <data name="CL_TYPE" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="Code" xml:space="preserve">
+    <value>Code de raison</value>
+  </data>
+  <data name="ContactName1" xml:space="preserve">
+    <value>Nom du contact 1</value>
+  </data>
+  <data name="ContactName2" xml:space="preserve">
+    <value>Nom du contact 2</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>Pays</value>
+  </data>
+  <data name="CUST_DISC" xml:space="preserve">
+    <value>Code de rabais (0-99)</value>
+  </data>
+  <data name="Dept" xml:space="preserve">
+    <value>Département</value>
+  </data>
+  <data name="DISCOUNT_DAYS" xml:space="preserve">
+    <value>Escompte sur facture (jours)</value>
+  </data>
+  <data name="DISPLAYSEQ" xml:space="preserve">
+    <value>Séquence</value>
+  </data>
+  <data name="Early_Pay_Percent" xml:space="preserve">
+    <value>Pourcentage de rabais</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Courriel</value>
+  </data>
+  <data name="EPW" xml:space="preserve">
+    <value>Mot de passe</value>
+  </data>
+  <data name="EXACTCHG" xml:space="preserve">
+    <value>Montant exact requis</value>
+  </data>
+  <data name="EXCHANGE" xml:space="preserve">
+    <value>Taux de change</value>
+  </data>
+  <data name="FamilyID" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="Fax" xml:space="preserve">
+    <value>Télécopieur</value>
+  </data>
+  <data name="fileNotFound" xml:space="preserve">
+    <value>DownLoad.ini est manquant. Cette fonctionnalité n'est pas disponible.</value>
+  </data>
+  <data name="Flag" xml:space="preserve">
+    <value>Marqueur</value>
+  </data>
+  <data name="GenericID" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="GIVEASREF" xml:space="preserve">
+    <value>Donner un remboursement</value>
+  </data>
+  <data name="GIVECHG" xml:space="preserve">
+    <value>Rendre la monnaie sur ce mode de paiement</value>
+  </data>
+  <data name="GroupID" xml:space="preserve">
+    <value>Numéro de groupe</value>
+  </data>
+  <data name="Implemented" xml:space="preserve">
+    <value>Effectif</value>
+  </data>
+  <data name="inadequateForeignKey" xml:space="preserve">
+    <value>Vérifiez la section [TABLES RELATIVES] dans le fichier Download.ini. Pour extraire les données de toutes les tables associées, le nombre de clés associées doit être égal ou supérieur au nombre de clés de la table principale.</value>
+  </data>
+  <data name="IncludeInClose" xml:space="preserve">
+    <value>Ajouter dans la fermeture du tiroir</value>
+  </data>
+  <data name="INSTANCES" xml:space="preserve">
+    <value>Instances</value>
+  </data>
+  <data name="invalidDescriptionKey" xml:space="preserve">
+    <value>Une ou plusieurs descriptions sont mal orthographiées ou n'existent pas. Vérifiez toutes les descriptions dans le fichier Download.ini pour le tableau {0} ou continuez.</value>
+  </data>
+  <data name="invalidKey" xml:space="preserve">
+    <value>Vérifiez le fichier Download.ini. La clé {0} est mal orthographiée ou n'existe pas dans la table {1}.</value>
+  </data>
+  <data name="invalidReferenceKey" xml:space="preserve">
+    <value>Il y a une erreur dans le fichier DownLoad.ini. {0} n'est pas une clé de référence valide pour la table {1}. Vérifiez qu'une telle référence existe et que son type est correct.</value>
+  </data>
+  <data name="KIT_CODE" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="KIT_DESC" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="LO_NUM" xml:space="preserve">
+    <value>Numéro de fidélisation</value>
+  </data>
+  <data name="LO_POINTS" xml:space="preserve">
+    <value>Points de fidélisation</value>
+  </data>
+  <data name="maxAllowedRelatedTablesExceeded" xml:space="preserve">
+    <value>Impossible de charger toutes les tables associées. Le nombre maximum de tables associées a été dépassé. Augmentez la constante TABLE_NUM dans la section [CONFIG] de votre fichier Download.ini. Le paramètre actuel de la constante TABLE_NUM est {0}</value>
+  </data>
+  <data name="MAXAMOUNT" xml:space="preserve">
+    <value>Montant maximum</value>
+  </data>
+  <data name="MINAMOUNT" xml:space="preserve">
+    <value>Montant minimum</value>
+  </data>
+  <data name="missingColon" xml:space="preserve">
+    <value>Vérifiez le format de la section [RELATED TABLES] dans le fichier Download.ini. Le nom de la table enfant doit être suivi du caractère : pour définir la ou les clés primaires. Format approprié : MASTER_TABLE=CHILD_TABLE1:CHILD_KEY1, CHILD_TABLE2:CHILD_KEY2, etc.</value>
+  </data>
+  <data name="missingEqualSign" xml:space="preserve">
+    <value>Vérifiez le format de la section [RELATED TABLES] dans le fichier Download.ini. La table maître {0} n'est pas suivie du caractère =. Format approprié : MASTER_TABLE=CHILD_TABLE1:CHILD_KEY1, CHILD_TABLE2:CHILD_KEY2, etc.</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Nom abrégé</value>
+  </data>
+  <data name="noChildTablesDefined" xml:space="preserve">
+    <value>Vérifiez le format de la section [RELATED TABLES] dans le fichier Download.ini. La table {0} n'a aucune table enfant définie. Format approprié : MASTER_TABLE=CHILD_TABLE1:CHILD_KEY1, CHILD_TABLE2:CHILD_KEY2, etc.</value>
+  </data>
+  <data name="noFilesAvailableForExport" xml:space="preserve">
+    <value>Aucun fichier disponible pour l'exportation. Veuillez vérifier votre fichier ini.</value>
+  </data>
+  <data name="OrderID" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="PARENT_ACCT" xml:space="preserve">
+    <value>Compte parent</value>
+  </data>
+  <data name="PayoutCode" xml:space="preserve">
+    <value>Déb.</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>Téléphone</value>
+  </data>
+  <data name="Postal" xml:space="preserve">
+    <value>Code Postal</value>
+  </data>
+  <data name="PRICE_CODE" xml:space="preserve">
+    <value>Prix #</value>
+  </data>
+  <data name="PrintCopies" xml:space="preserve">
+    <value>Copies à imprimer</value>
+  </data>
+  <data name="Pr_From" xml:space="preserve">
+    <value>De</value>
+  </data>
+  <data name="Pr_To" xml:space="preserve">
+    <value>à</value>
+  </data>
+  <data name="Pr_Type" xml:space="preserve">
+    <value>Type de Prix</value>
+  </data>
+  <data name="Pr_Units" xml:space="preserve">
+    <value>Unité</value>
+  </data>
+  <data name="Put_In_Drawer" xml:space="preserve">
+    <value>Ouvrir le tiroir-caisse</value>
+  </data>
+  <data name="P_ACTIVE" xml:space="preserve">
+    <value>Actif</value>
+  </data>
+  <data name="P_CHOICES" xml:space="preserve">
+    <value>Sélection</value>
+  </data>
+  <data name="P_CLASS" xml:space="preserve">
+    <value>Classe</value>
+  </data>
+  <data name="P_DESC" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="P_LEVELS" xml:space="preserve">
+    <value>Niveau</value>
+  </data>
+  <data name="P_NAME" xml:space="preserve">
+    <value>Nom abrégé</value>
+  </data>
+  <data name="P_SEQ" xml:space="preserve">
+    <value>Séquence</value>
+  </data>
+  <data name="P_SET" xml:space="preserve">
+    <value>Configuration</value>
+  </data>
+  <data name="P_USED" xml:space="preserve">
+    <value>Utiliser</value>
+  </data>
+  <data name="P_VARTYPE" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="Reason" xml:space="preserve">
+    <value>Description de la raison</value>
+  </data>
+  <data name="Restriction" xml:space="preserve">
+    <value>Description de la restriction</value>
+  </data>
+  <data name="SecurityLevel" xml:space="preserve">
+    <value>Niveau de Sécurité</value>
+  </data>
+  <data name="SHORTDESC" xml:space="preserve">
+    <value>Nom abrégé</value>
+  </data>
+  <data name="Signature" xml:space="preserve">
+    <value>Imprimer la Ligne Signature</value>
+  </data>
+  <data name="SMALLUNIT" xml:space="preserve">
+    <value>Plus petite unité acceptée</value>
+  </data>
+  <data name="StoreID" xml:space="preserve">
+    <value># de Magasin</value>
+  </data>
+  <data name="SubDept" xml:space="preserve">
+    <value>Sous-département</value>
+  </data>
+  <data name="SubDetail" xml:space="preserve">
+    <value>Classe</value>
+  </data>
+  <data name="TaxNumber" xml:space="preserve">
+    <value>Numéro de taxe</value>
+  </data>
+  <data name="TENDCLASS" xml:space="preserve">
+    <value>Classe</value>
+  </data>
+  <data name="TENDCODE" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="TENDDESC" xml:space="preserve">
+    <value>Nom complet</value>
+  </data>
+  <data name="TERMS" xml:space="preserve">
+    <value>Terme de paiement (jours)</value>
+  </data>
+  <data name="TrDate" xml:space="preserve">
+    <value>Date de Transaction</value>
+  </data>
+  <data name="UGROUP" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="UG_NAME" xml:space="preserve">
+    <value>Nom abrégé</value>
+  </data>
+  <data name="UMID" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="UsePO" xml:space="preserve">
+    <value>Utiliser bon de commande?</value>
+  </data>
+  <data name="UserCode" xml:space="preserve">
+    <value>Code usager</value>
+  </data>
+  <data name="U_CODE" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="U_NAME" xml:space="preserve">
+    <value>Nom abrégé</value>
+  </data>
+  <data name="wrongMasterTableName" xml:space="preserve">
+    <value>Vérifiez la section [TABLEAUX CONNEXES] du fichier Download.ini. La table maître {0} est mal orthographiée ou n'existe pas dans la base de données</value>
+  </data>
+  <data name="wrongTableName" xml:space="preserve">
+    <value>Vérifiez le fichier Download.ini. {0} est soit mal orthographié, soit la table n'existe pas.</value>
+  </data>
+</root>

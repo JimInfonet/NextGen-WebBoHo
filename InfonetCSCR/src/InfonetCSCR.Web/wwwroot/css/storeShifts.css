@@ -1,0 +1,39 @@
+.max-width-3000px {
+  max-width: 3000px;
+}
+
+#storeShifts-grid {
+  width: 100%;
+}
+
+#set-or-change-start-time {
+  max-width: 130px;
+  margin-left: 80px;
+}
+
+.align-checkbox-center {
+  text-align: center;
+  padding-top: 8px;
+}
+
+.shift-current-day {
+  padding-bottom: 0px !important;
+  padding-top: 2rem !important;
+}
+
+@media (max-width: 1024px) {
+  .set-or-change-start-time-title {
+    padding-top: 3px;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+
+  #set-or-change-start-time {
+    margin-left: 90px !important;
+  }
+
+  .align-checkbox-center {
+    padding-top: 0px !important;
+  }
+}

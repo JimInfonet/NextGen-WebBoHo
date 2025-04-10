@@ -1,0 +1,151 @@
+@section Head {
+  <link href="~/css/reasons.css" rel="stylesheet" asp-append-version="true" />
+}
+
+@model ReasonViewModel
+@inject IApplicationConfig _config
+@inject IViewLocalizer localizer
+@inject IHttpContextAccessor httpContextAccessor
+@{
+  ViewData["Title"] = @localizer["reasons"];
+  bool isBackOffice = _config.IsBackOffice;
+}
+<input id="code" type="hidden" value="@localizer["code"]" />
+<input id="alreadyExists" type="hidden" value="@localizer["alreadyExists"]" />
+<input id="reasonAddedSuccessfully" type="hidden" value="@localizer["reasonAddedSuccessfully"]" />
+<input id="reasonUpdatedSuccessfully" type="hidden" value="@localizer["reasonUpdatedSuccessfully"]" />
+<input id="reasonUpdatedSuccessfully" type="hidden" value="@localizer["reasonUpdatedSuccessfully"]" />
+<input id="deleteReasonTitle" type="hidden" value="@localizer["deleteReasonTitle"]" />
+<input id="deleteReasonMessage" type="hidden" value="@localizer["deleteReasonMessage"]" />
+<input id="reasonDeletedSuccessfully" type="hidden" value="@localizer["reasonDeletedSuccessfully"]" />
+<input id="codeRange" type="hidden" value="@localizer["codeRange"]" />
+<input id="ageLimitRange" type="hidden" value="@localizer["ageLimitRange"]" />
+
+<form class="p-3 mt-2" asp-controller="Reasons" asp-action="UpdateReason" id="ReasonsForm">
+  <div class="ms-3 mt-3" style="width:95%">
+    <div class="text-start">
+      <h3 class="fw-bold">@localizer["reasons"]</h3>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-4 col-xl-3">
+        <div class="pt-3 accordion">
+          <div class="accordion-item">
+            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne">
+              <div class="accordion-body">
+                <div class="container policySettingContainer">
+
+                  <div class="row">
+                    <div class="form-check mt-1 mb-1">
+                      <input class="form-check-input mt-2" id="payouts-input" type="radio" name="selectedType" value="P">
+                      <label class="form-check-label mt-1">@localizer["payouts"]</label>
+                    </div>
+
+                    <div class="form-check mt-1 mb-1">
+                      <input class="form-check-input mt-2" id="void-sales-input" type="radio" name="selectedType" value="V">
+                      <label class="form-check-label mt-1">@localizer["voidSales"]</label>
+                    </div>
+
+                    <div class="form-check mt-1 mb-1">
+                      <input class="form-check-input mt-2" id="refunds-input" type="radio" name="selectedType" value="R">
+                      <label class="form-check-label mt-1">@localizer["refunds"]</label>
+                    </div>
+
+                    <div class="form-check mt-1 mb-1">
+                      <input class="form-check-input mt-2" id="discounts-input" type="radio" name="selectedType" value="D">
+                      <label class="form-check-label mt-1">@localizer["discounts"]</label>
+                    </div>
+
+                    <div class="form-check mt-1 mb-1">
+                      <input class="form-check-input mt-2" id="price-changes-input" type="radio" name="selectedType" value="C">
+                      <label class="form-check-label mt-1">@localizer["priceChanges"]</label>
+                    </div>
+
+                    <div class="form-check mt-1 mb-1">
+                      <input class="form-check-input mt-2" id="open-cash-drawer-input" type="radio" name="selectedType" value="O">
+                      <label class="form-check-label mt-1">@localizer["openCashDrawer"]</label>
+                    </div>
+
+                    <div class="form-check mt-1 mb-1">
+                      <input class="form-check-input mt-2" id="markDown-sales-input" type="radio" name="selectedType" value="M">
+                      <label class="form-check-label mt-1">@localizer["markDownSales"]</label>
+                    </div>
+                    <div class="form-check mt-1 mb-1">
+                      <input class="form-check-input mt-2" id="cash-draw-input" type="radio" name="selectedType" value="W">
+                      <label class="form-check-label mt-1">
+                        @(isBackOffice ? @localizer["draws"] : @localizer["cashDraw"])
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-8 col-xl-9">
+
+        <div class="container body-content" style="max-width:3000px;">
+          @*Reasons Datatable Section*@
+          <div class="container custom-grid-scrollbar border-2" style="max-width:3000px;">
+            <table id="reasons-grid" class="table table-striped" style="width:100%">
+              <thead>
+                <tr>
+                  <th width="40%">@localizer["reasonCode"]</th>
+                  <th width="60%">@localizer["reasonDescription"]</th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+
+          <div class="p-2 row">
+            <div class="d-flex gap-3 col-xl-8 col-lg-9 just">
+              <button id="btn-add" type="button" class="btn btn-footer btn-primary text-center align-items-center" onclick="onReasonAddOrEditClick(false)">@localizer["add"]</button>
+              <button id="btn-edit" type="button" class="btn btn-footer btn-primary align-items-center" onclick="onReasonAddOrEditClick(true)">@localizer["edit"]</button>
+              <button id="btn-delete" type="button" class="btn btn-footer btn-danger text-center align-items-center" onclick="onReasonDeleteClick()">@localizer["delete"]</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<div class="modal fade" id="reasonFormModal" tabindex="1" role="dialog" area-modal="true">
+  <div class="modal-dialog modal-dialog-centered reason-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 id="reason-form-section-title" class="modal-title">@localizer["reasonForm"]</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="reason-form">
+          <div class="row gap-3 p-3">
+            <div class="col">
+              <label class="mb-2">@localizer["code"]</label>
+              <input id="reasonCode" type="text" maxlength="4" class="infonet-input w-100 not-editable clear-selected-input-on-keypress" />
+              <span id="validation-for-code" class="text-danger">@localizer["thisFieldIsRequired"]</span>
+            </div>
+          </div>
+          <div class="row gap-3 p-3">
+            <div class="col">
+              <label class="mb-2">@localizer["reasons"]</label>
+              <input id="reason" type="text" maxlength="25" class="infonet-input w-100" />
+              <span id="validation-for-reason" class="text-danger">@localizer["thisFieldIsRequired"]</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-cancel btn-outline-danger align-content-center btn-sm me-2" data-bs-dismiss="modal">@localizer["cancel"]</button>
+        <button type="button" class="btn btn-primary btn-sm btn-save" onclick="onReasonCompleteClick()">@localizer["complete"]</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+@section Scripts {
+  <script src="~/js/reasons.js" asp-append-version="true"></script>
+}

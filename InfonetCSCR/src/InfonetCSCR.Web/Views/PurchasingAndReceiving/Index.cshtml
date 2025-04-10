@@ -1,0 +1,289 @@
+﻿@section Head {
+  <link href="~/css/purchasingAndReceiving.css" rel="stylesheet" asp-append-version="true" />
+}
+
+@model PurchaseAndReceivePostViewModel
+@inject IApplicationConfig _config
+@inject IViewLocalizer localizer
+@{
+  ViewData["Title"] = @localizer["purchasingAndReceiving"];
+}
+
+
+<input type="hidden" id="userCode" value="@ViewData["UserCode"]?.ToString()" />
+
+@*Localization Texts*@
+<input type="hidden" id="_send" value="@localizer["send"]" />
+<input type="hidden" id="search" value="@localizer["search"]" />
+<input type="hidden" id="successfullySavedTo" value="@localizer["successfullySavedTo"]" />
+<input type="hidden" id="anErrorHasOccurredWhileSavingFile" value="@localizer["anErrorHasOccurredWhileSavingFile"]" />
+<input type="hidden" id="emptyDataFile" value="@localizer["emptyDataFile"]" />
+<input type="hidden" id="destinationForPO" value="@localizer["destinationForPO"]" />
+<input type="hidden" id="readyToEmailThePOToVendor" value="@localizer["readyToEmailThePOToVendor"]" />
+<input type="hidden" id="areYouSureYouWantToEmailThisPO" value="@localizer["areYouSureYouWantToEmailThisPO"]" />
+<input type="hidden" id="invalidEmailAddress" value="@localizer["invalidEmailAddress"]" />
+<input type="hidden" id="vendorAccountDoesNotExist" value="@localizer["vendorAccountDoesNotExist"]" />
+<input type="hidden" id="anErrorHasOccurredWhileSendingMail" value="@localizer["anErrorHasOccurredWhileSendingMail"]" />
+<input type="hidden" id="successfullySentMailTo" value="@localizer["successfullySentMailTo"]" />
+<input type="hidden" id="fileIsNotCreated" value="@localizer["fileIsNotCreated"]" />
+<input type="hidden" id="emailAlreadySent" value="@localizer["emailAlreadySent"]">
+<input type="hidden" id="successfullySentToFtp" value="@localizer["successfullySentToFtp"]" />
+<input type="hidden" id="anErrorHasOccurredWhileExecutingBatchFile" value="@localizer["anErrorHasOccurredWhileExecutingBatchFile"]" />
+<input type="hidden" id="isAutoImportExport" value="@_config.FileConfig.IsAutoImportExport.ToString()" />
+<input type="hidden" id="exportFolderPath" value="@_config.FileConfig.ExportFolderPath.ToString()" />
+<input type="hidden" id="batchFilePath" value="@_config.BatchFilePath.ToString()" />
+<input type="hidden" id="userCode" value="@ViewData["UserCode"]?.ToString()" />
+<input type="hidden" id="deletePurchaseOrder" value="@localizer["deletePurchaseOrder"]" />
+<input type="hidden" id="youAreAboutToDeleteThePurchaseOrder" value="@localizer["youAreAboutToDeleteThePurchaseOrder", "{0}"]" />
+<input type="hidden" id="purchaseOrderSuccessfullyAdded" value="@localizer["purchaseOrderSuccessfullyAdded"]" />
+<input type="hidden" id="purchaseOrderSuccessfullyDeleted" value="@localizer["purchaseOrderSuccessfullyDeleted"]" />
+<input type="hidden" id="anErrorHasOccurred" value="@localizer["anErrorHasOccurred"]" />
+<input id="language" type="hidden" value="@_config.Language" />
+<input type="hidden" id="shiftID" value="@localizer["shiftID"]" />
+<input type="hidden" id="shiftNumber" value="@localizer["shiftNumber"]" />
+<input type="hidden" id="priceChange" value="@localizer["priceChange"]" />
+<input type="hidden" id="priceChangeModalMessage" value="@localizer["priceChangeModalMessage"]" />
+<input type="hidden" id="purchasingReceivingPostModalTitle" value="@localizer["purchasingReceivingPostModalTitle"]" />
+<input type="hidden" id="fileCreatedSuccessfully" value="@localizer["fileCreatedSuccessfully"]" />
+<input type="hidden" id="selectedPoStatus" value="@ViewData["PoStatus"]?.ToString()" />
+<input type="hidden" id="selectedPurchaseNo" value="@ViewData["SelectedPurchaseNo"]?.ToString()" />
+<input type="hidden" id="invalidShiftId" value="@localizer["invalidShiftId"]" />
+
+<div class="m-3">
+  <h3>@localizer["purchasingAndReceiving"]</h3>
+</div>
+
+<div class="m-2">
+  <div class="container body-content p-2 pb-2" style="max-width:3000px;">
+    <div class="d-flex justify-content-center align-content-center w-50 p-3 my-3">
+      <label class="mb-2 h5 me-5">@localizer["status"]</label>
+      <select id="poStatus" class="form-select col infonet-input stock-item-form-input" aria-label="Select status type" onchange="poStatusChanged(this.options[this.selectedIndex].value);">
+        <option value="O">@localizer["open"]</option>
+        <option value="C">@localizer["closed"]</option>
+        <option value="S">@localizer["send"]</option>
+        <option value="H">@localizer["hold"]</option>
+      </select>
+    </div>
+    <div class="container custom-grid-scrollbar border-2" style="max-width:3000px;">
+      <table id="purchasingAndReceiving-grid" class="table table-striped" style="width:100%">
+        <thead class="datatable-allignment">
+          <tr>
+            <th id="DTPurchaseNo" width="10%">@localizer["po"]</th>
+            <th id="DTAccountNo" width="10%">@localizer["account"]</th>
+            <th id="DTVendorName" width="20%">@localizer["company"]</th>
+            <th id="DTPurchaseDate" width="10%">@localizer["date"]</th>
+            <th id="DTPaid" width="10%">@localizer["paid"]</th>
+            <th id="DTLines" width="10%">@localizer["lines"]</th>
+            <th id="DTShiftID" width="10%">@localizer["shiftID"]</th>
+            <th id="DTShiftNum" width="10%">@localizer["shift#"]</th>
+            <th id="DTEmailed" width="10%">@localizer["emailed"]</th>
+          </tr>
+        </thead>
+        <tfoot>
+          <tr>
+            <th class="input" scope="col"></th>
+            <th class="input" scope="col"></th>
+            <th class="input" scope="col"></th>
+          </tr>
+        </tfoot>
+      </table>
+
+      <div class="table-buttons">
+        <button id="createButtonId" class="btn btn-footer btn-primary" onclick="createPurchasingAndReceivingButtonClicked()">@localizer["create"]</button>
+        <button id="detailButtonId" class="btn btn-footer btn-primary" onclick="onDetailButtonClicked()">@localizer["detail"]</button>
+        <button id="removeButtonId" class="btn btn-footer btn-danger" onclick="deletePurchasingAndReceivingButtonClicked()">@localizer["remove"]</button>
+        <button id="btn-post" type="button" class="btn btn-footer btn-primary" onclick="purchasingAndReceivingPostButtonClicked()">
+          <span class="generateButtonText">@localizer["post"]</span>
+          <div id="post-spinner" class="spinner-border  spinner-border-sm" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </button>
+        <button id="btn-send" type="button" class="btn btn-footer btn-primary" disabled>@localizer["send"]</button>
+        <button id="btn-print" type="button" class="btn btn-footer btn-primary" onclick="displayPurchasingAndReceivingReport()" disabled>@localizer["print"]</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+@*Generate Purchase Order Modal*@
+<div class="modal fade" id="generatePurchaseOrderModal" tabindex="1" role="dialog" area-labelledby="exampleModalLiveLabel" area-modal="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">@localizer["generatePurchaseOrder"]</h5>
+      </div>
+      <div class="modal-body">
+        <div class="d-flex flex-column my-3">
+          <h5>@localizer["purchaseOrderType"]</h5>
+          <div id="purchaseOrderTypeCheckbox" class="d-flex">
+            <div class="form-check me-3">
+              <input class="form-check-input" type="radio" name="purchaseOrderType" id="blank" value="blank" checked>
+              <label class="form-check-label" for="blank">
+                @localizer["blank"]
+              </label>
+            </div>
+            <div class="form-check me-3">
+              <input class="form-check-input" type="radio" name="purchaseOrderType" id="automated" value="automated">
+              <label class="form-check-label" for="automated">
+                @localizer["automated"]
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-flex flex-column my-3 vendorOptionsList">
+          <select multiple class="form-select col" id="vendorOptions">
+          </select>
+        </div>
+
+        <div class="d-flex flex-column my-3">
+          <h5>@localizer["sortBy"]</h5>
+          <div class="d-flex">
+            <div class="form-check me-3">
+              <input class="form-check-input" type="radio" name="sortBy" id="code" value="1">
+              <label class="form-check-label" for="code">
+                @localizer["code"]
+              </label>
+            </div>
+            <div class="form-check me-3">
+              <input class="form-check-input" type="radio" name="sortBy" id="name" value="2" checked>
+              <label class="form-check-label" for="name">
+                @localizer["name"]
+              </label>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary btn-sm btn-save generateButton" onclick="generatePurchasingAndReceiving()">
+          <span class="generateButtonText">@localizer["generate"]</span>
+          <div id="spinner" class="spinner-border  spinner-border-sm" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </button>
+        <button type="button" class="btn btn-cancel btn-outline-danger align-content-center btn-sm me-2" data-bs-dismiss="modal">@localizer["cancel"]</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+@*Destination for PO Modal*@
+<div class="modal fade" id="destination-for-po-modal" tabindex="1" role="dialog" area-labelledby="exampleModalLiveLabel" area-modal="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 id="destination-for-po-title" class="modal-title">@localizer["destinationForPO"]</h5>
+      </div>
+      <div class="modal-body">
+        <div class="m-3 ps-2">
+          <div class="form-check">
+            <input class="form-check-input mt-2" id="email" type="radio"
+                   name="select-send-type" value="by-store" checked>
+            <label class="form-check-label mt-1" for="email">@localizer["email"]</label>
+          </div>
+
+          <div class="form-check">
+            <input class="form-check-input mt-2" id="saveToDisk" type="radio"
+                   name="select-send-type" value="by-vendor">
+            <label class="form-check-label mt-1" for="saveToDisk">@localizer["saveToDisk"]</label>
+          </div>
+
+          <div class="form-check">
+            <input class="form-check-input mt-2" id="ftp" type="radio"
+                   name="select-send-type" value="ftp">
+            <label class="form-check-label mt-1" for="ftp">@localizer["ftp"]</label>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="btn-done" type="button" class="btn btn-primary btn-sm btn-save">@localizer["done"]</button>
+        <button id="btn-cancel" type="button" class="btn btn-cancel btn-outline-danger align-content-center btn-sm me-2" data-bs-dismiss="modal">@localizer["cancel"]</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+@*Post Modal*@
+<div class="modal fade" id="purchasingAndReceivingPostModal" tabindex="1" role="dialog" area-labelledby="" area-modal="true">
+  <div class="modal-dialog modal-dialog-centered purchasing-receiving-post-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 id="purchasingReceivingPostModalTitleId" class="modal-title">"asdasdasd"</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form id="post-form">
+        <div class="modal-body">
+          <p id="postModalMessageId"></p>
+          <div class="row gap-3 pt-3">
+            <div class="col">
+              <label class="mb-2">@localizer["shiftID"]</label>
+              <select id="shift-id-select" class="form-select col infonet-input" onchange="shiftIDSelectChanged(this.options[this.selectedIndex].value)">
+                <option value="">@localizer["select"] @localizer["shiftID"]</option>
+              </select>
+              <input id="shift-id-input" type="text" class="infonet-input" onkeyup="loadShiftNumberOptions(true)" onkeypress="return shiftIdFormat(event)" />
+              <span id="validation-for-shift-id" class="text-danger">@localizer["invalidShiftId"]</span>
+            </div>
+            <div class="col">
+              <label class="mb-2">@localizer["shiftNumber"]</label>
+              <select id="shift-number-select" class="form-select col infonet-input" onchange="shiftNumberSelectChanged(this.options[this.selectedIndex].value)">
+                <option value="">@localizer["select"] @localizer["shiftNumber"]</option>
+              </select>
+              <span id="validation-for-shift-number" class="text-danger">@localizer["invalidShiftNumber"]</span>
+            </div>
+          </div>
+          <div class="row gap-3 pt-3">
+            <div class="col">
+              <label class="mb-2">@localizer["subTotal"]</label>
+              <input id="sub-total" maxlength="10" type="text" class="infonet-input w-100" placeholder="0.00" disabled />
+              <span class="text-danger"></span>
+            </div>
+            <div class="col">
+              <label class="mb-2">@localizer["surcharge/discount"]</label>
+              <input id="discount" maxlength="10" type="text" class="infonet-input w-100" placeholder="0.00" disabled />
+              <span class="text-danger"></span>
+            </div>
+          </div>
+          <div class="row gap-3 pt-3">
+            <div class="col">
+              <label class="mb-2">@localizer["GSTAmount"]</label>
+              <input id="gst-amount" maxlength="10" type="text" class="infonet-input w-100" placeholder="0.00" disabled />
+              <span class="text-danger"></span>
+            </div>
+            <div class="col">
+              <label class="mb-2">@localizer["total"]</label>
+              <input id="total" maxlength="10" type="text" class="infonet-input w-100" placeholder="0.00" disabled />
+              <span class="text-danger"></span>
+            </div>
+          </div>
+          <div class="row gap-3 pt-3">
+            <div class="col">
+              <label class="mb-2">@localizer["paymentType"]</label>
+              <select id="payment-type-select" class="form-select col infonet-input">
+                <option value="CHARGE">@localizer["charge"]</option>
+                <option value="CASH">@localizer["cash"]</option>
+              </select>
+            </div>
+            <div class="col">
+              <label class="mb-2">@localizer["paid"]</label>
+              <select id="paid-select" class="form-select col infonet-input" disabled>
+                <option value="Yes">@localizer["yes"]</option>
+                <option value="No">@localizer["no"]</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </form>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-cancel btn-outline-danger align-content-center btn-sm me-2" data-bs-dismiss="modal">@localizer["cancel"]</button>
+        <button type="button" class="btn btn-primary btn-sm btn-save" onclick="postForm()">@localizer["ok"]</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+@section Scripts
+  {
+  <script src="~/js/purchasingAndReceiving.js" asp-append-version="true"></script>
+}

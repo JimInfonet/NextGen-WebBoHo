@@ -1,0 +1,384 @@
+@section Head {
+  <link href="~/css/stockItemDetails.css" rel="stylesheet" asp-append-version="true" />
+}
+
+@model ProductTaxExemptViewModel
+@inject IViewLocalizer localizer
+@inject IApplicationConfig _config
+@{
+  ViewBag.Title = $"{@localizer["detailsForStockCode"].Value.ToString()} - {ViewData["StockCode"]}";
+}
+
+@if (Model != null)
+{
+  <input type="hidden" id="tax-exempt-category-select-model" value="@Model.CategoryFK" />
+  <input type="hidden" id="vendor-select-model" value="@Model.TEVendor" />
+  <input type="hidden" id="tax-type-select-model" value="@Model.TaxCode" />
+  <input type="hidden" id="tax-free-price-model" value="@Model.TaxFreePrice" />
+  <input type="hidden" id="units-per-pkg-model" value="@Model.UnitsPerPkg" />
+  <input type="hidden" id="quantity-per-pkg-model" value="@Model.QuantityPerPkg" />
+  <input type="hidden" id="base-unit-qty-model" value="@Model.BaseUnitQty" />
+  <input type="hidden" id="product-code-model" value="@Model.ProductCode" />
+}
+
+<input type="hidden" id="stockCode" value="@ViewData["StockCode"]" />
+<input type="hidden" id="pluCode" value="" />
+<input type="hidden" id="appModeBackOffice" value="@ViewData["IsBackOffice"]?.ToString()">
+<input type="hidden" id="regionSelectionControlPlaceHolder" value="@localizer["selectRegion"]">
+<input type="hidden" id="unsavedChangesText" value="@localizer["unsavedChangesText"]">
+<input type="hidden" id="storeSeclectionControlPlaceHolder" value="@localizer["selectStore"]">
+<input type="hidden" id="textDelete" value="@localizer["delete"]">
+<input type="hidden" id="chargesSelectionControlPlaceHolder" value="@localizer["selectCharges"]">
+<input type="hidden" id="taxesSelectionControlPlaceHolder" value="@localizer["selectTaxes"]">
+<input type="hidden" id="stockCodeNotFound" value="@localizer["stockCodeNotFound"]">
+<input type="hidden" id="failedToLoadStore" value="@localizer["failedToLoadStore"]">
+<input type="hidden" id="failedToLoadRegion" value="@localizer["failedToLoadRegion"]">
+<input type="hidden" id="failedToLoadStockItemDetails" value="@localizer["failedToLoadStockItemDetails"]">
+<input type="hidden" id="failedToDeleteCharges" value="@localizer["failedToDeleteCharges"]">
+<input type="hidden" id="enterAnAlternateCode" value="@localizer["enterAnAlternateCode"]">
+<input type="hidden" id="failedToLoadData" value="@localizer["failedToLoadData"]">
+<input type="hidden" id="failedToDeleteTaxes" value="@localizer["failedToDeleteTaxes"]">
+<input type="hidden" id="noSelectedDayFound" value="@localizer["noSelectedDayFound"]">
+<input type="hidden" id="failedToLoadAvailabilityByDay" value="@localizer["failedToLoadAvailabilityByDay"]">
+<input type="hidden" id="datatableEmptyMessage" value="@localizer["datatableEmptyMessage"]">
+<input type="hidden" id="confirmDeleteAlert" value="@localizer["confirmDeleteAlert"]">
+<input type="hidden" id="selectAlternateCodeBeforeDelete" value="@localizer["selectAlternateCodeBeforeDelete"]">
+<input type="hidden" id="sunday" value="@localizer["sunday"]">
+<input type="hidden" id="monday" value="@localizer["monday"]">
+<input type="hidden" id="tuesday" value="@localizer["tuesday"]">
+<input type="hidden" id="wednesday" value="@localizer["wednesday"]">
+<input type="hidden" id="thursday" value="@localizer["thursday"]">
+<input type="hidden" id="friday" value="@localizer["friday"]">
+<input type="hidden" id="saturday" value="@localizer["saturday"]">
+
+<input type="hidden" id="edit-mode" value="false" />
+<input type="hidden" id="is-add-mode" value="@ViewData["IsAddMode"]?.ToString()" />
+<input type="hidden" id="tax-exempt-policy" value="@ViewData["TaxExemptPolicy"]" />
+<input type="hidden" id="tax-exempt-type-policy" value="@ViewData["TaxExemptTypePolicy"]" />
+<input type="hidden" id="tax-exempt-by-rate-policy" value="@ViewData["TaxExemptByRatePolicy"]" />
+
+<input type="hidden" id="taxExemptCategory" value="@localizer["taxExemptCategory"]" />
+<input type="hidden" id="vendor" value="@localizer["vendor"]" />
+<input type="hidden" id="taxType" value="@localizer["taxType"]" />
+<input type="hidden" id="updateButtonControlText" value="@localizer["update"]">
+<input type="hidden" id="editButtonControlText" value="@localizer["edit"]">
+<input type="hidden" id="alternateCodeDelete" value="@localizer["alternateCodeDelete"]">
+<input type="hidden" id="alternateCodeExist" value="@localizer["alternateCodeExist"]">
+<input type="hidden" id="confirmDeleteAlert" value="@localizer["confirmDeleteAlert"]">
+<input type="hidden" id="selectAlternateCodeBeforeDelete" value="@localizer["selectAlternateCodeBeforeDelete"]">
+<input type="hidden" id="deleteTaxExempt" value="@localizer["deleteTaxExempt"]">
+<input type="hidden" id="deleteTaxExemptWarning" value="@localizer["deleteTaxExemptWarning", @ViewData["StockCode"]?.ToString(), @ViewData["Description"]?.ToString()]">
+<input type="hidden" id="noTaxExemptToDelete" value="@localizer["noTaxExemptToDelete"]">
+<input type="hidden" id="deleteTax" value="@localizer["deleteTax"]">
+<input type="hidden" id="areYouSureYouWantToDeleteThisEntry" value="@localizer["areYouSureYouWantToDeleteThisEntry"]">
+<input type="hidden" id="chargesAndDeposits" value="@localizer["chargesAndDeposits"]">
+<input type="hidden" id="unsavedData" value="@localizer["unsavedData"]">
+<input type="hidden" id="unsavedChangesText" value="@localizer["unsavedChangesText"]">
+<input type="hidden" id="back" value="@localizer["back"]">
+
+<div class="p-3 mt-2">
+  <div class="d-flex justify-content-between align-content-center">
+    <div>
+      <span class="body-title">@localizer["stockCodeDetails"]</span><br />
+      <span id="stockItemDescription" class="stock-code-details-form-title"></span>
+    </div>
+  </div>
+  <div class="body-content">
+    <div class="p-3">
+      @*Store Region or Price Group*@
+      @*Only for Head Office*@
+      @{
+        if (!_config.IsBackOffice)
+        {
+          <div class="p-3">
+            <div class="">
+              <span class="section-title">@localizer["regionSectionTitle"]</span>
+              <hr class="section-underline" />
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="col">
+                  <label for="selectionControl" class="form-label">@localizer["selection"]</label>
+                  <select id="selectionControl" class="form-select form-select-sm infonet-control">
+                    <option value="ALL" selected>@localizer["all"]</option>
+                    <option value="R">@localizer["region"]</option>
+                    <option value="S">@localizer["store"]</option>
+                  </select>
+                </div>
+                <div id="regionSelectionControlDiv" class="col">
+                  <label for="regionSelectionControl" class="form-label">@localizer["selectRegion"]</label>
+                  <select id="regionSelectionControl" class="form-select form-select-sm infonet-control"></select>
+                </div>
+                <div id="storeSeclectionControlDiv" class="col">
+                  <label for="storeSeclectionControl" class="form-label">@localizer["selectStore"]</label>
+                  <select id="storeSeclectionControl" class="form-select form-select-sm infonet-control"></select>
+                </div>
+              </div>
+              <div class="mt-3">
+              </div>
+            </div>
+          </div>
+        }
+      }
+
+      @*Charges And Deposits Sectoion*@
+      <div class="p-3">
+        <div class="">
+          <span class="section-title">@localizer["chargesAndDeposits"]</span>
+          <hr class="section-underline" />
+        </div>
+        <div class="container">
+          <div id="chargesSelectionControlDiv" class="mt-3">
+            <label for="chargesSelectionControl" class="form-label">@localizer["selectCharges"]</label>
+            <select id="chargesSelectionControl" class="form-select form-select-sm infonet-control"></select>
+          </div>
+          <div class="mt-3">
+            <table id="chargesAndDepositsDataTable" class="table table-striped table-sm table-bordered w-100">
+              <thead>
+                <tr class="text-center">
+                  <th>@localizer["code"]</th>
+                  <th>@localizer["description"]</th>
+                  <th>@localizer["price"]</th>
+                  <th>@localizer["action"]</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+          </div>
+          <button type="button" id="addChargesButtonControl" class="btn btn-primary w-100 mt-3">@localizer["addChargesAndDeposits"]</button>
+        </div>
+      </div>
+
+      <div class="row p-3">
+        @*Alternate Codes Sectoion*@
+        <div class="mt-3 col-6">
+          <div class="">
+            <span class="section-title">@localizer["alternateCodes"]</span>
+            <hr class="section-underline" />
+          </div>
+          <div class="container">
+            <div class="container custom-alternateCode-table-height overflow-auto custom-grid-scrollbar mt-3">
+              <table id="pluCodes" class="table table-striped table-bordered" width="100%">
+                <thead>
+                  <tr>
+                    <th id="DTAlternateCode">@localizer["alternateCode"]</th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-center align-content-center gap-3">
+
+            <button id="btnAddAltCode" type="button" class="btn btn-primary mt-3 w-25" data-bs-toggle="modal" data-bs-target="#addPLUCodeModal">@localizer["add"]</button>
+            <button id="btnDelAltCode" class="btn btn-outline-danger align-content-center mt-3 w-25" onclick="setAlternateCodeDeleteConfirmModalText()">@localizer["delete"]</button>
+
+            <div class="modal fade" id="addPLUCodeModal" tabindex="-1" aria-labelledby="addPLUCodeModal" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-body">
+                    <div>
+                      <div>
+                        <label class="mb-2">@localizer["alternateCode"]</label>
+                        <input id="alternate-code" type="text" class="infonet-input w-100 not-editable" required maxlength="25" />
+                      </div>
+
+                      <div class="modal-footer d-flex justify-content-center align-content-center gap-3">
+                        <button type="button" onclick="addPLUCode()" class="btn btn-primary btn-sm btn-save"><span class="btn-save-text">@localizer["complete"]</span></button>
+                        <button type="button" class="btn btn-cancel btn-outline-danger align-content-center" onclick="cancelButtonClicked()" data-bs-dismiss="modal">@localizer["cancel"]</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        @*Availability By Day*@
+        <div class="mt-3 col-6">
+          <div class="">
+            <span class="section-title">@localizer["availabilityByDay"]</span>
+            <hr class="section-underline" />
+          </div>
+          <div id="availabilityByDayCheckBoxDiv" class="container mt-3">
+          </div>
+          <div class="row mt-3 container">
+            <div class="col">
+              <button type="button" id="updateAvailabilityButtonControl" class="btn btn-primary mt-2 w-100"></button>
+            </div>
+            <div class="col" id="cancelAvailabilityButtonControlDiv">
+              <button id="cancelAvailabilityButtonControl" type="button" class="btn btn-outline-danger mt-2 w-100">@localizer["cancel"]</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      @*Taxes Sectoion*@
+      <div class="p-3">
+        <div class="">
+          <span class="section-title">@localizer["taxes"]</span>
+          <hr class="section-underline" />
+        </div>
+        <div class="container">
+          <div id="taxesSelectionControlDiv" class="mt-3">
+            <label for="taxesSelectionControl" class="form-label">@localizer["selectTaxes"]</label>
+            <select id="taxesSelectionControl" class="form-select form-select-sm infonet-control"></select>
+          </div>
+          <div class="mt-3">
+            <table id="taxesDataTable" class="table table-striped table-sm table-bordered w-100">
+              <thead>
+                <tr class="text-center">
+                  <th>@localizer["taxName"]</th>
+                  <th>@localizer["taxCode"]</th>
+                  <th>@localizer["rate"]</th>
+                  <th>@localizer["included"]</th>
+                  <th>@localizer["action"]</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+          </div>
+        <button type="button" id="addTaxesButtonControl" class="btn btn-primary w-100 mt-3">@localizer["addTaxes"]</button>
+        </div>
+      </div>
+
+      @*Tax Exempt Setting*@
+      @if (_config.IsBackOffice == true && ViewData["TaxExemptPolicy"]?.ToString() == "Yes" && ViewData["TaxExemptTypePolicy"]?.ToString() != "QITE")
+      {
+        <div id="tax-exempt-setting" class="">
+          <form asp-controller="StockItemDetails" asp-action="TaxExemptFromSubmit" class="p-3">
+            <input asp-for="ProductKey" hidden />
+            <input asp-for="EmplID" hidden />
+            <input asp-for="UpcCode" hidden />
+            <div class="d-flex border-bottom">
+              <p class="form-section-title">@localizer["taxExemptSetting"]</p>
+            </div>
+            <div class="container">
+              <div class="d-flex flex-column">
+                <div class="d-flex justify-content-between align-content-center">
+                  <div class="pt-3 w-100 px-2">
+                    <label asp-for="CategoryFK" class="mb-2">@localizer["taxExemptCategory"]</label>
+                    <select asp-for="CategoryFK" id="tax-exempt-category-select" class="form-select infonet-input tax-exempt-form-input pe-5" aria-label="Select Tax Exempt Category"></select>
+                    <span asp-validation-for="CategoryFK" class="text-danger"></span>
+                  </div>
+                  <div class="pt-3 w-100 px-2">
+                    <label asp-for="TEVendor" class="mb-2">@localizer["vendor"]</label>
+                    <select asp-for="TEVendor" id="vendor-select" class="form-select infonet-input tax-exempt-form-input pe-5" aria-label="Select Vendor"></select>
+                  </div>
+                  @if (@ViewData["TaxExemptByRatePolicy"]?.ToString() == "Yes" && @ViewData["TaxExemptTypePolicy"]?.ToString() == "AITE")
+                  {
+                    <div id="tax-type-select-field" class="pt-3 w-100 px-2">
+                      <label asp-for="TaxCode" class="mb-2">@localizer["taxType"]</label>
+                      <select asp-for="TaxCode" id="tax-type-select" onchange="loadTaxExemptProductCode();" class="form-select infonet-input tax-exempt-form-input pe-5" aria-label="Select Tax Type"></select>
+                    </div>
+                  }
+                  else
+                  {
+                    <input asp-for="TaxCode" type="hidden" />
+                  }
+                </div>
+
+                <div class="row mt-3 px-2">
+                  @if ((@ViewData["TaxExemptByRatePolicy"]?.ToString() == "Yes" && @ViewData["TaxExemptTypePolicy"]?.ToString() == "SITE"))
+                  {
+                    <div id="equivalent-units-field" class="col-12 pt-3 px-2">
+                      <label asp-for="UnitsPerPkg" class="mb-2">@localizer["equivalentUnits"]</label>
+                      <input asp-for="UnitsPerPkg" id="equivalent-units" class="infonet-input w-100 infonet-readonly-input tax-exempt-form-input clear-selected-input-on-keypress only-digit" min="1" max="999999" required />
+                      <span asp-validation-for="UnitsPerPkg" class="text-danger"></span>
+                    </div>
+                  }
+                  else if (@ViewData["TaxExemptByRatePolicy"]?.ToString() == "No")
+                  {
+                    <div id="tax-free-price-field" class="col-6 pt-3 px-2">
+                      <label asp-for="TaxFreePrice" class="mb-2">@localizer["taxExemptPrice"]</label>
+                      <input asp-for="TaxFreePrice" id="tax-exempt-price" type="number" class="infonet-input infonet-readonly-input w-100 tax-exempt-form-input" data-val="true" data-val-number="@localizer["invalidNumberWarningMessage"]" min="-214748.3647" max="214748.3647" required />
+                      <span asp-validation-for="TaxFreePrice" class="text-danger"></span>
+                    </div>
+                  }
+                  else
+                  {
+                    <input asp-for="TaxFreePrice" type="hidden" />
+                  }
+                  @if ((@ViewData["TaxExemptByRatePolicy"]?.ToString() == "Yes" && @ViewData["TaxExemptTypePolicy"]?.ToString() == "AITE") || @ViewData["TaxExemptByRatePolicy"]?.ToString() == "No")
+                  {
+                    @if (@ViewData["TaxExemptByRatePolicy"]?.ToString() == "No")
+                    {
+                      <div id="equivalent-units-field" class="col-6 pt-3 px-2">
+                        <label asp-for="UnitsPerPkg" class="mb-2">@localizer["equivalentUnits"]</label>
+                        <input asp-for="UnitsPerPkg" id="equivalent-units" class="infonet-input w-100 infonet-readonly-input tax-exempt-form-input clear-selected-input-on-keypress only-digit" min="1" max="999999" required />
+                        <span asp-validation-for="UnitsPerPkg" class="text-danger"></span>
+                      </div>
+                    }
+                    else
+                    {
+                      <div id="equivalent-units-field" class="col-md-4 col-xl-3 pt-3 px-2">
+                        <label asp-for="UnitsPerPkg" class="mb-2">@localizer["equivalentUnits"]</label>
+                        <input asp-for="UnitsPerPkg" id="equivalent-units" class="infonet-input w-100 infonet-readonly-input tax-exempt-form-input clear-selected-input-on-keypress only-digit" min="1" max="999999" readonly required />
+                        <span asp-validation-for="UnitsPerPkg" class="text-danger"></span>
+                      </div>
+                    }
+                  }
+                  else
+                  {
+                    <input asp-for="UnitsPerPkg" type="hidden" />
+                  }
+                  @if (@ViewData["TaxExemptByRatePolicy"]?.ToString() == "Yes" && @ViewData["TaxExemptTypePolicy"]?.ToString() == "AITE")
+                  {
+                    <div id="quantity-per-pkg-field" class="col-md-4 col-xl-3 pt-3 px-2">
+                      <label asp-for="QuantityPerPkg" class="mb-2">@localizer["quantityPkg"]</label>
+                      <input asp-for="QuantityPerPkg" id="quantity-per-pkg" type="number" class="infonet-input w-100 tax-exempt-form-input clear-selected-input-on-keypress only-digit-plus-minus" min="-99999" max="999999" onchange="calculateEquivalentUnits()" required />
+                      <span asp-validation-for="QuantityPerPkg" class="text-danger"></span>
+                    </div>
+                    <div id="base-unit-quantity-field" class="col-md-4 col-xl-3 pt-3 px-2">
+                      <label asp-for="BaseUnitQty" class="mb-2">@localizer["baseUnitQuantity"]</label>
+                      <input asp-for="BaseUnitQty" id="base-unit-quantity" type="number" class="infonet-input w-100 tax-exempt-form-input clear-selected-input-on-keypress only-digit" min="1" max="999999" onchange="calculateEquivalentUnits()" required />
+                      <span asp-validation-for="BaseUnitQty" class="text-danger"></span>
+                    </div>
+                    <div id="product-code-field" class="col-md-4 col-xl-3 pt-3 px-2">
+                      <label asp-for="ProductCode" class="mb-2">@localizer["productCode"]</label>
+                      <input asp-for="ProductCode" id="product-code" type="text" maxlength="3" class="infonet-input tax-exempt-form-input clear-selected-input-on-keypress w-100" />
+                      <span asp-validation-for="ProductCode" class="text-danger"></span>
+                    </div>
+                  }
+                  else
+                  {
+                    <input asp-for="QuantityPerPkg" type="hidden" />
+                    <input asp-for="BaseUnitQty" type="hidden" />
+                    <input asp-for="ProductCode" type="hidden" />
+                  }
+                </div>
+              </div>
+
+              @if (@ViewData["TaxExemptByRatePolicy"]?.ToString() == "Yes" && @ViewData["TaxExemptTypePolicy"]?.ToString() == "AITE" && @ViewData["IsAddMode"]?.ToString() == "False")
+              {
+                <div id="tax-exemept-price-field" class="d-flex justify-content-end align-content-center mt-2 p-4">
+                  <h5>Tax Exempt Price : <span id="tax-exempt-price-data" class="fw-bold"></span></h5>
+                </div>
+              }
+
+              <div class="d-flex justify-content-between gap-3 px-2 mt-3 align-content-center py-2">
+                <div class="d-flex justify-content-start gap-3 align-content-center">
+                  <button id="btn-apply" type="submit" class="btn btn-save" hidden>@localizer["apply"]</button>
+                  <button id="btn-edit" class="btn btn-save" type="button" onclick="setVisibilityTaxExemptFormInput()">@localizer["edit"]</button>
+                  <button id="btn-delete" class="btn btn-delete" type="button" onclick="showDeleteTaxExemptModal()">@localizer["delete"]</button>
+                  <button id="btn-cancel" class="btn btn-cancel btn-outline-danger align-content-center" type="button" onclick="setVisibilityTaxExemptFormInput()">@localizer["cancel"]</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      }
+    </div>
+  </div>
+  <div class="m-2">
+    <button id="btn-back" onclick="goBackToStockItemForm()" type="button" class="btn btn-back btn-outline-danger float-end">@localizer["back"]</button>
+  </div>
+</div>
+
+@section Scripts
+  {
+  <script src="~/js/stockItemDetails.js" asp-append-version="true"></script>
+}

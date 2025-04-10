@@ -1,0 +1,345 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="baseUnitQuantityRange" xml:space="preserve">
+    <value>La quantité d'unité de base doit être comprise entre 1 et 32767.</value>
+  </data>
+  <data name="baseUnitQuantityRequired" xml:space="preserve">
+    <value>Le champ Quantité d'unité de base est obligatoire.</value>
+  </data>
+  <data name="productCodeMaxLength" xml:space="preserve">
+    <value>Le code produit ne peut pas dépasser 3 caractères</value>
+  </data>
+  <data name="quantityPerPkgRange" xml:space="preserve">
+    <value>La quantité/emballage doit être comprise entre 1 et 32767.</value>
+  </data>
+  <data name="quantityPerPkgRequired" xml:space="preserve">
+    <value>Le champ Quantité/Emballage est obligatoire.</value>
+  </data>
+  <data name="taxExemptCategoryRequired" xml:space="preserve">
+    <value>Le champ Catégorie d'exonération fiscale est obligatoire.</value>
+  </data>
+  <data name="taxFreePriceRange" xml:space="preserve">
+    <value>La Prix Hors Taxes doit être comprise entre -214748.3647 et 214748.3647.</value>
+  </data>
+  <data name="taxFreePriceRequired" xml:space="preserve">
+    <value>Le champ Prix Hors Taxes est requis.</value>
+  </data>
+  <data name="unitsPerPkgRequired" xml:space="preserve">
+    <value>Le champ Unités équivalentes est obligatoire.</value>
+  </data>
+  <data name="passwordRequired" xml:space="preserve">
+    <value>Le champ Mot de passe est obligatoire.</value>
+  </data>
+  <data name="usernameRequired" xml:space="preserve">
+    <value>Le champ Nom d'utilisateur est obligatoire.</value>
+  </data>
+  <data name="unitsPerPkgRange" xml:space="preserve">
+    <value>Les unités par paquet doivent être entre 1 et 999999</value>
+  </data>
+  <data name="inputaNumericValueLessThanMax" xml:space="preserve">
+    <value>Veuillez entrer une valeur Moins que 32768</value>
+  </data>
+  <data name="checkDigitMaskError" xml:space="preserve">
+    <value>Les caractères permis sont '0', '1', '2' ou 'C'. La lettre 'C' ne peut être utilisée qu'une seule fois. Utiliser une de ces valeurs</value>
+  </data>
+  <data name="discRateRange" xml:space="preserve">
+    <value>Taux de rabais doit être comprise entre -214748.3648 et 214748.3647</value>
+  </data>
+  <data name="floorLimitRange" xml:space="preserve">
+    <value>Limite minimale doit être comprise entre -214748.3648 et 214748.3647</value>
+  </data>
+  <data name="languageDigitPositionRange" xml:space="preserve">
+    <value>Position du caractères de langue doit être comprise entre -2,147,483,648 et 214748.3647</value>
+  </data>
+  <data name="maxCashBackRange" xml:space="preserve">
+    <value>Retour en argent maximal doit être comprise entre -214748.3648 et 214748.3647</value>
+  </data>
+  <data name="maximumLengthOfBankCardID" xml:space="preserve">
+    <value>The maximum length of a Bank Card ID is 50F</value>
+  </data>
+  <data name="maxLengthRange" xml:space="preserve">
+    <value>Longueur maximum doit être comprise entre 0 et 255</value>
+  </data>
+  <data name="minLengthRange" xml:space="preserve">
+    <value>Longueur minimum doit être comprise entre 0 et 255</value>
+  </data>
+  <data name="percentageValueRange" xml:space="preserve">
+    <value>La valeur en pourcentage doit être comprise entre 0 et 255</value>
+  </data>
+  <data name="pleaseInputBankCardID" xml:space="preserve">
+    <value>SVP entrer le numéro de carte bancaire!</value>
+  </data>
+  <data name="classMaxLength" xml:space="preserve">
+    <value>Le classe ne peut pas dépasser 10 caractères</value>
+  </data>
+  <data name="fullNameMaxLength" xml:space="preserve">
+    <value>Le nom complet ne peut pas dépasser 20 caractères</value>
+  </data>
+  <data name="shortNameMaxLength" xml:space="preserve">
+    <value>Le nom abrégé ne peut pas dépasser 8 caractères</value>
+  </data>
+  <data name="tendCodeMaxLength" xml:space="preserve">
+    <value>Le code ne peut pas dépasser 10 caractères</value>
+  </data>
+  <data name="thisFieldIsRequired" xml:space="preserve">
+    <value>Ce champ est obligatoire</value>
+  </data>
+  <data name="printCopiesRange" xml:space="preserve">
+    <value>Imprimer les copies doit être comprise entre 0 et 255</value>
+  </data>
+  <data name="purchaseLimitRange" xml:space="preserve">
+    <value>Limite d'achat doit être comprise entre -214748.3648 et 214748.3647</value>
+  </data>
+  <data name="transactionFeeRange" xml:space="preserve">
+    <value>Frais de Transactions $ doit être comprise entre -214748.3648 et 214748.3647</value>
+  </data>
+  <data name="cardCodeRange" xml:space="preserve">
+    <value>Code de Carte doit être comprise entre 0 et 255</value>
+  </data>
+  <data name="sequenceRange" xml:space="preserve">
+    <value>Séquence doit être comprise entre 0 et 99</value>
+  </data>
+  <data name="smallMoneyRange" xml:space="preserve">
+    <value>Ce champ doit être compris entre -214748.3648 et 214748.3647.</value>
+  </data>
+  <data name="exchangeRateRange" xml:space="preserve">
+    <value>Ce champ doit être compris entre 0 et 214748.</value>
+  </data>
+  <data name="smallIntRange" xml:space="preserve">
+    <value>Ce champ doit être compris entre -32768 et 32767</value>
+  </data>
+  <data name="promotionIdRangeError" xml:space="preserve">
+    <value>Le numéro de promotion doit être compris entre 1 et 999.</value>
+  </data>
+  <data name="maximumRangeItemError" xml:space="preserve">
+    <value>Entrer une valeur entre 1 et 99.</value>
+  </data>
+  <data name="maximumRangePriceError" xml:space="preserve">
+    <value>Entrer un prix entre 0 et 9999,99</value>
+  </data>
+  <data name="maxLengthDescriptionError" xml:space="preserve">
+    <value>La description doit avoir moins de 30 caractères.~ Erreur</value>
+  </data>
+  <data name="codeRequired" xml:space="preserve">
+    <value>Le code est requis</value>
+  </data>
+  <data name="discountRange" xml:space="preserve">
+    <value>Le code de réduction doit être compris entre 0 et 99</value>
+  </data>
+  <data name="whiteSpaceOnlyNotAllowed" xml:space="preserve">
+    <value>La saisie d'espaces uniquement n'est pas autorisée</value>
+  </data>
+  <data name="priceNumberRange" xml:space="preserve">
+    <value>Le numéro de prix doit être compris entre 0 et 9</value>
+  </data>
+  <data name="nameRequired" xml:space="preserve">
+    <value>Le nom est requis</value>
+  </data>
+  <data name="priceCodeRange" xml:space="preserve">
+    <value>Le code de prix doit être compris entre 0 et 9</value>
+  </data>
+  <data name="stringMaxLimit" xml:space="preserve">
+    <value>Ce champ ne peut pas dépasser {1} caractères</value>
+  </data>
+  <data name="invalidDateFormat" xml:space="preserve">
+    <value>Format de date invalide. Utilisez jj/mm/aaaa.</value>
+  </data>
+  <data name="invalidEmailFormat" xml:space="preserve">
+    <value>Format d'email invalide.</value>
+  </data>
+  <data name="invalidDateFormatForCustomerCard" xml:space="preserve">
+    <value>Format de date invalide. Utilisez aaaa-mm-jj.</value>
+  </data>
+  <data name="pinHasToBe4To10NumericValue" xml:space="preserve">
+    <value>NIP doit être entre 4 et 10 caractères numériques.</value>
+  </data>
+  <data name="mustBeBetweenRange" xml:space="preserve">
+    <value>The value must be between {1} to {2}</value>
+  </data>
+  <data name="creditLimitRange" xml:space="preserve">
+    <value>La limite de crédit doit être comprise entre -32767 et 32767</value>
+  </data>
+  <data name="theValueMustBeANumber" xml:space="preserve">
+    <value>La valeur doit être un nombre</value>
+  </data>
+  <data name="maximumTwoDigitsAfterDecimalPoint" xml:space="preserve">
+    <value>Maximum de deux chiffres après la virgule</value>
+  </data>
+  <data name="EighteenDigitsDecimalRange" xml:space="preserve">
+    <value>Ce champ doit être compris entre 0 et 9999999999999999.99</value>
+  </data>
+  <data name="inputMaxChar5" xml:space="preserve">
+    <value>La longueur de l'entrée doit être de 5 caractères ou moins.</value>
+  </data>
+  <data name="discountRateRequired" xml:space="preserve">
+    <value>Veuillez saisir le taux de réduction</value>
+  </data>
+  <data name="discountTypeRange" xml:space="preserve">
+    <value>Ce champ doit être compris entre -99999.00 et 214748.00</value>
+  </data>
+  <data name="groupIDRequired" xml:space="preserve">
+    <value>Veuillez saisir l'ID du groupe</value>
+  </data>
+  <data name="loyalityFooterRequired" xml:space="preserve">
+    <value>Veuillez saisir le pied de page de fidélité</value>
+  </data>
+  <data name="codeIsRequired" xml:space="preserve">
+    <value>Le code d'usager peut être vide</value>
+  </data>
+  <data name="DOBIsInvalid" xml:space="preserve">
+    <value>La date de naissance ne peut pas être une date ultérieure</value>
+  </data>
+  <data name="nameIsRequired" xml:space="preserve">
+    <value>Le nom de l'usager ne peut être vide</value>
+  </data>
+  <data name="passwordIsRequired" xml:space="preserve">
+    <value>Le mot de passe ne peut être vide</value>
+  </data>
+  <data name="DOBIsRequired" xml:space="preserve">
+    <value>La date de naissance ne doit pas être vide</value>
+  </data>
+  <data name="groupDescriptionIsRequired" xml:space="preserve">
+    <value>La description du groupe ne peut être vide</value>
+  </data>
+  <data name="groupNameIsRequired" xml:space="preserve">
+    <value>Le nom du groupe ne peut être vide</value>
+  </data>
+  <data name="enterMaxTenCharacter" xml:space="preserve">
+    <value>Entrer un maximum de 10 caractères</value>
+  </data>
+  <data name="enterMaxThirtyCharacter" xml:space="preserve">
+    <value>Entrer un maximum de 30 caractères</value>
+  </data>
+  <data name="typeIsRequired" xml:space="preserve">
+    <value>Sélectionnez le type d’employé de l’utilisateur</value>
+  </data>
+  <data name="securityLevelIsRequired" xml:space="preserve">
+    <value>Le niveau de sécurité ne peut pas être vide!</value>
+  </data>
+  <data name="regions" xml:space="preserve">
+    <value>Régions</value>
+  </data>
+  <data name="storeIdRequired" xml:space="preserve">
+    <value>LA ID de la Société peut pas être vide</value>
+  </data>
+  <data name="storeNameRequired" xml:space="preserve">
+    <value>Le Nom du Magasin ne peut être vide</value>
+  </data>
+</root>

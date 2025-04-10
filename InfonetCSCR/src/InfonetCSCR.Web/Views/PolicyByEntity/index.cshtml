@@ -1,0 +1,87 @@
+@section Head {
+  <link href="~/css/policyByEntity.css" rel="stylesheet" asp-append-version="true" />
+}
+
+@inject IViewLocalizer localizer
+
+@{
+  ViewData["Title"] = @localizer["policiesByEntity"];
+}
+
+<input type="hidden" id="lclCode" value="@localizer["code"]" />
+<input type="hidden" id="lclName" value="@localizer["name"]" />
+<input type="hidden" id="lclGroup" value="@localizer["group"]" />
+<input type="hidden" id="lclGroupName" value="@localizer["groupName"]" />
+<input type="hidden" id="lclDepartment" value="@localizer["department"]" />
+<input type="hidden" id="lclDepartmentName" value="@localizer["departmentName"]" />
+<input type="hidden" id="lclSubDepartment" value="@localizer["subDepartment"]" />
+<input type="hidden" id="lclSubDepartmentName" value="@localizer["subDepartmentName"]" />
+<input type="hidden" id="lclSubDetail" value="@localizer["subDetail"]" />
+<input type="hidden" id="lclSubDetailName" value="@localizer["subDetailName"]" />
+<input type="hidden" id="lclStockCode" value="@localizer["stockCode"]" />
+<input type="hidden" id="lclDescription" value="@localizer["description"]" />
+<input type="hidden" id="lclEntityGridTitle" value="@localizer["entityGridTitle", "{0}"]" />
+<input type="hidden" id="lclPolicySettingByEntityGridTitle" value="@localizer["policySettingByEntityGridTitle", "{0}"]" />
+<input type="hidden" id="lclDeletePolicySettingSuccess" value="@localizer["deletePolicySettingSuccess", "{0}"]" />
+
+<div class="px-3 py-2 mt-2">
+  <div class="row">
+    <div class="col">
+      <h3 class="fw-bold">@localizer["policiesByEntity"]</h3>
+    </div>
+  </div>
+
+  <div class="body-content p-4">
+    <div class="row my-3">
+      <div class="col d-flex">
+        <label class="fs-5 me-3 align-content-center">@localizer["selectAnEntity"]</label>
+        <select id="ddlEntity" class="form-select infonet-input" aria-label="Select policies class" asp-items="ViewBag.EntityList" onchange="handleEntityDDLChangeAsync()"></select>
+      </div>
+    </div>
+    <div class="row">
+      <label id="lblEntityGridTitle" class="h5 fw-bold mt-3"></label>
+      <div id="entityGridContainer"></div>
+    </div>
+    <div class="row">
+      <div class="col-lg-10">
+        <label id="lblPolicySettingsByEntityGridTitle" class="h5 fw-bold"></label>
+        <table id="policySettingsByEntityGrid" class="table table-striped">
+          <thead class="datatable-allignment">
+            <tr>
+              <th width="50%">@localizer["description"]</th>
+              <th width="15%">@localizer["setting"]</th>
+              <th width="15%">@localizer["level"]</th>
+              <th width="20%">@localizer["value"]</th>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+              <th class="input substring-search" width="50%" scope="col"></th>
+              <th class="input substring-search" width="15%" scope="col"></th>
+              <th class="input substring-search" width="15%" scope="col"></th>
+              <th class="input substring-search" width="20%" scope="col"></th>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+      <div id="valueSettingContainer" class="col-lg-2">
+        <div class="row mb-3 p-2">
+          <label class="ps-0 mb-1">@localizer["values"]</label>
+          <textarea id="txtPolicyValues" class="infonet-input" readonly></textarea>
+        </div>
+      </div>
+      <div class="p-2 row">
+        <div class="col-lg-12 gap-3 d-flex justify-content-center">
+          <button id="btnEditPolicyByEntity" type="button" class="btn btn-footer btn-primary align-items-center" onclick="btnEditPolicyByEntityClickAsync()" disabled>@localizer["edit"]</button>
+          <button id="btnDeletePolicyByEntity" type="button" class="btn btn-footer btn-danger text-center align-items-center" onclick="btnDeletePolicyByEntityClickAsync()" disabled>@localizer["remove"]</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="addEditPolicySettingModalContainer"></div>
+</div>
+
+@section Scripts {
+  <script src="~/js/policyByEntity.js" asp-append-version="true"></script>
+  <script src="~/js/_AddEditPolicySettingModal.js" asp-append-version="true"></script>
+}

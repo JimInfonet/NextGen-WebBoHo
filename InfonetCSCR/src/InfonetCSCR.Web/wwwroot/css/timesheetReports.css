@@ -1,0 +1,56 @@
+﻿body {
+  font-size: 12px;
+}
+
+/* Apply larger font size for screen size XL */
+@media (min-width: 1200px) {
+  body {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 1400px) {
+  body {
+    font-size: 16px;
+  }
+}
+
+/* For window size below or equals to 1200px */
+@media (max-width: 1200px) {
+  .dataTables_paginate .paginate_button .page-link {
+    font-size: 12px;
+    padding: 4.5px 9px;
+  }
+
+  .dataTables_length * {
+    font-size: 12px;
+  }
+}
+
+dl {
+  display: inline-block;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+}
+
+dt {
+  flex: 1;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+dd {
+  flex: 1;
+  margin: 0;
+}
+
+tbody tr.active, tbody tr.active * {
+  background-color: #0b5ed7 !important;
+  color: #fff !important;
+}
+
+.data-table__disabled {
+  pointer-events: none;
+  opacity: 0.6;
+}

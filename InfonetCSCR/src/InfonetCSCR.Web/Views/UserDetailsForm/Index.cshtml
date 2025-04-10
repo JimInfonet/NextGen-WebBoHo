@@ -1,0 +1,97 @@
+﻿@section Head {
+  <link href="~/css/userAndUserGroup.css" rel="stylesheet" asp-append-version="true" />
+}
+
+@model UserDetailsViewModel
+@inject IViewLocalizer localizer
+
+@{
+  ViewData["Title"] = localizer["userDetailsForm"];
+  bool timeSheetsAndHaveUserIdPolicy = (bool)ViewData["timeSheetsAndHaveUserIdPolicy"];
+  int initialEmployeeId = Convert.ToInt32(ViewData["initialEmployeeId"]);
+  bool isUpdate = (bool)(ViewData["isUpdate"]);
+}
+
+<input id="isUpdate" type="hidden" value="@ViewData["isUpdate"].ToString()" />
+<input id="IsUserAlreadyExists" type="hidden" value='@(ViewData["IsUserAlreadyExists"] != null ? "true" : "false")' />
+<input id="userAlreadyExists" type="hidden" value="@localizer["userAlreadyExists", "{0}"]" />
+<input id="userCreatedSuccessfully" type="hidden" value="@localizer["userCreatedSuccessfully"]" />
+<input id="userUpdatedSuccessfully" type="hidden" value="@localizer["userUpdatedSuccessfully"]" />
+<input id="DOBCanNotBeFuture" type="hidden" value="@localizer["DOBCanNotBeFuture"]" />
+<input id="DOBCanNotBeBefore" type="hidden" value="@localizer["DOBCanNotBeBefore"]" />
+
+<form asp-controller="UserDetailsForm" asp-action="SaveUserDetails" id="saveUserDetailsForm">
+  <div class="p-3 mt-2">
+    <div class="d-flex justify-content-between mb-3">
+      <h3 class="h3 fw-bold mb-3">@localizer["userDetailsForm"]</h3>
+    </div>
+
+    <div class="user-body-content p-2">
+      <div class="mt-3 col">
+        <div class="row m-3">
+          <div class="row gap-3 pt-3">
+            <div class="col">
+              <label asp-for="Code" class="mb-2">@localizer["userCode"]</label>
+              <input asp-for="Code" type="text" class="col infonet-input w-100 clear-selected-input-on-keypress not-editable only-alpha-numerical" maxlength="10" required />
+              <span asp-validation-for="Code" class="text-danger"></span>
+            </div>
+            <div class="col">
+              <label asp-for="Name" class="mb-2">@localizer["userName"]</label>
+              <input asp-for="Name" type="text" class="col infonet-input w-100 clear-selected-input-on-keypress edit-mode-control" maxlength="25" required />
+              <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+          </div>
+
+          <div class="row gap-3 pt-3">
+            <div class="col">
+              <label asp-for="Password" class="mb-2">@localizer["password"]</label>
+              <input asp-for="Password" type="password" class="col infonet-input w-100 clear-selected-input-on-keypress not-editable" value="@(isUpdate ? ".........." : "" )" maxlength="31" required />
+              <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="col">
+              <label asp-for="DateOfBirth" class="mb-2">@localizer["dateOfBirth"]</label>
+              <input asp-for="DateOfBirth" type="date" class="col infonet-input w-100 edit-mode-control" required />
+              <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+            </div>
+          </div>
+
+          @{
+            if (timeSheetsAndHaveUserIdPolicy)
+            {
+              <div class="row gap-3 pt-3">
+                <div class="col">
+                  <label asp-for="Id" class="mb-2">@localizer["userId"]</label>
+                  <input asp-for="Id" data-val="true" type="number" class="col infonet-input w-100 not-editable" value="@(isUpdate ? Model.Id : initialEmployeeId)" readonly />
+                  <span asp-validation-for="Id" class="text-danger"></span>
+                </div>
+                <div class="col">
+                  <label class="form-check-label mb-2" for="Type">@localizer["typeOfEmployee"]</label>
+                  <select asp-for="Type" class="form-select infonet-input w-100 edit-mode-control" aria-label="Select" required>
+                    <option value="" disabled selected>@localizer["selectType"]</option>
+                    <option value="Salary">@localizer["salary"]</option>
+                    <option value="Hourly">@localizer["hourly"]</option>
+                  </select>
+                  <span asp-validation-for="Type" class="text-danger"></span>
+                </div>
+              </div>
+            }
+          }
+
+          <div class="row pt-3 text-end">
+            <div class="mt-4 d-flex justify-content-end gap-3 col">
+              <button id="btn-cancel" onclick="cancelButtonClicked()" type="button" class="btn btn-outline-danger btn-footer text-center ms-2">@localizer["cancel"]</button>
+              <button id="btn-complete" type="submit" class="btn btn-primary btn-footer text-center ms-2">@localizer["complete"]</button>
+              <button id="btn-edit" onclick="setEditMode(true)" type="button" class="btn btn-primary btn-footer text-center ms-2">@localizer["edit"]</button>
+              <button id="btn-back" type="button" class="btn btn-outline-danger btn-footer text-center ms-2">@localizer["back"]</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+@section Scripts
+  {
+  <script src="~/js/UserAndUserGroup/userDetailsForm.js" asp-append-version="true"></script>
+}

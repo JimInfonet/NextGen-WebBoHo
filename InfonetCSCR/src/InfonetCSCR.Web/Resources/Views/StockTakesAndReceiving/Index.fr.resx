@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="accept" xml:space="preserve">
+    <value>Accepter</value>
+  </data>
+  <data name="accessDatabaseOptionIsNotSupported" xml:space="preserve">
+    <value>L'option Access Database n'est pas prise en charge !</value>
+  </data>
+  <data name="amount" xml:space="preserve">
+    <value>Montant</value>
+  </data>
+  <data name="anErrorHasOccurredWhileExportingFile" xml:space="preserve">
+    <value>Une erreur est survenue lors de l'exportation du fichier.</value>
+  </data>
+  <data name="anErrorHasOccurredWhileImportingFile" xml:space="preserve">
+    <value>Une erreur est survenue lors de l'importation du fichier.</value>
+  </data>
+  <data name="april" xml:space="preserve">
+    <value>Avril</value>
+  </data>
+  <data name="areYouSureYouWantToDeleteAll" xml:space="preserve">
+    <value>Êtes-vous sûr de vouloir tout supprimer?</value>
+  </data>
+  <data name="areYouSureYouWantToDeleteThisEntry" xml:space="preserve">
+    <value>Êtes-vous sûr de vouloir supprimer cette entrée?</value>
+  </data>
+  <data name="august" xml:space="preserve">
+    <value>Août</value>
+  </data>
+  <data name="batchReport" xml:space="preserve">
+    <value>Rapport des lots de réception</value>
+  </data>
+  <data name="cancel" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="category" xml:space="preserve">
+    <value>Catégorie</value>
+  </data>
+  <data name="changePriceBasedOnMarginSetup" xml:space="preserve">
+    <value>Modifier le prix en fonction de la configuration de la marge</value>
+  </data>
+  <data name="clear" xml:space="preserve">
+    <value>Efface</value>
+  </data>
+  <data name="cost" xml:space="preserve">
+    <value>Coût</value>
+  </data>
+  <data name="costCantBeGreaterThan" xml:space="preserve">
+    <value>Le coût ne peut pas être supérieur à {0}.</value>
+  </data>
+  <data name="december" xml:space="preserve">
+    <value>Décembre</value>
+  </data>
+  <data name="delete" xml:space="preserve">
+    <value>Supprimer</value>
+  </data>
+  <data name="deleteAll" xml:space="preserve">
+    <value>Supprimer tout</value>
+  </data>
+  <data name="description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="doYouWantToChangeThePrice" xml:space="preserve">
+    <value>Voulez-vous recalculer le prix?</value>
+  </data>
+  <data name="doYouWantToPrintTheLogFile" xml:space="preserve">
+    <value>Des données n'ont pu être importées.  Voulez-vous imprimer le journal ?</value>
+  </data>
+  <data name="errorMessage" xml:space="preserve">
+    <value>Une erreur est survenue.</value>
+  </data>
+  <data name="exporting" xml:space="preserve">
+    <value>Exportation d'un Mise à Jour</value>
+  </data>
+  <data name="exportSelectedStocks" xml:space="preserve">
+    <value>Exportation des articles sélectionnés</value>
+  </data>
+  <data name="extraCount" xml:space="preserve">
+    <value>Extra Count</value>
+  </data>
+  <data name="failedToAdd" xml:space="preserve">
+    <value>Impossible d'ajouter.</value>
+  </data>
+  <data name="failedToDelete" xml:space="preserve">
+    <value>Échec de la suppression.</value>
+  </data>
+  <data name="failedToExport" xml:space="preserve">
+    <value>Exportation impossible.</value>
+  </data>
+  <data name="failedToProcess" xml:space="preserve">
+    <value>Impossible Traitement</value>
+  </data>
+  <data name="failedToSuspend" xml:space="preserve">
+    <value>Échec de la suspension.</value>
+  </data>
+  <data name="failedToUnsuspend" xml:space="preserve">
+    <value>Échec de l'annulation de la suspension.</value>
+  </data>
+  <data name="fileDoesNotExist" xml:space="preserve">
+    <value>Le fichier {0} est introuvable!</value>
+  </data>
+  <data name="import" xml:space="preserve">
+    <value>Importer</value>
+  </data>
+  <data name="importFromFile" xml:space="preserve">
+    <value>Importé du fichier</value>
+  </data>
+  <data name="invalidFileType" xml:space="preserve">
+    <value>Type de fichier invalide</value>
+  </data>
+  <data name="february" xml:space="preserve">
+    <value>Février</value>
+  </data>
+  <data name="invoice" xml:space="preserve">
+    <value>Facture</value>
+  </data>
+  <data name="january" xml:space="preserve">
+    <value>Janvier</value>
+  </data>
+  <data name="july" xml:space="preserve">
+    <value>Juillet</value>
+  </data>
+  <data name="june" xml:space="preserve">
+    <value>Juin</value>
+  </data>
+  <data name="load" xml:space="preserve">
+    <value>Sauvegardez la Sélection</value>
+  </data>
+  <data name="march" xml:space="preserve">
+    <value>Mars</value>
+  </data>
+  <data name="may" xml:space="preserve">
+    <value>Peut</value>
+  </data>
+  <data name="november" xml:space="preserve">
+    <value>Novembre</value>
+  </data>
+  <data name="missingCostInfo" xml:space="preserve">
+    <value>Coût de l'article manquant.</value>
+  </data>
+  <data name="missingInvoiceInfo" xml:space="preserve">
+    <value>Information de facture incomplète.</value>
+  </data>
+  <data name="missingQuantityInfo" xml:space="preserve">
+    <value>Quantité manquante.</value>
+  </data>
+  <data name="missingStockCodeInfo" xml:space="preserve">
+    <value>Information d'article manquante.</value>
+  </data>
+  <data name="number" xml:space="preserve">
+    <value>Numéro</value>
+  </data>
+  <data name="october" xml:space="preserve">
+    <value>Octobre</value>
+  </data>
+  <data name="pageTitle" xml:space="preserve">
+    <value>Réception de marchandise</value>
+  </data>
+  <data name="pleaseEnterANumericValueAsInvoiceNumber" xml:space="preserve">
+    <value>Veuillez entrer une valeur numérique comme numéro de facture.</value>
+  </data>
+  <data name="pleaseEnterTheInvoiceNumber" xml:space="preserve">
+    <value>SVP entrer le numéro de facture.</value>
+  </data>
+  <data name="process" xml:space="preserve">
+    <value>Traitement</value>
+  </data>
+  <data name="processing" xml:space="preserve">
+    <value>En traitement</value>
+  </data>
+  <data name="quantity" xml:space="preserve">
+    <value>Quantité</value>
+  </data>
+  <data name="search" xml:space="preserve">
+    <value>Rechercher</value>
+  </data>
+  <data name="select" xml:space="preserve">
+    <value>Sélectionner</value>
+  </data>
+  <data name="selectAll" xml:space="preserve">
+    <value>Sélectionner tous ou Rien</value>
+  </data>
+  <data name="selectAllStock" xml:space="preserve">
+    <value>Sélectionner tous les articles</value>
+  </data>
+  <data name="selectMonth" xml:space="preserve">
+    <value>Choisissez un mois</value>
+  </data>
+  <data name="selectVendor" xml:space="preserve">
+    <value>Sélectionner un fournisseur</value>
+  </data>
+  <data name="september" xml:space="preserve">
+    <value>Septembre</value>
+  </data>
+  <data name="stockCode" xml:space="preserve">
+    <value>No d'article</value>
+  </data>
+  <data name="stockCodeDoesNotExist" xml:space="preserve">
+    <value>Code d'article absent.</value>
+  </data>
+  <data name="stockCodeIsAKit" xml:space="preserve">
+    <value>Code d'article est un ensemble.</value>
+  </data>
+  <data name="stockImportErrorReport" xml:space="preserve">
+    <value>Rapport d'erreur de l'importation des articles</value>
+  </data>
+  <data name="stockReceive" xml:space="preserve">
+    <value>Réception de marchandise</value>
+  </data>
+  <data name="stockReceived" xml:space="preserve">
+    <value>Article en Inventaire</value>
+  </data>
+  <data name="StockTakesPageTitle" xml:space="preserve">
+    <value>Prise d'inventaire</value>
+  </data>
+  <data name="successfullyAdded" xml:space="preserve">
+    <value>Ajouté avec succès.</value>
+  </data>
+  <data name="successfullyDeleted" xml:space="preserve">
+    <value>Supprimé avec succès.</value>
+  </data>
+  <data name="successfullyExportedTo" xml:space="preserve">
+    <value>Exporté avec succès.</value>
+  </data>
+  <data name="successfullyImported" xml:space="preserve">
+    <value>Importé avec succès.</value>
+  </data>
+  <data name="successfullyProcessed" xml:space="preserve">
+    <value>Traité avec succès.</value>
+  </data>
+  <data name="successfullySuspended" xml:space="preserve">
+    <value>Suspendu avec succès.</value>
+  </data>
+  <data name="successfullyUnsuspended" xml:space="preserve">
+    <value>Réussite avec succès.</value>
+  </data>
+  <data name="suspend" xml:space="preserve">
+    <value>En attente</value>
+  </data>
+  <data name="theFollowingRecordsAreNotLoaded" xml:space="preserve">
+    <value>Les engeristrements suivants ne sont pas chargés dans le système Back Office _StockCountType_ Traitement</value>
+  </data>
+  <data name="unsuspend" xml:space="preserve">
+    <value>Rappel</value>
+  </data>
+  <data name="vendorPart" xml:space="preserve">
+    <value>Numéro du Fournisseur</value>
+  </data>
+  <data name="count" xml:space="preserve">
+    <value>Compter</value>
+  </data>
+  <data name="initial" xml:space="preserve">
+    <value>Initial</value>
+  </data>
+  <data name="system" xml:space="preserve">
+    <value>Système</value>
+  </data>
+  <data name="editCount" xml:space="preserve">
+    <value>Éditer Quantité</value>
+  </data>
+  <data name="quantityDataEntryError" xml:space="preserve">
+    <value>Ce champ doit être numérique</value>
+  </data>
+  <data name="quantityOutOfRangeError" xml:space="preserve">
+    <value>La valeur doit être comprise entre -9999 et 9999</value>
+  </data>
+  <data name="listStocks" xml:space="preserve">
+    <value>Liste des lots d'articles</value>
+  </data>
+  <data name="all" xml:space="preserve">
+    <value>Tous</value>
+  </data>
+  <data name="invoiceRange" xml:space="preserve">
+    <value>Facture doit être comprise entre -999999999 et 9999999999.</value>
+  </data>
+  <data name="undefined" xml:space="preserve">
+    <value>Indéfinie</value>
+  </data>
+  <data name="costRange" xml:space="preserve">
+    <value>Le coût doit être compris entre 0 et 9999.99.</value>
+  </data>
+  <data name="edit" xml:space="preserve">
+    <value>Éditer</value>
+  </data>
+  <data name="fieldMustBeNumeric" xml:space="preserve">
+    <value>Ce champ doit être numérique.</value>
+  </data>
+  <data name="ok" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="quantityRange" xml:space="preserve">
+    <value>La valeur ne peut dépasser 9999.</value>
+  </data>
+  <data name="costCantBeMoreThanXWhenQuantityIsY" xml:space="preserve">
+    <value>Le coût ne peut pas dépasser _COST_ lorsque la quantité est de _QUANTITY_.</value>
+  </data>
+  <data name="quantityCantBeLessThanXWhenCostIsY" xml:space="preserve">
+    <value>La quantité ne peut pas être inférieure à _QUANTITY_ lorsque la coût est de _COST_</value>
+  </data>
+  <data name="quantityCantBeMoreThanXWhenCostIsY" xml:space="preserve">
+    <value>La quantité ne peut pas dépasser _QUANTITY_ lorsque la coût est de _COST_</value>
+  </data>
+  <data name="calculateAllSalesConfirmationMessage" xml:space="preserve">
+    <value>Pour ces articles en inventaire, les quantités vont être remplacées avec le décompte actuel.  Ce traitement est irréversible.  Voulez-vous continuer?</value>
+  </data>
+  <data name="calculateAllSalesConfirmationTitle" xml:space="preserve">
+    <value>Mise à jour d'inventaire</value>
+  </data>
+  <data name="failedToCalculateAllSales" xml:space="preserve">
+    <value>Échec du calcul de toutes les ventes.</value>
+  </data>
+  <data name="processAborted" xml:space="preserve">
+    <value>Traitement arrêté…</value>
+  </data>
+  <data name="varianceReport" xml:space="preserve">
+    <value>Rrapport de variance</value>
+  </data>
+  <data name="stockReceiving" xml:space="preserve">
+    <value>Réception de marchandise</value>
+  </data>
+  <data name="maximumCharactersAllowedInvoice" xml:space="preserve">
+    <value>Un maximum de 10 caractères sont autorisés pour la facture</value>
+  </data>
+  <data name="stockTakesQuantityOutOfRangeError" xml:space="preserve">
+    <value>La quantité valeur doit être comprise entre -9999 et 99999</value>
+  </data>
+  <data name="costMissingInfo" xml:space="preserve">
+    <value>--&gt;Coût de l'article manquante</value>
+  </data>
+  <data name="dateMissingInfo" xml:space="preserve">
+    <value>-&gt; Informations sur les dates manquantes</value>
+  </data>
+  <data name="extraQuantityMissingInfo" xml:space="preserve">
+    <value>--&gt; Informations sur la quantité supplémentaire manquantes</value>
+  </data>
+  <data name="invoiceMissingInfo" xml:space="preserve">
+    <value>--&gt; Informations de facture manquantes</value>
+  </data>
+  <data name="qtyMissingInfo" xml:space="preserve">
+    <value>--&gt;Quantité manquante</value>
+  </data>
+  <data name="stockCodeMissingInfo" xml:space="preserve">
+    <value>--&gt;Information d'article manquante</value>
+  </data>
+  <data name="stockUpdate" xml:space="preserve">
+    <value>Mise à jour d'inventaire</value>
+  </data>
+  <data name="invoiceRangeFromZero" xml:space="preserve">
+    <value>Facture doit être comprise entre 0 et 9999999999.</value>
+  </data>
+  <data name="stockTakesExtraCountOutOfRangeError" xml:space="preserve">
+    <value>La Extra Count valeur doit être comprise entre -9999 et 99999</value>
+  </data>
+  <data name="countCantBeMoreThan" xml:space="preserve">
+    <value>Le nombre ne peut pas contenir plus de 5 caractères</value>
+  </data>
+  <data name="maximumCharactersAllowedCost" xml:space="preserve">
+    <value>Un maximum de 8 caractères sont autorisés pour la coût</value>
+  </data>
+  <data name="maximumCharactersAllowedQuantity" xml:space="preserve">
+    <value>Un maximum de 5 caractères sont autorisés pour la quantité</value>
+  </data>
+  <data name="stockCounts" xml:space="preserve">
+    <value>Inventaire des stocks</value>
+  </data>
+  <data name="theSelectedStockCodeIsAlreadyInUse" xml:space="preserve">
+    <value>Le code stock sélectionné est déjà utilisé.</value>
+  </data>
+</root>

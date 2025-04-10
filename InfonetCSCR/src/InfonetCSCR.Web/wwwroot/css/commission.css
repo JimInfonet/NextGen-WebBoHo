@@ -1,0 +1,16 @@
+﻿.grid-table-row {
+  cursor: pointer;
+}
+
+.body-content {
+  background-color: var(--color-white);
+}
+
+th {
+  text-align: center;
+  vertical-align: middle;
+}
+
+select {
+  padding-right: 30px !important;
+}

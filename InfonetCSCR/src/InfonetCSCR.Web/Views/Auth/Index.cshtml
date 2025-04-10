@@ -1,0 +1,40 @@
+@section Head {
+  <link href="~/css/auth.css" rel="stylesheet" asp-append-version="true" />
+}
+
+@inject IViewLocalizer localizer
+@inject IApplicationConfig _config
+@model UserViewModel
+
+@{
+  ViewBag.Title = localizer["login"];
+  var pageTitle = _config.IsBackOffice ?
+      "TitleBackOffice" : "TitleHeadOffice";
+}
+
+<div class="d-flex justify-content-center pt-2">
+  <div id="errorMessage" class="alert alert-danger text-center text-break mb-3" role="alert"></div>
+</div>
+
+<div class="d-flex align-items-center justify-content-center w-100">
+  <form class="d-flex flex-column align-content-center justify-content-between login-content p-5" onsubmit="submitLoginForm(event)">
+    <div class="d-flex justify-content-center">
+      <h3 class="h3">@localizer[pageTitle]</h3>
+    </div>
+
+    <div class="d-flex flex-column login-input-container mb-3">
+      <input id="codeInputControl" asp-for="Code" placeholder="@localizer["UserName"]" class="login-input" type="text" required />
+      <span id="errorMessageCode" asp-validation-for="Code" class="text-danger"></span>
+      <input id="passwordInputControl" asp-for="Password" placeholder="@localizer["Password"]" class="login-input" type="password" required />
+      <span id="errorMessagePassword" asp-validation-for="Password" class="text-danger"></span>
+    </div>
+
+    <div class="d-flex justify-content-around">
+      <button class="btn btn-primary btn-login" type="submit">@localizer["login"]</button>
+    </div>
+  </form>
+</div>
+
+@section Scripts {
+  <script src="~/js/auth.js" asp-append-version="true"></script>
+}

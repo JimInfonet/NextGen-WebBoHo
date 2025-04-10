@@ -1,0 +1,142 @@
+@section Head {
+  <link href="~/css/fuelPriceChange.css" rel="stylesheet" asp-append-version="true" />
+}
+
+@inject IViewLocalizer localizer
+@inject IApplicationConfig _config
+@{
+  ViewData["Title"] = @localizer["fuelPriceChange"];
+  ViewData["showByStore"] = true;
+  ViewData["showByVendor"] = false;
+  ViewData["showByRegion"] = true;
+  ViewData["showByPrice"] = true;
+  ViewData["storeTabStoresCheckBox"] = true;
+  ViewData["fromWhere"] = "FuelPriceChange";
+}
+
+<input id="entriesSelected" type="hidden" value="@localizer["entriesSelected", "{0}", "{1}"]" />
+<input id="missingRecordsInTableForStores" type="hidden" value="@localizer["missingRecordsInTableForStores", "{0}", "{1}"]" />
+<input id="fuelPrice" type="hidden" value="@localizer["fuelPrice"]" />
+<input id="allSelectedStoresHaveToHaveSameDefinition" type="hidden" value="@localizer["allSelectedStoresHaveToHaveSameDefinition", "{0}", "{1}"]" />
+<input id="cashPriceText" type="hidden" value="@localizer["cashPrice"]" />
+<input id="creditPriceText" type="hidden" value="@localizer["creditPrice"]" />
+<input id="pleaseEnterValid" type="hidden" value="@localizer["pleaseEnterValid", "{0}"]" />
+<input id="pleaseEnterBetween" type="hidden" value="@localizer["pleaseEnterBetween", "{0}"]" />
+
+<input id="confirmPriceChange" type="hidden" value="@localizer["confirmPriceChange"]" />
+<input id="strIncrease" type="hidden" value="@localizer["strIncrease"]" />
+<input id="strDecrease" type="hidden" value="@localizer["strDecrease"]" />
+<input id="confirmPriceChangeMessage" type="hidden" value="@localizer["confirmPriceChangeMessage", "{0}", "{1}", "{2}"]" />
+
+<input id="noStoreSelected" type="hidden" value="@localizer["noStoreSelected"]" />
+<input id="transferConfirmTitle" type="hidden" value="@localizer["transferConfirmTitle"]" />
+<input id="transferConfirmMessage" type="hidden" value="@localizer["transferConfirmMessage", "{0}"]" />
+<input id="fuelPricesSaved" type="hidden" value="@localizer["fuelPricesSaved"]" />
+<input id="cashOrCreditPriceNotInRange" type="hidden" value="@localizer["cashOrCreditPriceNotInRange"]" />
+
+<input id="language" type="hidden" value="@_config.Language" />
+
+<div class="m-3 d-flex justify-content-between">
+  <h3 class="h3 fw-bold mb-3">@localizer["fuelPriceChange"]</h3>
+</div>
+
+<div class="m-3">
+  <div class="page-content px-4 h-100">
+    <div class="px-3 py-2 mt-2">
+      <div>
+        <partial name="_StoreSelectionByGroup" view-data="ViewData"></partial>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="container body-content p-3" style="max-width:3000px;">
+      <h5><strong>@localizer["changePriceBy"]</strong></h5>
+
+      <div class="p-2 mt-4 changeByPriceDiv">
+        <div id="radio-buttons-container" class="radioButtonsContainer">
+          <div class="radioButtonItem">
+            <input type="radio" name="selection" value="grade" id="gradeRadioButton" checked>
+            <label for="grade">@localizer["grade"]</label>
+          </div>
+          <div class="radioButtonItem">
+            <input type="radio" name="selection" value="tierAndLevel" id="tierAndLevelRadioButton">
+            <label for="tierAndLevel">@localizer["tierAndLevel"]</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="container custom-grid-scrollbar border-2 mt-2" style="max-width:3000px;">
+        <table id="grade-grid" class="table table-striped" style="width:100%">
+          <thead class="datatable-allignment">
+            <tr>
+              <th id="DTStockCode">@localizer["name"]</th>
+              <th id="DTTierDescription">@localizer["tier"]</th>
+              <th id="DTServiceLevelDescription">@localizer["level"]</th>
+              <th id="DTCashPrice">@localizer["cashPrice"]</th>
+              <th id="DTCreditPrice">@localizer["creditPrice"]</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="row d-flex">
+    <div class="col-xl-7 col-lg-12">
+      <div class="body-content p-3 div-height" style="max-width:3000px;">
+        <div class="d-flex justify-content-center">
+          <h5><strong>@localizer["increasePriceBy"]</strong></h5>
+        </div>
+
+        <div class="d-flex flex-column justify-content-center col">
+          <div class="row mb-3">
+            <div class="btn-group col" role="group">
+              <input type="radio" name="dollar-or-percentage" class="btn-check" id="currency-dollar" autocomplete="off" checked>
+              <label class="btn btn-outline-primary" for="currency-dollar">$</label>
+
+              <input type="radio" name="dollar-or-percentage" class="btn-check" id="currency-percentage" autocomplete="off">
+              <label class="btn btn-outline-primary" for="currency-percentage">%</label>
+            </div>
+
+            <div class="btn-group col-6" id="increase-or-decrease-wrapper" role="group">
+              <input type="radio" name="increase-or-decrease" class="btn-check" id="increase" autocomplete="off" checked>
+              <label class="btn btn-outline-primary" for="increase">+</label>
+
+              <input type="radio" name="increase-or-decrease" class="btn-check" id="decrease" autocomplete="off">
+              <label class="btn btn-outline-primary" for="decrease">-</label>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-xl-8 col-lg-9">
+              <input id="price-change-val" type="text" class="infonet-input w-100 clear-selected-input-on-keypress only-digit-decimal" maxlength="10" />
+              <span id="required-validation-for-price-change" class="text-danger">@localizer["thisFieldIsRequired"]</span>
+            </div>
+
+            <div class="col-xl-4 col-lg-3">
+              <button id="btn-apply" type="button" class="btn btn-footer btn-primary text-center align-items-center">@localizer["apply"]</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-5 col-lg-12">
+      <div class="container body-content p-3 align-items-center btn-section div-height" style="max-width:3000px;">
+        <div class="p-2 row">
+          <div class="d-flex gap-3 justify-content-center">
+            <button id="btn-transfer" type="button" class="btn btn-footer btn-primary text-center align-items-center">@localizer["transfer"]</button>
+            <button id="btn-report" type="button" class="btn btn-footer btn-primary align-items-center">@localizer["report"]</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+@section Scripts
+{
+  <script src="~/js/storeSelectionByGroup.js" asp-append-version="true"></script>
+  <script src="~/js/fuelPriceChange.js" asp-append-version="true"></script>
+}

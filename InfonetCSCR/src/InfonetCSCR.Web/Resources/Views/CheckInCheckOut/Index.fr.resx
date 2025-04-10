@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="agreementConfirmation" xml:space="preserve">
+    <value>Je, _USERNAME_ , reconnais et accepte que:
+
+1) Je ne vendrai pas de tabac à des mineurs conformément à la Loi favorisant un Ontario sans fumée.
+2) Tout manque de liquidités résultant de mon quart de travail sera déduit de mon salaire conformément à l'article 13 de la Loi de 2000 sur les normes d'emploi (Ontario) et aux politiques de retenues sur la paie et de gestion des espèces de M. Gas Limited.
+
+Acceptez-vous ces conditions ?</value>
+  </data>
+  <data name="checkIn" xml:space="preserve">
+    <value>Enregistrement</value>
+  </data>
+  <data name="checkInAndCheckOut" xml:space="preserve">
+    <value>Enregistrement et départ</value>
+  </data>
+  <data name="checkInConfirmation" xml:space="preserve">
+    <value>Êtes-vous sûr de vouloir vous enregistrer ?</value>
+  </data>
+  <data name="checkInOrOutUnsuccessfulMessage" xml:space="preserve">
+    <value>L'enregistrement ou le départ a échoué.</value>
+  </data>
+  <data name="checkInSuccessMessage" xml:space="preserve">
+    <value>Vous vous êtes enregistré. La date et l'heure d'enregistrement sont</value>
+  </data>
+  <data name="checkOut" xml:space="preserve">
+    <value>Vérifier</value>
+  </data>
+  <data name="checkOutConfirmation" xml:space="preserve">
+    <value>Êtes-vous sûr de vouloir vérifier ?</value>
+  </data>
+  <data name="commission" xml:space="preserve">
+    <value>Commission</value>
+  </data>
+  <data name="date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="dayOfWeek" xml:space="preserve">
+    <value>Jour de la semaine</value>
+  </data>
+  <data name="checkOutSuccessMessage" xml:space="preserve">
+    <value>Vous avez vérifié. Votre date et heure de départ sont</value>
+  </data>
+  <data name="edit" xml:space="preserve">
+    <value>Éditer</value>
+  </data>
+  <data name="employee" xml:space="preserve">
+    <value>Employé</value>
+  </data>
+  <data name="employeeId" xml:space="preserve">
+    <value>No. d'Employé</value>
+  </data>
+  <data name="employeeName" xml:space="preserve">
+    <value>Nom d'Employé</value>
+  </data>
+  <data name="end" xml:space="preserve">
+    <value>Fin</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>Heures</value>
+  </data>
+  <data name="in" xml:space="preserve">
+    <value>Dans</value>
+  </data>
+  <data name="comment" xml:space="preserve">
+    <value>Commentaire</value>
+  </data>
+  <data name="enterExplanationMessage" xml:space="preserve">
+    <value>Veuillez saisir une explication pour avoir travaillé plus de 10 heures.</value>
+  </data>
+  <data name="enterPayPeriodInformationMessage" xml:space="preserve">
+    <value>Veuillez saisir les informations sur la période de paie initiale dans le tableau TimesheetPayPeriod.</value>
+  </data>
+  <data name="invalidPassword" xml:space="preserve">
+    <value>Mot de passe incorrect</value>
+  </data>
+  <data name="out" xml:space="preserve">
+    <value>Dehors</value>
+  </data>
+  <data name="pageTitle" xml:space="preserve">
+    <value>Enregistrement et départ</value>
+  </data>
+  <data name="password" xml:space="preserve">
+    <value>Mot de passe</value>
+  </data>
+  <data name="payDate" xml:space="preserve">
+    <value>Date de paiement</value>
+  </data>
+  <data name="periodEnding" xml:space="preserve">
+    <value>Fin de période</value>
+  </data>
+  <data name="periodStarting" xml:space="preserve">
+    <value>Période commençant</value>
+  </data>
+  <data name="post" xml:space="preserve">
+    <value>Poste</value>
+  </data>
+  <data name="preview" xml:space="preserve">
+    <value>Aperçu</value>
+  </data>
+  <data name="prior-os" xml:space="preserve">
+    <value>Système d'exploitation antérieur</value>
+  </data>
+  <data name="shiftDate" xml:space="preserve">
+    <value>Date du quart de travail</value>
+  </data>
+  <data name="short" xml:space="preserve">
+    <value>Court</value>
+  </data>
+  <data name="start" xml:space="preserve">
+    <value>Début</value>
+  </data>
+  <data name="stat" xml:space="preserve">
+    <value>Statistique</value>
+  </data>
+  <data name="status" xml:space="preserve">
+    <value>Statut</value>
+  </data>
+  <data name="timesheetReports" xml:space="preserve">
+    <value>Rapports de feuilles de temps</value>
+  </data>
+  <data name="timesheets" xml:space="preserve">
+    <value>Feuilles de temps</value>
+  </data>
+  <data name="totalHours" xml:space="preserve">
+    <value>Heures totales</value>
+  </data>
+  <data name="totalShortages" xml:space="preserve">
+    <value>Pénuries totales</value>
+  </data>
+  <data name="train" xml:space="preserve">
+    <value>Pénuries totales</value>
+  </data>
+  <data name="uniformPurchases" xml:space="preserve">
+    <value>Achats d'uniformes</value>
+  </data>
+  <data name="userIdDoesNotExist" xml:space="preserve">
+    <value>L'identifiant de l'utilisateur n'existe pas</value>
+  </data>
+  <data name="userIdIsNotDefined" xml:space="preserve">
+    <value>L'ID utilisateur n'est pas défini pour cet utilisateur. Veuillez définir l'identifiant de l'utilisateur avant de vous connecter.</value>
+  </data>
+  <data name="userListLabel" xml:space="preserve">
+    <value>Utilisateurs actuellement enregistrés</value>
+  </data>
+  <data name="userName" xml:space="preserve">
+    <value>Nom de l'usager</value>
+  </data>
+  <data name="verified" xml:space="preserve">
+    <value>vérifié</value>
+  </data>
+  <data name="verify" xml:space="preserve">
+    <value>Vérifier</value>
+  </data>
+  <data name="viewCurrent" xml:space="preserve">
+    <value>Afficher le courant</value>
+  </data>
+  <data name="viewHistory" xml:space="preserve">
+    <value>Voir l'historique</value>
+  </data>
+  <data name="changeUser" xml:space="preserve">
+    <value>Changer d'utilisateur</value>
+  </data>
+  <data name="passwordRequired" xml:space="preserve">
+    <value>Le champ Mot de passe est obligatoire</value>
+  </data>
+  <data name="userNameRequired" xml:space="preserve">
+    <value>Le champ Nom d'utilisateur est obligatoire</value>
+  </data>
+</root>

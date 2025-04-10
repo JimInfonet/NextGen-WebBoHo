@@ -1,0 +1,456 @@
+﻿@section Head {
+  <link href="~/css/cardDefinition.css" rel="stylesheet" asp-append-version="true" />
+}
+
+@model CardDefinitionViewModel
+@inject IViewLocalizer localizer
+@inject IApplicationConfig _config
+
+@{
+  ViewData["Title"] = @localizer["creditDebitCardDefinition"];
+}
+
+<input type="hidden" id="loading" value="@localizer["loading"]" />
+<input id="pleaseUseEitherDollarOrPercentage" type="hidden" value="@localizer["pleaseUseEitherDollarOrPercentage"]" />
+<input id="error" type="hidden" value="@localizer["error"]" />
+<input id="confirmGoBackAlert" type="hidden" value="@localizer["confirmGoBackAlert"]" />
+<input id="back" type="hidden" value="@localizer["back"]" />
+<input id="pleaseEnterLowerLimit" type="hidden" value="@localizer["pleaseEnterLowerLimit"]" />
+<input id="pleaseEnterUpperLimit" type="hidden" value="@localizer["pleaseEnterUpperLimit"]" />
+<input id="cardDefinitionUpdatedSuccessfully" type="hidden" value="@localizer["cardDefinitionUpdatedSuccessfully"]" />
+<input id="suchLowerLimitAlreayExistsForThisCardCode" type="hidden" value="@localizer["suchLowerLimitAlreayExistsForThisCardCode"]" />
+<input id="anErrorOccurredWhileAddingCardNumberRanges" type="hidden" value="@localizer["anErrorOccurredWhileAddingCardNumberRanges"]" />
+<input id="areYouSureYouWantToDeleteThisRange" type="hidden" value="@localizer["areYouSureYouWantToDeleteThisRange"]" />
+<input id="deleteRange" type="hidden" value="@localizer["deleteRange"]" />
+
+<input id="addMode" type="hidden" value="@ViewData["addMode"]?.ToString()" />
+<input id="isCardTypeNull" type="hidden" value="@ViewData["isCardTypeNull"]?.ToString()" />
+<input id="fromGrid" type="hidden" value="@ViewData["fromGrid"]?.ToString()" />
+<input id="calcTdrfees" type="hidden" value="@ViewData["calcTdrfees"]?.ToString()" />
+
+<div class="m-3 d-flex justify-content-between">
+  <h3>@localizer["creditDebitCardDefinition"]</h3>
+  <button id="btnBackToCardDefinition" class="btn btn-save btn-primary mx-2 w-auto @_config.Language" onclick="goBack(true)">@localizer["goToCardDefinitionGrid"]</button>
+</div>
+
+<form asp-controller="CardDefinition" asp-action="SaveCardDefinition" class="p-3 mt-2">
+  <input asp-for="GiftType" id="giftTypeSelectFromModel" hidden />
+  <input asp-for="TendCode" hidden />
+  <div class="card-definition-form py-2 px-3">
+    @*Card Description Parameters*@
+    <div class="pt-4">
+      <div class="border-bottom mx-3">
+        <p class="form-section-title">@localizer["cardDescriptionParameters"]</p>
+      </div>
+
+      <div class="px-4">
+        <div class="row gap-3 pt-3">
+          <div class="col">
+            <label asp-for="CardCode" class="mb-2">@localizer["cardCode"]</label>
+            <input asp-for="CardCode" id="cardCode" type="text" class="infonet-input w-100 edit-mode-control" placeholder="@localizer["cardCode"]" />
+            <span asp-validation-for="CardCode" class="text-danger"></span>
+          </div>
+          <div class="col">
+            <label asp-for="Description" class="mb-2"></label>
+            <input asp-for="Description" id="description" type="text" class="infonet-input w-100 edit-mode-control" placeholder="@localizer["description"]" />
+            <span asp-validation-for="Description" class="text-danger"></span>
+          </div>
+        </div>
+
+        <div class="row gap-3 pt-3">
+          <div class="col">
+            <label asp-for="CardType" class="mb-2">@localizer["cardType"]</label>
+            <select asp-for="CardType" id="cardType-select" class="form-select col infonet-input edit-mode-control" aria-label="Select Card type" onchange="changedCardType(this.options[this.selectedIndex].value)">
+              <option value="C">C</option>
+              <option value="D">D</option>
+              <option value="F">F</option>
+              <option value="L">L</option>
+              <option value="G">G</option>
+              <option value="T">T</option>
+              <option value="K">K</option>
+            </select>
+          </div>
+          <div class="col">
+            <label class="mb-2"></label>
+            <p>@localizer["cardTypeLabels"]</p>
+          </div>
+        </div>
+
+        <div class="row gap-3 pt-3">
+          <div class="col">
+            <label asp-for="LanguageDigit" class="mb-2">@localizer["languageDigitPosition"]</label>
+            <input asp-for="LanguageDigit" id="languageDigitPosition" data-val="true" data-val-number="@localizer["pleaseEnterAValidNumber"]" type="number" class="infonet-input w-100 edit-mode-control" placeholder="@localizer["languageDigitPosition"]" />
+            <span asp-validation-for="LanguageDigit" class="text-danger"></span>
+          </div>
+          <div class="col">
+            <label class="mb-2"></label>
+            <p>@localizer["positionOfLanguageCode"]</p>
+          </div>
+        </div>
+
+        <div class="row gap-3 pt-3">
+          <div class="col">
+            <label asp-for="MinLength" class="mb-2">@localizer["minCardLength"]</label>
+            <input asp-for="MinLength" id="minCardLength" data-val="true" data-val-number="@localizer["pleaseEnterAValidNumber"]" type="number" class="infonet-input w-100 edit-mode-control" placeholder="@localizer["minCardLength"]" />
+            <span asp-validation-for="MinLength" class="text-danger"></span>
+          </div>
+          <div class="col">
+            <label asp-for="MaxLength" class="mb-2">@localizer["maxCardLength"]</label>
+            <input asp-for="MaxLength" id="maxCardLength" data-val="true" data-val-number="@localizer["pleaseEnterAValidNumber"]" type="number" class="infonet-input w-100 edit-mode-control" placeholder="@localizer["maxCardLength"]" />
+            <span asp-validation-for="MaxLength" class="text-danger"></span>
+          </div>
+        </div>
+
+        <div class="row gap-3 pt-3">
+          <div class="col">
+            <label asp-for="CheckMask" class="mb-2">@localizer["checkDigitMask"]</label>
+            <input asp-for="CheckMask" id="checkDigitMask" type="text" class="infonet-input w-100 edit-mode-control" />
+            <span asp-validation-for="CheckMask" class="text-danger"></span>
+          </div>
+          <div class="col">
+            <label class="mb-2"></label>
+            <p class="mt-3">@localizer["checkDigitMaskLabel"]</p>
+          </div>
+        </div>
+
+        <div id="fleetCardTypeSection" class="row gap-3 pt-3">
+          <div class="col">
+            <label class="mb-2">@localizer["fleetCardType"]</label>
+            <select id="giftType-select-fleet" class="form-select col infonet-input edit-mode-control" aria-label="Select Gift type" onchange="changedCardGiftType(this.options[this.selectedIndex].value)">
+              <option value=""></option>
+              <option value="W">W</option>
+              <option value="F">F</option>
+              <option value="P">P</option>
+            </select>
+          </div>
+          <div class="col">
+            <label class="mb-2"></label>
+            <p class="mt-3">@localizer["fleetCardTypeLabel"]</p>
+          </div>
+        </div>
+
+        <div id="ackrooCardTypeSection" class="row gap-3 pt-3">
+          <div class="col">
+            <label class="mb-2">@localizer["ackrooCardType"]</label>
+            <select id="giftType-select-ackroo" class="form-select col infonet-input edit-mode-control" aria-label="Select Gift type" onchange="changedCardGiftType(this.options[this.selectedIndex].value)">
+              <option value=""></option>
+              <option value="A">A</option>
+            </select>
+          </div>
+          <div class="col">
+            <label class="mb-2"></label>
+            <p class="mt-3">@localizer["ackrooCardTypeLabel"]</p>
+          </div>
+        </div>
+
+        <div id="giftCardTypeSection" class="row gap-3 pt-3">
+          <div class="col">
+            <label class="mb-2">@localizer["giftCardType"]</label>
+            <select id="giftType-select-gift" class="form-select col infonet-input edit-mode-control" aria-label="Select Gift type" onchange="changedCardGiftType(this.options[this.selectedIndex].value)">
+              <option value="G">G</option>
+              <option value="A">A</option>
+              <option value="C">C</option>
+              <option value="F">F</option>
+            </select>
+          </div>
+          <div class="col">
+            <label class="mb-2"></label>
+            <p class="mt-3">@localizer["giftTypeLabel"]</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    @*Card Attributes*@
+    <div class="mt-5">
+      <div class="border-bottom mx-3">
+        <p class="form-section-title">@localizer["cardAttributes"]</p>
+      </div>
+
+      <div class="px-4">
+        <div class="row gap-3 pt-3">
+          <div class="col">
+            <div class="form-check mt-2">
+              <input asp-for="CallCheckBox" class="form-check-input edit-mode-control" type="checkbox" id="callTheBank">
+              <label class="form-check-label ms-1" for="callTheBank">
+                @localizer["callTheBank"]
+              </label>
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-check mt-2">
+              <input asp-for="RefundAllowedCheckBox" class="form-check-input edit-mode-control" type="checkbox" id="allowRefund">
+              <label class="form-check-label ms-1" for="allowRefund">
+                @localizer["allowRefund"]
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row gap-3 pt-3">
+          <div class="col">
+            <div class="form-check mt-2">
+              <input asp-for="SignatureCheckBox" class="form-check-input edit-mode-control" type="checkbox" id="printSignatureLine">
+              <label class="form-check-label ms-1" for="printSignatureLine">
+                @localizer["printSignatureLine"]
+              </label>
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-check mt-2">
+              <input asp-for="AllowPayPumpCheckBox" class="form-check-input edit-mode-control" type="checkbox" id="allowPayPump">
+              <label class="form-check-label ms-1" for="allowPayPump">
+                @localizer["allowPayPump"]
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row gap-3 pt-3">
+          <div class="col">
+            <div class="form-check mt-2">
+              <input asp-for="LimitToSaleCheckBox" class="form-check-input edit-mode-control" type="checkbox" id="limitToSaleAmount">
+              <label class="form-check-label ms-1" for="limitToSaleAmount">
+                @localizer["limitToSaleAmount"]
+              </label>
+            </div>
+          </div>
+          <div id="cardProductRestictionSection" class="col">
+            <div class="d-flex justify-content-between">
+              <div class="form-check mt-2">
+                <input id="productRestriction" asp-for="CardProductRestrictCheckBox" class="form-check-input edit-mode-control" type="checkbox">
+                <label class="form-check-label ms-1" for="productRestriction">
+                  @localizer["productRestriction"]
+                </label>
+              </div>
+              <button id="productRestrictionButton" type="button" class="btn btn-primary mx-2 w-auto edit-mode-control">@localizer["productRestriction"]</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="row gap-3 pt-3">
+          <div class="col">
+            <label asp-for="BankCardID" class="mb-2">@localizer["bankCardID"]</label>
+            <input asp-for="BankCardID" id="bankCardID" type="text" class="infonet-input w-100 edit-mode-control" />
+            <span asp-validation-for="BankCardID" class="text-danger"></span>
+          </div>
+          <div class="col">
+            <label asp-for="FloorLimit" class="mb-2">@localizer["floorLimit"]</label>
+            <input asp-for="FloorLimit" id="floorLimit" data-val="true" data-val-number="@localizer["pleaseEnterAValidNumber"]" type="number" class="infonet-input w-100 edit-mode-control" placeholder="@localizer["floorLimit"]" />
+            <span asp-validation-for="FloorLimit" class="text-danger"></span>
+          </div>
+        </div>
+
+        <div class="row gap-3 pt-3">
+          <div class="col">
+            <label asp-for="PurchaseLimit" class="mb-2">@localizer["pourchaseLimit"]</label>
+            <input asp-for="PurchaseLimit" id="pourchaseLimit" data-val="true" data-val-number="@localizer["pleaseEnterAValidNumber"]" type="number" class="infonet-input w-100 edit-mode-control" placeholder="@localizer["pourchaseLimit"]" />
+            <span asp-validation-for="PurchaseLimit" class="text-danger"></span>
+          </div>
+          <div class="col">
+            <label asp-for="MaxCashBack" class="mb-2">@localizer["maxCashBack"]</label>
+            <input asp-for="MaxCashBack" id="maxCashBack" data-val="true" data-val-number="@localizer["pleaseEnterAValidNumber"]" type="number" class="infonet-input w-100 edit-mode-control" placeholder="@localizer["maxCashBack"]" />
+            <span asp-validation-for="MaxCashBack" class="text-danger"></span>
+          </div>
+        </div>
+
+        @if (ViewData["calcTdrfees"]?.ToString().ToLower() == "true")
+        {
+          <input asp-for="DiscountRate" hidden />
+          <input asp-for="DiscountType" hidden />
+          <div class="row gap-3 pt-3">
+            <div class="col">
+              <label asp-for="TransactionFeeAmount" class="mb-2">@localizer["transactionFee$"]</label>
+              <input asp-for="TransactionFeeAmount" id="transactionFee" data-val="true" data-val-number="@localizer["pleaseEnterAValidNumber"]" type="number" class="infonet-input w-100 edit-mode-control" placeholder="@localizer["transactionFee$"]" />
+              <span asp-validation-for="TransactionFeeAmount" class="text-danger"></span>
+            </div>
+            <div class="col">
+              <label asp-for="TransactionFeePercentage" class="mb-2">@localizer["creditFee%"]</label>
+              <input asp-for="TransactionFeePercentage" id="creditFee" data-val="true" data-val-number="@localizer["pleaseEnterAValidNumber"]" type="number" class="infonet-input w-100 edit-mode-control" placeholder="@localizer["creditFee%"]" />
+              <span asp-validation-for="TransactionFeePercentage" class="text-danger"></span>
+            </div>
+          </div>
+        }
+        else
+        {
+          <input asp-for="TransactionFeeAmount" hidden />
+          <input asp-for="TransactionFeePercentage" hidden />
+          <div class="row gap-3 pt-3">
+            <div class="col">
+              <label asp-for="DiscountRate" class="mb-2">@localizer["discRate"]</label>
+              <input asp-for="DiscountRate" id="discountRate" data-val="true" data-val-number="@localizer["pleaseEnterAValidNumber"]" type="number" class="infonet-input w-100 edit-mode-control" placeholder="@localizer["discRate"]" />
+              <span asp-validation-for="DiscountRate" class="text-danger"></span>
+            </div>
+            <div class="col">
+              <label asp-for="DiscountType" class="mb-2">@localizer["discType"]</label>
+              <input asp-for="DiscountType" id="discountType" type="text" class="infonet-input w-100 edit-mode-control" placeholder="@localizer["discType"]" />
+            </div>
+          </div>
+        }
+
+        <div class="row gap-3 pt-3">
+          <div class="col">
+            <label asp-for="PrintCopies" class="mb-2">@localizer["printCopies"]</label>
+            <input asp-for="PrintCopies" id="printCopies" type="number" data-val="true" data-val-number="@localizer["pleaseEnterAValidNumber"]" class="infonet-input w-100 edit-mode-control" placeholder="@localizer["printCopies"]" />
+            <span asp-validation-for="PrintCopies" class="text-danger"></span>
+          </div>
+          <div class="col">
+            <label asp-for="ReceiptTotalText" class="mb-2">@localizer["receiptText"]</label>
+            <input asp-for="ReceiptTotalText" id="receiptText" type="text" class="infonet-input w-100 edit-mode-control" />
+          </div>
+        </div>
+
+        <div class="row gap-3 pt-3">
+          <div id="optionalDataProfileIDSection" class="col">
+            <label asp-for="OptionalDataProfilID" class="mb-2">@localizer["optionalDataProfileID"]</label>
+            <div class="wrapper">
+              <input id="optionalDataProfilIDValue" asp-for="OptionalDataProfilID" type="text" class="editable-option-input infonet-input edit-mode-control" />
+              <select id="optionalDataProfile-select" class="profile-id-select form-select infonet-input col edit-mode-control" onchange="changedOptDataPrfileSelect(this.options[this.selectedIndex].value)" aria-label="Select Opt Data Profile ID">
+                @if (ViewData["optionalProfileIDs"] != null)
+                {
+                  if ((ViewData["optionalProfileIDs"] as List<string>)?.Count == 0)
+                  {
+                    <option value=""></option>
+                  }
+                  else
+                  {
+                    <option hidden value=""></option>
+                  }
+                  @foreach (string item in ViewData["optionalProfileIDs"] as List<string>)
+                  {
+                    <option value="@item">@item</option>
+                  }
+                }
+              </select>
+            </div>
+          </div>
+          <div class="col"></div>
+        </div>
+      </div>
+    </div>
+
+    @*Yes/No Options*@
+    <div class="my-5">
+      <div class="border-bottom mx-3">
+        <p class="form-section-title">@localizer["yesNoOptions"]</p>
+      </div>
+
+      <div class="px-4">
+        <div class="form-check mt-2">
+          <input asp-for="VerifyCheckDigitCheckBox" class="form-check-input edit-mode-control" type="checkbox" id="verifyTheCheckDigit">
+          <label class="form-check-label ms-1" for="verifyTheCheckDigit">
+            @localizer["verifyTheCheckDigit"]
+          </label>
+        </div>
+        <div class="form-check mt-2">
+          <input asp-for="EncodeCheckBox" class="form-check-input edit-mode-control" type="checkbox" id="verifyTheLast4Digits">
+          <label class="form-check-label ms-1" for="verifyTheLast4Digits">
+            @localizer["verifyTheLast4Digits"]
+          </label>
+        </div>
+        <div class="form-check mt-2">
+          <input asp-for="NegativeCheckBox" class="form-check-input edit-mode-control" type="checkbox" id="verifyUsingNegativeCardFile">
+          <label class="form-check-label ms-1" for="verifyUsingNegativeCardFile">
+            @localizer["verifyUsingNegativeCardFile"]
+          </label>
+        </div>
+        <div class="form-check mt-2">
+          <input asp-for="PositiveCheckBox" class="form-check-input edit-mode-control" type="checkbox" id="verifyUsingPositiveCardFile">
+          <label class="form-check-label ms-1" for="verifyUsingPositiveCardFile">
+            @localizer["verifyUsingPositiveCardFile"]
+          </label>
+        </div>
+        <div class="form-check mt-2">
+          <input asp-for="ExpiryCheckBox" class="form-check-input edit-mode-control" type="checkbox" id="checkExpiryDate">
+          <label class="form-check-label ms-1" for="checkExpiryDate">
+            @localizer["checkExpiryDate"]
+          </label>
+        </div>
+        <div class="form-check mt-2">
+          <input asp-for="AllowPaymentCheckBox" class="form-check-input edit-mode-control" type="checkbox" id="allowPayments">
+          <label class="form-check-label ms-1" for="allowPayments">
+            @localizer["allowPayments"]
+          </label>
+        </div>
+        <div class="form-check mt-2">
+          <input asp-for="EncryptCardNumberCheckBox" id="encryptCardNumberModel" hidden type="checkbox">
+          <input id="encryptCardNumber" class="form-check-input edit-mode-control" onchange="encryptCardNumberChanged()" type="checkbox">
+          <label class="form-check-label ms-1" for="encryptCardNumber">
+            @localizer["encryptCardNumber"]
+          </label>
+        </div>
+        <div class="form-check mt-2">
+          <input asp-for="VerifyCardNumberCheckBox" class="form-check-input edit-mode-control" type="checkbox" id="verifyCustomerCardNumber">
+          <label class="form-check-label ms-1" for="verifyCustomerCardNumber">
+            @localizer["verifyCustomerCardNumber"]
+          </label>
+        </div>
+      </div>
+    </div>
+
+    @*Card Number Ranges*@
+    <div>
+      <div class="border-bottom mx-3">
+        <p class="form-section-title">@localizer["cardNumberRanges"]</p>
+      </div>
+
+      <div class="m-3 px-4 body-content py-2">
+        <div class="p-2 border-2 custom-table-height overflow-auto custom-grid-scrollbar pt-2">
+          <table id="cardCodes-grid" class="table table-striped table-bordered edit-mode-control" style="width:100%">
+            <thead>
+              <tr>
+                <th id="DTLowerLimit">@localizer["from"]</th>
+                <th id="DTUpperLimit">@localizer["to"]</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+
+        <div class="d-flex justify-content-start my-3">
+          <button type="button" class="btn btn-save btn-primary mx-2 edit-mode-control" onclick="showAddCardCodeModal()">@localizer["add"]</button>
+          <button type="button" id="cardRangeDeleteButton" class="btn btn-back btn-danger float-end mx-4 edit-mode-control" onclick="deleteCardCode()">@localizer["delete"]</button>
+        </div>
+      </div>
+    </div>
+    <input type="hidden" id="originalData" value="@Json.Serialize(Model).ToString()" />
+
+    <div>
+      <div class="m-3 d-flex justify-content-end">
+        <button id="btn-cancel" onclick="cancelButtonClicked()" type="button" class="btn btn-cancel btn-outline-danger align-content-center">@localizer["cancel"]</button>
+        <button id="btn-save" type="submit" class="btn btn-save btn-primary ms-2">@localizer["save"]</button>
+        <button id="btn-edit" onclick="editModeOn()" type="button" class="btn btn-save btn-primary mx-2">@localizer["edit"]</button>
+      </div>
+    </div>
+  </div>
+</form>
+
+<button id="btn-back" onclick="goBack(false)" type="button" class="btn btn-back btn-danger float-end mx-4">@localizer["back"]</button>
+
+<div class="modal fade" id="addCardCodes" tabindex="-1" aria-labelledby="addCardCodesModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div>
+          <div>
+            <label class="mb-2">@localizer["from"]</label>
+            <input id="fromRange" type="text" class="infonet-input w-100" maxlength="20" />
+          </div>
+          <div>
+            <label class="mb-2">@localizer["to"]</label>
+            <input id="toRange" type="text" class="infonet-input w-100" maxlength="20" />
+          </div>
+
+          <div class="modal-footer d-flex justify-content-center align-content-center gap-3">
+            <button type="button" onclick="addCardRange()" class="btn btn-primary btn-sm btn-save"><span class="btn-save-text">@localizer["complete"]</span></button>
+            <button type="button" class="btn btn-cancel btn-outline-danger align-content-center" onclick="cardRangeCancelButtonClicked()" data-bs-dismiss="modal">@localizer["cancel"]</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+@section Scripts
+{
+  <script src="~/js/cardDefinition.js" asp-append-version="true"></script>
+}

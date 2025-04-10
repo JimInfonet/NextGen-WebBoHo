@@ -1,0 +1,42 @@
+﻿@inject IViewLocalizer localizer
+
+<div class="row border border-2 m-2 overflow-auto" id="stockItemReportTabQuantityGrid">
+  <div class="fw-bold">@localizer["quantity"]</div>
+  <div class="border border-1 d-flex flex-row tableHeader">
+    <label class="col text-end">@localizer["year"]</label>
+    <label class="col text-end">Jan</label>
+    <label class="col text-end">Feb</label>
+    <label class="col text-end">Mar</label>
+    <label class="col text-end">Apr</label>
+    <label class="col text-end">May</label>
+    <label class="col text-end">Jun</label>
+    <label class="col text-end">Jul</label>
+    <label class="col text-end">Aug</label>
+    <label class="col text-end">Sep</label>
+    <label class="col text-end">Oct</label>
+    <label class="col text-end">Nov</label>
+    <label class="col text-end">Dec</label>
+    <label class="col text-end">@localizer["total"]</label>
+  </div>
+
+  @foreach (var element in ViewData["QuantityViewData"] as List<StockItemReportQuantityViewModel>)
+  {
+    <div class="border border-1 d-flex flex-row tableData">
+      <label class="col text-end">@element.Year</label>
+      <label class="col text-end" onclick="ShowDetails('@element.Year','1','@ViewData["methodName"]')">@element.QtyJan</label>
+      <label class="col text-end" onclick="ShowDetails('@element.Year','2','@ViewData["methodName"]')">@element.QtyFeb</label>
+      <label class="col text-end" onclick="ShowDetails('@element.Year','3','@ViewData["methodName"]')">@element.QtyMar</label>
+      <label class="col text-end" onclick="ShowDetails('@element.Year','4','@ViewData["methodName"]')">@element.QtyApr</label>
+      <label class="col text-end" onclick="ShowDetails('@element.Year','5','@ViewData["methodName"]')">@element.QtyMay</label>
+      <label class="col text-end" onclick="ShowDetails('@element.Year','6','@ViewData["methodName"]')">@element.QtyJun</label>
+      <label class="col text-end" onclick="ShowDetails('@element.Year','7','@ViewData["methodName"]')">@element.QtyJul</label>
+      <label class="col text-end" onclick="ShowDetails('@element.Year','8','@ViewData["methodName"]')">@element.QtyAug</label>
+      <label class="col text-end" onclick="ShowDetails('@element.Year','9','@ViewData["methodName"]')">@element.QtySep</label>
+      <label class="col text-end" onclick="ShowDetails('@element.Year','10','@ViewData["methodName"]')">@element.QtyOct</label>
+      <label class="col text-end" onclick="ShowDetails('@element.Year','11','@ViewData["methodName"]')">@element.QtyNov</label>
+      <label class="col text-end" onclick="ShowDetails('@element.Year','12','@ViewData["methodName"]')">@element.QtyDec</label>
+      <label class="col text-end">@element.QtyTotal</label>
+    </div>
+  }
+</div>
+

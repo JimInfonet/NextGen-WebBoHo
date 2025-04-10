@@ -1,0 +1,87 @@
+﻿@section Head {
+  <link href="~/css/tenders.css" rel="stylesheet" asp-append-version="true" />
+}
+
+@model TenderViewModel
+@inject IApplicationConfig _config
+@inject IViewLocalizer localizer
+@{
+  ViewData["Title"] = @localizer["pageTitle"];
+}
+
+<input id="emptyMessage" type="hidden" value="@localizer["emptyMessage"]" />
+<input id="loading" type="hidden" value="@localizer["loading"]" />
+<input id="detailsFor" type="hidden" value="@localizer["detailsFor"]" />
+<input id="failedToAddTender" type="hidden" value="@localizer["failedToAddTender"]" />
+<input id="tenderCodeAlreadyExists" type="hidden" value="@localizer["tenderCodeAlreadyExists"]" />
+<input id="fullNameAlreadyExists" type="hidden" value="@localizer["fullNameAlreadyExists"]" />
+<input id="failedToLoadTenderClasses" type="hidden" value="@localizer["failedToLoadTenderClasses"]" />
+<input id="anErrorHasOccuredWhileLoadingTenderClasses" type="hidden" value="@localizer["anErrorHasOccuredWhileLoadingTenderClasses"]" />
+
+<input id="isTenderAdded" hidden value="@ViewData["isTenderAdded"]" />
+<input id="isTenderCodeExist" hidden value="@ViewData["isTenderCodeExist"]" />
+<input id="isFullNameExist" hidden value="@ViewData["isFullNameExist"]" />
+
+<form class="p-3 mt-2" asp-controller="Tenders" asp-action="AddTender" id="tendersForm">
+  <div class="p-2">
+    <div class="d-flex justify-content-between">
+      <h3 class="h3 fw-bold mb-3">@localizer["pageTitle"]</h3>
+    </div>
+
+    <div class="body-content p-2">
+      @*Add Section*@
+      <div class="mt-3 col" id="addTenders">
+        <div class="row m-3 row">
+          <div class="row gap-3 pt-3">
+            <div class="col">
+              <label asp-for="Code" class="mb-2">@localizer["code"]</label>
+              <input asp-for="Code" id="tendCode" type="text" class="col infonet-input stock-item-form-input w-100" />
+              <span asp-validation-for="Code" class="text-danger"></span>
+            </div>
+            <div class="col">
+              <label asp-for="ShortName" class="mb-2">@localizer["shortName"]</label>
+              <input asp-for="ShortName" type="text" id="shortName" class="col infonet-input stock-item-form-input w-100" />
+              <span asp-validation-for="ShortName" class="text-danger"></span>
+            </div>
+            <div class="col">
+              <label asp-for="FullName" class="mb-2">@localizer["fullName"]</label>
+              <input asp-for="FullName" type="text" id="fullName" class="col infonet-input stock-item-form-input w-100" />
+              <span asp-validation-for="FullName" class="text-danger"></span>
+            </div>
+          </div>
+
+          <div class="row gap-3 pt-3">
+            <div class="col">
+              <label class="form-check-label mt-1" for="tendClass" id="class">@localizer["class"]</label>
+              <select asp-for="Class" id="tendClass" class="form-select infonet-input stock-item-form-input w-100" aria-label="Select">
+                <option value="">@localizer["select"]</option>
+              </select>
+              <span asp-validation-for="Class" class="text-danger"></span>
+            </div>
+            <div class="col">
+              <label asp-for="ExchangeRate" class="mb-2">@localizer["exchangeRate"]</label>
+              <input asp-for="ExchangeRate" type="number" data-val="true" data-val-number="@localizer["pleaseEnterAValidNumber"]" id="exchangeRate" class="col infonet-input stock-item-form-input w-100" onkeydown="return event.keyCode !== 69" />
+              <span asp-validation-for="ExchangeRate" class="text-danger"></span>
+            </div>
+            <div class="col">
+              <label asp-for="Sequence" class="mb-2">@localizer["sequence"]</label>
+              <input asp-for="Sequence" type="number" data-val="true" data-val-number="@localizer["pleaseEnterAValidNumber"]" id="sequence" class="col infonet-input stock-item-form-input w-100" />
+              <span asp-validation-for="Sequence" class="text-danger"></span>
+            </div>
+          </div>
+
+          <div class="row pt-3 text-end">
+            <div class="mt-4 d-flex col">
+              <button id="btn-complete" type="submit" class="btn btn-footer btn-primary text-center me-2">@localizer["complete"]</button>
+              <button id="btn-cancel" type="button" class="btn btn-footer btn-danger text-center ms-2">@localizer["cancel"]</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+@section Scripts
+  {
+  <script src="~/js/tenderForm.js" asp-append-version="true"></script>
+}

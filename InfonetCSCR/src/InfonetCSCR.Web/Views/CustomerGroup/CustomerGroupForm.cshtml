@@ -1,0 +1,154 @@
+﻿@section Head {
+  <link href="~/css/cardDefinitionGrid.css" rel="stylesheet" asp-append-version="true" />
+  <link href="~/css/customerGroup.css" rel="stylesheet" asp-append-version="true" />
+}
+
+@model CustomerGroupViewModel
+@inject IViewLocalizer localizer
+
+@{
+  bool custMem = ViewData["CUST_MEM"]?.ToString() == "Customer";
+  bool cashBonus = (bool)ViewData["CASHBONUS"];
+  bool isUpdate = (bool)ViewData["isUpdate"];
+
+  ViewData["Title"] = custMem ? localizer["customerGroupForm"] : localizer["memberGroupForm"];
+}
+
+<input id="isUpdate" type="hidden" value="@ViewData["isUpdate"]" />
+<input id="pleaseEnterANumber" type="hidden" value="@localizer["pleaseEnterANumber"]" />
+<input id="cashBonusQuantityLimitExceed" type="hidden" value="@localizer["cashBonusQuantityLimitExceed"]" />
+<input id="cashBonusPriceLimitExceed" type="hidden" value="@localizer["cashBonusPriceLimitExceed"]" />
+<input id="discountChartPriceLimitExceed" type="hidden" value="@localizer["discountChartPriceLimitExceed"]" />
+<input id="customerGroupAlreadyExists" type="hidden" value="@localizer["customerGroupAlreadyExists"]" />
+<input id="alreadyExists" type="hidden" value="@localizer["alreadyExists"]" />
+<input id="group" type="hidden" value="@localizer["group"]" />
+<input id="memberGroupAlreadyExists" type="hidden" value="@localizer["memberGroupAlreadyExists"]" />
+<input id="IsCustomerGroupAlreadyExists" hidden value='@(ViewData["IsCustomerGroupAlreadyExists"] != null ? "true" : "false")' />
+<input id="CUST_MEM" type="hidden" value="@ViewData["CUST_MEM"]" />
+<input id="anErrorHasOccurredWhileLoadingCashBonusData" type="hidden" value="@localizer["anErrorHasOccurredWhileLoadingCashBonusData"]" />
+<input id="anErrorHasOccurredWhileLoadingDiscountChartData" type="hidden" value="@localizer["anErrorHasOccurredWhileLoadingDiscountChartData"]" />
+<input id="cashBonusRateIsRequired" type="hidden" value="@localizer["cashBonusRateIsRequired"]" />
+<input id="cashBonusQuantityIsRequired" type="hidden" value="@localizer["cashBonusQuantityIsRequired"]" />
+<input id="customerGroupCreatedSuccessfully" type="hidden" value="@localizer["customerGroupCreatedSuccessfully"]" />
+<input id="customerGroupUpdatedSuccessfully" type="hidden" value="@localizer["customerGroupUpdatedSuccessfully"]" />
+<input id="memberGroupCreatedSuccessfully" type="hidden" value="@localizer["memberGroupCreatedSuccessfully"]" />
+<input id="memberGroupUpdatedSuccessfully" type="hidden" value="@localizer["memberGroupUpdatedSuccessfully"]" />
+<input id="customerGroupCopiedSuccessfully" type="hidden" value="@localizer["customerGroupCopiedSuccessfully"]" />
+<input id="memberGroupCopiedSuccessfully" type="hidden" value="@localizer["memberGroupCopiedSuccessfully"]" />
+
+<form class="p-3 mt-2" asp-controller="CustomerGroup" asp-action="SaveCustomerGroup" id="saveCustomerGroupForm">
+  <div class="p-2">
+    <div class="d-flex justify-content-between">
+      <h3 class="h3 fw-bold mb-3">@(custMem ? localizer["customerGroupForm"] : localizer["memberGroupForm"])</h3>
+    </div>
+
+    <div class="body-content p-2">
+      <div class="mt-3 col">
+        <div class="row m-3">
+          <div class="row gap-3 pt-3">
+            <div class="col">
+              <label asp-for="GroupID" class="mb-2">@localizer["groupID"]</label>
+              <input asp-for="GroupID" type="text" class="col infonet-input w-100 not-editable clear-selected-input-on-keypress" maxlength="10" required onkeydown="return event.key != 'Enter';" />
+              <span asp-validation-for="GroupID" class="text-danger"></span>
+            </div>
+            <div class="col">
+              <label asp-for="GroupName" class="mb-2">@localizer["groupName"]</label>
+              <input asp-for="GroupName" type="text" class="col infonet-input w-100 clear-selected-input-on-keypress edit-mode-control" maxlength="30" onkeydown="return event.key != 'Enter';" />
+              <span asp-validation-for="GroupName" class="text-danger"></span>
+            </div>
+          </div>
+
+          <div class="row gap-3 pt-3">
+            <div class="col">
+              <label class="form-check-label mb-2" for="DiscountType">@localizer["discountType"]</label>
+              <select asp-for="DiscountType" class="form-select infonet-input w-100 edit-mode-control" aria-label="Select">
+                <option value="%" selected>@localizer["percentage"]</option>
+                <option value="$">@localizer["dollar"]</option>
+                <option value="C">@localizer["coupon"]</option>
+                @{
+                  if (cashBonus)
+                  {
+                    <option value="B">@localizer["cashBonus"]</option>
+                  }
+                }
+                <option value="D">@localizer["discountChart"]</option>
+
+              </select>
+              <span asp-validation-for="DiscountType" class="text-danger"></span>
+            </div>
+            <div class="col">
+              <label asp-for="LoyaltyFooter" class="mb-2">@localizer["loyaltyFooter"]</label>
+              <textarea asp-for="LoyaltyFooter" class="col infonet-input w-100 edit-mode-control" type="text" required></textarea>
+              <span asp-validation-for="LoyaltyFooter" class="text-danger"></span>
+            </div>
+          </div>
+
+          <div class="row gap-3 pt-3">
+            <div class="col display-none" id="discount-name-container">
+              <div>
+                <label asp-for="DiscountName" class="mb-2">@localizer["discountName"]</label>
+                <input asp-for="DiscountName" type="text" class="col infonet-input w-100 clear-selected-input-on-keypress edit-mode-control" maxlength="30" />
+                <span asp-validation-for="DiscountName" class="text-danger"></span>
+              </div>
+            </div>
+            <div class="col">
+              <div id="discountRate">
+                <label asp-for="DiscountRate" class="mb-2">@localizer["discountRate"]</label>
+                <input asp-for="DiscountRate" type="number" data-val="true" data-val-number="@localizer["discountRateMustBeANumber"]" class="col infonet-input w-100 edit-mode-control" />
+                <span asp-validation-for="DiscountRate" class="text-danger"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row gap-3 pt-3 display-none" id="cash-bonus-grid">
+            <div class="border-bottom">
+              <p class="form-section-title">@localizer["cashBonusChart"]</p>
+            </div>
+            <div class="container overflow-scroll custom-grid-scrollbar border-2 max-width-3000">
+              <table id="cash-bonus-table" class="table table-striped">
+                <thead>
+                  <tr>
+                    <th width="15%">@localizer["type"]</th>
+                    <th width="35%">@localizer["liters"]</th>
+                    <th width="35%">@localizer["cashBonusColumnName"]</th>
+                    <th width="15%">
+                      <div class="d-flex justify-content-center">
+                        <button class="btn btn-sm btn-outline-success edit-mode-control" id="btn-add-new-row">
+                          +
+                        </button>
+                      </div>
+                    </th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+          </div>
+
+          <div class="row gap-3 pt-3 display-none" id="discount-chart-table-container">
+            <div class="border-bottom">
+              <p class="form-section-title">@localizer["discountChartTableTitle"]</p>
+            </div>
+            <div class="container overflow-scroll custom-grid-scrollbar border-2 max-width-3000 mt-3">
+              <table id="discount-chart-table" class="table table-striped">
+              </table>
+            </div>
+          </div>
+
+          <div class="row pt-3 text-end">
+            <div class="mt-4 d-flex justify-content-end col">
+              <button id="btn-cancel" onclick="cancelButtonClicked()" type="button" class="btn btn-footer btn-outline-danger text-center me-3 display-none">@localizer["cancel"]</button>
+              <button id="btn-complete" type="submit" class="btn btn-footer btn-primary text-center me-2">@localizer["complete"]</button>
+              <button id="btn-edit" onclick="setEditMode(true)" type="button" class="btn btn-footer btn-primary text-center me-2 display-none">@localizer["edit"]</button>
+              <button id="btn-back" type="button" class="btn btn-footer btn-outline-danger text-center ms-2">@localizer["back"]</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+@section Scripts
+  {
+  <script src="~/js/CustomerGroup/customerGroupForm.js" asp-append-version="true"></script>
+  }

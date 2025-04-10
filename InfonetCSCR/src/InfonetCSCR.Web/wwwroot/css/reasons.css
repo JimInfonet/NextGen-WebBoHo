@@ -1,0 +1,17 @@
+﻿td {
+    overflow-wrap: break-word;
+    max-width: 20px;
+}
+
+.body-content {
+  padding-top: 1rem;
+}
+
+@media (max-width: 1400px) {
+  .btn {
+    min-width: 100px;
+  }
+  .policySettingContainer{
+    font-size: 14px; 
+  }
+}

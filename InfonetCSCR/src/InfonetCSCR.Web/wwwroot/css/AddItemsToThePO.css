@@ -1,0 +1,21 @@
+﻿.dataTables_scrollHeadInner,
+.dataTables_scrollFootInner {
+  width: auto !important;
+}
+
+.dataTables_scrollHeadInner table,
+.dataTables_scrollFootInner table {
+  width: 100% !important;
+}
+
+.dataTables_scrollHeadInner table th.w-10 {
+  width: 8.8% !important;
+}
+
+.dataTables_scrollHeadInner table th.w-15 {
+  width: 14% !important;
+}
+
+.dataTables_scrollHeadInner table th.w-45 {
+  width: 45% !important;
+}

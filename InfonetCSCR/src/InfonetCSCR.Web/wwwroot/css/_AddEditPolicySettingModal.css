@@ -1,0 +1,28 @@
+﻿
+.policy-by-class-modal.reduced {
+  max-width: 30% !important;
+}
+
+.policy-by-class-modal.expanded {
+  max-width: 60% !important;
+}
+
+@media (min-width: 1366px) and (max-width: 1400px) {
+  .policy-by-class-modal.reduced {
+    max-width: 40% !important;
+  }
+
+  .policy-by-class-modal.expanded {
+    max-width: 80% !important;
+  }
+}
+
+@media (max-width: 1200px) {
+  .policy-by-class-modal.reduced {
+    max-width: 60% !important;
+  }
+
+  .policy-by-class-modal.expanded {
+    max-width: 90% !important;
+  }
+}

@@ -1,0 +1,154 @@
+﻿@section Head {
+  <link href="~/css/timesheetReports.css" rel="stylesheet" asp-append-version="true" />
+}
+
+@inject IApplicationConfig _config
+@inject IViewLocalizer localizer
+@inject IHttpContextAccessor httpContextAccessor
+@{
+  ViewData["Title"] = @localizer["pageTitle"];
+}
+
+<input id="_edit" type="hidden" value="@localizer["edit"]" />
+<input id="_done" type="hidden" value="@localizer["done"]" />
+<input id="_valueOutOfRangeErrorMessage" type="hidden" value="@localizer["valueOutOfRangeErrorMessage"]" />
+<input id="_post" type="hidden" value="@localizer["post"]" />
+<input id="_payPeriodPostConfirmation" type="hidden" value="@localizer["payPeriodPostConfirmation"]" />
+<input id="_missingCheckOutsWarning" type="hidden" value="@localizer["missingCheckOutsWarning"]" />
+<input id="_activePayPeriodWarning" type="hidden" value="@localizer["activePayPeriodWarning"]" />
+<input id="_enterExplanationWarning" type="hidden" value="@localizer["enterExplanationWarning"]" />
+<input id="_payPeriodPostingSuccessMessage" type="hidden" value="@localizer["payPeriodPostingSuccessMessage"]" />
+<input id="_errorPosting" type="hidden" value="@localizer["errorPosting"]" />
+<input id="_noRightsToEditCheckInOutTimeMessage" type="hidden" value="@localizer["noRightsToEditCheckInOutTimeMessage"]" />
+<input id="_exportFolderPath" type="hidden" value="@_config.FileConfig.TimesheetPayPeriodPYFileExportFolderPath.ToString()" />
+<input id="language" type="hidden" value="@_config.Language" />
+
+<div class="px-3 py-2 mt-2">
+  <div class="d-flex justify-content-between px-1 px-xl-3">
+    <h3 class="h3 fw-bold">@localizer["timesheetReports"]</h3>
+  </div>
+
+  <div class="page-content p-1 p-xl-3 px-2 px-xl-3 h-100">
+    <div class="d-flex row">
+      <div class="col-8" id="table--employee-list__wrapper">
+        <table class="table table-striped" id="table--employee-list">
+          <thead>
+            <tr>
+              <th width="35%" scope="col">@localizer["employee"]</th>
+              <th width="25%" scope="col">@localizer["start"]</th>
+              <th width="25%" scope="col">@localizer["end"]</th>
+              <th width="15%" scope="col">@localizer["status"]</th>
+            </tr>
+          </thead>
+          <tbody id="table--employee-list__body">
+          </tbody>
+        </table>
+      </div>
+      <div class="col-4 mt-3" id="employee-details__wrapper">
+        <div class="d-flex flex-column">
+          <dl class="col">
+            <div class="row">
+              <dt>@localizer["employeeId"]</dt>
+              <dd id="details--employee-id"></dd>
+            </div>
+
+            <div class="row">
+              <dt>@localizer["employeeName"]</dt>
+              <dd id="details--employee-name"></dd>
+            </div>
+          </dl>
+          <dl class="col mt-3">
+            <div class="row">
+              <dt>@localizer["payDate"]</dt>
+              <dd id="details--pay-date"></dd>
+            </div>
+
+            <div class="row">
+              <dt>@localizer["periodStarting"]</dt>
+              <dd id="details--period-starting"></dd>
+            </div>
+
+            <div class="row">
+              <dt>@localizer["periodEnding"]</dt>
+              <dd id="details--period-ending">20</dd>
+            </div>
+
+            <div class="row">
+              <dt>@localizer["prior-os"]</dt>
+              <dd id="details--prior-os"></dd>
+            </div>
+          </dl>
+          <dl class="col mt-3">
+            <div class="row">
+              <dt>@localizer["totalHours"]</dt>
+              <dd id="details--total-hours"></dd>
+            </div>
+
+            <div class="row">
+              <dt>@localizer["commission"]</dt>
+              <dd id="details--commission"></dd>
+            </div>
+
+            <div class="row">
+              <dt>@localizer["totalShortages"]</dt>
+              <dd id="details--total-shortages"></dd>
+            </div>
+
+            <div class="row">
+              <dt>@localizer["uniformPurchase"]</dt>
+              <dd id="details--uniform-purchase">
+                <span id="details--uniform-purchase__value"></span>
+                <input id="details--uniform-purchase__input" type="number" min="-9999" max="99999" class="form-control" style="display: none;" />
+              </dd>
+            </div>
+          </dl>
+          <table class="table table-striped mt-2 mt-xl-4" id="table--inside-details" style="width:100%">
+            <thead>
+              <tr>
+                <th width="50%" scope="col">@localizer["shiftDate"]</th>
+                <th width="50%" scope="col">@localizer["date"]</th>
+              </tr>
+            </thead>
+            <tbody id="table--inside-details__body">
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex gap-2 gap-xl-3 my-3 my-xl-4">
+      <button class="btn btn-primary" id="btn-edit" onclick="handleEditDetailsClick()">@localizer["edit"]</button>
+      <button class="btn btn-primary" id="btn-preview" onclick="displayTimesheetReport()">@localizer["preview"]</button>
+      <button class="btn btn-primary" id="btn-post" onclick="handlePostButtonClick()">@localizer["post"]</button>
+    </div>
+
+    <div>
+      <table class="table table-striped" id="table--timesheet-detail" style="width:100%">
+        <thead>
+          <tr>
+            <th width="10%" scope="col">@localizer["dayOfWeek"]</th>
+            <th width="10%" scope="col">@localizer["shiftDate"]</th>
+            <th width="7%" scope="col">@localizer["stat"]</th>
+            <th width="7%" scope="col">@localizer["in"]</th>
+            <th width="7%" scope="col">@localizer["out"]</th>
+            <th width="7%" scope="col">@localizer["hours"]</th>
+            <th width="7%" scope="col">@localizer["comm"]</th>
+            <th width="7%" scope="col">@localizer["short"]</th>
+            <th width="7%" scope="col">@localizer["train"]</th>
+            <th width="31%" scope="col">@localizer["comment"]</th>
+          </tr>
+        </thead>
+        <tbody id="table--timesheet-detail__body">
+        </tbody>
+      </table>
+    </div>
+
+    <div class="d-flex justify-content-end my-1 mt-xl-3 mb-xl-0">
+      <button class="btn btn-footer btn-outline-danger" onclick="handleBackButtonClicked()">@localizer["back"]</button>
+    </div>
+  </div>
+</div>
+
+@section Scripts {
+  <script src="~/js/timesheetReports.js" asp-append-version="true"></script>
+}

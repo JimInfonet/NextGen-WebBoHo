@@ -1,0 +1,33 @@
+/*Set specific widths for each column*/
+.col-width-100px {
+  min-width: 100px !important;
+  white-space: nowrap
+}
+
+.col-width-325px {
+  min-width: 325px !important;
+}
+
+.col-width-550px {
+  min-width: 550px !important;
+}
+
+.col-width-225px {
+  min-width: 225px !important;
+}
+
+#isWarehouse {
+  margin-left: 100px !important;
+}
+
+#stores-grid__footer {
+  position: relative;
+}
+
+#stores-grid__footer .dataTables_scrollFootInner {
+  width: auto !important;
+}
+
+#stores-grid__footer table {
+  width: 100% !important;
+}

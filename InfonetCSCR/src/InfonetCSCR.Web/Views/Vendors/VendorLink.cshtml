@@ -1,0 +1,121 @@
+﻿@section Head {
+  <link href="~/css/vendors.css" rel="stylesheet" asp-append-version="true" />
+}
+
+@model StoreRegionRecordViewModel
+@inject IApplicationConfig _config
+@inject IViewLocalizer localizer
+@{
+  ViewData["Title"] = @localizer["pageTitle"];
+}
+
+<input type="hidden" id="anErrorHasOccuredWhileLoadingVendors" value="@localizer["anErrorHasOccuredWhileLoadingVendors"]" />
+<input id="anErrorHasOccuredWhileLoadingVendorRegionStores" type="hidden" value="@localizer["anErrorHasOccuredWhileLoadingVendorRegionStores"]" />
+<input id="anErrorHasOccuredWhileAddingVendorRegionStores" type="hidden" value="@localizer["anErrorHasOccuredWhileAddingVendorRegionStores"]" />
+<input id="anErrorHasOccuredWhileDeletingVendorRegionStores" type="hidden" value="@localizer["anErrorHasOccuredWhileDeletingVendorRegionStores"]" />
+<input id="pleaseSelectRegionStore" type="hidden" value="@localizer["pleaseSelectRegionStore"]" />
+<input id="pleaseSelectAVendor" type="hidden" value="@localizer["pleaseSelectAVendor"]" />
+<input id="storeDeleted" type="hidden" value="@localizer["storeDeleted"]" />
+<input id="storeAdded" type="hidden" value="@localizer["storeAdded"]" />
+<input id="regionDeleted" type="hidden" value="@localizer["regionDeleted"]" />
+<input id="regionAdded" type="hidden" value="@localizer["regionAdded"]" />
+<input id="deleteLink" type="hidden" value="@localizer["deleteLink"]" />
+<input id="areYouSureYouWantToDeleteTheVendorLink" type="hidden" value="@localizer["areYouSureYouWantToDeleteTheVendorLink"]" />
+
+<form class="p-3 mt-2" asp-controller="Vendors" id="vendorsLinkForm">
+  <div class="p-2">
+    <div class="d-flex justify-content-between">
+      <h3 class="h3 fw-bold mb-3">@localizer["systemVendorLinkDefinitions"]</h3>
+    </div>
+
+    <div class="body-content p-2 row">
+
+      @*Vendors Datatable Section*@
+      <div class="custom-grid-scrollbar border-2 col-lg-12 col-xl-6 col m-0">
+        <div class="d-flex justify-content-between pt-3">
+          <h5 class="h5 fw-bold mb-3">@localizer["vendors"]</h5>
+        </div>
+        <table id="vendors-grid" class="table table-striped">
+          <thead>
+            <tr>
+              <th id="DTCode">@localizer["code"]</th>
+              <th id="DTName">@localizer["name"]</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+
+      @*Region Store Datatable Section*@
+      <div class="custom-grid-scrollbar border-2 col-lg-12 col-xl-6 col m-0">
+        <div class="d-flex justify-content-between pt-3">
+          <h5 class="h5 fw-bold mb-3">@localizer["regionStore"]</h5>
+        </div>
+        <table id="vendors-region-store-grid" class="table table-striped">
+          <thead>
+            <tr>
+              <th id="DTCode">@localizer["code"]</th>
+              <th id="DTRegion">@localizer["regionId"]</th>
+              <th id="DTStore">@localizer["storeId"]</th>
+            </tr>
+          </thead>
+        </table>
+        <div class="d-flex gap-3 col-xl-8 col-lg-9">
+          <button id="btn-add" type="button" class="btn btn-primary text-center align-items-center">@localizer["addLink"]</button>
+          <button id="btn-delete" type="button" class="btn disabled btn-danger text-center align-items-center">@localizer["deleteLink"]</button>
+        </div>
+      </div>
+      <div class="d-flex gap-3 col-xl-8 col-lg-9 w-100 justify-content-end">
+        <button id="btn-vendor-cancel" type="button" class="btn btn-back btn-outline-danger text-center align-items-center">@localizer["back"]</button>
+      </div>
+    </div>
+  </div>
+</form>
+
+@*Modal for adding sort item*@
+<div class="modal fade" id="addNewStoreRegionItemModal" tabindex="1" role="dialog" area-labelledby="addNewStoreRegionItemModal" area-modal="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">@localizer["addStoreRegionItem"]</h5>
+      </div>
+      <div class="modal-body">
+        <label class="my-2">@localizer["linkStoreToVendor"]</label>
+        <div class="wrappper">
+          <select id="storeItemSelect" class="form-select col infonet-input" aria-label="@localizer["linkStoreToVendor"]">
+            <option value="">&lt;@localizer["linkStoreToVendor"]&gt;</option>
+            @{
+              for (var i = 0; i < Model.Stores?.Count(); i++)
+              {
+                var storeItem = Model.Stores.ElementAt(i);
+                <option class="value-container" value="@storeItem.Store_ID">@(storeItem.Store_ID + " - " + storeItem.Store_Desc)</option>
+              }
+            }
+          </select>
+        </div>
+
+        <label class="my-2">@localizer["linkRegionToVendor"]</label>
+        <div class="wrapper">
+          <select id="regionItemSelect" class="form-select col infonet-input" aria-label="@localizer["linkRegionToVendor"]">
+            <option value="">&lt;@localizer["linkRegionToVendor"]&gt;</option>
+            @{
+              for (var i = 0; i < Model.Regions?.Count(); i++)
+              {
+                var regionItem = Model.Regions.ElementAt(i);
+                <option class="value-container" value="@regionItem.ID">@(regionItem.ID + " - " + regionItem.Name)</option>
+              }
+            }
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary btn-sm btn-save" id="insertStoreRegionBtn" onclick="insertStoreRegionItem()">@localizer["complete"]</button>
+        <button type="button" class="btn btn-cancel btn-outline-danger align-content-center btn-sm me-2" data-bs-dismiss="modal">@localizer["cancel"]</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+@section Scripts
+{
+  <script src="~/js/vendorLink.js" asp-append-version="true"></script>
+}

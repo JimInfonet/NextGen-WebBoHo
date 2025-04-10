@@ -1,0 +1,205 @@
+@section Head {
+  <link href="~/css/tax.css" rel="stylesheet" asp-append-version="true" />
+}
+
+@inject IApplicationConfig _config
+@inject IViewLocalizer localizer
+@inject IHttpContextAccessor httpContextAccessor
+@{
+  ViewData["Title"] = @localizer["taxes"];
+}
+
+<input id="no" type="hidden" value="@localizer["no"]" />
+<input id="yes" type="hidden" value="@localizer["yes"]" />
+<input id="deleteTax" type="hidden" value="@localizer["deleteTax"]" />
+<input id="orderRange" type="hidden" value="@localizer["orderRange"]" />
+<input id="deleteTaxMessage" type="hidden" value="@localizer["deleteTaxMessage"]" />
+<input id="taxNameAlreadyExists" type="hidden" value="@localizer["taxNameAlreadyExists"]" />
+<input id="taxAddedSuccessfully" type="hidden" value="@localizer["taxAddedSuccessfully"]" />
+<input id="taxUsageMessage" type="hidden" value="@localizer["taxUsageMessage", "{0}", "{1}"]" />
+<input id="taxUpdatedSuccessfully" type="hidden" value="@localizer["taxUpdatedSuccessfully"]" />
+<input id="taxDeletedSuccessfully" type="hidden" value="@localizer["taxDeletedSuccessfully"]" />
+
+<input id="deleteCode" type="hidden" value="@localizer["deleteCode"]" />
+<input id="deleteTaxCodeTitle" type="hidden" value="@localizer["deleteTaxCodeTitle"]" />
+<input id="rateHasToBeNumeric" type="hidden" value="@localizer["rateHasToBeNumeric"]" />
+<input id="deleteTaxCodeMessage" type="hidden" value="@localizer["deleteTaxCodeMessage"]" />
+<input id="taxCodeAlreadyExists" type="hidden" value="@localizer["taxCodeAlreadyExists"]" />
+<input id="taxCodeAddedSuccessfully" type="hidden" value="@localizer["taxCodeAddedSuccessfully"]" />
+<input id="taxCodeUsageMessage" type="hidden" value="@localizer["taxCodeUsageMessage", "{0}", "{1}"]" />
+<input id="taxCodeUpdatedSuccessfully" type="hidden" value="@localizer["taxCodeUpdatedSuccessfully"]" />
+<input id="taxCodeDeletedSuccessfully" type="hidden" value="@localizer["taxCodeDeletedSuccessfully"]" />
+
+<div class="m-3">
+  <h3>
+    <strong id="tax-title-id">@localizer["taxAndTaxCodeDefinitions"]</strong>
+  </h3>
+</div>
+
+<div class="m-3">
+  <div class="border-bottom mx-3">
+    <p class="table-title">@localizer["taxes"]</p>
+  </div>
+  <div class="body-content p-2">
+    <div class="container custom-grid-scrollbar border-2" style="max-width:3000px;">
+      <table id="taxes-grid" class="table table-striped">
+        <thead class="datatable-allignment">
+          <tr>
+            <th width="15%">@localizer["name"]</th>
+            <th width="15%">@localizer["active"]</th>
+            <th width="15%">@localizer["order"]</th>
+            <th width="40%">@localizer["description"]</th>
+            <th width="15%">@localizer["default"]</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+
+    @*Button section*@
+    <div class="d-flex">
+      <div class="d-flex gap-3 col-xl-8 col-lg-9">
+        <button id="tax-btn-add" type="button" class="btn btn-footer btn-primary text-center align-items-center" onclick="onTaxAddClick()">@localizer["addTax"]</button>
+        <button id="tax-btn-edit" type="button" class="btn btn-footer btn-primary align-items-center" onclick="onTaxEditClick()">@localizer["editTax"]</button>
+        <button id="tax-btn-delete" type="button" class="btn btn-footer btn-danger text-center align-items-center" onclick="onTaxDeleteClick()">@localizer["deleteTax"]</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="m-3">
+  <div class="border-bottom mx-3">
+    <p class="table-title">@localizer["taxCodes"]</p>
+  </div>
+  <div class="body-content p-2">
+    <div class="container custom-grid-scrollbar border-2" style="max-width:3000px;">
+      <table id="tax-codes-grid" class="table table-striped">
+        <thead class="datatable-allignment">
+          <tr>
+            <th width="15%">@localizer["code"]</th>
+            <th width="15%">@localizer["rate"]</th>
+            <th width="15%">@localizer["included"]</th>
+            <th width="40%">@localizer["description"]</th>
+            <th width="15%">@localizer["taxRebate"]</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+
+    @*Button section*@
+    <div class="d-flex">
+      <div class="d-flex gap-3 col-xl-8 col-lg-9">
+        <button id="tax-code-btn-add" type="button" class="btn btn-footer btn-primary text-center align-items-center" onclick="onTaxCodeAddClick()">@localizer["addCode"]</button>
+        <button id="tax-code-btn-edit" type="button" class="btn btn-footer btn-primary align-items-center" onclick="onTaxCodeEditClick()">@localizer["editCode"]</button>
+        <button id="tax-code-btn-delete" type="button" class="btn btn-footer btn-danger text-center align-items-center" onclick="onTaxCodeDeleteClick()">@localizer["deleteCode"]</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+@*Tax Modal*@
+<div class="modal fade" id="taxFormModal" tabindex="1" role="dialog" area-modal="true">
+  <div class="modal-dialog modal-dialog-centered tax-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 id="tax-form-section-title" class="modal-title">@localizer["taxForm"]</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="tax-form">
+          <div class="row gap-3 p-3">
+            <div class="col">
+              <label class="mb-2">@localizer["name"]</label>
+              <input id="tax-name" type="text" maxlength="4" class="infonet-input w-100 not-editable" required />
+              <span id="validation-for-tax-name" class="text-danger">@localizer["thisFieldIsRequired"]</span>
+            </div>
+            <div class="col">
+              <label class="mb-2">@localizer["description"]</label>
+              <input id="tax-description" type="text" maxlength="30" class="infonet-input w-100" />
+              <span id="validation-for-tax-description" class="text-danger">@localizer["thisFieldIsRequired"]</span>
+            </div>
+          </div>
+          <div class="row gap-3 p-3">
+            <div class="col">
+              <label class="mb-2">@localizer["active"]</label>
+              <select id="tax-active-select" class="form-select col infonet-input">
+                <option value="Yes">@localizer["yes"]</option>
+                <option value="No">@localizer["no"]</option>
+              </select>
+            </div>
+            <div class="col">
+              <label class="mb-2">@localizer["default"]</label>
+              <input id="tax-default" type="text" maxlength="1" class="infonet-input w-100" />
+              <span id="validation-for-tax-default" class="text-danger">@localizer["thisFieldIsRequired"]</span>
+            </div>
+          </div>
+          <div class="row gap-3 p-3">
+            <div class="col">
+              <label class="mb-2">@localizer["order"]</label>
+              <input id="tax-order" type="text" maxlength="8" class="infonet-input w-100 clear-selected-input-on-keypress only-digit" />
+              <span id="validation-for-tax-order" class="text-danger">@localizer["thisFieldIsRequired"]</span>
+            </div>
+            <div class="col"></div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-cancel btn-outline-danger align-content-center btn-sm me-2" data-bs-dismiss="modal">@localizer["cancel"]</button>
+        <button type="button" class="btn btn-primary btn-sm btn-save" onclick="onTaxCompleteClick()">@localizer["complete"]</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+@*Tax Code Modal*@
+<div class="modal fade" id="taxCodeFormModal" tabindex="1" role="dialog" area-modal="true">
+  <div class="modal-dialog modal-dialog-centered tax-code-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 id="tax-code-form-section-title" class="modal-title">@localizer["taxCodeForm"]</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="tax-code-form">
+          <div class="row gap-3 p-3">
+            <div class="col">
+              <label class="mb-2">@localizer["Code"]</label>
+              <input id="tax-code" type="text" maxlength="1" class="infonet-input w-100 not-editable" required />
+              <span id="validation-for-tax-code" class="text-danger">@localizer["thisFieldIsRequired"]</span>
+            </div>
+            <div class="col">
+              <label class="mb-2">@localizer["included"]</label>
+              <select id="tax-code-included-select" class="form-select col infonet-input">
+                <option value="Yes">@localizer["yes"]</option>
+                <option value="No">@localizer["no"]</option>
+              </select>
+            </div>
+            <div class="col" id="tax-rebate-input">
+              <label class="mb-2" id="tax-rebate-label">@localizer["taxRebate"]</label>
+              <input id="tax-rebate" type="text" maxlength="4" class="infonet-input w-100 clear-selected-input-on-keypress only-digit-decimal-plus-minus"/>
+            </div>
+          </div>
+          <div class="row gap-3 p-3">
+            <div class="col">
+              <label class="mb-2">@localizer["rate"]</label>
+              <input id="tax-code-rate" type="text" maxlength="8" class="infonet-input w-100 clear-selected-input-on-keypress only-digit-decimal-plus-minus"/>
+              <span id="validation-for-tax-code-rate" class="text-danger">@localizer["thisFieldIsRequired"]</span>
+            </div>
+            <div class="col">
+              <label class="mb-2">@localizer["description"]</label>
+              <input id="tax-code-description" type="text" maxlength="15" class="infonet-input w-100" />
+              <span id="validation-for-tax-code-description" class="text-danger">@localizer["thisFieldIsRequired"]</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-cancel btn-outline-danger align-content-center btn-sm me-2" data-bs-dismiss="modal">@localizer["cancel"]</button>
+        <button type="button" class="btn btn-primary btn-sm btn-save" onclick="onTaxCodeCompleteClick()">@localizer["complete"]</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+@section Scripts {
+  <script src="~/js/tax.js" asp-append-version="true"></script>
+}

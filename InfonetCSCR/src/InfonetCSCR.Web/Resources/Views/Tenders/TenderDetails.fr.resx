@@ -1,0 +1,226 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="acceptAsPayment" xml:space="preserve">
+    <value>Accepter comme paiement</value>
+  </data>
+  <data name="anErrorHasOccuredWhileLoadingPayout" xml:space="preserve">
+    <value>Une erreur s'est produite lors du chargement du paiement.</value>
+  </data>
+  <data name="back" xml:space="preserve">
+    <value>Recule</value>
+  </data>
+  <data name="baseCurrCantBeInactiveErrorMessage" xml:space="preserve">
+    <value>La devise de base ne peut pas être définie comme inactive ! 
+Veuillez d'abord modifier la politique BASECURR.</value>
+  </data>
+  <data name="canBeDepositedInABank" xml:space="preserve">
+    <value>Peut être déposé à la banque</value>
+  </data>
+  <data name="cancel" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="cardCode" xml:space="preserve">
+    <value>Code de carte</value>
+  </data>
+  <data name="changeCardCode" xml:space="preserve">
+    <value>Changement de code de carte</value>
+  </data>
+  <data name="changeCardCodeWarningText" xml:space="preserve">
+    <value>Vous allez changer le code de carte pour ce mode de paiement. La définition de carte précédente sera supprimée. Voulez vous continuer?</value>
+  </data>
+  <data name="copiesToPrint" xml:space="preserve">
+    <value>Copies à imprimer</value>
+  </data>
+  <data name="detailsFor" xml:space="preserve">
+    <value>Détail pour</value>
+  </data>
+  <data name="edit" xml:space="preserve">
+    <value>Éditer</value>
+  </data>
+  <data name="exactChange" xml:space="preserve">
+    <value>Montant exact requis</value>
+  </data>
+  <data name="exchangeRate" xml:space="preserve">
+    <value>Taux de change</value>
+  </data>
+  <data name="failedToLoadPayout" xml:space="preserve">
+    <value>Échec du chargement de PayOut.</value>
+  </data>
+  <data name="failedToUpdateTender" xml:space="preserve">
+    <value>Échec de la mise à jour des de l'appel d'offres.</value>
+  </data>
+  <data name="giveChangeOnThisTender" xml:space="preserve">
+    <value>Rendre la monnaie sur ce mode de paiement</value>
+  </data>
+  <data name="giveOutOnARefund" xml:space="preserve">
+    <value>Donner un remboursement</value>
+  </data>
+  <data name="inactive" xml:space="preserve">
+    <value>Inactif</value>
+  </data>
+  <data name="includeInTillClose" xml:space="preserve">
+    <value>Ajouter dans la fermeture du tiroir</value>
+  </data>
+  <data name="linkedToThePayOut" xml:space="preserve">
+    <value>Lié au Déboursé</value>
+  </data>
+  <data name="maxAmount" xml:space="preserve">
+    <value>Montant maximum</value>
+  </data>
+  <data name="minAmount" xml:space="preserve">
+    <value>Montant minimum</value>
+  </data>
+  <data name="no" xml:space="preserve">
+    <value>Non</value>
+  </data>
+  <data name="openTheCashDrawer" xml:space="preserve">
+    <value>Ouvrir le tiroir-caisse</value>
+  </data>
+  <data name="pageTitle" xml:space="preserve">
+    <value>Détails de l'appel d'offres</value>
+  </data>
+  <data name="pleaseEnterAValidNumber" xml:space="preserve">
+    <value>S'il te plaît Entrer un numéro de valide.</value>
+  </data>
+  <data name="printSignatureLine" xml:space="preserve">
+    <value>Imprimer la Ligne Signature</value>
+  </data>
+  <data name="save" xml:space="preserve">
+    <value>Sauvegarder</value>
+  </data>
+  <data name="select" xml:space="preserve">
+    <value>Sélectionner</value>
+  </data>
+  <data name="sequence" xml:space="preserve">
+    <value>Séquence</value>
+  </data>
+  <data name="shortName" xml:space="preserve">
+    <value>Nom abrégé</value>
+  </data>
+  <data name="smallestAcceptedUnit" xml:space="preserve">
+    <value>Plus petite unité acceptée</value>
+  </data>
+  <data name="useItOrLoseIt" xml:space="preserve">
+    <value>À prendre où à laisser</value>
+  </data>
+  <data name="yes" xml:space="preserve">
+    <value>Oui</value>
+  </data>
+</root>

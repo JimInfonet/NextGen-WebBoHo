@@ -1,0 +1,96 @@
+.table-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.headerAddress {
+  display: flex;
+  justify-content: space-between;
+}
+
+.addressBox {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  margin: 5px;
+  background-color: var(--color-white);
+  width: 100%;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  border-radius: 10px;
+}
+
+.toAddressTextArea {
+  padding: 15px 10px !important;
+  background-color: #d1d7f0 !important;
+  border: 1px solid rgba(38, 83, 188, 0.2) !important;
+}
+
+.fromAddressTextArea {
+  padding: 15px 10px !important;
+  background-color: #d1d7f0 !important;
+  border: 1px solid rgba(38, 83, 188, 0.2) !important;
+}
+
+.notesTextArea {
+  height: 150px;
+}
+
+.addressBoxInput {
+  width: 70%;
+}
+
+.headerAddressInputLabel {
+  padding: 2px;
+  width: 30%;
+}
+
+.addressBoxInputRight {
+  width: 50%;
+}
+
+.headerAddressInputLabelRight {
+  padding: 2px;
+  width: 50%;
+}
+
+.addressBoxInputSection {
+  margin: 7px;
+}
+
+.descriptionSearchInput input {
+  width: 50% !important;
+}
+
+.pageFooter {
+  display: flex;
+  justify-content: end;
+}
+
+.summaryInput {
+  text-align: right;
+}
+
+.adressSpan {
+  padding-right: 50px;
+}
+
+.part-number-select {
+  padding-right: 30px !important;
+}
+
+@media (max-width: 1400px) {
+  .toAddressTextArea {
+    max-width: 500px !important;
+  }
+}
+
+@media (max-width: 1200px) {
+  .toAddressTextArea {
+    max-width: 300px !important;
+  }
+}

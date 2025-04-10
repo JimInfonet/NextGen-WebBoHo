@@ -1,0 +1,165 @@
+
+@section Head {
+  <link href="~/css/associatedCharges.css" rel="stylesheet" asp-append-version="true" />
+}
+
+@inject IApplicationConfig _config
+@inject IViewLocalizer localizer
+@inject IHttpContextAccessor httpContextAccessor
+@{
+  ViewData["Title"] = @localizer["associatedChargesDeposits"];
+}
+
+<input id="no" type="hidden" value="@localizer["no"]" />
+<input id="yes" type="hidden" value="@localizer["yes"]" />
+<input id="deleteTax" type="hidden" value="@localizer["deleteTax"]"/>
+<input id="addCharge" type="hidden" value="@localizer["addCharge"]"/>
+<input id="editCharge" type="hidden" value="@localizer["editCharge"]"/>
+<input id="deleteCharge" type="hidden" value="@localizer["deleteCharge"]"/>
+<input id="codeAlreadyExists" type="hidden" value="@localizer["codeAlreadyExists"]"/>
+<input id="priceMustBePositive" type="hidden" value="@localizer["priceMustBePositive"]"/>
+<input id="thisFieldIsRequired" type="hidden" value="@localizer["thisFieldIsRequired"]"/>
+<input id="allTaxesAreDefined" type="hidden" value="@localizer["allTaxesAreDefined"]"/>
+<input id="deleteChargeMessage" type="hidden" value="@localizer["deleteChargeMessage"]"/>
+<input id="taxAddedSuccessfully" type="hidden" value="@localizer["taxAddedSuccessfully"]"/>
+<input id="taxDeletedSuccessfully" type="hidden" value="@localizer["taxDeletedSuccessfully"]"/>
+<input id="chargeAddedSuccessfully" type="hidden" value="@localizer["chargeAddedSuccessfully"]"/>
+<input id="chargeCanNotBeDeleted" type="hidden" value="@localizer["chargeCanNotBeDeleted", "{0}"]"/>
+<input id="chargeUpdatedSuccessfully" type="hidden" value="@localizer["chargeUpdatedSuccessfully"]"/>
+<input id="chargeDeletedSuccessfully" type="hidden" value="@localizer["chargeDeletedSuccessfully"]"/>
+<input id="deleteTaxMessage" type="hidden" value="@localizer["deleteTaxMessage", "{0}", "{1}", "{2}"]"/>
+
+<div class="m-3">
+  <h3>
+    <strong id="tax-title-id">@localizer["associatedCharges"]</strong>
+  </h3>
+</div>
+
+<div class="m-3">
+  <div class="border-bottom mx-3">
+    <p class="table-title">@localizer["charges"]</p>
+  </div>
+  <div class="body-content p-2">
+    <div class="container custom-grid-scrollbar border-2" style="max-width:3000px;">
+      <table id="charges-grid" class="table table-striped" width="20%">
+        <thead class="datatable-allignment">
+          <tr>
+            <th width="25%">@localizer["code"]</th>
+            <th width="50%">@localizer["description"]</th>
+            <th width="25%">@localizer["price"]</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+
+    @*Button section*@
+    <div class="d-flex">
+      <div class="d-flex gap-3 col-xl-8 col-lg-9">
+        <button id="charge-btn-add" type="button" class="btn btn-footer btn-primary text-center align-items-center" onclick="onChargeAddClick()">@localizer["addCharge"]</button>
+        <button id="charge-btn-edit" type="button" class="btn btn-footer btn-primary align-items-center" onclick="onChargeEditClick()">@localizer["editCharge"]</button>
+        <button id="charge-btn-delete" type="button" class="btn btn-footer btn-danger text-center align-items-center" onclick="onChargeDeleteClick()">@localizer["deleteCharge"]</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="m-3">
+  <div class="border-bottom mx-3">
+    <p class="table-title">@localizer["taxes"]</p>
+  </div>
+  <div class="body-content p-2">
+    <div class="container custom-grid-scrollbar border-2" style="max-width:3000px;">
+      <table id="taxes-grid" class="table table-striped" width="20%">
+        <thead class="datatable-allignment">
+          <tr>
+            <th width="25%">@localizer["taxName"]</th>
+            <th width="25%">@localizer["taxCode"]</th>
+            <th width="25%">@localizer["rate"]</th>
+            <th width="25%">@localizer["included"]</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+
+    @*Button section*@
+    <div class="d-flex">
+      <div class="d-flex gap-3 col-xl-8 col-lg-9">
+        <button id="tax-btn-add" type="button" class="btn btn-footer btn-primary text-center align-items-center" onclick="onTaxAddClick()">@localizer["addTax"]</button>
+        <button id="tax-btn-delete" type="button" class="btn btn-footer btn-danger text-center align-items-center" onclick="onTaxDeleteClick()">@localizer["deleteTax"]</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+@*Associated Charge Modal*@
+<div class="modal fade" id="chargeFormModal" tabindex="1" role="dialog" area-modal="true">
+  <div class="modal-dialog modal-dialog-centered charge-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 id="charge-form-section-title" class="modal-title"></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="charge-form">
+          <div class="row gap-3 p-3">
+            <div class="col">
+              <label class="mb-2">@localizer["Code"]</label>
+              <input id="charge-code" type="text" maxlength="10" class="infonet-input w-100 not-editable"/>
+              <span id="validation-for-charge-code" class="text-danger">@localizer["thisFieldIsRequired"]</span>
+            </div>
+          </div>
+          <div class="row gap-3 p-3">
+            <div class="col">
+              <label class="mb-2">@localizer["description"]</label>
+              <input id="charge-description" type="text" maxlength="20" class="infonet-input w-100"/>
+              <span id="validation-for-charge-description" class="text-danger">@localizer["thisFieldIsRequired"]</span>
+            </div>
+          </div>
+          <div class="row gap-3 p-3">
+            <div class="col">
+              <label class="mb-2">@localizer["price"]</label>
+              <input id="charge-price" type="text" maxlength="5" class="infonet-input w-100 clear-selected-input-on-keypress only-digit-decimal"/>
+              <span id="validation-for-charge-price" class="text-danger">@localizer["thisFieldIsRequired"]</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-cancel btn-outline-danger align-content-center btn-sm me-2" data-bs-dismiss="modal">@localizer["cancel"]</button>
+        <button type="button" class="btn btn-primary btn-sm btn-save" onclick="onChargeCompleteClick()">@localizer["complete"]</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+@*Associated Charge Modal*@
+<div class="modal fade" id="taxFormModal" tabindex="1" role="dialog" area-modal="true">
+  <div class="modal-dialog modal-dialog-centered tax-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 id="tax-form-section-title" class="modal-title">@localizer["addTax"]</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="tax-form">
+          <div class="row gap-3 p-3">
+            <div class="col">
+              <label class="mb-2">@localizer["tax"]</label>
+              <select id="tax-select" class="form-select infonet-input stock-item-form-input w-100" aria-label="Select">
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-cancel btn-outline-danger align-content-center btn-sm me-2" data-bs-dismiss="modal">@localizer["cancel"]</button>
+        <button type="button" class="btn btn-primary btn-sm btn-save" onclick="onTaxCompleteClick()">@localizer["complete"]</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+@section Scripts {
+  <script src="~/js/associatedCharges.js" asp-append-version="true"></script>
+}

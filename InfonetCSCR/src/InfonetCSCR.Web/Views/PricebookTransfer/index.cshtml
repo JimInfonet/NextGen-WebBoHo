@@ -1,0 +1,512 @@
+﻿@section Head {
+  <link href="~/css/pricebookTransfer.css" rel="stylesheet" asp-append-version="true" />
+}
+
+@inject IApplicationConfig _config
+@inject IViewLocalizer localizer
+@inject IHttpContextAccessor httpContextAccessor
+@{
+  ViewData["Title"] = @localizer["pageTitle"];
+  ViewData["showByStore"] = true;
+  ViewData["showByVendor"] = true;
+  ViewData["showByRegion"] = true;
+  ViewData["showByPrice"] = true;
+  ViewData["storeTabStoresCheckBox"] = false;
+  bool isBackOffice = _config.IsBackOffice;
+}
+
+@* These fields is to store the localized texts in the DOM *@
+<input id="isBackOffice" type="hidden" value="@isBackOffice.ToString()" />
+<input id="price-change" type="hidden" value="@localizer["priceChange"]" />
+<input id="stocks" type="hidden" value="@localizer["stocks"]" />
+<input id="cost-change" type="hidden" value="@localizer["costChange"]" />
+<input id="commodity" type="hidden" value="@localizer["commodity"]" />
+<input id="promotions" type="hidden" value="@localizer["promotions"]" />
+<input id="hotButtons" type="hidden" value="@localizer["hotButtons"]" />
+
+<input id="selection" type="hidden" value="@localizer["selection"]" />
+<input id="view" type="hidden" value="@localizer["view"]" />
+<input id="list" type="hidden" value="@localizer["list"]" />
+
+<input id="byStore" type="hidden" value="@localizer["store"]" />
+<input id="byPriceGroup" type="hidden" value="@localizer["priceGroup"]" />
+<input id="byRegion" type="hidden" value="@localizer["region"]" />
+<input id="byVendor" type="hidden" value="@localizer["vendor"]" />
+
+<input id="sel" type="hidden" value="@localizer["sel"]" />
+<input id="search" type="hidden" value="@localizer["search"]" />
+
+<input id="dept" type="hidden" value="@localizer["dept"]" />
+<input id="deptName" type="hidden" value="@localizer["deptName"]" />
+<input id="subDept" type="hidden" value="@localizer["subDept"]" />
+<input id="subDeptName" type="hidden" value="@localizer["subDeptName"]" />
+<input id="subDetail" type="hidden" value="@localizer["subDetail"]" />
+<input id="subDetailName" type="hidden" value="@localizer["subDetailName"]" />
+<input id="selectStoreRequest" type="hidden" value="@localizer["selectStoreRequest"]" />
+<input id="name" type="hidden" value="@localizer["name"]" />
+<input id="stockCode" type="hidden" value="@localizer["stockCode"]" />
+<input id="trType" type="hidden" value="@localizer["trType"]" />
+
+<input id="productId" type="hidden" value="@localizer["productId"]" />
+<input id="productName" type="hidden" value="@localizer["productName"]" />
+<input id="cost" type="hidden" value="@localizer["cost"]" />
+<input id="nPrice" type="hidden" value="@localizer["nPrice"]" />
+<input id="regPrice" type="hidden" value="@localizer["regPrice"]" />
+<input id="margin-p" type="hidden" value="@localizer["margin-p"]" />
+<input id="sel" type="hidden" value="@localizer["sel"]" />
+
+<input id="selectedStores" type="hidden" value="@localizer["selectedStores"]" />
+<input id="selectedVendors" type="hidden" value="@localizer["selectedVendors"]" />
+<input id="selectedRegions" type="hidden" value="@localizer["selectedRegions"]" />
+<input id="selectedPriceGroups" type="hidden" value="@localizer["selectedPriceGroups"]" />
+
+<input id="increasedBy" type="hidden" value="@localizer["increasedBy"]" />
+<input id="decreasedBy" type="hidden" value="@localizer["decreasedBy"]" />
+<input id="margin-p" type="hidden" value="@localizer["margin-p"]" />
+<input id="prices" type="hidden" value="@localizer["prices"]" />
+<input id="quantity" type="hidden" value="@localizer["quantity"]" />
+<input id="from" type="hidden" value="@localizer["from"]" />
+<input id="price" type="hidden" value="@localizer["price"]" />
+<input id="percent" type="hidden" value="@localizer["percent"]" />
+<input id="updatingTable" type="hidden" value="@localizer["updatingTable"]" />
+<input id="showAllProducts" type="hidden" value="@localizer["showAllProducts"]" />
+<input id="priceChangeRequest" type="hidden" value="@localizer["priceChangeRequest"]" />
+<input id="selectProductRequest" type="hidden" value="@localizer["selectProductRequest"]" />
+<input id="toDateShouldBeGreaterWarning" type="hidden" value="@localizer["toDateShouldBeGreaterWarning"]" />
+<input id="saveAsPendingTransfer" type="hidden" value="@localizer["saveAsPendingTransfer"]" />
+<input id="confirmSaveAsPendingTransfer" type="hidden" value="@localizer["confirmSaveAsPendingTransfer"]" />
+<input id="commodityTransferSuccessful" type="hidden" value="@localizer["commodityTransferSuccessful"]" />
+<input id="hotButtonTransferSuccessful" type="hidden" value="@localizer["hotButtonTransferSuccessful"]" />
+<input id="promotionPendingTransferSuccessful" type="hidden" value="@localizer["promotionPendingTransferSuccessful"]" />
+<input id="cantIdentifyDestinationStores" type="hidden" value="@localizer["cantIdentifyDestinationStores"]" />
+<input id="selectAtLeastOneStore" type="hidden" value="@localizer["selectAtLeastOneStore"]" />
+<input id="selectAtLeastOneItem" type="hidden" value="@localizer["selectAtLeastOneItem"]" />
+<input id="saving" type="hidden" value="@localizer["saving"]" />
+<input id="priceSetup" type="hidden" value="@localizer["priceSetup"]" />
+<input id="costSetup" type="hidden" value="@localizer["costSetup"]" />
+<input id="costChangeRequest" type="hidden" value="@localizer["costChangeRequest"]" />
+
+<input id="r-regularPrice" type="hidden" value="@localizer["r-regularPrice"]" />
+<input id="s-salePricing" type="hidden" value="@localizer["s-salePricing"]" />
+<input id="f-firstUnitPricing" type="hidden" value="@localizer["f-firstUnitPricing"]" />
+<input id="i-incrementalPricing" type="hidden" value="@localizer["i-incrementalPricing"]" />
+<input id="x-xForPricing" type="hidden" value="@localizer["x-xForPricing"]" />
+
+<input id="currentCost" type="hidden" value="@localizer["currentCost"]" />
+<input id="currentPrice" type="hidden" value="@localizer["currentPrice"]" />
+<input id="newCurrentPrice" type="hidden" value="@localizer["newCurrentPrice"]" />
+<input id="futureCost" type="hidden" value="@localizer["futureCost"]" />
+<input id="futurePrice" type="hidden" value="@localizer["futurePrice"]" />
+<input id="newFuturePrice" type="hidden" value="@localizer["newFuturePrice"]" />
+
+<input id="updates" type="hidden" value="@localizer["updates"]" />
+<input id="userCode" type="hidden" value="@ViewData["UserCode"]?.ToString()" />
+<input id="deleteSelectedItemWarning" type="hidden" value="@localizer["deleteSelectedItemWarning"]" />
+<input id="deleteStoreDataWarning" type="hidden" value="@localizer["deleteStoreDataWarning"]" />
+<input id="deleteAllWarning" type="hidden" value="@localizer["deleteAllWarning"]" />
+<input id="warning" type="hidden" value="@localizer["warning"]" />
+<input id="deleteSingleCommodityTransferWarning" type="hidden" value="@localizer["deleteSingleCommodityTransferWarning"]" />
+<input id="add" type="hidden" value="@localizer["add"]" />
+<input id="remove" type="hidden" value="@localizer["remove"]" />
+<input id="update" type="hidden" value="@localizer["update"]" />
+<input id="tranferSuccessful" type="hidden" value="@localizer["tranferSuccessful"]" />
+<input id="deleteSuccessful" type="hidden" value="@localizer["deleteSuccessful"]" />
+<input id="transferingText" type="hidden" value="@localizer["transfering"]" />
+<input id="transferText" type="hidden" value="@localizer["transfer"]" />
+<input id="finalizeText" type="hidden" value="@localizer["finalize"]" />
+<input id="anUnexpectedErrorHasOccured" type="hidden" value="@localizer["anUnexpectedErrorHasOccured"]" />
+<input id="noDataToTransfer" type="hidden" value="@localizer["noDataToTransfer"]" />
+<input id="language" type="hidden" value="@_config.Language" />
+
+<input id="transUser" type="hidden" value="@httpContextAccessor.HttpContext.Session.GetString("UserCode")" />
+<input id="nPrice" type="hidden" value="@localizer["nPrice"]" />
+<input id="nCost" type="hidden" value="@localizer["nCost"]" />
+<input id="changePriceBasedOnMarginSetup" type="hidden" value="@localizer["changePriceBasedOnMarginSetup"]" />
+<input id="doYouWantToChangeThePrice" type="hidden" value="@localizer["doYouWantToChangeThePrice"]" />
+<input id="changeCostBeforeSaving" type="hidden" value="@localizer["changeCostBeforeSaving"]" />
+<input id="userCode" type="hidden" value="@ViewData["UserCode"]?.ToString()" />
+<input id="fromDataDefinition" type="hidden" value="@ViewData["FromDataDefinition"]?.ToString()" />
+
+<input id="youCantChangeToAPassedDate" type="hidden" value="@localizer["youCantChangeToAPassedDate"]" />
+<input id="packageCost" type="hidden" value="@localizer["packageCost"]" />
+<input id="toDateShouldBeAlwaysGreaterThanFromDate" type="hidden" value="@localizer["toDateShouldBeAlwaysGreaterThanFromDate"]" />
+<input id="zeroRecords" type="hidden" value="@localizer["zeroRecords"]" />
+<input id="lengthMenu" type="hidden" value="@localizer["lengthMenu"]" />
+<input id="info" type="hidden" value="@localizer["info"]" />
+
+<input id="priceChangeSelectionTab" type="hidden" value="@localizer["priceChangeSelectionTab"]" />
+<input id="priceChangeViewTab" type="hidden" value="@localizer["priceChangeViewTab"]" />
+<input id="priceChangeListTab" type="hidden" value="@localizer["priceChangeListTab"]" />
+<input id="stocksSelectionTab" type="hidden" value="@localizer["stocksSelectionTab"]" />
+<input id="stocksViewTab" type="hidden" value="@localizer["stocksViewTab"]" />
+<input id="stocksListTab" type="hidden" value="@localizer["stocksListTab"]" />
+<input id="costChangeSelectionTab" type="hidden" value="@localizer["costChangeSelectionTab"]" />
+<input id="costChangeVeiwTab" type="hidden" value="@localizer["costChangeVeiwTab"]" />
+<input id="costChangeListTab" type="hidden" value="@localizer["costChangeListTab"]" />
+<input id="commoditySelectionTab" type="hidden" value="@localizer["commoditySelectionTab"]" />
+<input id="commodityListTab" type="hidden" value="@localizer["commodityListTab"]" />
+<input id="promotionsSelectionTab" type="hidden" value="@localizer["promotionsSelectionTab"]" />
+<input id="promotionsListTab" type="hidden" value="@localizer["promotionsListTab"]" />
+<input id="hotButtonsSelectionTab" type="hidden" value="@localizer["hotButtonsSelectionTab"]" />
+<input id="hotButtonsListTab" type="hidden" value="@localizer["hotButtonsListTab"]" />
+<input id="entriesSelected" type="hidden" value="@localizer["entriesSelected", "{0}", "{1}"]" />
+
+
+<div class="px-3 py-2 mt-2">
+  <div class="d-flex justify-content-between">
+    <h3 class="h3 fw-bold mb-3">@localizer["dataTransfer"]</h3>
+  </div>
+
+  <div class="page-content p-4 h-100">
+    <div class="d-flex align-items-center row col-12 mb-4">
+      <label class="mt-1 col-auto form-label fw-bold" for="data-transfer-type">@localizer["dataTransferType"]</label>
+      <div class="col-lg-6 col-xl-3">
+        <select class="form-select" id="data-transfer-type" onchange="handleDataTransferTypeChange()">
+          <option value="price-change" selected>@localizer["priceChange"]</option>
+          <option value="stocks">@localizer["stocks"]</option>
+          <option value="cost-change">@localizer["costChange"]</option>
+          <option value="commodity">@localizer["commodity"]</option>
+          <option value="promotions">@localizer["promotions"]</option>
+          <option value="hotButtons">@localizer["hotButtons"]</option>
+        </select>
+      </div>
+    </div>
+
+    @* Nav tabs *@
+    <ul class="nav nav-tabs nav-fill" id="tab" role="tablist">
+      <li class="nav-item" id="selection-link-wrapper">
+        <a class="nav-link active" id="selection-tab-link" role="tab" data-bs-toggle="tab" href="#selection-tab-pane">@localizer["priceChangeSelectionTab"]</a>
+      </li>
+      <li class="nav-item" id="view-tab-link-wrapper">
+        <a class="nav-link" id="view-tab-link" role="tab" data-bs-toggle="tab" href="#view-tab-pane">@localizer["priceChangeViewTab"]</a>
+      </li>
+      <li class="nav-item" id="list-tab-link-wrapper">
+        <a class="nav-link" id="list-tab-link" role="tab" data-bs-toggle="tab" href="#list-tab-pane">@localizer["priceChangeListTab"]</a>
+      </li>
+    </ul>
+
+    @* Tab panes *@
+    <div class="tab-content">
+
+      @* Selection tab pane *@
+      <div class="tab-pane fade active show" id="selection-tab-pane" role="tabpanel">
+        <partial name="_StoreSelectionByGroup" view-data="ViewData"></partial>
+
+        <div id="general-commodity-table-section">
+          <label class="mt-5 mb-2 h5 fw-bold" id="section-header--commodity">@localizer["commodity"]</label>
+          @*Department Table*@
+          <div class="mt-3 table-container overflow-scroll custom-grid-scrollbar" id="table-section--dept">
+            <div class="form-group text-end commodity-element" style="display:none">
+              <input class="form-check-input mt-2" id="select-or-unselect-all-department" type="checkbox"
+                     onchange="handleSelectOrUnselectAllDepartment()" value="select-or-unselect-all">
+
+              <label class="form-check-label mt-1" for="select-or-unselect-all">@localizer["select/UnselectAll"]</label>
+            </div>
+            <table class="table table-striped" id="table--dept" style="width:100%">
+              <thead class="thead-light">
+                <tr>
+                  <th width="15%" scope="col">@localizer["dept"]</th>
+                  <th scope="col">@localizer["deptName"]</th>
+                  <th width="15%" scope="col">@localizer["transType"]</th>
+                  <th width="10%" scope="col">@localizer["sel"]</th>
+                </tr>
+              </thead>
+              <tfoot>
+                <tr>
+                  <th class="input" width="15%" scope="col"></th>
+                  <th class="input" scope="col"></th>
+                  <th class="input hidden-field" width="15%" scope="col"></th>
+                  <th class="input hidden-field" width="10%" scope="col"></th>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+
+          @*Sub-Department Table*@
+          <div class="mt-5 table-container overflow-scroll custom-grid-scrollbar" id="table-section--sub-dept">
+            <div class="form-group text-end commodity-element" style="display:none">
+              <input class="form-check-input mt-2" id="select-or-unselect-all-sub-department" type="checkbox"
+                     onchange="handleSelectOrUnselectAllSubDepartment()" value="select-or-unselect-all">
+
+              <label class="form-check-label mt-1" for="select-or-unselect-all">@localizer["select/UnselectAll"]</label>
+            </div>
+            <table class="table table-striped" id="table--sub-dept" style="width:100%">
+              <thead class="thead-light">
+                <tr>
+                  <th width="15%" scope="col">@localizer["dept"]</th>
+                  <th width="15%" scope="col">@localizer["subDept"]</th>
+                  <th scope="col">@localizer["subDeptName"]</th>
+                  <th width="15%" scope="col">@localizer["transType"]</th>
+                  <th width="10%" scope="col">@localizer["sel"]</th>
+                </tr>
+              </thead>
+              <tfoot>
+                <tr>
+                  <th class="input" width="15%" scope="col"></th>
+                  <th class="input" width="15%" scope="col"></th>
+                  <th class="input" scope="col"></th>
+                  <th class="input hidden-field" width="15%" scope="col"></th>
+                  <th class="input hidden-field" width="10%" scope="col"></th>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+
+          @*Sub-Detail Table*@
+          <div class="mt-5 table-container overflow-scroll custom-grid-scrollbar" id="table-section--sub-detail">
+            <div class="form-group text-end commodity-element" style="display:none">
+              <input class="form-check-input mt-2" id="select-or-unselect-all-sub-detail" type="checkbox"
+                     onchange="handleSelectOrUnselectAllSubDetail()" value="select-or-unselect-all">
+
+              <label class="form-check-label mt-1" for="select-or-unselect-all">@localizer["select/UnselectAll"]</label>
+            </div>
+            <table class="table table-striped" id="table--sub-detail" style="width:100%">
+              <thead class="thead-light">
+                <tr>
+                  <th width="15%" scope="col">@localizer["dept"]</th>
+                  <th width="15%" scope="col">@localizer["subDept"]</th>
+                  <th width="15%" scope="col">@localizer["subDetail"]</th>
+                  <th scope="col">@localizer["subDetailName"]</th>
+                  <th width="15%" scope="col">@localizer["transType"]</th>
+                  <th width="10%" scope="col">@localizer["sel"]</th>
+                </tr>
+              </thead>
+              <tfoot>
+                <tr>
+                  <th class="input" width="15%" scope="col"></th>
+                  <th class="input" width="15%" scope="col"></th>
+                  <th class="input" width="15%" scope="col"></th>
+                  <th class="input" scope="col"></th>
+                  <th class="input hidden-field" width="15%" scope="col"></th>
+                  <th class="input hidden-field" width="10%" scope="col"></th>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+
+          @*Promotions Table*@
+          <label class="mt-5 mb-2 h5 fw-bold" id="section-header--promotions" style="display: none">@localizer["promotions"]</label>
+
+          <div class="mt-3 table-container overflow-scroll custom-grid-scrollbar" id="table-section--promotion" style="display:none">
+            <div class="form-group text-end promotion-element">
+              <input class="form-check-input mt-2" id="select-or-unselect-all--promotion" type="checkbox"
+                     onchange="handleSelectOrUnselectAllPromotion()" value="select-or-unselect-all">
+
+              <label class="form-check-label mt-1" for="select-or-unselect-all--promotion">@localizer["select/UnselectAll"]</label>
+            </div>
+            <table class="table table-striped" id="table--promotion" style="width:100%">
+              <thead class="thead-light">
+                <tr>
+                  <th width="10%" scope="col">@localizer["id"]</th>
+                  <th width="35%" scope="col">@localizer["name"]</th>
+                  <th width="10%" scope="col">@localizer["startDate"]</th>
+                  <th width="10%" scope="col">@localizer["endDate"]</th>
+                  <th width="25%" scope="col">@localizer["transType"]</th>
+                  <th width="10%" scope="col">@localizer["sel"]</th>
+                </tr>
+              </thead>
+              <tfoot>
+                <tr>
+                  <th class="input" width="10%" scope="col"></th>
+                  <th class="input" width="35%" scope="col"></th>
+                  <th class="input hidden-field" width="10%" scope="col"></th>
+                  <th class="input hidden-field" width="10%" scope="col"></th>
+                  <th class="input hidden-field" width="25%" scope="col"></th>
+                  <th class="input hidden-field" width="10%" scope="col"></th>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+
+          <div class="text-end mt-3 gap-3">
+            <button class="btn btn-primary" id="save-as-pending-transfer-btn--selection" style="display:none"
+                    onclick="handleSaveAsPendingTransferOnSelectionTab()">
+              @localizer["saveAsPendingTransfer"]
+            </button>
+          </div>
+        </div>
+
+        <div id="hot-button-section" style="display:none">
+          <label class="mt-5 mb-2 h5 fw-bold">@localizer["hotButtons"]</label>
+
+          @*Hot Buttons Table*@
+          <div class="mt-3 table-container overflow-scroll custom-grid-scrollbar">
+            <div class="form-group text-end">
+              <input class="form-check-input mt-2" id="select-or-unselect-all-hot-buttons" type="checkbox"
+                     onchange="handleSelectOrUnselectAllHotButtons()" value="select-or-unselect-all">
+
+              <label class="form-check-label mt-1" for="select-or-unselect-all">@localizer["select/UnselectAll"]</label>
+            </div>
+            <table class="table table-striped" id="table-hot-buttons" style="width:100%">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">@localizer["button"]</th>
+                  <th width="15%" scope="col">@localizer["productId"]</th>
+                  <th width="20%" scope="col">@localizer["productName"]</th>
+                  <th width="15%" scope="col">@localizer["caption1"]</th>
+                  <th width="15%" scope="col">@localizer["caption2"]</th>
+                  <th width="15%" scope="col">@localizer["transType"]</th>
+                  <th width="10%" scope="col">@localizer["sel"]</th>
+                </tr>
+              </thead>
+              <tfoot>
+                <tr>
+                  <th class="input hidden-field" scope="col"></th>
+                  <th class="input" width="15%" scope="col"></th>
+                  <th class="input hidden-field" width="20%" scope="col"></th>
+                  <th class="input" width="15%" scope="col"></th>
+                  <th class="input hidden-field" width="15%" scope="col"></th>
+                  <th class="input hidden-field" width="15%" scope="col"></th>
+                  <th class="input hidden-field" width="10%" scope="col"></th>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+          <div class="text-end gap-3">
+            <button class="btn btn-primary btn-sm" id="hot-buttons-save-transfer" onclick="handleHotButtonSaveAsPendingTransfer()">@localizer["saveAsPendingTransfer"]</button>
+          </div>
+        </div>
+      </div>
+
+      @* View tab pane*@
+      <partial name="_PriceBookViewTab"></partial>
+
+      @* List tab pane*@
+      <div class="tab-pane fade my-3 gap-5" id="list-tab-pane" role="tabpanel">
+        <div class="row justify-content-between">
+          <div class="col-9">
+            <label class="mb-2 h5 fw-bold" id="list-tab-table-title">@localizer["priceChange"] @localizer["updates"]</label>
+            <hr class="hr--sm" />
+
+            <div class="mt-3 table-container overflow-scroll custom-grid-scrollbar" id="table-container--transfers">
+              <div id="price-change-table-section" style="display:none">
+                <table class="table table-striped" id="table--price-change-transfer" style="width:100%">
+                  <thead class="thead-light">
+                    <tr>
+                      <th scope="col" width="10%">@localizer["batch-h"]</th>
+                      <th scope="col" width="25%">@localizer["product"]</th>
+                      <th scope="col" width="50%">@localizer["description"]</th>
+                      <th scope="col" width="10%">@localizer["type"]</th>
+                      <th scope="col" width="5%">@localizer["del"]</th>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+
+              <div id="commodity-table-section" style="display:none">
+                <table class="table table-striped" id="table-commodity-transfer" style="width:100%">
+                  <thead>
+                    <tr>
+                      <th width="15%" scope="col">@localizer["batch-h"]</th>
+                      <th width="10%" scope="col">@localizer["dept"]</th>
+                      <th width="15%" scope="col">@localizer["subDept"]</th>
+                      <th width="15%" scope="col">@localizer["subDetail"]</th>
+                      <th width="25%" scope="col">@localizer["description"]</th>
+                      <th width="15%" scope="col">@localizer["transType"]</th>
+                      <th scope="col">@localizer["del"]</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+                </table>
+              </div>
+              <div id="cost-change-table-section" style="display:none">
+                <table class="table table-striped" id="table-cost-change-transfer" style="width:100%">
+                  <thead>
+                    <tr>
+                      <th width="20%" scope="col">@localizer["batch-h"]</th>
+                      <th width="30%" scope="col">@localizer["product"]</th>
+                      <th width="45%" scope="col">@localizer["description"]</th>
+                      <th scope="col">@localizer["del"]</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+                </table>
+              </div>
+
+              <div id="hot-buttons-table-section" style="display:none">
+                <table class="table table-striped" id="table-hot-buttons-transfer" style="width:100%">
+                  <thead>
+                    <tr>
+                      <th width="10%" scope="col">@localizer["batch-h"]</th>
+                      <th width="6%" scope="col">@localizer["button"]</th>
+                      <th width="15%" scope="col">@localizer["productId"]</th>
+                      <th width="24%" scope="col">@localizer["productName"]</th>
+                      <th width="14%" scope="col">@localizer["caption1"]</th>
+                      <th width="14%" scope="col">@localizer["caption2"]</th>
+                      <th width="10%" scope="col">@localizer["transType"]</th>
+                      <th scope="col">@localizer["del"]</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+                </table>
+              </div>
+
+              <div id="promotion-table-section" style="display:none">
+                <table class="table table-striped" id="table--promotion-transfer" style="width:100%">
+                  <thead>
+                    <tr>
+                      <th width="10%" scope="col">@localizer["batch-h"]</th>
+                      <th width="10%" scope="col">@localizer["id"]</th>
+                      <th width="30%" scope="col">@localizer["description"]</th>
+                      <th width="15%" scope="col">@localizer["startDate"]</th>
+                      <th width="15%" scope="col">@localizer["endDate"]</th>
+                      <th width="10%" scope="col">@localizer["transType"]</th>
+                      <th width="10%" scope="col">@localizer["del"]</th>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+
+              <div id="stock-list-table-section" style="display:none">
+                <table class="table table-striped" id="table--stock-transfer" style="width:100%">
+                  <thead>
+                    <tr>
+                      <th width="20%" scope="col">@localizer["batch-h"]</th>
+                      <th width="20%" scope="col">@localizer["product"]</th>
+                      <th width="30%" scope="col">@localizer["description"]</th>
+                      <th width="20%" scope="col">@localizer["trType"]</th>
+                      <th width="10%" scope="col">@localizer["del"]</th>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="col-3">
+            <label class="mb-2 h5 fw-bold">@localizer["selectedStores"]</label>
+            <hr class="hr--sm" />
+            <div class="mt-3">
+              <select multiple class="form-select" id="list__selected-stores-container">
+              </select>
+            </div>
+          </div>
+          <div class="col-9">
+            <button class="btn btn-sm btn-outline-danger mt-3 px-4" onclick="handleDeleteFromTransferList(null, null, null, 'ALL')">@localizer["deleteAll"]</button>
+          </div>
+          <div class="col-3 d-flex flex-column-reverse">
+            <button class="btn btn-sm btn-outline-danger btn-block mt-3 px-4" onclick="handleDeleteFromTransferList(null, null, null, selectedStoreIdOnListTab, 'STORE')">@localizer["deleteStoreData"]</button>
+          </div>
+        </div>
+        <div class="d-flex flex-row-reverse gap-3 mt-3">
+          <button class="btn btn-lg btn-primary px-5" id="btn-transfer" onclick="handlePerformTransfer()">@localizer["transfer"]</button>
+          <button class="btn btn-lg btn-outline-secondary px-5" id="btn-report" onclick="displayPriceBookTransferReport()">@localizer["reports"]</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+@section Scripts
+  {
+  <script src="~/js/storeSelectionByGroup.js" asp-append-version="true"></script>
+  <script src="~/js/PricebookTransfer/pricebookTransfer.js" asp-append-version="true"></script>
+  <script src="~/js/PricebookTransfer/priceChange.js" asp-append-version="true"></script>
+  <script src="~/js/PricebookTransfer/stocks.js" asp-append-version="true"></script>
+  <script src="~/js/PricebookTransfer/costChange.js" asp-append-version="true"></script>
+  <script src="~/js/PricebookTransfer/commodity.js" asp-append-version="true"></script>
+  <script src="~/js/PricebookTransfer/promotions.js" asp-append-version="true"></script>
+  <script src="~/js/PricebookTransfer/hotButtons.js" asp-append-version="true"></script>
+  }

@@ -1,0 +1,10 @@
+﻿﻿<script src="~/js/report.js"></script>
+
+@inject IApplicationConfig _config
+<input id="webBaseUrl" hidden value="@_config.WebBaseUrl" />
+<input id="reportBaseUrl" hidden value="@_config.ReportBaseUrl" />
+
+<div style="margin: auto; justify-content: center; display: flex;">
+  <iframe id="IframeReportViewer" style="border: 2px solid black;" src="@_config.ReportBaseUrl" scrolling="yes">
+  </iframe>
+</div>

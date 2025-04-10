@@ -1,0 +1,77 @@
+﻿@section Head {
+  <link href="~/css/checkInCheckOut.css" rel="stylesheet" asp-append-version="true" />
+}
+
+@inject IApplicationConfig _config
+@inject IViewLocalizer localizer
+@inject IHttpContextAccessor httpContextAccessor
+@{
+  ViewData["Title"] = @localizer["pageTitle"];
+}
+
+<input id="_checkIn" type="hidden" value="@localizer["checkIn"]" />
+<input id="_checkOut" type="hidden" value="@localizer["checkOut"]" />
+<input id="_userIdIsNotDefined" type="hidden" value="@localizer["userIdIsNotDefined"]" />
+<input id="_userIdDoesNotExist" type="hidden" value="@localizer["userIdDoesNotExist"]" />
+<input id="_invalidPassword" type="hidden" value="@localizer["invalidPassword"]" />
+<input id="_verify" type="hidden" value="@localizer["verify"]" />
+<input id="_verified" type="hidden" value="@localizer["verified"]" />
+<input id="_checkInConfirmation" type="hidden" value="@localizer["checkInConfirmation"]" />
+<input id="_checkOutConfirmation" type="hidden" value="@localizer["checkOutConfirmation"]" />
+<input id="_agreementConfirmation" type="hidden" value="@localizer["agreementConfirmation"]" />
+<input id="_checkInSuccessMessage" type="hidden" value="@localizer["checkInSuccessMessage"]" />
+<input id="_checkOutSuccessMessage" type="hidden" value="@localizer["checkOutSuccessMessage"]" />
+<input id="_enterExplanationMessage" type="hidden" value="@localizer["enterExplanationMessage"]" />
+<input id="_enterPayPeriodInformationMessage" type="hidden" value="@localizer["enterPayPeriodInformationMessage"]" />
+<input id="_checkInOrOutUnsuccessfulMessage" type="hidden" value="@localizer["checkInOrOutUnsuccessfulMessage"]" />
+<input id="userNameRequired" type="hidden" value="@localizer["userNameRequired"]" />
+<input id="passwordRequired" type="hidden" value="@localizer["passwordRequired"]" />
+
+<div class="px-3 py-2 mt-2">
+  <div class="d-flex justify-content-between">
+    <h3 class="h3 fw-bold mb-3">@localizer["checkInAndCheckOut"]</h3>
+  </div>
+
+  <div class="page-content p-4 h-100 row">
+    <div class="d-flex flex-column col">
+      <label class="h5 form-label fw-bold" for="user-list">@localizer["userListLabel"]:</label>
+      <select multiple class="form-select" id="user-list">
+      </select>
+    </div>
+    <div class="d-flex flex-column col">
+      <form onsubmit="verifyUser(event)">
+        <div class="mb-3">
+          <label class="h5 form-label fw-bolder" for="user-id__input">@localizer["userName"]</label>
+          <input class="form-control" id="user-id__input">
+        </div>
+        <div class="mb-3">
+          <label class="h5 form-label fw-bolder" for="password__input">@localizer["password"]</label>
+          <input class="form-control" type="password" id="password__input">
+        </div>
+        <div class="mb-3" id="comment__input-group">
+          <label class="form-label fw-bolder" for="comment__input">@localizer["comment"]</label>
+          <input class="form-control" id="comment__input">
+        </div>
+
+        <button class="btn btn-primary px-3 me-2" id="btn-verify" type="submit">@localizer["verify"]</button>
+        <button class="btn btn-primary px-2" id="btn-change-user" type="button" onclick="handleChangeUser()">@localizer["changeUser"]</button>
+      </form>
+
+      <div class="mt-4">
+        <label id="lbl-timesheets" hidden class="h5 form-label fw-bold">@localizer["timesheets"]</label>
+        <div class="d-flex flex-column flex-xl-row">
+          <div class="d-flex flex-column flex-lg-row">
+            <button hidden class="btn btn-primary flex-lg-grow-1 flex-xl-grow-0 me-2" id="btn-view-current" onclick="handleViewReports(true)">@localizer["viewCurrent"]</button>
+            <button hidden class="btn btn-primary flex-lg-grow-1 flex-xl-grow-0 me-xl-2" id="btn-view-history" onclick="handleViewReports(false)">@localizer["viewHistory"]</button>
+          </div>
+          <button hidden class="btn btn-primary mt-lg-2 mt-xl-0 flex-lg-grow-1 flex-xl-grow-0" id="btn-check-in" onclick="handleCheckIn()">@localizer["checkIn"]</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+@section Scripts {
+  <script src="~/js/checkInCheckOut.js" asp-append-version="true"></script>
+}

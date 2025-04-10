@@ -1,0 +1,588 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="amount" xml:space="preserve">
+    <value>Montant</value>
+  </data>
+  <data name="auth" xml:space="preserve">
+    <value># autorisation</value>
+  </data>
+  <data name="cardName" xml:space="preserve">
+    <value>Nom de la carte</value>
+  </data>
+  <data name="cardNumber" xml:space="preserve">
+    <value># de carte</value>
+  </data>
+  <data name="cardReport" xml:space="preserve">
+    <value>---- Rapport de carte ----</value>
+  </data>
+  <data name="date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="endDate" xml:space="preserve">
+    <value>Date de Fin:</value>
+  </data>
+  <data name="expDate" xml:space="preserve">
+    <value>Date d'expiration</value>
+  </data>
+  <data name="noData" xml:space="preserve">
+    <value>Aucun enregistrement</value>
+  </data>
+  <data name="saleNo" xml:space="preserve">
+    <value># de transaction</value>
+  </data>
+  <data name="startDate" xml:space="preserve">
+    <value>Date de Début:</value>
+  </data>
+  <data name="termID" xml:space="preserve">
+    <value>ID terminal</value>
+  </data>
+  <data name="time" xml:space="preserve">
+    <value>Heure</value>
+  </data>
+  <data name="type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="product" xml:space="preserve">
+    <value>Produit</value>
+  </data>
+  <data name="qty" xml:space="preserve">
+    <value>Qté</value>
+  </data>
+  <data name="discount" xml:space="preserve">
+    <value>Rabais</value>
+  </data>
+  <data name="thirdPartyDiscountOf" xml:space="preserve">
+    <value>Rabais tierce partie de</value>
+  </data>
+  <data name="totalThirdPartyDiscount" xml:space="preserve">
+    <value>Total des rabais tierce partie</value>
+  </data>
+  <data name="totalThirdPartyCards" xml:space="preserve">
+    <value>Total carte privée</value>
+  </data>
+  <data name="totalSalesX" xml:space="preserve">
+    <value>Vente totale x</value>
+  </data>
+  <data name="totalTransactionsX" xml:space="preserve">
+    <value>Total des transactions x</value>
+  </data>
+  <data name="totalOf" xml:space="preserve">
+    <value>Total de</value>
+  </data>
+  <data name="summaryByGrade" xml:space="preserve">
+    <value>Résumé par niveau scolaire</value>
+  </data>
+  <data name="pump/Grade" xml:space="preserve">
+    <value>Pompe/Grade</value>
+  </data>
+  <data name="volume" xml:space="preserve">
+    <value>Volume</value>
+  </data>
+  <data name="totalizerReport" xml:space="preserve">
+    <value>---- Rapport des totalisateurs ----</value>
+  </data>
+  <data name="total" xml:space="preserve">
+    <value>Totale</value>
+  </data>
+  <data name="totalArticles" xml:space="preserve">
+    <value>Total articles vendus</value>
+  </data>
+  <data name="lastReadings" xml:space="preserve">
+    <value>Dernière lecture</value>
+  </data>
+  <data name="fleetCardFuelSaleReport" xml:space="preserve">
+    <value>---- Rapport de vente d'essence carte de flotte ----</value>
+  </data>
+  <data name="creditCardSummaryReport" xml:space="preserve">
+    <value>---- Rapport sommaire des cartes de crédit ----</value>
+  </data>
+  <data name="dailyFuelDiscountReport" xml:space="preserve">
+    <value>---- Rapport journalier de rabais d'essence ----</value>
+  </data>
+  <data name="saleDate" xml:space="preserve">
+    <value>Date trans</value>
+  </data>
+  <data name="till" xml:space="preserve">
+    <value>Tiroirs</value>
+  </data>
+  <data name="class" xml:space="preserve">
+    <value>Classe</value>
+  </data>
+  <data name="cardType" xml:space="preserve">
+    <value>Type de carte</value>
+  </data>
+  <data name="transactions" xml:space="preserve">
+    <value>Transactions</value>
+  </data>
+  <data name="dollars" xml:space="preserve">
+    <value>Dollars</value>
+  </data>
+  <data name="credit" xml:space="preserve">
+    <value>Crédit</value>
+  </data>
+  <data name="debit" xml:space="preserve">
+    <value>Débit</value>
+  </data>
+  <data name="creditDiscount" xml:space="preserve">
+    <value>Rabais sur credit</value>
+  </data>
+  <data name="debitDiscount" xml:space="preserve">
+    <value>Rabais sur débit</value>
+  </data>
+  <data name="arCustomerSalesReport" xml:space="preserve">
+    <value>Rapport des Soldes de Compte Clients</value>
+  </data>
+  <data name="customerCode" xml:space="preserve">
+    <value>Code de Client</value>
+  </data>
+  <data name="customerName" xml:space="preserve">
+    <value>Nom du Client</value>
+  </data>
+  <data name="po" xml:space="preserve">
+    <value>Bon de Commande</value>
+  </data>
+  <data name="totalNumberOfSales" xml:space="preserve">
+    <value>Total du nombre de transactions</value>
+  </data>
+  <data name="page" xml:space="preserve">
+    <value>Page</value>
+  </data>
+  <data name="saleType" xml:space="preserve">
+    <value>Type de vente</value>
+  </data>
+  <data name="payPump" xml:space="preserve">
+    <value>Paiement à la pompe</value>
+  </data>
+  <data name="payInside" xml:space="preserve">
+    <value>Paiement à l'intérieur</value>
+  </data>
+  <data name="totalDiscount" xml:space="preserve">
+    <value>Rabais total</value>
+  </data>
+  <data name="produit" xml:space="preserve">
+    <value>Produit</value>
+  </data>
+  <data name="saleProcessed" xml:space="preserve">
+    <value>Ventes finalisées</value>
+  </data>
+  <data name="totalizerSales" xml:space="preserve">
+    <value>Ventes totalisateur</value>
+  </data>
+  <data name="variance" xml:space="preserve">
+    <value>Variation</value>
+  </data>
+  <data name="pump/Product" xml:space="preserve">
+    <value>Pompe/Produit</value>
+  </data>
+  <data name="fuelSaleVarianceReport" xml:space="preserve">
+    <value>---- Rapport de variation des ventes d'essence ----</value>
+  </data>
+  <data name="volumes" xml:space="preserve">
+    <value>Volumes</value>
+  </data>
+  <data name="shiftAnalysis" xml:space="preserve">
+    <value>Analyse des changements</value>
+  </data>
+  <data name="employeeID" xml:space="preserve">
+    <value>ID d'employé</value>
+  </data>
+  <data name="refundsPurchaseCorrections" xml:space="preserve">
+    <value>Remboursements/Corrections d'achat</value>
+  </data>
+  <data name="invoiceID" xml:space="preserve">
+    <value>Numéro de facture</value>
+  </data>
+  <data name="invoiceDate" xml:space="preserve">
+    <value>Date de facture</value>
+  </data>
+  <data name="reference" xml:space="preserve">
+    <value>Référence #</value>
+  </data>
+  <data name="productUPC" xml:space="preserve">
+    <value>Product UPC</value>
+  </data>
+  <data name="description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="quantity" xml:space="preserve">
+    <value>Quantité</value>
+  </data>
+  <data name="totalRetail" xml:space="preserve">
+    <value>Vente au détail totale</value>
+  </data>
+  <data name="openCashDrawer" xml:space="preserve">
+    <value>Tiroir-caisse ouvert</value>
+  </data>
+  <data name="transactionCount" xml:space="preserve">
+    <value>Nombre de transactions</value>
+  </data>
+  <data name="deletedLinesCount" xml:space="preserve">
+    <value>Nombre de lignes supprimées</value>
+  </data>
+  <data name="deletedLinesTotalAmount" xml:space="preserve">
+    <value>Lignes supprimées Montant total</value>
+  </data>
+  <data name="averageSaleAmount" xml:space="preserve">
+    <value>Montant moyen de la vente en $</value>
+  </data>
+  <data name="excludingFuel" xml:space="preserve">
+    <value>((hors carburant))</value>
+  </data>
+  <data name="shiftID" xml:space="preserve">
+    <value>ID d'équipe</value>
+  </data>
+  <data name="fleetCardSaleReport" xml:space="preserve">
+    <value>---- Rapport de Ventes des Cartes de Flotte ----</value>
+  </data>
+  <data name="line" xml:space="preserve">
+    <value>Numér</value>
+  </data>
+  <data name="price" xml:space="preserve">
+    <value>Prix</value>
+  </data>
+  <data name="net" xml:space="preserve">
+    <value>Montant Netis</value>
+  </data>
+  <data name="tax" xml:space="preserve">
+    <value>Taxes</value>
+  </data>
+  <data name="charges" xml:space="preserve">
+    <value>Frais</value>
+  </data>
+  <data name="saleAmount" xml:space="preserve">
+    <value>$ Trans.</value>
+  </data>
+  <data name="tendAmount" xml:space="preserve">
+    <value>Montant payé</value>
+  </data>
+  <data name="discount/Rebate" xml:space="preserve">
+    <value>Escompte/Rabais</value>
+  </data>
+  <data name="totalFleetCardTenderedAmount" xml:space="preserve">
+    <value>Montant Total des paiements par Cartes de Flotte</value>
+  </data>
+  <data name="totalFleetCardSaleAmount" xml:space="preserve">
+    <value>Quantité Totale de Ventes de Carte de Flotte</value>
+  </data>
+  <data name="totalFleetCardSaleVolume" xml:space="preserve">
+    <value>Volume Total de Ventes de Carte de Flotte</value>
+  </data>
+  <data name="customer" xml:space="preserve">
+    <value>Client</value>
+  </data>
+  <data name="account" xml:space="preserve">
+    <value>Account</value>
+  </data>
+  <data name="date/Time" xml:space="preserve">
+    <value>Date/Heure</value>
+  </data>
+  <data name="rebate" xml:space="preserve">
+    <value>Carburant</value>
+  </data>
+  <data name="totalFuelRebate" xml:space="preserve">
+    <value>Rabais Total de Carburant</value>
+  </data>
+  <data name="affdaSaleDetailReport" xml:space="preserve">
+    <value>---- Affda Tax Sale Detail Report ----</value>
+  </data>
+  <data name="affdaSaleSummaryReport" xml:space="preserve">
+    <value>---- Affda Tax Sale Summary Report ----</value>
+  </data>
+  <data name="stock" xml:space="preserve">
+    <value>Stock</value>
+  </data>
+  <data name="productName" xml:space="preserve">
+    <value>Nom de l'article</value>
+  </data>
+  <data name="noDept" xml:space="preserve">
+    <value>&lt;Aucun département&gt;</value>
+  </data>
+  <data name="stockItemsDetailReport" xml:space="preserve">
+    <value>--- Rapport de Détails des Articles ---</value>
+  </data>
+  <data name="department" xml:space="preserve">
+    <value>Département</value>
+  </data>
+  <data name="subDepartment" xml:space="preserve">
+    <value>Sous-dépt</value>
+  </data>
+  <data name="subDetail" xml:space="preserve">
+    <value>Classe</value>
+  </data>
+  <data name="stockCode/Desc" xml:space="preserve">
+    <value>Article /Desc.</value>
+  </data>
+  <data name="margin" xml:space="preserve">
+    <value>Marge</value>
+  </data>
+  <data name="cost" xml:space="preserve">
+    <value>Coût</value>
+  </data>
+  <data name="vendor" xml:space="preserve">
+    <value>Fourn.</value>
+  </data>
+  <data name="taxes" xml:space="preserve">
+    <value>Taxes</value>
+  </data>
+  <data name="charges2" xml:space="preserve">
+    <value>Porté au compte</value>
+  </data>
+  <data name="dipDate" xml:space="preserve">
+    <value>Date Dip</value>
+  </data>
+  <data name="dipValue" xml:space="preserve">
+    <value>Valeur de Charte</value>
+  </data>
+  <data name="gradeId" xml:space="preserve">
+    <value>Numéro de grade</value>
+  </data>
+  <data name="tankDipReport" xml:space="preserve">
+    <value>réservoir trempette rapport</value>
+  </data>
+  <data name="tankId" xml:space="preserve">
+    <value>Numéro du réservoir</value>
+  </data>
+  <data name="adagioReport" xml:space="preserve">
+    <value>Rapport Adagio</value>
+  </data>
+  <data name="gasinfonetheadoffice" xml:space="preserve">
+    <value>GAS1  Infonet Head Office</value>
+  </data>
+  <data name="expiryDate" xml:space="preserve">
+    <value>Date d'expiration</value>
+  </data>
+  <data name="payPumpIncompleteTransactions" xml:space="preserve">
+    <value>Transactions incomplet de Payé à la Pompe</value>
+  </data>
+  <data name="saleTime" xml:space="preserve">
+    <value>Heure de transaction</value>
+  </data>
+  <data name="commission" xml:space="preserve">
+    <value>Commission</value>
+  </data>
+  <data name="dept" xml:space="preserve">
+    <value>Département</value>
+  </data>
+  <data name="employeeCommissionReport" xml:space="preserve">
+    <value>Employee Commission Report</value>
+  </data>
+  <data name="employeeIdEng" xml:space="preserve">
+    <value>Employee ID</value>
+  </data>
+  <data name="stockCode" xml:space="preserve">
+    <value>Ajouter</value>
+  </data>
+  <data name="subDept" xml:space="preserve">
+    <value>Sous Dépt.</value>
+  </data>
+  <data name="all" xml:space="preserve">
+    <value>&lt;Tous&gt;</value>
+  </data>
+  <data name="-arPay" xml:space="preserve">
+    <value>-CC Payé</value>
+  </data>
+  <data name="-payments" xml:space="preserve">
+    <value>-Paiements</value>
+  </data>
+  <data name="cashOverpay:(-)" xml:space="preserve">
+    <value>Déboursé Trop Payé: (-)</value>
+  </data>
+  <data name="cashPayouts:(-)" xml:space="preserve">
+    <value>DÉBOURSÉ COMPTANT: (-)</value>
+  </data>
+  <data name="charges_" xml:space="preserve">
+    <value>PORTÉ AU COMPTE</value>
+  </data>
+  <data name="customercount" xml:space="preserve">
+    <value>Décompte Client</value>
+  </data>
+  <data name="dayAmount" xml:space="preserve">
+    <value>Montant Journalier</value>
+  </data>
+  <data name="dayQuantity" xml:space="preserve">
+    <value>Quantité Journalier</value>
+  </data>
+  <data name="deletedlines" xml:space="preserve">
+    <value>Lignes supp :</value>
+  </data>
+  <data name="entry" xml:space="preserve">
+    <value>Entrée des Groupes</value>
+  </data>
+  <data name="financialReport" xml:space="preserve">
+    <value>Rapport financier</value>
+  </data>
+  <data name="monthAmount" xml:space="preserve">
+    <value>Montant Mensuel</value>
+  </data>
+  <data name="monthQuantity" xml:space="preserve">
+    <value>Quantité Mensuele</value>
+  </data>
+  <data name="NET1(Sales+Disc+Tax+Charges)" xml:space="preserve">
+    <value>NET1(Ventesd+Rab-Taxe+Dépôt)</value>
+  </data>
+  <data name="NET2(Tends+POs-RAs)" xml:space="preserve">
+    <value>NET2(Tends+POs-RAs)</value>
+  </data>
+  <data name="productSales" xml:space="preserve">
+    <value>VENTES D'ARTICLES</value>
+  </data>
+  <data name="refund" xml:space="preserve">
+    <value>REMBOURSEMENT</value>
+  </data>
+  <data name="selectedDate" xml:space="preserve">
+    <value>Date choisie</value>
+  </data>
+  <data name="Tenders" xml:space="preserve">
+    <value>MODES DE PAIEMENT</value>
+  </data>
+  <data name="voidedlines" xml:space="preserve">
+    <value>Lignes annul :</value>
+  </data>
+  <data name="yearAmount" xml:space="preserve">
+    <value>Montant Anuel</value>
+  </data>
+  <data name="yearQuantity" xml:space="preserve">
+    <value>Quantité Annuelle</value>
+  </data>
+  <data name="all" xml:space="preserve">
+    <value>&lt;Tous&gt;</value>
+  </data>
+  <data name="customerSalesDetailReport" xml:space="preserve">
+    <value>Rapport à la clientèle Détails ventes</value>
+  </data>
+  <data name="printedOn" xml:space="preserve">
+    <value>Imprimé Sur</value>
+  </data>
+  <data name="overpayment" xml:space="preserve">
+    <value>Trop-payé</value>
+  </data>
+  <data name="totalAmount" xml:space="preserve">
+    <value>Montant total</value>
+  </data>
+  <data name="totalCharges" xml:space="preserve">
+    <value>Total porté au compte</value>
+  </data>
+  <data name="totalTaxes" xml:space="preserve">
+    <value>Taxes tot.</value>
+  </data>
+  <data name="taxesCapital" xml:space="preserve">
+    <value>TAXES</value>
+  </data>
+</root>

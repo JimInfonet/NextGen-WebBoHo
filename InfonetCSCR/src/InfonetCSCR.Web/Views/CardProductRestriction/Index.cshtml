@@ -1,0 +1,111 @@
+﻿@section Head {
+  <link href="~/css/cardProductRestriction.css" rel="stylesheet" asp-append-version="true" />
+}
+
+@model ProductRestrictionViewModel
+@inject IApplicationConfig _config
+@inject IViewLocalizer localizer
+@{
+  ViewData["Title"] = @localizer["pageTitle"];
+  bool validProfileId = ViewData["ProfileId"] != null;
+}
+
+<input type="hidden" id="productRestrictionFor" value="@localizer["productRestrictionFor"]" />
+<input type="hidden" id="productRestrictionForProfile" value="@localizer["productRestrictionForProfile"]" />
+<input type="hidden" id="failedToLoadProductRestrictions" value="@localizer["failedToLoadProductRestrictions"]" />
+<input type="hidden" id="failedToDeleteProductRestriction" value="@localizer["failedToDeleteProductRestriction"]" />
+<input type="hidden" id="pleaseSelectAProductRestriction" value="@localizer["pleaseSelectAProductRestrictionProfile"]" />
+<input type="hidden" id="deleteProductRestriction" value="@localizer["deleteProductRestriction"]" />
+<input type="hidden" id="doYouWantToDeleteThisProductRestriction" value="@localizer["doYouWantToDeleteThisProductRestriction"]" />
+<input type="hidden" id="areYouSureYouWantToDeleteThisCard" value="@localizer["areYouSureYouWantToDeleteThisCard"]" />
+<input type="hidden" id="productRestrictionProfileDeletedSuccessfully" value="@localizer["productRestrictionProfileDeletedSuccessfully"]" />
+<input type="hidden" id="productRestrictionProfileCreatedSuccessfully" value="@localizer["productRestrictionProfileCreatedSuccessfully"]" />
+<input type="hidden" id="productRestrictionProfileUpdatedSuccessfully" value="@localizer["productRestrictionProfileUpdatedSuccessfully"]" />
+
+<input type="hidden" id="bankCardId" value="@ViewData["BankCardId"]" />
+<input type="hidden" id="cardDescription" value="@ViewData["cardDescription"]" />
+<input type="hidden" id="isProductRestrictionDeleted" value="@ViewData["isProductRestrictionDeleted"]" />
+<input type="hidden" id="cardCode" value="@ViewData["CardCode"]" />
+<input type="hidden" id="tendCodeData" value="@ViewData["TendCodeData"]" />
+<input type="hidden" id="fromGrid" value="@ViewData["FromGrid"]" />
+
+<Div class="p-3 mt-2">
+  <div class="p-2">
+    <div class="d-flex justify-content-between">
+      <h3 class="h3 fw-bold mb-3" id="productRestrictionForHeader"></h3>
+    </div>
+
+    <div class="container body-content p-2" style="max-width:2000px;">
+      @*Product Restriction Datatable Section*@
+      <div class="container overflow-scroll custom-grid-scrollbar border-2" style="max-width:2000px;">
+        <table id="productRestriction-grid" class="table table-striped" style="width:100%">
+          <thead>
+            <tr>
+              @if (validProfileId)
+              {
+                <th id="DTBankCard">@localizer["profileId"]</th>
+                <th id="DTCardName">@localizer["profileName"]</th>
+                <th id="DTDept">@localizer["dept"]</th>
+                <th id="DTSubDept">@localizer["subDept"]</th>
+                <th id="DTSubDetail">@localizer["subDetail"]</th>
+                <th id="DTStockCode">@localizer["stockCode"]</th>
+                <th id="DTDescription">@localizer["description"]</th>
+              }
+              else
+              {
+                <th id="DTBankCard">@localizer["bankCardID"]</th>
+                <th id="DTCardName">@localizer["cardName"]</th>
+                <th id="DTCardProductCode">@localizer["cardProductCode"]</th>
+                <th id="DTCardProductName">@localizer["cardProductName"]</th>
+                <th id="DTDept">@localizer["dept"]</th>
+                <th id="DTSubDept">@localizer["subDept"]</th>
+                <th id="DTSubDetail">@localizer["subDetail"]</th>
+                <th id="DTStockCode">@localizer["stockCode"]</th>
+                <th id="DTDescription">@localizer["description"]</th>
+                <th id="DTAmount">@localizer["amount"]</th>
+              }
+            </tr>
+          </thead>
+        </table>
+      </div>
+
+      <div class="p-2 row">
+        <div class="d-flex gap-3 col">
+          <button id="btn-add" type="button" class="btn btn-footer btn-primary text-center">@localizer["add"]</button>
+          <button id="btn-delete" type="button" class="btn btn-footer btn-danger text-center">@localizer["delete"]</button>
+          <button id="btn-edit" type="button" class="btn btn-footer btn-primary">@localizer["edit"]</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="m-4">
+    <button id="btn-back" type="button" class="btn btn-back btn-outline-danger float-end">@localizer["back"]</button>
+  </div>
+</Div>
+
+<form class="p-3 mt-2" asp-controller="CardProductRestriction" asp-action="ProductRestrictionForm" id="productRestrictionForm" hidden>
+  <input asp-for="CardDescription" id="cardDescriptionForm" type="text" />
+  <input asp-for="CardNumber" id="cardNumberForm" type="text" />
+  <input asp-for="ProfileId" id="profileIdForm" type="text" />
+  <input asp-for="BankCardId" id="bankCardIdForm" type="text" />
+  <input asp-for="CardProductCode" id="cardProductCodeForm" type="text" />
+  <input asp-for="CardProductDescription" id="cardProductDescriptionForm" type="text" />
+  <input asp-for="Dept" id="departmentForm" type="text">
+  <input asp-for="SubDept" id="subDeptForm" type="text">
+  <input asp-for="SubDetail" id="subDetailForm" type="text">
+  <input asp-for="StockCode" id="stockCodeForm" type="text">
+  <input asp-for="Description" id="descriptionForm" type="text" />
+  <input asp-for="Amount" id="amountForm" type="number" />
+
+  @*Card Definition parameters for back button functionality*@
+  <input name="cardCode" value="@ViewData["CardCode"]" />
+  <input name="tendCodeData" value="@ViewData["TendCodeData"]" />
+  <input name="fromGrid" value="@ViewData["FromGrid"]" />
+
+  <button type="submit" id="submitForm"></button>
+</form>
+
+@section Scripts
+{
+  <script src="~/js/cardProductRestriction.js" asp-append-version="true"></script>
+}

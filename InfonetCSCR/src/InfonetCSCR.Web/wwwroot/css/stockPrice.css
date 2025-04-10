@@ -1,0 +1,120 @@
+﻿.stock-price-content {
+  background-color: var(--color-white);
+  margin-top: 20px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+.stock-price-title {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 25px;
+  line-height: 40px;
+  color: #002540;
+}
+
+.stock-price-form-title, .stock-price-description {
+  font-style: normal;
+  font-weight: 1000;
+  font-size: 17px;
+  line-height: 30px;
+  color: #002540;
+}
+
+.stock-price-form-title {
+  font-size: 20px !important;
+}
+
+.stock-price-hr {
+  opacity: 0.12;
+  margin: 0.75rem 0;
+}
+
+.stock-price-list {
+  border: 1px solid rgba(0,0,0,.125);
+  height: 102px;
+  padding: .5em 1.5em;
+  border-radius: 5px;
+}
+
+.stock-price-rebate-table,
+.stock-price-special-price-table {
+  max-height: 225px;
+  overflow-x: hidden !important;
+}
+
+.stock-price-price-table {
+  max-height: 159px;
+}
+
+.stock-price-list-group-item {
+  border: hidden;
+  padding: 0;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 22px;
+  color: #002540;
+}
+
+.stock-price-list-group-item input {
+  width: 18px;
+  height: 18px;
+  background-color: #F5F7FF;
+}
+
+.form-check-label {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 22px;
+  color: #002540;
+}
+
+.form-check-input {
+  width: 18px;
+  height: 18px;
+  background-color: #F5F7FF;
+}
+
+.btn-primary {
+  background-color: #2653BC !important;
+}
+
+.btn-cancel,
+.btn-save {
+  padding: 0.5rem 3rem;
+  width: 150px;
+  height: 50px;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+}
+
+.stock-price-icon {
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.table {
+  margin-bottom: 0rem !important;
+}
+
+.page-title {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 40px;
+  color: #002540;
+}
+
+.btn-back {
+  width: 150px;
+  height: 50px;
+  border-radius: 4px;
+}
+
+@media (max-width: 1024px) {
+  #colStockPriceList {
+    max-width: 43%;
+  }
+}

@@ -1,0 +1,12 @@
+#CharacteristicId {
+  white-space: nowrap;
+}
+
+@media (min-width: 1366px) {
+  .body-content {
+    min-height: 770px;
+  }
+  .custom-grid-scrollbar {
+    min-height: 621px;
+  }
+}

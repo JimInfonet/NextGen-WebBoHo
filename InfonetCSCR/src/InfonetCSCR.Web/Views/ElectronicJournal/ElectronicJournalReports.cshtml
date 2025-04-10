@@ -1,0 +1,142 @@
+﻿@section Head {
+  <link href="~/css/electronicJournalReports.css" rel="stylesheet" asp-append-version="true" />
+}
+
+@inject IApplicationConfig _config
+@inject IViewLocalizer localizer
+
+@{
+  ViewData["Title"] = @localizer["electronicJournal"];
+  bool isBackOffice = _config.IsBackOffice;
+}
+
+<input id="select" type="hidden" value="@localizer["select"]" />
+<input id="search" type="hidden" value="@localizer["search"]" />
+<input id="searching" type="hidden" value="@localizer["searching"]" />
+<input id="excessRecordCount" type="hidden" value="@localizer["excessRecordCount"]" />
+<input id="pleaseSelectLessThan" type="hidden" value="@localizer["pleaseSelectLessThan"]" />
+<input id="days" type="hidden" value="@localizer["days"]" />
+<div id="acceptedDateRange" hidden>@_config.AcceptedDateRange</div>
+
+<div class="px-3 py-2 mt-2">
+  <div>
+    <h3 class="fw-bold">@localizer["electronicJournal"]</h3>
+  </div>
+
+  <div class="container body-content p-2" style="max-width:3000px;">
+    <div class="d-flex report-settings my-3">
+      <div class="search-container d-flex m-2 pe-4">
+        <div class="d-flex" id="search-criteria">
+          <select class="form-select edit-mode-control filter-type me-2" id="filter-type" onchange="updateFilterValueOptions()"></select>
+          <select class="form-select edit-mode-control me-2" id="filter-operator">
+            <option class="text-center" value="=">=</option>
+            <option class="text-center" value="!=">!=</option>
+            <option class="text-center" value=">">&gt;</option>
+            <option class="text-center" value="<">&lt;</option>
+            <option class="text-center" value="<=">&lt;=</option>
+            <option class="text-center" value=">=">&gt;=</option>
+          </select>
+          <input type="text" id="filter-value" class="infonet-input edit-mode-control filter-value">
+        </div>
+      </div>
+      <div class="button-container d-flex pe-2">
+        <button onclick="searchReport()" id="searchEJData" class="btn electronic-journal-btn-footer btn-primary btn-load-report m-2" type="button">@localizer["search"]</button>
+        @if (isBackOffice)
+        {
+          <button onclick="viewElectronicJournalDetailReport()" id="btnViewDetails" class="btn electronic-journal-btn-footer btn-primary m-2" type="button">@localizer["viewDetails"]</button>
+          <button onclick="showSummaryOrDetailsReport('details')" id="details-button" class="btn electronic-journal-btn-footer btn-primary m-2" type="button">@localizer["downloadDetails"]</button>
+          <button onclick="showSummaryOrDetailsReport('summary')" id="summary-button" class="btn electronic-journal-btn-footer btn-primary m-2" type="button">@localizer["summary"]</button>
+        }
+        <button onclick="goBackPage()" class="btn electronic-journal-btn-footer btn-danger m-2 me-2" type="button">@localizer["back"]</button>
+
+        @if (!isBackOffice)
+        {
+          <div class="d-flex justify-content-between my-2 ps-4">
+            <div class="d-flex">
+              <div class="form-check my-1 mx-2">
+                <input class="form-check-input mt-2" type="radio" name="report-radio" value="EJ" onclick="reportRadioClicked()" checked>
+                <label class="form-check-label mt-1">@localizer["electronicJournal"]</label>
+              </div>
+              <div class="form-check my-1 mx-2">
+                <input class="form-check-input mt-2" type="radio" name="report-radio" value="TD" onclick="reportRadioClicked()" >
+                <label class="form-check-label mt-1">@localizer["tenderDetails"]</label>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+
+    @*Electronic Journal Datatable Section*@
+    <div id="electronic-journal-table" class="container custom-grid-scrollbar border-2" style="max-width:3000px;">
+      <table id="electronic-journal-grid" class="table table-striped" style="width:100%">
+        <thead>
+          <tr>
+            <th id="Store">@localizer["store"]</th>
+            <th id="Sale">@localizer["sale"]</th>
+            <th id="Date">@localizer["date"]</th>
+            <th id="Till">@localizer["till"]</th>
+            <th id="Amount">@localizer["amount"]</th>
+            <th id="Customer">@localizer["customer"]</th>
+            <th id="Type">@localizer["type"]</th>
+            <th id="SDT">@localizer["sdt"]</th>
+            <th id="Source">@localizer["source"]</th>
+          </tr>
+        </thead>
+        <tfoot>
+          <tr>
+            <th class="input substring-search" width="5%" scope="col"></th>
+            <th class="input substring-search" width="10%" scope="col"></th>
+            <th class="input substring-search" width="15%" scope="col"></th>
+            <th class="input substring-search" width="10%" scope="col"></th>
+            <th class="input substring-search" width="10%" scope="col"></th>
+            <th class="input substring-search" width="10%" scope="col"></th>
+            <th class="input substring-search" width="10%" scope="col"></th>
+            <th class="input substring-search" width="25%" scope="col"></th>
+            <th class="input substring-search" width="5%" scope="col"></th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+  <div>
+    <iframe class="border-2 p-2 col-12" id="IframeReportViewer" src="@_config.ReportBaseUrl" scrolling="yes" hidden></iframe>
+  </div>
+</div>
+
+<partial name="_StockCodeModal"></partial>
+
+@*Customer Modal*@
+
+<div class="modal fade" id="customerDataTableModal" tabindex="1" role="dialog" area-modal="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="width: 600px;">
+      <div class="container overflow-y-scroll custom-grid-scrollbar border-2" id="customerTable" style="width:100%">
+        <table id="customers-grid" class="table table-striped" width="100%">
+          <thead>
+            <tr>
+              <th width="50%">@localizer["name"]</th>
+              <th width="50%">@localizer["code"]</th>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+              <th class="input substring-search" width="50%" scope="col"></th>
+              <th class="input substring-search" width="50%" scope="col"></th>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-cancel btn-outline-danger align-content-center btn-sm me-2" data-bs-dismiss="modal">@localizer["cancel"]</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<input id="language" type="hidden" value="@_config.Language" />
+
+@section Scripts {
+  <script src="~/js/electronicJournalSearch.js" asp-append-version="true"></script>
+  <script src="~/js/electronicJournalReports.js" asp-append-version="true"></script>
+}

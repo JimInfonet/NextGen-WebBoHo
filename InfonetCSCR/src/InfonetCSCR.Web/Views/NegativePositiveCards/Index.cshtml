@@ -1,0 +1,250 @@
+@section Head {
+  <link href="~/css/negativePositiveCards.css" rel="stylesheet" asp-append-version="true" />
+}
+
+@inject IViewLocalizer localizer
+@inject IApplicationConfig _config;
+@{
+  ViewData["Title"] = @localizer["negativePositiveCardsInputOutput"];
+}
+
+<input type="hidden" id="isBackOffice" value="@_config.IsBackOffice.ToString()">
+
+<input type="hidden" id="true" value="@localizer["true"]" />
+<input type="hidden" id="false" value="@localizer["false"]" />
+<input type="hidden" id="positiveCards" value="@localizer["positiveCards"]" />
+<input type="hidden" id="theCardNumberMustNotBlank" value="@localizer["theCardNumberMustNotBlank"]" />
+<input type="hidden" id="pleaseSelectActiveDeactive" value="@localizer["pleaseSelectActiveDeactive"]" />
+<input type="hidden" id="cardNumberAlreadyExists" value="@localizer["cardNumberAlreadyExists", "{0}"]" />
+<input type="hidden" id="useUniqueCardNumber" value="@localizer["useUniqueCardNumber"]" />
+<input type="hidden" id="activeYNText" value="@localizer["activeYN"]" />
+<input type="hidden" id="yesText" value="@localizer["yes"]" />
+<input type="hidden" id="noText" value="@localizer["no"]" />
+<input type="hidden" id="confirmDelete" value="@localizer["confirmDelete"]" />
+<input type="hidden" id="areYouSureYouWantToDeleteCardNumber" value="@localizer["areYouSureYouWantToDeleteCardNumber", "{0}"]" />
+<input type="hidden" id="positiveCardAddedSuccessfully" value="@localizer["positiveCardAddedSuccessfully"]" />
+<input type="hidden" id="positiveCardDeletedSuccessfully" value="@localizer["positiveCardDeletedSuccessfully"]" />
+<input type="hidden" id="negativeCardAddedSuccessfully" value="@localizer["negativeCardAddedSuccessfully"]" />
+<input type="hidden" id="negativeCardDeletedSuccessfully" value="@localizer["negativeCardDeletedSuccessfully"]" />
+<input type="hidden" id="negativeCards" value="@localizer["negativeCards"]" />
+<input type="hidden" id="messageCode" value="@localizer["messageCode"]" />
+<input type="hidden" id="pleaseEnterEntryDateBetween" value="@localizer["pleaseEnterEntryDateBetween"]" />
+<input type="hidden" id="pleaseEnterExpiryDateBetween" value="@localizer["pleaseEnterExpiryDateBetween"]" />
+<input type="hidden" id="areYouSureYouWantToDeleteMessageCode" value="@localizer["areYouSureYouWantToDeleteMessageCode", "{0}"]" />
+<input type="hidden" id="theMessageCodeMustNotBeBlank" value="@localizer["theMessageCodeMustNotBeBlank"]" />
+<input type="hidden" id="theMessageMustNotBeBlank" value="@localizer["theMessageMustNotBeBlank"]" />
+<input type="hidden" id="messageCodeAlreadyExists" value="@localizer["messageCodeAlreadyExists", "{0}"]" />
+<input type="hidden" id="useUniqueMessageCode" value="@localizer["useUniqueMessageCode"]" />
+<input type="hidden" id="theMessageCodeMustBeNumeric" value="@localizer["theMessageCodeMustBeNumeric"]" />
+<input type="hidden" id="pleaseEnterMessageCodeBetween" value="@localizer["pleaseEnterMessageCodeBetween"]" />
+<input type="hidden" id="thisMessageCodeIsUsedByNegativeCards" value="@localizer["thisMessageCodeIsUsedByNegativeCards"]" />
+<input type="hidden" id="messageAddedSuccessfully" value="@localizer["messageAddedSuccessfully"]" />
+<input type="hidden" id="messageDeletedSuccessfully" value="@localizer["messageDeletedSuccessfully"]" />
+<input type="hidden" id="readInputFileFromHeadOffice" value="@localizer["readInputFileFromHeadOffice", "{0}"]" />
+<input type="hidden" id="recordReadFromHoFile" value="@localizer["recordReadFromHoFile", "{0}"]" />
+<input type="hidden" id="recordAddedToNegativeCardTable" value="@localizer["recordAddedToNegativeCardTable"]" />
+<input type="hidden" id="recordsAddedToPositiveCardsFile" value="@localizer["recordsAddedToPositiveCardsFile"]" />
+<input type="hidden" id="recordsAddedToPositiveCardsTable" value="@localizer["recordsAddedToPositiveCardsTable"]" />
+<input type="hidden" id="recordDeletedFromNegativeCardTable" value="@localizer["recordDeletedFromNegativeCardTable"]" />
+<input type="hidden" id="recordDeletedFromPositiveCardsFile" value="@localizer["recordDeletedFromPositiveCardsFile"]" />
+<input type="hidden" id="recordDeletedFromPositiveCardsTable" value="@localizer["recordDeletedFromPositiveCardsTable"]" />
+<input type="hidden" id="linesCannotBeAddedToNegativeCardsTable" value="@localizer["linesCannotBeAddedToNegativeCardsTable"]" />
+<input type="hidden" id="linesCannotBeAddedToPositiveCardsFile" value="@localizer["linesCannotBeAddedToPositiveCardsFile"]" />
+<input type="hidden" id="linesCannotBeDeletedFromNegativeCardsTable" value="@localizer["linesCannotBeDeletedFromNegativeCardsTable"]" />
+<input type="hidden" id="linesCannotBeDeletedFromPositiveCardsFile" value="@localizer["linesCannotBeDeletedFromPositiveCardsFile"]" />
+<input type="hidden" id="lineErrorFromHoFileWrongFormat" value="@localizer["lineErrorFromHoFileWrongFormat", "{0}"]" />
+<input type="hidden" id="negativeFileDoesntExist" value="@localizer["negativeFileDoesntExist", "{0}"]" />
+<input type="hidden" id="positiveFileDoesntExistIn" value="@localizer["positiveFileDoesntExistIn", "{0}"]" />
+<input type="hidden" id="hoText" value="@localizer["ho"]" />
+<input type="hidden" id="boText" value="@localizer["bo"]" />
+<input type="hidden" id="headOffice" value="@localizer["headOffice"]" />
+<input type="hidden" id="backOffice" value="@localizer["backOffice"]" />
+<input type="hidden" id="linesCannotBeAddedToPositiveCardsTable" value="@localizer["linesCannotBeAddedToPositiveCardsTable"]" />
+<input type="hidden" id="linesCannotBeDeletedFromPositiveCardsTable" value="@localizer["linesCannotBeDeletedFromPositiveCardsTable"]" />
+
+<div class="mt-2 mb-3 pageTitleContainer">
+  <h3><strong>@localizer["negativeCardsPositiveCardsMessages"]</strong></h3>
+</div>
+
+<div class="m-3">
+  <div class="container body-content positiveCardsTableContainer" style="max-width:3000px;">
+    <h5 class="p-2"><strong>@localizer["inputNegativePositiveCard"]</strong></h5>
+
+    <div class="d-flex p-3">
+      <button class="btn btn-footer btn-primary" onclick="readNegativeCardButtonClicked()">@localizer["readNegativeCard"]</button>
+      <button class="btn btn-footer btn-primary ms-2" onclick="readPositiveCardButtonClicked()">@localizer["readPositiveCard"]</button>
+    </div>
+  </div>
+</div>
+
+<div class="m-3">
+  <div class="container body-content positiveCardsTableContainer" style="max-width:3000px;">
+    <h5 class="p-2"><strong id="positiveCardsTitle"></strong></h5>
+    <div class="container custom-grid-scrollbar border-2" style="max-width:3000px;">
+      <table id="positiveCards-grid" class="table table-striped" style="width:100%">
+        <thead class="datatable-allignment">
+          <tr>
+            <th id="DTCardNumber">@localizer["cardNumber"]</th>
+            <th id="DTActive">@localizer["active"]</th>
+            <th id="DTPIN">@localizer["pin"]</th>
+          </tr>
+        </thead>
+      </table>
+      <div>
+        <div class="p-0 d-flex justify-content-end">
+          <div class="text-center fit-content">
+            <button class="btn btn-footer btn-primary wd" onclick="addNewPositiveCardButtonClicked()">@localizer["newPositiveCard"]</button>
+          </div>
+
+          <div class="ps-2 text-center fit-content">
+            <button id="positiveCardDeleteButtonId" class="btn btn-footer btn-danger wd" onclick="deletePositiveCardButtonClicked()">@localizer["deletePositiveCard"]</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="m-3">
+  <div class="container body-content positiveCardsTableContainer" style="max-width:3000px;">
+    <h5 class="p-2"><strong id="negativeCardsTitle"></strong></h5>
+    <div class="container custom-grid-scrollbar border-2" style="max-width:3000px;">
+      <table id="negativeCards-grid" class="table table-striped" style="width:100%">
+        <thead class="datatable-allignment">
+          <tr>
+            <th id="DTCardNumber">@localizer["cardNumber"]</th>
+            <th id="DTMessageCode">@localizer["messageCode"]</th>
+            <th id="DTEntryDate">@localizer["entryDate"]</th>
+            <th id="DTExpiryDate">@localizer["expiryDate"]</th>
+          </tr>
+        </thead>
+      </table>
+      <div>
+        <div class="p-0 d-flex justify-content-end">
+          <div class="text-center fit-content">
+            <button class="btn btn-footer btn-primary wd" onclick="addNewNegativeCardButtonClicked()">@localizer["newNegativeCard"]</button>
+          </div>
+
+          <div class="ps-2 text-center fit-content">
+            <button id="negativeCardDeleteButtonId" class="btn btn-footer btn-danger wd" onclick="deleteNegativeCardButtonClicked()">@localizer["deleteNegativeCard"]</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="m-3">
+  <div class="container body-content positiveCardsTableContainer" style="max-width:3000px;">
+    <h5 class="p-2"><strong>@localizer["messages"]</strong></h5>
+    <div class="container custom-grid-scrollbar border-2" style="max-width:3000px;">
+      <table id="messages-grid" class="table table-striped" style="width:100%">
+        <thead class="datatable-allignment">
+          <tr>
+            <th id="DTCode">@localizer["code"]</th>
+            <th id="DTMessage">@localizer["message"]</th>
+          </tr>
+        </thead>
+      </table>
+      <div>
+        <div class="p-0 d-flex justify-content-end">
+          <div class="text-center fit-content">
+            <button class="btn btn-footer btn-primary wd" onclick="addNewMessageButtonClicked()">@localizer["newMessage"]</button>
+          </div>
+
+          <div class="ps-2 text-center fit-content">
+            <button id="deleteMessageButtonId" class="btn btn-footer btn-danger wd" onclick="deleteMessageButtonClicked()">@localizer["deleteMessage"]</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+@*Add New Positive Card Modal*@
+<div class="modal fade" id="addNewPositiveCardModal" tabindex="1" role="dialog" area-labelledby="exampleModalLiveLabel" area-modal="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">@localizer["newPositiveCard"]</h5>
+      </div>
+      <div class="modal-body">
+        <label class="my-2">@localizer["cardNumber"]</label>
+        <input id="addCardNumber" type="text" class="infonet-input clear-selected-input-on-keypress w-100" maxlength="20" autocomplete="off" />
+
+        <label class="my-2">@localizer["activeYN"]</label>
+        <div class="wrapper">
+          <select id="activeYNSelect" class="activeYNSelect form-select col infonet-input" aria-label="Select Active YN">
+            <option value="">@localizer["select"] @localizer["activeYN"]</option>
+            <option value="yes">@localizer["yes"]</option>
+            <option value="no">@localizer["no"]</option>
+          </select>
+        </div>
+
+        <label class="my-2">@localizer["pin"]</label>
+        <input id="addPIN" type="text" class="infonet-input clear-selected-input-on-keypress w-100" maxlength="12" autocomplete="off" />
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary btn-sm btn-save" onclick="insertPositiveCard()">@localizer["complete"]</button>
+        <button type="button" class="btn btn-cancel btn-outline-danger align-content-center btn-sm me-2" data-bs-dismiss="modal">@localizer["cancel"]</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+@*Add New Negative Card Modal*@
+<div class="modal fade" id="addNewNegativeCardModal" tabindex="1" role="dialog" area-labelledby="exampleModalLiveLabel" area-modal="true">
+  <div class="modal-dialog modal-dialog-centered negativeCardModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">@localizer["newNegativeCard"]</h5>
+      </div>
+      <div class="modal-body">
+        <label class="my-2">@localizer["cardNumber"]</label>
+        <input id="negativeCardNumber" type="text" class="infonet-input clear-selected-input-on-keypress w-100" maxlength="20" autocomplete="off" />
+
+        <label class="my-2">@localizer["messageCode"]</label>
+        <div class="wrapper">
+          <select id="messageCodeSelect" class="form-select col infonet-input" aria-label="Select Message Code">
+          </select>
+        </div>
+
+        <label class="my-2">@localizer["entryDate"]</label>
+        <input type="date" max="2079-06-06" class="infonet-input form-control form-control-sm infonet-control" id="entryDate" placeholder="@localizer["entryDate"]">
+
+        <label class="my-2">@localizer["expiryDate"]</label>
+        <input type="date" max="2079-06-06" class="infonet-input form-control form-control-sm infonet-control" id="expiryDate" placeholder="@localizer["expiryDate"]">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary btn-sm btn-save" onclick="insertNegativeCard()">@localizer["complete"]</button>
+        <button type="button" class="btn btn-cancel btn-outline-danger align-content-center btn-sm me-2" data-bs-dismiss="modal">@localizer["cancel"]</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+@*Add New Message Modal*@
+<div class="modal fade" id="addNewMessageModal" tabindex="1" role="dialog" area-labelledby="exampleModalLiveLabel" area-modal="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">@localizer["newMessage"]</h5>
+      </div>
+      <div class="modal-body">
+        <label class="my-2">@localizer["messageCode"]</label>
+        <input id="messageCodeInput" type="text" class="infonet-input w-100" max="1000" min="1" autocomplete="off" />
+
+        <label class="my-2">@localizer["message"]</label>
+        <input id="messageInput" type="text" class="infonet-input clear-selected-input-on-keypress w-100" maxlength="50" autocomplete="off" />
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary btn-sm btn-save" onclick="insertMessage()">@localizer["complete"]</button>
+        <button type="button" class="btn btn-cancel btn-outline-danger align-content-center btn-sm me-2" data-bs-dismiss="modal">@localizer["cancel"]</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+@section Scripts {
+  <script src="~/js/negativePositiveCards.js" asp-append-version="true"></script>
+  }

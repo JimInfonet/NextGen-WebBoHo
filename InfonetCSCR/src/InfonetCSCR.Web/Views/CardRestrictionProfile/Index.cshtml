@@ -1,0 +1,192 @@
+﻿@section Head {
+  <link href="~/css/cardRestrictionProfile.css" rel="stylesheet" asp-append-version="true" />
+}
+
+@model CardRestrictionProfileViewModel
+@inject IViewLocalizer localizer
+
+@{
+  ViewData["Title"] = @localizer["cardRestrictionProfiles"];
+}
+
+<input type="hidden" id="sunday" value="@localizer["sunday"]">
+<input type="hidden" id="monday" value="@localizer["monday"]">
+<input type="hidden" id="tuesday" value="@localizer["tuesday"]">
+<input type="hidden" id="wednesday" value="@localizer["wednesday"]">
+<input type="hidden" id="thursday" value="@localizer["thursday"]">
+<input type="hidden" id="friday" value="@localizer["friday"]">
+<input type="hidden" id="saturday" value="@localizer["saturday"]">
+
+<input type="hidden" id="seqRange" value="@localizer["seqRange"]">
+<input type="hidden" id="seqAlreadyUsed" value="@localizer["seqAlreadyUsed"]">
+<input type="hidden" id="deletePromptTitle" value="@localizer["deletePromptTitle"]">
+<input type="hidden" id="deletePromptMessage" value="@localizer["deletePromptMessage"]">
+<input type="hidden" id="promptAddedSuccessfully" value="@localizer["promptAddedSuccessfully"]">
+<input type="hidden" id="noMorePromptsCanBeAdded" value="@localizer["noMorePromptsCanBeAdded"]">
+<input type="hidden" id="promptDeletedSuccessfully" value="@localizer["promptDeletedSuccessfully"]">
+<input type="hidden" id="profileIdAlreadyExists" value="@localizer["profileIdAlreadyExists", "{0}"]">
+<input type="hidden" id="cardRestrictionProfileCreatedSuccessfully" value="@localizer["cardRestrictionProfileCreatedSuccessfully"]">
+<input type="hidden" id="cardRestrictionProfileUpdatedSuccessfully" value="@localizer["cardRestrictionProfileUpdatedSuccessfully"]">
+<input type="hidden" id="sequenceIsRequired" value="@localizer["sequenceIsRequired"]">
+<input type="hidden" id="yes" value="@localizer["yes"]">
+<input type="hidden" id="no" value="@localizer["no"]">
+
+<input type="hidden" id="modelData" name="modelData" value='@Json.Serialize(Model)' />
+
+<form class="p-3 mt-2" asp-controller="CardRestrictionProfile" asp-action="SaveCardRestrictionProfile" id="cardRestrictionProfileForm" onsubmit="return saveCardRestrictionProfile();">
+  <div class="d-flex justify-content-between">
+    <h3 class="h3 fw-bold mb-3">@localizer["cardRestrictionProfiles"]</h3>
+  </div>
+  <div class="page-content p-3">
+    <div class="mt-3">
+
+      <div class="container">
+        <div class="row gap-3 pt-3">
+          <div class="col">
+            <label asp-for="ProfileID" class="mb-2">@localizer["profileId"]</label>
+            <input asp-for="ProfileID" id="profile-id" type="text" class="infonet-input w-100 not-editable" required onfocusout="profileIdAlreadyExists()" />
+            <span asp-validation-for="ProfileID" class="text-danger code-field-required"></span>
+          </div>
+          <div class="col"></div>
+        </div>
+
+        <div class="row gap-3 pt-3">
+          <div class="col">
+            <label asp-for="ProfileName" class="mb-2">@localizer["profileName"]</label>
+            <input asp-for="ProfileName" id="profile-name" type="text" class="infonet-input w-100 edit-mode-control" required />
+            <span asp-validation-for="ProfileName" class="text-danger"></span>
+          </div>
+          <div class="col"></div>
+        </div>
+
+        <div class="row gap-3 pt-3">
+          <div class="col">
+            <label asp-for="SngleTransaction" class="mb-2">@localizer["singleTransaction"]</label>
+            <input asp-for="SngleTransaction" id="single-transaction" type="text" maxlength="10" class="infonet-input w-100 edit-mode-control clear-selected-input-on-keypress only-digit-decimal-plus-minus" value="@(Model?.SngleTransaction?.ToString("0.00"))" />
+            <span asp-validation-for="SngleTransaction" class="text-danger"></span>
+          </div>
+          <div class="col transaction">@localizer["0meansNoLimit"]</div>
+        </div>
+
+        <div class="row gap-3 pt-3">
+          <div class="col">
+            <label asp-for="DailyTransaction" class="mb-2">@localizer["dailyTransaction"]</label>
+            <input asp-for="DailyTransaction" id="daily-transaction" type="text" maxlength="10" class="infonet-input w-100 edit-mode-control clear-selected-input-on-keypress only-digit-decimal-plus-minus" value="@(Model?.DailyTransaction?.ToString("0.00"))" />
+            <span asp-validation-for="DailyTransaction" class="text-danger"></span>
+          </div>
+          <div class="col transaction">@localizer["0meansNoLimit"]</div>
+        </div>
+
+        <div class="row gap-3 pt-3">
+          <div class="col">
+            <label asp-for="MonthlyTransaction" class="mb-2">@localizer["monthlyTransaction"]</label>
+            <input asp-for="MonthlyTransaction" id="monthly-transaction" type="text" maxlength="10" class="infonet-input w-100 edit-mode-control clear-selected-input-on-keypress only-digit-decimal-plus-minus" value="@(Model?.MonthlyTransaction?.ToString("0.00"))" />
+            <span asp-validation-for="MonthlyTransaction" class="text-danger"></span>
+          </div>
+          <div class="col transaction">@localizer["0meansNoLimit"]</div>
+        </div>
+
+        <div class="row gap-3 pt-3">
+          <div class="col">
+            <label asp-for="TransactionsPerDay" class="mb-2">@localizer["transactionsPerDay"]</label>
+            <input asp-for="TransactionsPerDay" id="transaction-per-day" type="text" maxlength="10" class="infonet-input w-100 edit-mode-control clear-selected-input-on-keypress only-digit-plus-minus" value="@(Model?.TransactionsPerDay?.ToString("0"))" />
+            <span asp-validation-for="TransactionsPerDay" class="text-danger"></span>
+          </div>
+          <div class="col transaction">@localizer["0meansNoLimit"]</div>
+        </div>
+
+        <div class="mt-2 pt-3">
+          <div class="mt-2">
+            <input asp-for="AskForPOCheckbox" class="edit-mode-control" type="checkbox">
+            <label asp-for="AskForPOCheckbox" id="AskForPOCheckbox" class="mb-2">@localizer["askForPO"]</label>
+          </div>
+
+          <div class="mt-2">
+            <input asp-for="PromptForFuelCheckbox" onchange="togglePromptButtons()" class="edit-mode-control" type="checkbox">
+            <label asp-for="PromptForFuelCheckbox" class="mb-2">@localizer["promptForFuel"]</label>
+          </div>
+
+          <div class="d-flex border-bottom mt-1 mb-1">
+            <strong>@localizer["restrictionSetup"]</strong>
+            <div class="form-check">
+              <input asp-for="RestrictProducts" class="edit-mode-control" id="denyProducts" type="radio" value="true" name="RestrictProducts" checked>
+              <label class="form-check-label" asp-for="RestrictProducts">@localizer["denyProducts"]</label>
+            </div>
+            <div class="form-check">
+              <input asp-for="RestrictProducts" class="edit-mode-control" id="allowProducts" type="radio" value="false" name="RestrictProducts">
+              <label class="form-check-label" asp-for="RestrictProducts">@localizer["allowProducts"]</label>
+            </div>
+          </div>
+          <div class="mt-2 pt-3">
+            <input asp-for="LimitTimeofPurchaseCheckbox" class="edit-mode-control" type="checkbox">
+            <label asp-for="LimitTimeofPurchaseCheckbox" id="LimitTimeofPurchaseCheckbox" class="mb-2">@localizer["limitTimeofPurchase"]</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="border-bottom pb-3">
+          <table class="table table-striped" id="time-of-purchase-restriction-table" style="width:100%">
+            <thead>
+              <tr>
+                <th width="20%" scope="col">@localizer["weekday"]</th>
+                <th width="20%" scope="col">@localizer["allowPurchase"]</th>
+                <th width="20%" scope="col">@localizer["timeRestriction"]</th>
+                <th width="20%" scope="col">@localizer["purchaseStartTime"]</th>
+                <th width="20%" scope="col">@localizer["purchaseEndTime"]</th>
+              </tr>
+            </thead>
+            <tfoot></tfoot>
+          </table>
+        </div>
+        <div class="prompt-section mt-3" justify-content>
+          <div style="width:45%;">
+            <table id="prompt-table" class="table table-striped" width="20%">
+              <thead>
+                <tr>
+                  <th width="30%">@localizer["sequence"]</th>
+                  <th width="70%">@localizer["promptMessage"]</th>
+                </tr>
+              </thead>
+              <tfoot></tfoot>
+            </table>
+
+            @*Button section*@
+            <div class="d-flex gap-3 col-xl-8 col-lg-9">
+              <button id="prompt-btn-add" type="button" class="btn btn-footer btn-primary text-center align-items-center no-wrap mt-3" onclick="promptAddClick()">@localizer["addPrompt"]</button>
+              <button id="prompt-btn-delete" type="button" class="btn btn-footer btn-danger text-center align-items-center no-wrap mt-3" onclick="promptDeleteClick()">@localizer["deletePrompt"]</button>
+            </div>
+          </div>
+          <div id="prompt-form" style="width:45%;">
+            <div class="mt-2">
+              <label for="sequence" class="mb-2">@localizer["sequence"]</label>
+              <input for="sequence" id="sequence" type="text" maxlength="2" class="infonet-input w-100 seq-input clear-selected-input-on-keypress only-digit" required />
+            </div>
+            <div class="mt-2">
+              <label for="message" class="mb-2">@localizer["message"]</label>
+              <select id="message-select" class="editable-option-select form-select infonet-input seq-input">
+              </select>
+            </div>
+            <div class="d-flex justify-content-end mt-3 gap-3">
+              <button id="prompt-btn-cancel" onclick="promptCancelClick()" type="button" class="btn btn-footer btn-danger align-content-center">@localizer["cancel"]</button>
+              <button id="prompt-btn-save" onclick="promptSaveClick()" type="button" class="btn btn-footer btn-primary text-center">@localizer["save"]</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      @*Button section*@
+      <div class="border-bottom mx-3 mt-4"></div>
+      <div class="d-flex justify-content-end mt-3 px-3 gap-3">
+        <button id="btn-cancel" onclick="cancelButtonClicked()" type="button" class="btn btn-cancel btn-outline-danger align-content-center">@localizer["cancel"]</button>
+        <button id="btn-save" type="submit" class="btn btn-save text-center">@localizer["save"]</button>
+        <button id="btn-edit" onclick="setEditMode(true)" type="button" class="btn btn-save">@localizer["edit"]</button>
+        <button id="btn-back" onclick="goToCardRestrictionGridPage()" type="button" class="btn btn-back btn-outline-danger">@localizer["back"]</button>
+      </div>
+    </div>
+  </div>
+</form>
+
+@section Scripts {
+  <script src="~/js/cardRestrictionProfile.js" asp-append-version="true"></script>
+}

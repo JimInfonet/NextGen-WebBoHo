@@ -1,0 +1,46 @@
+.grid-table-row {
+  cursor: pointer;
+}
+
+.paginate-icon {
+  font-size: 40px;
+}
+
+.pagination > li.active > a, .pagination > li.active > span {
+  background-color: var(--color-primary) !important;
+}
+
+.selected-grid-row-stock-code {
+  border: 1px solid black;
+}
+
+.stock-item-data {
+  cursor: pointer;
+}
+
+.wd{
+  min-width: 137px;
+}
+
+.mwd-65{
+  min-width: 65px;
+}
+
+.btn-filter, .btn-clear{
+  width: 120px;
+  height: 40px;
+  border-radius: 3px;
+}
+
+.fit-content {
+  max-width: fit-content;
+}
+
+#receive-grid__header table,
+#stock-items-grid__header table {
+  max-width: calc(100% - 17px) !important;
+}
+
+.button-group a {
+  align-content: center;
+}

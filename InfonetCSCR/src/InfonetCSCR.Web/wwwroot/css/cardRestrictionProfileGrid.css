@@ -1,0 +1,14 @@
+﻿.btn-product-restriction {
+  height: 50px;
+  background: rgba(38, 83, 188, 0.1);
+  border-radius: 4px;
+  color: var(--color-primary);
+}
+
+.footer-btns {
+  flex-wrap: wrap;
+}
+
+.product-restriction-btn {
+  margin-left: auto;
+}

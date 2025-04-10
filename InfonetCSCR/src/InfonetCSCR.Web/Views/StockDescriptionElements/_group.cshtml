@@ -1,0 +1,74 @@
+@model FamilyGroupJoinFamilyViewModel
+@inject IViewLocalizer localizer
+
+<div class="container body-content p-2" style="max-width:3000px;">
+  <div class="d-flex justify-content-between padding-left-12px-and-top-10px">
+    <h5 class="h5 fw-bold mb-3">@localizer["group"]</h5>
+  </div>
+  @*Group Datatable Section*@
+  <div class="container custom-grid-scrollbar border-2" style="max-width:3000px;">
+    <table id="group-grid" class="table table-striped" style="width:100%">
+      <thead>
+        <tr>
+          <th width="15%" id="GroupId">@localizer["groupId"]</th>
+          <th width="35%" id="GroupName">@localizer["groupName"]</th>
+          <th width="15%" id="FamilyId">@localizer["familyId"]</th>
+          <th width="35%" id="Description">@localizer["description"]</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+
+  <div class="p-2 row">
+    <div class="d-flex gap-3 col-xl-8 col-lg-9">
+      <button id="group-btn-add" type="button" class="btn btn-footer btn-primary text-center align-items-center" onclick="onGroupAddClick()">@localizer["add"]</button>
+      <button id="group-btn-delete" type="button" class="btn btn-footer btn-danger text-center align-items-center" onclick="onGroupDeleteClick()">@localizer["delete"]</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="groupFormModal" tabindex="1" role="dialog" area-modal="true">
+  <div class="modal-dialog modal-dialog-centered group-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 id="group-form-section-title" class="modal-title">@localizer["groupForm"]</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="group-form">
+          <div class="row gap-3 p-3">
+            <div class="col">
+              <label class="mb-2">@localizer["groupId"]</label>
+              <input id="group-id" type="text" maxlength="10" class="infonet-input w-100" />
+              <span id="validation-for-group-id" class="text-danger">@localizer["thisFieldIsRequired"]</span>
+            </div>
+            <div class="col">
+              <label class="mb-2">@localizer["groupName"]</label>
+              <input id="group-name" type="text" maxlength="15" class="infonet-input w-100" />
+              <span id="validation-for-group-name" class="text-danger">@localizer["thisFieldIsRequired"]</span>
+            </div>
+          </div>
+          <div class="row gap-3 p-3">
+            <div class="col">
+              <div class="d-flex align-items-center justify-content-between mt-3 mb-1">
+                <label class="mb-2">@localizer["family"]</label>
+                <div class="form-group">
+                  <input class="form-check-input mt-2" id="select-or-unselect-all" type="checkbox" onchange="selectOrUnselectAll()" value="select-or-unselect-all">
+                  <label class="form-check-label mt-1" for="select-or-unselect-all">@localizer["selectOrUnSelect"]</label>
+                </div>
+              </div>
+              <div class="form-control" id="family" style="height:200px;overflow-y: scroll;">
+              </div>
+              <span id="validation-for-family" class="text-danger">@localizer["needToSelectAtleastOneItemFromTheList"]</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-cancel btn-outline-danger align-content-center btn-sm me-2" data-bs-dismiss="modal">@localizer["cancel"]</button>
+        <button type="button" class="btn btn-primary btn-sm btn-save" onclick="onGroupCompleteClick()">@localizer["complete"]</button>
+      </div>
+    </div>
+  </div>
+</div>

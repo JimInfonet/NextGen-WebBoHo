@@ -1,0 +1,85 @@
+﻿@inject IViewLocalizer localizer
+@{
+  bool showByStore = ViewData["showByStore"] != null ? (bool)ViewData["showByStore"] : false;
+  bool showByVendor = ViewData["showByVendor"] != null ? (bool)ViewData["showByVendor"] : false;
+  bool showByRegion = ViewData["showByRegion"] != null ? (bool)ViewData["showByRegion"] : false;
+  bool showByPrice = ViewData["showByPrice"] != null ? (bool)ViewData["showByPrice"] : false;
+  bool storeTabStoresCheckBox = ViewData["storeTabStoresCheckBox"] != null ? (bool)ViewData["storeTabStoresCheckBox"] : false;
+  bool fromFuelPriceChange = ViewData["fromWhere"] != null ? (bool)(ViewData["fromWhere"] == "FuelPriceChange") : false;
+}
+
+<input type="hidden" id="showByStore" value="@showByStore.ToString()" />
+<input type="hidden" id="showByVendor" value="@showByVendor.ToString()" />
+<input type="hidden" id="showByRegion" value="@showByRegion.ToString()" />
+<input type="hidden" id="showByPrice" value="@showByPrice.ToString()" />
+<input type="hidden" id="storeTabStoresCheckBox" value="@storeTabStoresCheckBox.ToString()" />
+
+<div class="row mt-3 mb-xl-3 mb-5 ps-2">
+  @if (showByStore)
+  {
+    <div class="form-check col-xl-3 col-lg-6 mt-1 mb-1">
+      <input class="form-check-input mt-2" id="show-by-store" type="radio"
+           onchange="handleShowByOptionChange()"
+           name="show-by" value="by-store" checked>
+      <label class="form-check-label mt-1" for="show-by-store">@localizer["byStore"]</label>
+    </div>
+  }
+
+  @if (showByVendor)
+  {
+    <div class="form-check col-xl-3 col-lg-6 mt-1 mb-1">
+      <input class="form-check-input mt-2" id="show-by-vendor" type="radio"
+           onchange="handleShowByOptionChange()"
+           name="show-by" value="by-vendor">
+      <label class="form-check-label mt-1" for="show-by-vendor">@localizer["byVendor"]</label>
+    </div>
+  }
+
+  @if (showByRegion)
+  {
+    <div class="form-check col-xl-3 col-lg-6 mt-1 mb-1">
+      <input class="form-check-input mt-2" id="show-by-region" type="radio"
+           onchange="handleShowByOptionChange()"
+           name="show-by" value="by-region">
+      <label class="form-check-label mt-1" for="show-by-region">@localizer["byRegion"]</label>
+    </div>
+  }
+
+  @if (showByPrice)
+  {
+    <div class="form-check col-xl-3 col-lg-6 mt-1 mb-1">
+      <input class="form-check-input mt-2" id="show-by-price-group" type="radio"
+           onchange="handleShowByOptionChange()"
+           name="show-by" value="by-price-group">
+      <label class="form-check-label mt-1" for="show-by-price-group">@localizer["byPriceGroup"]</label>
+    </div>
+  }
+</div>
+
+<div class="row mt-3">
+  <div class="col-6 storeSelectionBox">
+    <div class="d-flex align-items-start justify-content-between mt-3 mb-1 flex-column flex-xl-row">
+      <label class="fs-5 fw-bold" id="available-options-label">
+        @(fromFuelPriceChange ? localizer["stores"] : localizer["store"])
+      </label>
+      <div class="form-group">
+        <input class="form-check-input mt-2" id="select-or-unselect-all" type="checkbox"
+               onchange="handleSelectOrUnselectAll()" value="select-or-unselect-all">
+
+        <label class="form-check-label mt-1" for="select-or-unselect-all">@localizer["select/UnselectAll"]</label>
+      </div>
+    </div>
+    <div class="form-control" id="available-options-container" style="height:200px;overflow-y: scroll;">
+    </div>
+    <div class="mt-3 h6 fw-bold d-flex"><p class="ms-2" id="total-entries-options-container"></p></div>
+  </div>
+
+  <div class="form-group col-6 h5 fw-bold">
+    <label id="selStoresSection" class="mt-3 mb-1 fw-bold">
+      @(fromFuelPriceChange ? localizer["selectedStores"] : localizer["stores"]) @* Is Partial view rendered to FuelPriceChange *@
+    </label>
+    <div class="form-control" id="selected-stores-container" style="height:200px;overflow-y: scroll;">
+    </div>
+    <div class="mt-3 h6 fw-bold d-flex">@localizer["totalSelectedStores"]: <p class="ms-2" id="total-selected-stores"></p></div>
+  </div>
+</div>

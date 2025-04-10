@@ -1,0 +1,18 @@
+﻿#journal-options-container-id {
+  height: 250px;
+  scrollbar-width: none;
+}
+
+#btn-add-new-row, .btn-delete-this-row {
+  min-width: auto;
+  min-height: auto;
+  font-size: x-large;
+}
+
+.button-container {
+  text-align: right;
+}
+
+.date-field {
+  width: 50%;
+}

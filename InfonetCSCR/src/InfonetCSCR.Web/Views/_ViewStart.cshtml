@@ -1,0 +1,10 @@
+﻿@{
+  if (ViewContext.HttpContext.Response.StatusCode == 500)
+  {
+    Layout = null;
+  }
+  else
+  {
+    Layout = "_Layout";
+  }
+}

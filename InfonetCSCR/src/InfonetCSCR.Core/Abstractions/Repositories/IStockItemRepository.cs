@@ -1,0 +1,43 @@
+﻿namespace InfonetCSCR.Core.Abstractions.Repositories;
+public interface IStockItemRepository
+{
+  Task<IEnumerable<StockItem>> GetStockItemsByFilterAsync(SearchCriteria searchCriteria);
+  Task<IEnumerable<StockItemMinimal>> GetStockItemsByDeptSubDeptAndSubDetailAsync(GetStockItemsByDeptSubDeptAndSubDetailDto searchParams);
+  Task<IEnumerable<StockItemMinimal>> GetStockItemsOfRecentChangesAsync(GetStockItemsByDeptSubDeptAndSubDetailDto searchParams);
+  Task<int> GetStockItemsOfRecentChangesCountAsync(GetStockItemsByDeptSubDeptAndSubDetailDto searchParams);
+  Task<int> GetStockItemsByDeptSubDeptAndSubDetailCountAsync(GetStockItemsByDeptSubDeptAndSubDetailDto searchParams);
+  Task<IEnumerable<StockItemMinimal>> GetStockItemsByVendorAsync(GetStockItemsByVendorDto model);
+  Task<int> GetStockItemsByVendorCountAsync(GetStockItemsByVendorDto searchParams);
+  Task<IEnumerable<StockItem>> GetAllStockItemsAsync();
+  Task<StockMaster> GetStockMasterByStockCodeAsync(string stockCode);
+  Task<bool> AddStockMasterAsync(StockMaster stockMaster);
+  Task<bool> UpdateStockMasterAsync(StockMaster stockMaster);
+  Task<bool> UpdateStockMasterAsync(decimal stockCost, string stockCode);
+  Task<bool> DeleteStockMasterByStockCodeAsync(string stockCode);
+  Task<StockMaster> GetStockItemByCode(string stockCode);
+  Task<PackingInfo> GetPackingInfo(string stockCode);
+  Task<List<PackCountDto>> GetPackCountBatchAsync(List<string> stockCodes);
+  Task<IEnumerable<PackingInfo>> GetPackingInfoBatch(List<string> stockCodes);
+  Task<string> GetStockName(string stockCode);
+  Task<bool> UpdateStockItemTransfer(string stockCode);
+  Task<int> GetStockItemsByFilterCountAsync(SearchCriteria criteria);
+  Task<int> UpdateStockItemUpdateDateField(string stockCode);
+  Task<bool> IsVendorActive(string stockCode, string storeId, string vendorId, short orderNo);
+  Task<bool> UpdateStockMasterFromStockTransferAsync();
+  Task<int> GetCountOfProductsAsync(string departmentId, string? subDepartmentId = null, string? detailId = null);
+  Task<bool> UpdateDeptSubDeptSubDetailsToNullInStockMasterAsync(string departmentId, string? subDepartmentId = null, string? detailId = null);
+  Task<IEnumerable<StockItem>> GetStockItemsByDepartmentSubDepartmentAndDetailAsync(DepartmentSubDepartmentAndDetailDto departmentSubDepartmentAndDetail);
+  Task<IEnumerable<StockCodesForModalDto>?> GetStockMstForPromotion(bool sellInactive);
+  Task<bool> AddProductDiscountCodeAsync(string productDiscountCode, DepartmentSubDepartmentAndDetailDto departmentSubDepartmentAndDetail);
+  Task<bool> DeleteProductDiscountCodeAsync(DepartmentSubDepartmentAndDetailDto departmentSubDepartmentAndDetail);
+  Task<IEnumerable<StockItem>> GetAllStockMasterAsync();
+  Task<bool> IsProductsExistAsync(string departmentId, string? subDepartmentId, string? detailId);
+  Task<IEnumerable<VendorProductDto>> GetVendorProductsByStockCodes(List<string> stockCodes);
+  Task<IEnumerable<VendorProductDto>> GetVendorProducts(IList<VendorProductQueryParameterDto> vendorProductQueryParameters);
+  Task<IEnumerable<OrderQuantityDataDto>> GetOrderQuantityDataAsync(IList<string> stockCodes);
+  Task<IEnumerable<DepartmentSubDepartmentAndDetailDto>> GetDeptSubDeptAndDetailDataByStockCodesAsync(IList<string> stockCodes);
+  Task<IEnumerable<StockCodesForModalDto>> GetStockItemsByCriteriaAsync(StockItemsCriteriaDto criteria);
+  Task<bool> UpdatePriceTypeInStockKMasterTableAsync(StockSpecialPrice stockSpecialPrice);
+  Task<IEnumerable<StockItem>> GetAllStockItemsListAsync();
+  Task<IEnumerable<StockMaster?>> GetStockMasterInfoAsync(string startDepartment, string endDepartment);
+}

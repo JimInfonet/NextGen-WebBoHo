@@ -1,0 +1,74 @@
+.form-section-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.stock-details-form {
+  background-color: var(--color-white);
+}
+
+.btn-save, .btn-cancel, .btn-delete, .btn-back {
+  width: 150px;
+  height: 50px;
+  border-radius: 4px;
+}
+
+.btn-delete {
+  background-color: var(--bs-danger);
+  color: var(--color-white);
+}
+
+.btn-save {
+  display: flex;
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.infonet-readonly-input:read-only {
+  background-color: #d1d7f0 !important;
+  border: 1px solid rgba(38, 83, 188, 0.2);
+  padding: 10px;
+  border-radius: 6px;
+  outline: none;
+  cursor: not-allowed;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.custom-alternateCode-table-height {
+  max-height: 190px;
+  overflow-x: hidden !important;
+  min-height: 190px;
+}
+
+.section-title {
+  font-size: 20px;
+}
+
+.stock-code-details-form-title {
+  font-style: normal;
+  font-weight: 1000;
+  font-size: 17px;
+  line-height: 30px;
+  color: #002540;
+}
+
+.body-title {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 40px;
+  color: #002540;
+}
+
+@media (max-width: 1024px) {
+  #btnAddAltCode,
+  #btnDelAltCode {
+    width: 40% !important;
+  }
+}

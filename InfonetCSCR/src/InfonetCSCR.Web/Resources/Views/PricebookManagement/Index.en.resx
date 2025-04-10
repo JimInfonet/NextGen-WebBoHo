@@ -1,0 +1,630 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="apply" xml:space="preserve">
+    <value>Apply</value>
+  </data>
+  <data name="batch-h" xml:space="preserve">
+    <value>Batch #</value>
+  </data>
+  <data name="byPriceGroup" xml:space="preserve">
+    <value>By Price Group</value>
+  </data>
+  <data name="byRegion" xml:space="preserve">
+    <value>By Region</value>
+  </data>
+  <data name="byStore" xml:space="preserve">
+    <value>By Store</value>
+  </data>
+  <data name="byVendor" xml:space="preserve">
+    <value>By Vendor</value>
+  </data>
+  <data name="cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="cantIdentifyDestinationStores" xml:space="preserve">
+    <value>Can't identify the destination stores. Make sure Vendor / Store Link exist.</value>
+  </data>
+  <data name="changeCostBeforeSaving" xml:space="preserve">
+    <value>You have to do the Cost Change before saving the data.</value>
+  </data>
+  <data name="commodity" xml:space="preserve">
+    <value>Commodity</value>
+  </data>
+  <data name="commodityUpdates" xml:space="preserve">
+    <value>Commodity Updates</value>
+  </data>
+  <data name="comparison" xml:space="preserve">
+    <value>Comparison</value>
+  </data>
+  <data name="confirmSaveAsPendingTransfer" xml:space="preserve">
+    <value>Records are saved for </value>
+  </data>
+  <data name="cost" xml:space="preserve">
+    <value>Cost</value>
+  </data>
+  <data name="costChange" xml:space="preserve">
+    <value>Cost Change</value>
+  </data>
+  <data name="currentPrice" xml:space="preserve">
+    <value>Current Price</value>
+  </data>
+  <data name="dataTransfer" xml:space="preserve">
+    <value>Data Transfer</value>
+  </data>
+  <data name="dataTransferType" xml:space="preserve">
+    <value>Data Transfer Type</value>
+  </data>
+  <data name="decreasedBy" xml:space="preserve">
+    <value>Decreased By</value>
+  </data>
+  <data name="del" xml:space="preserve">
+    <value>Del</value>
+  </data>
+  <data name="deleteAll" xml:space="preserve">
+    <value>Delete All</value>
+  </data>
+  <data name="deleteAllWarning" xml:space="preserve">
+    <value>You are about to remove all items from the transfer list. Continue?</value>
+  </data>
+  <data name="deleteSelectedItemWarning" xml:space="preserve">
+    <value>You are about to remove the selected item from the transfer list. Continue?</value>
+  </data>
+  <data name="deleteStoreData" xml:space="preserve">
+    <value>Delete Store Data</value>
+  </data>
+  <data name="deleteStoreDataWarning" xml:space="preserve">
+    <value>You are about to remove all items from the transfer list for the selected store. Continue?</value>
+  </data>
+  <data name="dept" xml:space="preserve">
+    <value>Dept</value>
+  </data>
+  <data name="deptName" xml:space="preserve">
+    <value>Dept Name</value>
+  </data>
+  <data name="description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="doesNotEnd" xml:space="preserve">
+    <value>Does Not End</value>
+  </data>
+  <data name="effectiveDates" xml:space="preserve">
+    <value>Effective Dates</value>
+  </data>
+  <data name="f-firstUnitPricing" xml:space="preserve">
+    <value>F - First Unit Pricing</value>
+  </data>
+  <data name="from" xml:space="preserve">
+    <value>From</value>
+  </data>
+  <data name="futurePrice" xml:space="preserve">
+    <value>Future Price</value>
+  </data>
+  <data name="hotButtons" xml:space="preserve">
+    <value>Hot Buttons</value>
+  </data>
+  <data name="i-incrementalPricing" xml:space="preserve">
+    <value>I - Incremental Pricing</value>
+  </data>
+  <data name="increasedBy" xml:space="preserve">
+    <value>Increased By</value>
+  </data>
+  <data name="list" xml:space="preserve">
+    <value>List</value>
+  </data>
+  <data name="loading" xml:space="preserve">
+    <value>Loading</value>
+  </data>
+  <data name="margin" xml:space="preserve">
+    <value>Margin</value>
+  </data>
+  <data name="margin-p" xml:space="preserve">
+    <value>Margin %</value>
+  </data>
+  <data name="name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="newCurrentPrice" xml:space="preserve">
+    <value>New Current Price</value>
+  </data>
+  <data name="newFuturePrice" xml:space="preserve">
+    <value>New Future Price</value>
+  </data>
+  <data name="nPrice" xml:space="preserve">
+    <value>N.Price</value>
+  </data>
+  <data name="pageTitle" xml:space="preserve">
+    <value>Data Transfer</value>
+  </data>
+  <data name="percent" xml:space="preserve">
+    <value>Percent</value>
+  </data>
+  <data name="price" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="pricebookTransfer" xml:space="preserve">
+    <value>Pricebook Transfer</value>
+  </data>
+  <data name="priceChange" xml:space="preserve">
+    <value>Price Change</value>
+  </data>
+  <data name="priceChangeRequest" xml:space="preserve">
+    <value>You have to do the Price Change before saving the data.</value>
+  </data>
+  <data name="priceGroup" xml:space="preserve">
+    <value>Price Group</value>
+  </data>
+  <data name="priceGroups" xml:space="preserve">
+    <value>Price Groups</value>
+  </data>
+  <data name="prices" xml:space="preserve">
+    <value>Prices</value>
+  </data>
+  <data name="priceSetup" xml:space="preserve">
+    <value>Price Setup</value>
+  </data>
+  <data name="priceUnits" xml:space="preserve">
+    <value>Price Units</value>
+  </data>
+  <data name="product" xml:space="preserve">
+    <value>Product</value>
+  </data>
+  <data name="productId" xml:space="preserve">
+    <value>Product ID</value>
+  </data>
+  <data name="productName" xml:space="preserve">
+    <value>Product Name</value>
+  </data>
+  <data name="products" xml:space="preserve">
+    <value>Products</value>
+  </data>
+  <data name="promotions" xml:space="preserve">
+    <value>Promotions</value>
+  </data>
+  <data name="quantity" xml:space="preserve">
+    <value>Quantity</value>
+  </data>
+  <data name="r-regularPrice" xml:space="preserve">
+    <value>R - Regular Price</value>
+  </data>
+  <data name="recentChanges" xml:space="preserve">
+    <value>Recent Changes</value>
+  </data>
+  <data name="region" xml:space="preserve">
+    <value>Region</value>
+  </data>
+  <data name="regions" xml:space="preserve">
+    <value>Regions</value>
+  </data>
+  <data name="regPrice" xml:space="preserve">
+    <value>Reg.Price</value>
+  </data>
+  <data name="remove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="reports" xml:space="preserve">
+    <value>Reports</value>
+  </data>
+  <data name="s-salePricing" xml:space="preserve">
+    <value>S - Sale Pricing</value>
+  </data>
+  <data name="saveAsPendingTransfer" xml:space="preserve">
+    <value>Save As 'Pending Transfer'</value>
+  </data>
+  <data name="saving" xml:space="preserve">
+    <value>Saving</value>
+  </data>
+  <data name="search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="sel" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="select/UnselectAll" xml:space="preserve">
+    <value>Select/Unselect All</value>
+  </data>
+  <data name="selectedPriceGroups" xml:space="preserve">
+    <value>Selected Price Group</value>
+  </data>
+  <data name="selectedRegions" xml:space="preserve">
+    <value>Selected Regions</value>
+  </data>
+  <data name="selectedStores" xml:space="preserve">
+    <value>Selected Stores</value>
+  </data>
+  <data name="selectedVendors" xml:space="preserve">
+    <value>Selected Vendors</value>
+  </data>
+  <data name="selection" xml:space="preserve">
+    <value>Selection</value>
+  </data>
+  <data name="selectProductRequest" xml:space="preserve">
+    <value>You should select at least one item to transfer.</value>
+  </data>
+  <data name="selectStoreByRequest" xml:space="preserve">
+    <value>You should select at least one Price Group, Region, Vendor or Store.</value>
+  </data>
+  <data name="selectStoreRequest" xml:space="preserve">
+    <value>You should select at least one Price Group, Region, Vendor or Store.</value>
+  </data>
+  <data name="showAllProducts" xml:space="preserve">
+    <value>Show All Products</value>
+  </data>
+  <data name="specialPricing" xml:space="preserve">
+    <value>Special Pricing</value>
+  </data>
+  <data name="stockCode" xml:space="preserve">
+    <value>Stock Code</value>
+  </data>
+  <data name="stocks" xml:space="preserve">
+    <value>Stocks</value>
+  </data>
+  <data name="store" xml:space="preserve">
+    <value>Store</value>
+  </data>
+  <data name="stores" xml:space="preserve">
+    <value>Stores</value>
+  </data>
+  <data name="subDept" xml:space="preserve">
+    <value>Sub Dept</value>
+  </data>
+  <data name="subDeptName" xml:space="preserve">
+    <value>SubDept Name</value>
+  </data>
+  <data name="subDetail" xml:space="preserve">
+    <value>Sub Detail</value>
+  </data>
+  <data name="subDetailName" xml:space="preserve">
+    <value>SubDetail Name</value>
+  </data>
+  <data name="to" xml:space="preserve">
+    <value>To</value>
+  </data>
+  <data name="transfer" xml:space="preserve">
+    <value>Transfer</value>
+  </data>
+  <data name="transType" xml:space="preserve">
+    <value>Tr. Type</value>
+  </data>
+  <data name="transferOptions" xml:space="preserve">
+    <value>Transfer Options</value>
+  </data>
+  <data name="trType" xml:space="preserve">
+    <value>Tr. Type</value>
+  </data>
+  <data name="type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="updates" xml:space="preserve">
+    <value>Updates</value>
+  </data>
+  <data name="update" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="vendor" xml:space="preserve">
+    <value>Vendor</value>
+  </data>
+  <data name="vendorProducts" xml:space="preserve">
+    <value>Vendor Products</value>
+  </data>
+  <data name="vendors" xml:space="preserve">
+    <value>Vendors</value>
+  </data>
+  <data name="view" xml:space="preserve">
+    <value>View</value>
+  </data>
+  <data name="warning" xml:space="preserve">
+    <value>Warning!</value>
+  </data>
+  <data name="x-xForPricing" xml:space="preserve">
+    <value>X - 'X for' Pricing</value>
+  </data>
+  <data name="batch" xml:space="preserve">
+    <value>Batch</value>
+  </data>
+  <data name="endDate" xml:space="preserve">
+    <value>End Date</value>
+  </data>
+  <data name="id" xml:space="preserve">
+    <value>Id</value>
+  </data>
+  <data name="startDate" xml:space="preserve">
+    <value>Start Date</value>
+  </data>
+  <data name="selectAtLeastOneStore" xml:space="preserve">
+    <value>You should select at least one store to transfer.</value>
+  </data>
+  <data name="commodityTransferSuccessful" xml:space="preserve">
+    <value>Records are saved for Commodity Transfer.</value>
+  </data>
+  <data name="deleteSuccessful" xml:space="preserve">
+    <value>Successfully deleted!</value>
+  </data>
+  <data name="tranferSuccessful" xml:space="preserve">
+    <value>Successfully Transferred!</value>
+  </data>
+  <data name="anUnexpectedErrorHasOccured" xml:space="preserve">
+    <value>An unexpected error has occured.</value>
+  </data>
+  <data name="transfering" xml:space="preserve">
+    <value>Transfering</value>
+  </data>
+  <data name="button" xml:space="preserve">
+    <value>Button</value>
+  </data>
+  <data name="caption1" xml:space="preserve">
+    <value>Caption 1</value>
+  </data>
+  <data name="caption2" xml:space="preserve">
+    <value>Caption 2</value>
+  </data>
+  <data name="hotButtonTransferSuccessful" xml:space="preserve">
+    <value>Records are saved for Hot Buttons Transfer.</value>
+  </data>
+  <data name="promotionPendingTransferSuccessful" xml:space="preserve">
+    <value>Records are saved for Promotion Transfer.</value>
+  </data>
+  <data name="selectAtLeastOneItem" xml:space="preserve">
+    <value>You should select at least one item to transfer.</value>
+  </data>
+  <data name="packageCost" xml:space="preserve">
+    <value>Package Cost</value>
+  </data>
+  <data name="changePriceBasedOnMarginSetup" xml:space="preserve">
+    <value>Change price based on margin setup</value>
+  </data>
+  <data name="costSetup" xml:space="preserve">
+    <value>Cost Setup</value>
+  </data>
+  <data name="doYouWantToChangeThePrice" xml:space="preserve">
+    <value>Do you want to change the price?</value>
+  </data>
+  <data name="dataDefinition" xml:space="preserve">
+    <value>Data Definition</value>
+  </data>
+  <data name="toDateShouldBeGreaterWarning" xml:space="preserve">
+    <value>'To' Date should be always Greater than 'From' Date</value>
+  </data>
+  <data name="costChangeRequest" xml:space="preserve">
+    <value>You have to do the Cost Change before saving the data.</value>
+  </data>
+  <data name="noDataToTransfer" xml:space="preserve">
+    <value>There is no data to Transfer.</value>
+  </data>
+  <data name="currentCost" xml:space="preserve">
+    <value>Current Cost</value>
+  </data>
+  <data name="futureCost" xml:space="preserve">
+    <value>Future Cost</value>
+  </data>
+  <data name="nCost" xml:space="preserve">
+    <value>N. Cost</value>
+  </data>
+  <data name="toDateShouldBeAlwaysGreaterThanFromDate" xml:space="preserve">
+    <value>'To' Date should be always Greater than 'From' Date</value>
+  </data>
+  <data name="youCantChangeToAPassedDate" xml:space="preserve">
+    <value>You Can't change to a Passed Date.</value>
+  </data>
+  <data name="commodityListTab" xml:space="preserve">
+    <value>COMMODITY LIST</value>
+  </data>
+  <data name="commoditySelectionTab" xml:space="preserve">
+    <value>COMMODITY SELECTION</value>
+  </data>
+  <data name="costChangeListTab" xml:space="preserve">
+    <value>COST CHANGE LIST</value>
+  </data>
+  <data name="costChangeSelectionTab" xml:space="preserve">
+    <value>COST CHANGE SELECTION</value>
+  </data>
+  <data name="costChangeVeiwTab" xml:space="preserve">
+    <value>COST CHANGE VIEW</value>
+  </data>
+  <data name="hotButtonsListTab" xml:space="preserve">
+    <value>HOT BUTTONS LIST</value>
+  </data>
+  <data name="hotButtonsSelectionTab" xml:space="preserve">
+    <value>HOT BUTTONS SELECTION</value>
+  </data>
+  <data name="info" xml:space="preserve">
+    <value>Showing _START_  to _END_  of _TOTAL_ entries</value>
+  </data>
+  <data name="lengthMenu" xml:space="preserve">
+    <value>Show _MENU_ entries</value>
+  </data>
+  <data name="priceChangeListTab" xml:space="preserve">
+    <value>PRICE CHANGE LIST</value>
+  </data>
+  <data name="priceChangeSelectionTab" xml:space="preserve">
+    <value>PRICE CHANGE SELECTION</value>
+  </data>
+  <data name="priceChangeViewTab" xml:space="preserve">
+    <value>PRICE CHANGE VIEW</value>
+  </data>
+  <data name="labelPrintingListTab" xml:space="preserve">
+    <value>LABEL PRINTING LIST</value>
+  </data>
+  <data name="labelPrintingSelectionTab" xml:space="preserve">
+    <value>LABEL PRINTING SELECTION</value>
+  </data>
+  <data name="labelPrintingViewTab" xml:space="preserve">
+    <value>LABEL PRINTING VIEW</value>
+  </data>
+  <data name="promotionsListTab" xml:space="preserve">
+    <value>PROMOTIONS LIST</value>
+  </data>
+  <data name="promotionsSelectionTab" xml:space="preserve">
+    <value>PROMOTIONS SELECTION</value>
+  </data>
+  <data name="stocksListTab" xml:space="preserve">
+    <value>STOCKS LIST</value>
+  </data>
+  <data name="stocksSelectionTab" xml:space="preserve">
+    <value>STOCKS SELECTION</value>
+  </data>
+  <data name="stocksViewTab" xml:space="preserve">
+    <value>STOCKS VIEW</value>
+  </data>
+  <data name="zeroRecords" xml:space="preserve">
+    <value>No data available in table.</value>
+  </data>
+  <data name="entriesSelected" xml:space="preserve">
+    <value>{0} of {1} entries are selected</value>
+  </data>
+  <data name="totalEntries" xml:space="preserve">
+    <value>Total entries</value>
+  </data>
+  <data name="totalSelectedStores" xml:space="preserve">
+    <value>Total Selected Stores</value>
+  </data>
+  <data name="labelPrinting" xml:space="preserve">
+    <value>Label Printing</value>
+  </data>
+  <data name="pricebookManagement" xml:space="preserve">
+    <value>Price Book Management</value>
+  </data>
+  <data name="includeProducts" xml:space="preserve">
+    <value>Include products without any Sub-Dept / Sub-Detail definiton</value>
+  </data>
+  <data name="sortBy" xml:space="preserve">
+    <value>Sort By</value>
+  </data>
+  <data name="productCategories" xml:space="preserve">
+    <value>Product Categories</value>
+  </data>
+  <data name="priceBookType" xml:space="preserve">
+    <value>Price Book Type</value>
+  </data>
+  <data name="priceBook" xml:space="preserve">
+    <value>Price Book</value>
+  </data>
+  <data name="code" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="label-printing" xml:space="preserve">
+    <value>Label Printing</value>
+  </data>
+  <data name="finalize" xml:space="preserve">
+    <value>Finalize</value>
+  </data>
+</root>

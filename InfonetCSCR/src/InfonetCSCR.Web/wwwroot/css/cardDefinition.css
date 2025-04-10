@@ -1,0 +1,42 @@
+﻿.form-section-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.card-definition-form {
+  background-color: var(--color-white);
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+}
+
+.btn-save {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+#cardCode:read-only, #description:read-only {
+  background-color: #d1d7f0 !important;
+  border: 1px solid rgba(38, 83, 188, 0.2);
+  padding: 10px;
+  border-radius: 6px;
+  outline: none;
+  cursor: not-allowed;
+}
+
+.wrappper {
+  position: relative !important;
+  width: 100% !important;
+}
+
+.profile-id-select {
+  width: 100% !important;
+}
+
+#cardCodes-grid th {
+  width: 250px !important;
+}
+
+@media (max-width: 1024px) {
+  #btnBackToCardDefinition.fr {
+    height: 70px !important;
+  }
+}

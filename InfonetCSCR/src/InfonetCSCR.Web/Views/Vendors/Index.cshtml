@@ -1,0 +1,114 @@
+﻿@section Head {
+  <link href="~/css/vendors.css" rel="stylesheet" asp-append-version="true" />
+}
+
+@model VendorViewModel
+@inject IApplicationConfig _config
+@inject IViewLocalizer localizer
+@{
+  ViewData["Title"] = @localizer["pageTitle"];
+}
+
+<input type="hidden" id="anErrorHasOccuredWhileLoadingVendors" value="@localizer["anErrorHasOccuredWhileLoadingVendors"]" />
+<input id="anErrorHasOccuredWhileDeletingVendor" type="hidden" value="@localizer["anErrorHasOccuredWhileDeletingVendor"]" />
+<input id="pleaseSelectAVendor" type="hidden" value="@localizer["pleaseSelectAVendor"]" />
+<input id="vendorDeleted" type="hidden" value="@localizer["vendorDeleted"]" />
+
+<form class="p-3 mt-2" asp-controller="Vendors" id="vendorsForm">
+  <div class="p-2">
+    <div class="d-flex justify-content-between">
+      <h3 class="h3 fw-bold mb-3">@localizer["systemVendorDefinitions"]</h3>
+    </div>
+
+    <div class="body-content p-2">
+      @*Vendors Datatable Section*@
+      <div class="custom-grid-scrollbar border-2">
+        <table id="vendors-grid" class="table table-striped">
+          <thead>
+            <tr>
+              <th id="DTCode">@localizer["code"]</th>
+              <th id="DTName">@localizer["name"]</th>
+              <th id="DTAddress">@localizer["address"]</th>
+              <th id="DTCity">@localizer["city"]</th>
+              <th id="DTProvince">@localizer["province"]</th>
+              <th id="DTCountry">@localizer["country"]</th>
+              <th id="DTPostalCode">@localizer["postalCode"]</th>
+              <th id="DTPhone">@localizer["phone"]</th>
+              <th id="DTFax">@localizer["fax"]</th>
+              <th id="DTEmail">@localizer["email"]</th>
+              <th id="DTContactName1">@localizer["contactName1"]</th>
+              <th id="DTContactName2">@localizer["contactName2"]</th>
+              <th id="DTTaxNumber">@localizer["taxNumber"]</th>
+              <th id="DTTeVendor">@localizer["teVendor"]</th>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+              <th class="input substring-search" scope="col"></th>
+              <th class="input substring-search" scope="col"></th>
+              <th class="input d-none" scope="col"></th>
+              <th class="input d-none" scope="col"></th>
+              <th class="input d-none" scope="col"></th>
+              <th class="input d-none" scope="col"></th>
+              <th class="input d-none" scope="col"></th>
+              <th class="input substring-search" scope="col"></th>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+
+      <div class="p-2 row">
+        <div class="d-flex gap-3 col-xl-8 col-lg-9">
+          <button id="btn-add" type="button" class="btn btn-footer btn-primary text-center align-items-center">@localizer["add"]</button>
+          <button id="btn-edit" type="button" class="btn btn-footer btn-primary align-items-center">@localizer["edit"]</button>
+          <button id="btn-delete" type="button" class="btn btn-footer btn-danger text-center align-items-center">@localizer["delete"]</button>
+          @if (!_config.IsBackOffice)
+          {
+            <button id="btn-link" type="button" class="btn btn-footer btn-primary align-items-center">@localizer["vendorLink"]</button>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+
+  @*Delete Vendor Confirm modal*@
+  <div class="modal fade" id="deleteVendorConfirmModal" tabindex="1" role="dialog" area-labelledby="deleteConfirmModalLiveLabel" area-modal="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">@localizer["deleteVendor"]</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p class="message"></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-cancel btn-outline-danger align-content-center btn-sm me-2" data-bs-dismiss="modal">@localizer["no"]</button>
+          <button type="button" id="deleteVendorConfirmModalYesButtonControl" class="btn btn-primary btn-sm btn-save">@localizer["yes"]</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  @*Delete Vendor Info modal*@
+  <div class="modal fade" id="deleteVendorInfoModal" tabindex="1" role="dialog" area-labelledby="deleteInfoModalLiveLabel" area-modal="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">@localizer["deleteVendor"]</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p class="message"></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-footer btn-primary btn-sm align-content-center btn-sm me-2" data-bs-dismiss="modal">@localizer["ok"]</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+@section Scripts
+  {
+  <script src="~/js/vendors.js" asp-append-version="true"></script>
+}

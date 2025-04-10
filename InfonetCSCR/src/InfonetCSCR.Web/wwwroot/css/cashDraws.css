@@ -1,0 +1,111 @@
+#cashDrawButtonsContainerLeft {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  padding: 3px;
+}
+
+#cashDrawButtonsContainerRight {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 15px;
+  padding: 3px;
+}
+
+.cashDrawLayoutContainer {
+  width: 100%;
+  margin-left: 0px;
+}
+
+.cashDrawLeftContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.cashDrawButtonsTitle, .cashDrawFormTitle {
+  display: flex;
+  justify-content: start;
+  margin-left: 10px;
+}
+
+.cashDrawContainer {
+  margin-top: 10px;
+}
+
+.cashDrawButtonsContainer {
+  display: flex;
+}
+
+.cashDrawLayout {
+  display: flex;
+  justify-content: center !important;
+  align-content: center;
+  align-items: center;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #80808033;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  min-height: 500px;
+}
+
+.balancerButton {
+  visibility: hidden;
+}
+
+.cashDrawButtonsContainerLeft, .cashDrawButtonsContainerRight {
+  padding: 20px !important;
+  margin: 5px !important;
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+}
+
+.cashDrawsButton {
+  color: black;
+  background-color: #0ef0f0;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  min-width: 160px;
+  min-height: 75px;
+}
+
+.selectedButton {
+  background-color: #e01021 !important;
+}
+
+.notUsedButton {
+  background-color: #d5d4d9;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0px;
+}
+
+.cashDrawFormContainer {
+  margin-top: 10px;
+  margin-right: 10px;
+  padding: 20px;
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+  border-radius: 5px;
+  min-height: 500px;
+}
+
+.changeButtonSettingButtons {
+  display: flex;
+  margin-top: 20px;
+  align-content: center;
+  justify-content: center;
+}
+
+  .changeButtonSettingButtons button {
+    margin-left: 5px;
+    margin-right: 5px;
+  }

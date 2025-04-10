@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="fileNotFound" xml:space="preserve">
+    <value>DownLoad.ini is missing. This functionality is not available.</value>
+  </data>
+  <data name="inadequateForeignKey" xml:space="preserve">
+    <value>Check [RELEATED TABLES] section in Download.ini file. To extract data from all related tables, the number of related keys should be equal or greater than the number of keys in the master table.</value>
+  </data>
+  <data name="invalidDescriptionKey" xml:space="preserve">
+    <value>One or more descriptions is misspelled or does not exist. Check all the descriptions in Download.ini file for {0} table Or continue.</value>
+  </data>
+  <data name="invalidKey" xml:space="preserve">
+    <value>Check Download.ini file.The key {0} is either misspelled or does not exist in {1} table.</value>
+  </data>
+  <data name="invalidReferenceKey" xml:space="preserve">
+    <value>There is an error in DownLoad.ini file. {0} is not a valid reference key for {1} table. Check to make sure such a reference exists and its type is correct.</value>
+  </data>
+  <data name="maxAllowedRelatedTablesExceeded" xml:space="preserve">
+    <value>Cannot load all of the related tables. The maximum number of related tables has been exceeded. Increase TABLE_NUM constant in [CONFIG] section of your Download.ini file. The current setting of TABLE_NUM constant is {0}.</value>
+  </data>
+  <data name="missingColon" xml:space="preserve">
+    <value>Check the format of [RELATED TABLES] section in Download.ini file. The child table name should be followed by : character to define primary key(s). Proper format: MASTER_TABLE=CHILD_TABLE1:CHILD_KEY1, CHILD_TABLE2:CHILD_KEY2, etc.</value>
+  </data>
+  <data name="missingEqualSign" xml:space="preserve">
+    <value>Check the format of [RELATED TABLES] section in Download.ini file. The master table {0} is not followed by = character. Proper format: MASTER_TABLE=CHILD_TABLE1:CHILD_KEY1, CHILD_TABLE2:CHILD_KEY2, etc.</value>
+  </data>
+  <data name="noChildTablesDefined" xml:space="preserve">
+    <value>Check the format of [RELATED TABLES] section in Download.ini file. {0} table does not have any child tables defined. Proper format: MASTER_TABLE=CHILD_TABLE1:CHILD_KEY1, CHILD_TABLE2:CHILD_KEY2, etc.</value>
+  </data>
+  <data name="noFilesAvailableForExport" xml:space="preserve">
+    <value>No files available for export. Please check your ini file.</value>
+  </data>
+  <data name="wrongMasterTableName" xml:space="preserve">
+    <value>Check [RELATED TABLES] section of Download.ini file. The master table {0} is either misspelled or does not exist in the database.</value>
+  </data>
+  <data name="wrongTableName" xml:space="preserve">
+    <value>Check Download.ini file. {0} is either mispelled or the table does not exist.</value>
+  </data>
+</root>

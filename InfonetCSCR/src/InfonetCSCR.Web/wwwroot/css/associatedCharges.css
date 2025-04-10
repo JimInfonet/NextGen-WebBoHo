@@ -1,0 +1,8 @@
+.table-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.dataTables_info {
+  width: max-content;
+}

@@ -1,0 +1,171 @@
+﻿@section Head {
+  <link href="~/css/excelReports.css" rel="stylesheet" asp-append-version="true" />
+}
+
+@model ExcelReportGeneratorViewModel
+@inject IApplicationConfig _config
+@inject IViewLocalizer localizer
+@{
+  ViewData["Title"] = @localizer["excelReports"];
+  DateTime today = DateTime.Today;
+  string formattedDate = today.ToString("yyyy-MM-dd");
+}
+
+<input type="hidden" id="isBackOffice" value="@_config.IsBackOffice.ToString()">
+<input type="hidden" id="groupIdText" value="@localizer["groupId"]" />
+<input type="hidden" id="storeText" value="@localizer["store"]" />
+<input type="hidden" id="departmentText" value="@localizer["department"]" />
+<input type="hidden" id="thereIsNoDataBasedOnTheCurrentSelectionCriteria" value="@localizer["thereIsNoDataBasedOnTheCurrentSelectionCriteria"]" />
+<input type="hidden" id="dateShouldBeBetween" value="@localizer["dateShouldBeBetween", "{0}", "{1}"]" />
+<input type="hidden" id="downloadStartedSuccessfully" value="@localizer["downloadStartedSuccessfully"]" />
+<input type="hidden" id="generate" value="@localizer["generate"]" />
+<input type="hidden" id="downloading" value="@localizer["downloading"]" />
+<input type="hidden" id="fetchingData" value="@localizer["fetchingData"]" />
+
+<input type="hidden" id="pleaseSelectDepartment" value="@localizer["pleaseSelectDepartment"]" />
+<input type="hidden" id="pleaseSelectGroup" value="@localizer["pleaseSelectGroup"]" />
+<input type="hidden" id="pleaseSelectStore" value="@localizer["pleaseSelectStore"]" />
+<input type="hidden" id="noDataAvailableForSelectedDateRange" value="@localizer["noDataAvailableForSelectedDateRange"]" />
+
+<div class="m-3">
+  <h3>@localizer["excelReports"]</h3>
+</div>
+
+<div class="container">
+  <div class="excel-report-item-form m-2 p-3">
+    <form asp-controller="ExcelReports" asp-action="GenerateExcelReport" method="post">
+      <div>
+        <div class="border-bottom p-1">
+          <p class="form-section-title">@localizer["reports"]</p>
+        </div>
+        <div class="radioButtonsDiv">
+          <div class="p-3">
+
+            @if (_config.IsBackOffice)
+            {
+              <div class="radioButton d-flex">
+                <input type="radio" id="fuelLitresSummaryReport" name="ReportNo" value="1" onchange="reportSelectionChanged(this)" class="infonet-input me-2" />
+                <label for="fuelLitresSummaryReport">@localizer["fuelLitresSummaryReport"]</label>
+              </div>
+
+              <div class="radioButton d-flex">
+                <input type="radio" id="fuelDollarsSummary" name="ReportNo" value="2" onchange="reportSelectionChanged(this)" class="infonet-input me-2" />
+                <label for="fuelDollarsSummary">@localizer["fuelDollarsSummary"]</label>
+              </div>
+
+              <div class="radioButton d-flex">
+                <input type="radio" id="departmentalSalesSummary" name="ReportNo" value="3" onchange="reportSelectionChanged(this)" class="infonet-input me-2" />
+                <label for="departmentalSalesSummary">@localizer["departmentalSalesSummary"]</label>
+              </div>
+
+              <div class="radioButton d-flex">
+                <input type="radio" id="salesSummaryFamilyGroup" name="ReportNo" value="4" onchange="reportSelectionChanged(this)" class="infonet-input me-2" />
+                <label for="salesSummaryFamilyGroup">@localizer["salesSummaryFamilyGroup"]</label>
+              </div>
+            }
+
+            <div class="radioButton d-flex">
+              <input type="radio" id="fuelDailySalesReport" name="ReportNo" value="9" checked="checked" onchange="reportSelectionChanged(this)" class="infonet-input me-2" />
+              <label for="fuelDailySalesReport">@localizer["fuelDailySalesReport"]</label>
+            </div>
+
+            @if (_config.IsBackOffice)
+            {
+              <div class="radioButton d-flex">
+                <input type="radio" id="fngtrFuelSalesReport" name="ReportNo" value="11" onchange="reportSelectionChanged(this)" class="infonet-input me-2" />
+                <label for="fngtrFuelSalesReport">@localizer["fngtrFuelSalesReport"]</label>
+              </div>
+            }
+          </div>
+
+          <div class="p-3">
+            @if (_config.IsBackOffice)
+            {
+              <div class="radioButton d-flex">
+                <input type="radio" id="salesDetailFamilyGroup" name="ReportNo" value="5" onchange="reportSelectionChanged(this)" class="infonet-input me-2" />
+                <label for="salesDetailFamilyGroup">@localizer["salesDetailFamilyGroup"]</label>
+              </div>
+
+              <div class="radioButton d-flex">
+                <input type="radio" id="salesSummaryFuelProducts" name="ReportNo" value="6" onchange="reportSelectionChanged(this)" class="infonet-input me-2" />
+                <label for="salesSummaryFuelProducts">@localizer["salesSummaryFuelProducts"]</label>
+              </div>
+
+              <div class="radioButton d-flex">
+                <input type="radio" id="north60FleetCardReport" name="ReportNo" value="7" onchange="reportSelectionChanged(this)" class="infonet-input me-2" />
+                <label for="north60FleetCardReport">@localizer["north60FleetCardReport"]</label>
+              </div>
+
+              <div class="radioButton d-flex">
+                <input type="radio" id="ytgFleetCardReport" name="ReportNo" value="8" onchange="reportSelectionChanged(this)" class="infonet-input me-2" />
+                <label for="ytgFleetCardReport">@localizer["ytgFleetCardReport"]</label>
+              </div>
+            }
+
+            <div class="radioButton d-flex">
+              <input type="radio" id="salesByHourReport" name="ReportNo" value="10" onchange="reportSelectionChanged(this)" class="infonet-input me-2" />
+              <label for="salesByHourReport">@localizer["salesByHourReport"]</label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="criteriaDiv">
+        <div class="border-bottom p-1">
+          <p class="form-section-title">@localizer["criteria"]</p>
+        </div>
+        <div>
+          <div class="selectOnlyDateDiv">
+            <div class="selectDateDiv" id="selectDateDiv" hidden>
+              <label for="selectedDate" class="form-group">@localizer["selectDate"]</label>
+              <input type="date" id="selectedDate" name="SelectedDate" class="form-control infonet-control" value="@formattedDate" min="1753-01-01" max="9999-12-31" />
+            </div>
+          </div>
+
+          <div id="selectDateRangeWithOptionsDiv" class="selectDateRangeDiv">
+            <div>
+              <div class="dateRangeDiv" id="selectDateRange">
+                <div class="selectDateDiv">
+                  <label asp-for="StartDate" class="form-group">@localizer["startDate"]</label>
+                  <input asp-for="StartDate" type="date" id="startDate" name="StartDate" class="form-control infonet-control" value="@formattedDate" />
+                </div>
+                <div class="selectDateDiv">
+                  <label asp-for="EndDate" class="form-group">@localizer["endDate"]</label>
+                  <input asp-for="EndDate" type="date" id="endDate" name="EndDate" class="form-control infonet-control" value="@formattedDate" />
+                </div>
+              </div>
+
+              <div id="groupIdSelectDiv" class="criteriaSelectDiv" hidden>
+                <label asp-for="GroupId" class="form-group mb-2">@localizer["groupId"]</label>
+                <select asp-for="GroupId" id="groupId-select" class="criteria-select form-select infonet-input stock-item-form-input w-100" aria-label="Select Category"></select>
+              </div>
+
+              <div id="departmentSelectDiv" class="criteriaSelectDiv" hidden>
+                <label asp-for="Department" class="form-group mb-2">@localizer["department"]</label>
+                <select asp-for="Department" id="department-select" class="criteria-select form-select infonet-input stock-item-form-input w-100" aria-label="Select Category"></select>
+              </div>
+            </div>
+          </div>
+
+          @if (!_config.IsBackOffice)
+          {
+            <div class="selectStoresDiv">
+              <div id="storesDiv" class="storesDiv">
+                <label class="form-group mb-2">@localizer["store"]</label>
+                <select id="stores-select" class="form-select infonet-input stock-item-form-input w-300" aria-label="Select Category"></select>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+
+      <div class="generateButtonDiv">
+        <button id="generateButton" type="submit" class="btn btn-primary" data-model='@Html.Raw(Json.Serialize(Model))'>@localizer["generate"]</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+@section Scripts {
+  <script src="~/js/excelReports.js" asp-append-version="true"></script>
+}

@@ -1,0 +1,456 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="add" xml:space="preserve">
+    <value>Ajouter</value>
+  </data>
+  <data name="apply" xml:space="preserve">
+    <value>Appliquer</value>
+  </data>
+  <data name="areYouSureToDeleteTaxExemptCategory" xml:space="preserve">
+    <value>Est vous sur de Supprimer la Catégorie Exemtion de Taxe pour tous les items dans cette Catégorie {0}?</value>
+  </data>
+  <data name="areYouSureYouWantToDeleteSubCategory" xml:space="preserve">
+    <value>Êtes-vous sur de vouloir supprimer La sous-catégorie {0}?</value>
+  </data>
+  <data name="back" xml:space="preserve">
+    <value>Recule</value>
+  </data>
+  <data name="baseUnitQuantity" xml:space="preserve">
+    <value>Quantité pour Unité de Base</value>
+  </data>
+  <data name="baseUnitQuantityRange" xml:space="preserve">
+    <value>La quantité d'unité de base doit être comprise entre 1 et 32767.</value>
+  </data>
+  <data name="cancel" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="categories" xml:space="preserve">
+    <value>Catégories</value>
+  </data>
+  <data name="categoryCodeAlreadyExists" xml:space="preserve">
+    <value>code de catégorie {0} existe déjà. Utiliser un autre code de catégorie</value>
+  </data>
+  <data name="categoryIsTheFuelCategoryAndCannotBeDeleted" xml:space="preserve">
+    <value>La catégorie {0} est une catégorie de carburant. Elle ne peut être supprimée</value>
+  </data>
+  <data name="categoryIsUsedForStockItems" xml:space="preserve">
+    <value>La catégorie {0} est utilisée pour {1} articles&amp;quot; Êtes-vous sur de vouloir la supprimer ?</value>
+  </data>
+  <data name="categoryName" xml:space="preserve">
+    <value>Nom de catégorie</value>
+  </data>
+  <data name="charges" xml:space="preserve">
+    <value>Frais</value>
+  </data>
+  <data name="chargesSuccessfullyAdded" xml:space="preserve">
+    <value>Dépôt ajout avec succès</value>
+  </data>
+  <data name="chargesSuccessfullyDeleted" xml:space="preserve">
+    <value>Dépôt supprimées avec succès</value>
+  </data>
+  <data name="close" xml:space="preserve">
+    <value>Fermeture</value>
+  </data>
+  <data name="code" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="complete" xml:space="preserve">
+    <value>Compléter</value>
+  </data>
+  <data name="confirmCancelAlert" xml:space="preserve">
+    <value>Si vous cancel, toutes vos données seront perdues. Voulez-vous poursuivre?</value>
+  </data>
+  <data name="confirmDelete" xml:space="preserve">
+    <value>Confirmer la suppression</value>
+  </data>
+  <data name="countDetails" xml:space="preserve">
+    <value>Détails des Quantités</value>
+  </data>
+  <data name="delete" xml:space="preserve">
+    <value>Supprimer</value>
+  </data>
+  <data name="deleteCategory" xml:space="preserve">
+    <value>Supprimer un département</value>
+  </data>
+  <data name="deleteEodGroup" xml:space="preserve">
+    <value>Supprimer le Groupe EOS</value>
+  </data>
+  <data name="deleteGroup" xml:space="preserve">
+    <value>Supprimer le Groupe FDJ</value>
+  </data>
+  <data name="deleteSubCategory" xml:space="preserve">
+    <value>Supprimer un sous département</value>
+  </data>
+  <data name="deleteTECategory" xml:space="preserve">
+    <value>Supprimer TE Catégorie</value>
+  </data>
+  <data name="dept" xml:space="preserve">
+    <value>Département</value>
+  </data>
+  <data name="detail" xml:space="preserve">
+    <value>Classe</value>
+  </data>
+  <data name="details" xml:space="preserve">
+    <value>Classe</value>
+  </data>
+  <data name="editCountDetails" xml:space="preserve">
+    <value>Éditer Détails des Quantités</value>
+  </data>
+  <data name="editDetail" xml:space="preserve">
+    <value>Éditer Classe</value>
+  </data>
+  <data name="eod" xml:space="preserve">
+    <value>FDJ</value>
+  </data>
+  <data name="eodGroup" xml:space="preserve">
+    <value>Département FDJ</value>
+  </data>
+  <data name="eodGroupId" xml:space="preserve">
+    <value>ID du Groupe FDJ</value>
+  </data>
+  <data name="eodGroupIdShouldBeNumericValueBetween0And255" xml:space="preserve">
+    <value>ID du Groupe EOD devra avoir une valeur entre 1 et 255</value>
+  </data>
+  <data name="eodGroupName" xml:space="preserve">
+    <value>Nom du Groupe FDJ</value>
+  </data>
+  <data name="eodGroupNameShouldNotBeBlank" xml:space="preserve">
+    <value>Le Nom du Groupe EOD devra pas etre vide</value>
+  </data>
+  <data name="equivalentUnits" xml:space="preserve">
+    <value>Mesure Èquivalent</value>
+  </data>
+  <data name="linkGroup" xml:space="preserve">
+    <value>Créer un lien Catégorie FDJ</value>
+  </data>
+  <data name="name" xml:space="preserve">
+    <value>Nom abrégé</value>
+  </data>
+  <data name="newCategory" xml:space="preserve">
+    <value>Nouveau département</value>
+  </data>
+  <data name="newGroup" xml:space="preserve">
+    <value>Nouveau Groupe FDJ</value>
+  </data>
+  <data name="newSubCategory" xml:space="preserve">
+    <value>Nouveau sous département</value>
+  </data>
+  <data name="newTECategory" xml:space="preserve">
+    <value>Nouveau Catégorie TE</value>
+  </data>
+  <data name="newTEPrice" xml:space="preserve">
+    <value>Nouveau Prix TE</value>
+  </data>
+  <data name="pleaseSelectCharges" xml:space="preserve">
+    <value>Sélectionner une Frais.</value>
+  </data>
+  <data name="pleaseSelectStockCodes" xml:space="preserve">
+    <value>Sélectionner un code d'inventaire.</value>
+  </data>
+  <data name="pleaseSelectTaxes" xml:space="preserve">
+    <value>Sélectionner une taxe.</value>
+  </data>
+  <data name="productClassification" xml:space="preserve">
+    <value>Structure département</value>
+  </data>
+  <data name="productCode" xml:space="preserve">
+    <value>Code Produit</value>
+  </data>
+  <data name="productDiscountCodes" xml:space="preserve">
+    <value>Codes de rabais de l'article</value>
+  </data>
+  <data name="quantityPerPkgRange" xml:space="preserve">
+    <value>La quantité/emballage doit être comprise entre -32768 et 32767.</value>
+  </data>
+  <data name="quantityPkg" xml:space="preserve">
+    <value>Quantité/Emballage</value>
+  </data>
+  <data name="queryToConinueDeleteEodGroup" xml:space="preserve">
+    <value>Des départements ont un lien EOD, Si vous continuer, tous ces liens seront supprimés. Voulez vous continuer?</value>
+  </data>
+  <data name="remove" xml:space="preserve">
+    <value>Supprimer</value>
+  </data>
+  <data name="selectAllProducts" xml:space="preserve">
+    <value>Sélectionner tous les articles</value>
+  </data>
+  <data name="selectBeforeDeletingMessage" xml:space="preserve">
+    <value>Veuillez sélectionner un article Département FDJ de le supprimer.</value>
+  </data>
+  <data name="setTECategory" xml:space="preserve">
+    <value>Configurer TE Catégorie</value>
+  </data>
+  <data name="subCategories" xml:space="preserve">
+    <value>Sous-département</value>
+  </data>
+  <data name="subCategoryCodeAlreadyExists" xml:space="preserve">
+    <value>Le code de sous-catégorie {0} existe déjà. Entrer un autre code de sous-catégorie.</value>
+  </data>
+  <data name="subCategoryIsUsedForStockItems" xml:space="preserve">
+    <value>La sous-catégorie {0} est utilisée pour {1} articles" Êtes-vous sur de vouloir la supprimer?</value>
+  </data>
+  <data name="subCode" xml:space="preserve">
+    <value>Code sous département</value>
+  </data>
+  <data name="subDept" xml:space="preserve">
+    <value>Sous-département</value>
+  </data>
+  <data name="subName" xml:space="preserve">
+    <value>Nom du sous département</value>
+  </data>
+  <data name="taxes" xml:space="preserve">
+    <value>Taxes</value>
+  </data>
+  <data name="taxesSuccessfullyAdded" xml:space="preserve">
+    <value>Taxes ajout avec succès</value>
+  </data>
+  <data name="taxesSuccessfullyDeleted" xml:space="preserve">
+    <value>Taxes supprimées avec succès</value>
+  </data>
+  <data name="taxExempt" xml:space="preserve">
+    <value>Exemption de taxes</value>
+  </data>
+  <data name="taxExemptCategory" xml:space="preserve">
+    <value>Catégorie Exemption de Taxe</value>
+  </data>
+  <data name="taxExemptSuccessfullyAdded" xml:space="preserve">
+    <value>Exemption de taxes ajout avec succès</value>
+  </data>
+  <data name="taxExemptSuccessfullyDeleted" xml:space="preserve">
+    <value>Exemption de taxes supprimées avec succès</value>
+  </data>
+  <data name="taxFreePriceRange" xml:space="preserve">
+    <value>La Prix Hors Taxes doit être comprise entre -99999 et 214748.</value>
+  </data>
+  <data name="taxType" xml:space="preserve">
+    <value>Type de Taxe</value>
+  </data>
+  <data name="theCategoryCodeMustNotBeBlank" xml:space="preserve">
+    <value>Le code de catégorie ne peut être vide.</value>
+  </data>
+  <data name="theCategoryNameMustNotBeBlank" xml:space="preserve">
+    <value>Le nom de catégorie ne peut être vide.</value>
+  </data>
+  <data name="theDetailsMustBeBetween1And4" xml:space="preserve">
+    <value>Les détails doivent contenir un chiffre inférieur à 5.</value>
+  </data>
+  <data name="theCountDetailsMustBeBetween1And9" xml:space="preserve">
+    <value>Les détails des quantités doivent contenir un chiffre inférieur à 10.</value>
+  </data>
+  <data name="thisEodGroupIdAlreadyExists" xml:space="preserve">
+    <value>Ce groupe EOD existe déjà.</value>
+  </data>
+  <data name="youAreGoingToAdd" xml:space="preserve">
+    <value>Vous allez ajouter {0} à {1} numéro d'article. Voulez-vous continuer ?</value>
+  </data>
+  <data name="youAreGoingToDelete" xml:space="preserve">
+    <value>Vous allez supprimer {0} à {1} numéro d'article. Voulez-vous continuer ?</value>
+  </data>
+  <data name="youHaveSelectedSameTaxMoreThanOneTime" xml:space="preserve">
+    <value>Cette taxe a déjà été sélectionnée. Une taxe ne peut être sélectionnée plus d'une fois.</value>
+  </data>
+  <data name="areYouSureToDeleteProductDiscountCodeForCategory" xml:space="preserve">
+    <value>Etes-vous sûr de supprimer le Code du Produit Rabais pour tous les articles dans la catégorie {0}?</value>
+  </data>
+  <data name="deleteDiscountCode" xml:space="preserve">
+    <value>Supprimer le Code de rabais</value>
+  </data>
+  <data name="productDiscount" xml:space="preserve">
+    <value>Rabais de l'article</value>
+  </data>
+  <data name="setDiscountCode" xml:space="preserve">
+    <value>Entrer le Code de Rabais</value>
+  </data>
+  <data name="discountCodeShouldBeBetween0And99Inclusive" xml:space="preserve">
+    <value>Le Code de Rabais devrait être entre 0 et 99(inclus)</value>
+  </data>
+  <data name="productDiscountCodeSuccessfullyAdded" xml:space="preserve">
+    <value>Code de rabais de l'article ajout avec succès</value>
+  </data>
+  <data name="productDiscountCodeSuccessfullyDeleted" xml:space="preserve">
+    <value>Code de rabais de l'article supprimées avec succès</value>
+  </data>
+  <data name="allSelectedEODGroupsWillBeDeletedContinue" xml:space="preserve">
+    <value>Tous les Département FDJ existant vont être supprimés?</value>
+  </data>
+  <data name="areYouSureYouWantToDeleteCategory" xml:space="preserve">
+    <value>Sur de vouloir la supprimer catégorie {0}?</value>
+  </data>
+  <data name="noProducts" xml:space="preserve">
+    <value>Aucun article</value>
+  </data>
+  <data name="noProductsFor" xml:space="preserve">
+    <value>Aucun artcle pour le {0}.</value>
+  </data>
+  <data name="deleteDetail" xml:space="preserve">
+    <value>Supprimer classe</value>
+  </data>
+  <data name="detailCode" xml:space="preserve">
+    <value>Code de détail</value>
+  </data>
+  <data name="detailName" xml:space="preserve">
+    <value>Nom du détail</value>
+  </data>
+  <data name="newDetails" xml:space="preserve">
+    <value>Nouvelle classe</value>
+  </data>
+  <data name="areYouSureYouWantToDeleteSubDetail" xml:space="preserve">
+    <value>Sur de vouloir la supprimer Sous-détail {0}?</value>
+  </data>
+  <data name="detailCodeAlreadyExistsInputUniqueDetailCode" xml:space="preserve">
+    <value>Le code de détail {0} existe déjà. Entrer un autre code de détail</value>
+  </data>
+  <data name="subDetailIsUsedForStockItems" xml:space="preserve">
+    <value>La Sous-détail {0} est utilisée pour {1} articles" Êtes-vous sur de vouloir la supprimer?</value>
+  </data>
+  <data name="theDetailCodeMustNotBeBlank" xml:space="preserve">
+    <value>Le code de détail ne peut rester vide</value>
+  </data>
+  <data name="theDetailNameMustNotBeBlank" xml:space="preserve">
+    <value>Le nom du détail ne peut rester vide</value>
+  </data>
+  <data name="subDetail" xml:space="preserve">
+    <value>Classe</value>
+  </data>
+  <data name="theSubCategoryCodeMustNotBeBlank" xml:space="preserve">
+    <value>Le code de sous-catégorie ne peut être vide.</value>
+  </data>
+  <data name="theSubCategoryNameMustNotBeBlank" xml:space="preserve">
+    <value>Le nom de sous-catégorie ne peut être vide.</value>
+  </data>
+  <data name="categorySuccessfullyAdded" xml:space="preserve">
+    <value>Catégories ajout avec succès</value>
+  </data>
+  <data name="categorySuccessfullyDeleted" xml:space="preserve">
+    <value>Catégories {0} supprimées avec succès</value>
+  </data>
+  <data name="subCategorySuccessfullyAdded" xml:space="preserve">
+    <value>Sous-catégorie ajout avec succès</value>
+  </data>
+  <data name="subCategorySuccessfullyDeleted" xml:space="preserve">
+    <value>Sous-catégorie {0} supprimées avec succès</value>
+  </data>
+  <data name="subDetailSuccessfullyAdded" xml:space="preserve">
+    <value>Sous-détail ajout avec succès</value>
+  </data>
+  <data name="subDetailSuccessfullyDeleted" xml:space="preserve">
+    <value>Sous-détail {0} supprimées avec succès</value>
+  </data>
+</root>

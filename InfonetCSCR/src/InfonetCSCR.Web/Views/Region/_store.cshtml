@@ -1,0 +1,32 @@
+﻿@model StoreViewModel
+@inject IViewLocalizer localizer
+
+<div class="container body-content p-2" style="max-width:3000px;">
+  <div class="d-flex justify-content-between">
+    <h5 class="h5 fw-bold mb-3">@localizer["stores"]</h5>
+  </div>
+  @*Store Datatable Section*@
+  <div id="store-table" class="container custom-grid-scrollbar border-2" style="max-width:3000px;">
+    <table id="store-grid" class="table table-striped" style="width:100%">
+      <thead>
+        <tr>
+          <th id="RegionId">@localizer["regionId"]</th>
+          <th id="StoreId">@localizer["storeId"]</th>
+          <th id="StoreName">@localizer["storeName"]</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+
+  <div class="p-2 row">
+    <div class="d-flex gap-3 align-items-center">
+      <div class="col-7">
+        <select class="form-select" id="link-store-to-the-region">
+        </select>
+      </div>
+      <div class="col-4 left-margin">
+        <button id="delete-store-link-btn" type="button" class="btn btn-footer btn-danger text-center align-items-center">@localizer["deleteStoreLink"]</button>
+      </div>
+    </div>
+  </div>
+</div>

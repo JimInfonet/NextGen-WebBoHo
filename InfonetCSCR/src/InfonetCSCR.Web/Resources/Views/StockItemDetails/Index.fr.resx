@@ -1,0 +1,357 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="action" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="add" xml:space="preserve">
+    <value>Ajouter</value>
+  </data>
+  <data name="addChargesAndDeposits" xml:space="preserve">
+    <value>Ajouter des frais et des dépôts</value>
+  </data>
+  <data name="alternateCode" xml:space="preserve">
+    <value>Code alternatif</value>
+  </data>
+  <data name="alternateCodes" xml:space="preserve">
+    <value>Codes alternatifs</value>
+  </data>
+  <data name="addTaxes" xml:space="preserve">
+    <value>Ajouter des taxes</value>
+  </data>
+  <data name="areYouSureYouWantToDeleteThisEntry" xml:space="preserve">
+    <value>Êtes-vous sûr de vouloir supprimer cette entrée?</value>
+  </data>
+  <data name="availabilityByDay" xml:space="preserve">
+    <value>Disponibilité par jour</value>
+  </data>
+  <data name="baseUnitQuantity" xml:space="preserve">
+    <value>Quantité d'unité de base</value>
+  </data>
+  <data name="cancel" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="chargesAndDeposits" xml:space="preserve">
+    <value>Dépôt</value>
+  </data>
+  <data name="code" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="detailsForStockCode" xml:space="preserve">
+    <value>Détails pour le code de stock</value>
+  </data>
+  <data name="included" xml:space="preserve">
+    <value>Inclus</value>
+  </data>
+  <data name="equivalentUnits" xml:space="preserve">
+    <value>Unités équivalentes</value>
+  </data>
+  <data name="no" xml:space="preserve">
+    <value>Non</value>
+  </data>
+  <data name="pageTitle" xml:space="preserve">
+    <value>Détails</value>
+  </data>
+  <data name="price" xml:space="preserve">
+    <value>Prix</value>
+  </data>
+  <data name="rate" xml:space="preserve">
+    <value>Taux</value>
+  </data>
+  <data name="productCode" xml:space="preserve">
+    <value>Code produit</value>
+  </data>
+  <data name="quantityPkg" xml:space="preserve">
+    <value>Quantité/emballage</value>
+  </data>
+  <data name="region" xml:space="preserve">
+    <value>Régions</value>
+  </data>
+  <data name="regionSectionTitle" xml:space="preserve">
+    <value>Sélection, Régions, Magasin</value>
+  </data>
+  <data name="save" xml:space="preserve">
+    <value>sauvegarder</value>
+  </data>
+  <data name="selectCharges" xml:space="preserve">
+    <value>Sélectionnez les frais</value>
+  </data>
+  <data name="selection" xml:space="preserve">
+    <value>Sélection</value>
+  </data>
+  <data name="selectRegion" xml:space="preserve">
+    <value>Sélectionnez la région</value>
+  </data>
+  <data name="selectStore" xml:space="preserve">
+    <value>Sélectionnez le magasin</value>
+  </data>
+  <data name="selectTaxes" xml:space="preserve">
+    <value>Sélectionnez une taxe</value>
+  </data>
+  <data name="stockCodeDetails" xml:space="preserve">
+    <value>Détails du code boursier</value>
+  </data>
+  <data name="store" xml:space="preserve">
+    <value>Magasin</value>
+  </data>
+  <data name="taxCode" xml:space="preserve">
+    <value>Code de taxe</value>
+  </data>
+  <data name="taxes" xml:space="preserve">
+    <value>Taxes</value>
+  </data>
+  <data name="taxName" xml:space="preserve">
+    <value>Nom de la taxe</value>
+  </data>
+  <data name="update" xml:space="preserve">
+    <value>Mise Ã  jour</value>
+  </data>
+  <data name="yes" xml:space="preserve">
+    <value>Oui</value>
+  </data>
+  <data name="edit" xml:space="preserve">
+    <value>Éditer</value>
+  </data>
+  <data name="taxExemptCategory" xml:space="preserve">
+    <value>Catégorie Exemption de Taxe</value>
+  </data>
+  <data name="taxExemptPrice" xml:space="preserve">
+    <value>Prix ​​hors taxe</value>
+  </data>
+  <data name="taxType" xml:space="preserve">
+    <value>Type de taxe</value>
+  </data>
+  <data name="vendor" xml:space="preserve">
+    <value>Vendeur</value>
+  </data>
+  <data name="ok" xml:space="preserve">
+    <value>D'accord</value>
+  </data>
+  <data name="alternateCodeDelete" xml:space="preserve">
+    <value>Suppression de code alternatif</value>
+  </data>
+  <data name="apply" xml:space="preserve">
+    <value>Appliquer</value>
+  </data>
+  <data name="back" xml:space="preserve">
+    <value>Recule</value>
+  </data>
+  <data name="complete" xml:space="preserve">
+    <value>Compléter</value>
+  </data>
+  <data name="delete" xml:space="preserve">
+    <value>Supprimer</value>
+  </data>
+  <data name="deleteTaxExemptWarning" xml:space="preserve">
+    <value>Êtes-vous sûr de vouloir supprimer le paramètre d'exonération de taxe pour {0} - {1}?</value>
+  </data>
+  <data name="noTaxExemptToDelete" xml:space="preserve">
+    <value>Il n'y a pas d'exonération fiscale à supprimer.</value>
+  </data>
+  <data name="taxExemptSetting" xml:space="preserve">
+    <value>Fixer Exemption de Taxe</value>
+  </data>
+  <data name="enterAnAlternateCode" xml:space="preserve">
+    <value>Veuillez saisir un autre code.</value>
+  </data>
+  <data name="failedToDeleteCharges" xml:space="preserve">
+    <value>Échec de la suppression des frais.</value>
+  </data>
+  <data name="failedToDeleteTaxes" xml:space="preserve">
+    <value>Échec de la suppression des taxes.</value>
+  </data>
+  <data name="failedToLoadAvailabilityByDay" xml:space="preserve">
+    <value>Échec du chargement de la disponibilité par jour.</value>
+  </data>
+  <data name="failedToLoadData" xml:space="preserve">
+    <value>Échec du chargement des données.</value>
+  </data>
+  <data name="failedToLoadRegion" xml:space="preserve">
+    <value>Échec du chargement de la région.</value>
+  </data>
+  <data name="failedToLoadStockItemDetails" xml:space="preserve">
+    <value>Échec du chargement des détails de l'article en stock.</value>
+  </data>
+  <data name="failedToLoadStore" xml:space="preserve">
+    <value>Échec du chargement du magasin.</value>
+  </data>
+  <data name="noSelectedDayFound" xml:space="preserve">
+    <value>Aucun jour sélectionné trouvé.</value>
+  </data>
+  <data name="stockCodeNotFound" xml:space="preserve">
+    <value>Le code stock n’est pas trouvé.</value>
+  </data>
+  <data name="all" xml:space="preserve">
+    <value>Tous</value>
+  </data>
+  <data name="confirmDeleteAlert" xml:space="preserve">
+    <value>Êtes-vous sûr de vouloir supprimer cette entrée?</value>
+  </data>
+  <data name="datatableEmptyMessage" xml:space="preserve">
+    <value>Aucune donnée disponible.</value>
+  </data>
+  <data name="selectAlternateCodeBeforeDelete" xml:space="preserve">
+    <value>Veuillez sélectionner un autre code avant de supprimer.</value>
+  </data>
+  <data name="friday" xml:space="preserve">
+    <value>Vendredi</value>
+  </data>
+  <data name="monday" xml:space="preserve">
+    <value>Lundi</value>
+  </data>
+  <data name="saturday" xml:space="preserve">
+    <value>Samedi</value>
+  </data>
+  <data name="sunday" xml:space="preserve">
+    <value>Dimanche</value>
+  </data>
+  <data name="thursday" xml:space="preserve">
+    <value>Jeudi</value>
+  </data>
+  <data name="tuesday" xml:space="preserve">
+    <value>Mardi</value>
+  </data>
+  <data name="wednesday" xml:space="preserve">
+    <value>Mercredi</value>
+  </data>
+  <data name="unsavedChangesText" xml:space="preserve">
+    <value>Si vous revenez à la page de détails du produit, vos données seront perdues. Voulez-vous poursuivre</value>
+  </data>
+  <data name="deleteTax" xml:space="preserve">
+    <value>Supprimer une taxe</value>
+  </data>
+  <data name="deleteTaxExempt" xml:space="preserve">
+    <value>Supprimer exemption de Taxe</value>
+  </data>
+  <data name="unsavedData" xml:space="preserve">
+    <value>Unsaved DataF</value>
+  </data>
+  <data name="purchaseDetailSuccessfullyDeleted" xml:space="preserve">
+    <value>Détail d'achat supprimées avec succès.</value>
+  </data>
+  <data name="invalidNumberWarningMessage" xml:space="preserve">
+    <value>Entrer un numéro valide</value>
+  </data>
+  <data name="alternateCodeExist" xml:space="preserve">
+    <value>Le code alternatif __PLU_CODE__ existe déjà !</value>
+  </data>
+</root>

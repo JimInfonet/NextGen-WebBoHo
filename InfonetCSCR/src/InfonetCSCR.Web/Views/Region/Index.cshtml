@@ -1,0 +1,39 @@
+@inject IApplicationConfig _config
+@inject IViewLocalizer localizer
+@inject IHttpContextAccessor httpContextAccessor
+@{
+  ViewData["Title"] = @localizer["regions"];
+}
+
+<input id="regionAddedSuccessfully" type="hidden" value="@localizer["regionAddedSuccessfully"]" />
+<input id="idAlreadyExists" type="hidden" value="@localizer["idAlreadyExists", "{0}"]" />
+<input id="deleteRegionTitle" type="hidden" value="@localizer["deleteRegion"]" />
+<input id="deleteRegionMessage" type="hidden" value="@localizer["deleteRegionMessage"]" />
+<input id="regionDeletedSuccessfully" type="hidden" value="@localizer["regionDeletedSuccessfully"]" />
+
+<input id="linkStoreToTheRegion" type="hidden" value="@localizer["linkStoreToTheRegion"]" />
+
+<input id="storeAddedSuccessfully" type="hidden" value="@localizer["storeAddedSuccessfully"]" />
+<input id="storeDeletedSuccessfully" type="hidden" value="@localizer["storeDeletedSuccessfully"]" />
+<input id="deleteStoreTitle" type="hidden" value="@localizer["deleteStoreTitle"]" />
+<input id="deleteStoreMessage" type="hidden" value="@localizer["deleteStoreMessage"]" />
+
+<form class="p-3 mt-2" asp-controller="region" asp-action="regions" id="regionForm">
+  <div class="p-2">
+    <div class="d-flex justify-content-between">
+      <h3 class="h3 fw-bold">@localizer["regionsAndStoresSettings"]</h3>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 col-xl-6">
+        <partial name="_region" view-data="ViewData"></partial>
+      </div>
+      <div class="col-lg-12 col-xl-6">
+        <partial name="_store" view-data="ViewData"></partial>
+      </div>
+    </div>
+  </div>
+</form>
+
+@section Scripts {
+  <script src="~/js/region.js" asp-append-version="true"></script>
+}

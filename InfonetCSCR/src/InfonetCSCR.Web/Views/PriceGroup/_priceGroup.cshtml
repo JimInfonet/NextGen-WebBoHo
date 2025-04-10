@@ -1,0 +1,60 @@
+﻿@model PriceGroupViewModel
+@inject IViewLocalizer localizer
+
+<div id="priceGroupContainer" class="container body-content p-2" style="max-width:3000px;">
+  <div class="d-flex justify-content-between">
+    <h5 class="h5 fw-bold mb-3">@localizer["priceGroup"]</h5>
+  </div>
+  @*PriceGroup Datatable Section*@
+  <div id="priceGroup-table" class="container custom-grid-scrollbar border-2" style="max-width:3000px;">
+    <table id="priceGroup-grid" class="table table-striped" style="width:100%">
+      <thead>
+        <tr>
+          <th id="PriceGroupId" class="nowrap">@localizer["priceGroupId"]</th>
+          <th id="PriceGroupName" class="nowrap">@localizer["priceGroupName"]</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+
+  <div class="p-2 row">
+    <div class="d-flex gap-3 col-xl-8 col-lg-9 align-items-center">
+      <button id="priceGroup-btn-add" type="button" class="btn btn-primary text-center align-items-center">@localizer["newPriceGroup"]</button>
+      <button id="priceGroup-btn-delete" type="button" class="btn btn-danger text-center align-items-center">@localizer["deletePriceGroup"]</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="priceGroupFormModal" tabindex="1" role="dialog" area-modal="true">
+  <div class="modal-dialog modal-dialog-centered priceGroup-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 id="priceGroup-form-section-title" class="modal-title">@localizer["priceGroupForm"]</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="priceGroup-form">
+          <div class="row gap-3 p-3">
+            <div class="col">
+              <label class="mb-2">@localizer["priceGroupId"]</label>
+              <input id="priceGroup-id" type="text" maxlength="6" class="infonet-input w-100 not-editable" />
+              <span id="validation-for-priceGroup-id" class="text-danger">@localizer["idFieldIsRequired"]</span>
+            </div>
+          </div>
+          <div class="row gap-3 p-3">
+            <div class="col">
+              <label class="mb-2">@localizer["priceGroupName"]</label>
+              <input id="priceGroup-name" type="text" maxlength="25" class="infonet-input w-100" />
+              <span id="validation-for-priceGroup-name" class="text-danger">@localizer["nameFieldIsRequired"]</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-cancel btn-outline-danger align-content-center btn-sm me-2" data-bs-dismiss="modal">@localizer["cancel"]</button>
+        <button type="button" class="btn btn-primary btn-sm btn-save" onclick="onPriceGroupCompleteClick()">@localizer["complete"]</button>
+      </div>
+    </div>
+  </div>
+</div>
