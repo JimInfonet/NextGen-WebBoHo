@@ -4,9 +4,9 @@ public class CardDefinitionService : ICardDefinitionService
 {
   private readonly IUnitOfWork _unitOfWork;
 
-  public CardDefinitionService(IApplicationConfig applicationConfig)
+  public CardDefinitionService(IApplicationConfig _applicationConfig)
   {
-    this._unitOfWork = new UnitOfWork(applicationConfig, applicationConfig.CSCMasterConnectionString);
+    this._unitOfWork = new UnitOfWork(_applicationConfig, _applicationConfig.CSCMasterConnectionString);
   }
 
   public CardDefinitionDto GetCardDefinitionFromCardAndTenderCard(Card card, TenderCard tenderCard)

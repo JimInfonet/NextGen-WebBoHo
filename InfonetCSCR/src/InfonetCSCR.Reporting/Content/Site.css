@@ -22,3 +22,159 @@ select,
 textarea {
     max-width: 280px;
 }
+
+/* Dashboard Page styles start here */
+/* Float four columns side by side */
+.card-column {
+    min-width: 200px;
+    padding: 0 10px;
+    margin-top: 10px;
+}
+
+@media(max-width: 576px) {
+    .card-column {
+        width: 100% !important;
+        padding-right: 0 !important;
+        margin-top: 10px;
+    }
+}
+/* Remove extra left and right margins, due to padding in columns */
+.card-row {
+    margin: 0px !important;
+}
+    /* Clear floats after the columns */
+    .card-row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+/* Style the counter cards */
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* this adds the "card" effect */
+    padding: 10px;
+    text-align: left;
+    background-color: white;
+    height: 80px;
+}
+
+.date {
+    font-size: 18px !important;
+    font-weight: bold;
+    padding: 10px;
+}
+
+.no-data {
+    padding-left: 20px;
+    padding-top: 10px;
+    font-weight: bold;
+    display: none;
+}
+
+.charts {
+    padding-left: 40px;
+}
+
+.chart-container {
+    border: 1px solid #ddd;
+    height: 400px;
+    margin-top: 10px;
+}
+
+@media(max-width: 991px) {
+    .chart-container {
+        height: 500px;
+    }
+
+    .sales-chart-container {
+        height: 620px
+    }
+}
+
+@media(max-width: 767px) {
+    .chart-container {
+        height: 600px;
+    }
+
+    .sales-chart-container {
+        height: 700px
+    }
+}
+/* Dashboard Page styles end here */
+/* Report Page starts*/
+#fuelTable, #cStoreTable, #salesTotalTable, #salesTaxTable, #salesChargeTable, #salesReceiptsTable, #totalDailySalesTable {
+    border-collapse: collapse;
+    table-layout: fixed;
+    width: 100%;
+}
+
+    #fuelTable, #fuelTable th, #fuelTable td,
+    #cStoreTable, #cStoreTable th, #cStoreTable td,
+    #salesTotalTable, #salesTotalTable th, #salesTotalTable td,
+    #totalDailySalesTable, #totalDailySalesTable th, #totalDailySalesTable td,
+    #salesTaxTable, #salesTaxTable th, #salesTaxTable td,
+    #salesChargeTable, #salesChargeTable th, #salesChargeTable td,
+    #salesReceiptsTable, #salesReceiptsTable th, #salesReceiptsTable td {
+        /*border: 1px solid rgb(163, 150, 150);*/
+        text-align: center;
+    }
+
+.sales-amt {
+    text-align: right !important;
+}
+
+.sales-chart-container {
+    border: 1px solid #ddd;
+}
+
+.sales-chart-height {
+    height: 400px !important;
+}
+
+.table-responsive {
+    max-height: 300px !important;
+    overflow: auto !important;
+}
+/*///////////*/
+.align-right {
+    text-align: right !important;
+}
+
+tr[data-toggle="modal"] {
+    cursor: pointer;
+}
+
+#loading {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0.7;
+    background-color: #fff;
+    z-index: 99;
+}
+
+#loading-image {
+    z-index: 100;
+}
+
+iframe {
+    overflow: hidden;
+}
+
+#reportDiv {
+    margin-top: 10px;
+}
+
+.fixed-header {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: #fff;
+    white-space: nowrap;
+}
+/* Report Page ends*/

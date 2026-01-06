@@ -68,22 +68,22 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>1.49167in</Width>
+                  <Width>1.52306in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.50333in</Width>
+                  <Width>1.53472in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.55917in</Width>
+                  <Width>1.59056in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.05208in</Width>
+                  <Width>1.08347in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.07292in</Width>
+                  <Width>1.10431in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.09375in</Width>
+                  <Width>1.12514in</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -1419,9 +1419,8 @@
             </TablixRowHierarchy>
             <DataSetName>StockItems</DataSetName>
             <Top>0.99944in</Top>
-            <Left>0.18834in</Left>
             <Height>1.83056in</Height>
-            <Width>7.77292in</Width>
+            <Width>7.96126in</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1484,9 +1483,8 @@
             </Paragraphs>
             <rd:DefaultName>Textbox17</rd:DefaultName>
             <Top>0.62444in</Top>
-            <Left>0.18834in</Left>
             <Height>0.25in</Height>
-            <Width>4.39167in</Width>
+            <Width>4.58001in</Width>
             <ZIndex>2</ZIndex>
             <RepeatWith>Tablix1</RepeatWith>
             <Style>
@@ -1519,9 +1517,9 @@
             </Paragraphs>
             <rd:DefaultName>Textbox18</rd:DefaultName>
             <Top>0.62444in</Top>
-            <Left>5.79876in</Left>
+            <Left>5.61042in</Left>
             <Height>0.25in</Height>
-            <Width>2in</Width>
+            <Width>2.35084in</Width>
             <ZIndex>3</ZIndex>
             <RepeatWith>Tablix1</RepeatWith>
             <Style>
@@ -1567,7 +1565,7 @@
               <Top>0.12083in</Top>
               <Left>6.70501in</Left>
               <Height>0.25in</Height>
-              <Width>1in</Width>
+              <Width>1.25625in</Width>
               <Style>
                 <Border>
                   <Style>None</Style>

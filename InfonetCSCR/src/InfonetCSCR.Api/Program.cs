@@ -1,5 +1,7 @@
 // TODO: Add validation
 
+using InfonetCSCR.Api.Converter;
+
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 var InfonetAllowedSpecificOrigins = "_infonetAllowedSpecificOrigins";
@@ -79,6 +81,7 @@ builder.Services.AddTransient<IHotButtonPagesService, HotButtonPagesService>();
 builder.Services.AddTransient<IFunctionButtonsService, FunctionButtonsService>();
 builder.Services.AddTransient<IFunctionListService, FunctionListService>();
 builder.Services.AddTransient<ICustomerGroupService, CustomerGroupService>();
+builder.Services.AddTransient<IDashboardChartService, DashboardChartService>();
 builder.Services.AddTransient<IGroupButtonsService, GroupButtonsService>();
 builder.Services.AddTransient<ICashDrawsService, CashDrawsService>();
 builder.Services.AddTransient<ITaxRateService, TaxRateService>();
@@ -110,23 +113,56 @@ builder.Services.AddTransient<IPolicyByEntityService, PolicyByEntityService>();
 builder.Services.AddTransient<IStoreShiftsService, StoreShiftsService>();
 builder.Services.AddTransient<IPricebookManagementService, PricebookManagementService>();
 builder.Services.AddTransient<ISendDataToStoreService, SendDataToStoreService>();
+builder.Services.AddTransient<IRepTillCloseService, RepTillCloseService>();
+builder.Services.AddTransient<IRepCloseBatchService, RepCloseBatchService>();
+builder.Services.AddTransient<IRepArStatService, RepArStatService>();
 #endregion services
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+
+// 10-17-2023, Jim added to opt lambda expression to be able to debug API codes
+//builder.Services.AddSwaggerGen(opt =>
+//{
+//    //opt.SwaggerDoc("v1", new OpenApiInfo { Title = "MyAPI", Version = "v1" });
+//    opt.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+//    {
+//        In = ParameterLocation.Header,
+//        Description = "Please enter token",
+//        Name = "Authorization",
+//        Type = SecuritySchemeType.Http,
+//        BearerFormat = "JWT",
+//        Scheme = "bearer"
+//    });
+//    opt.AddSecurityRequirement(new OpenApiSecurityRequirement
+//    {
+//        {
+//            new OpenApiSecurityScheme
+//            {
+//                Reference = new OpenApiReference
+//                {
+//                    Type=ReferenceType.SecurityScheme,
+//                    Id="Bearer"
+//                }
+//            },
+//            new string[]{}
+//        }
+//    });
+//});
+
 builder.Services.AddSwaggerGen(options =>
 {
-  options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-  {
-    In = ParameterLocation.Header,
-    Description = "Please enter JWT token",
-    Name = "Authorization",
-    Type = SecuritySchemeType.Http,
-    BearerFormat = "JWT",
-    Scheme = "bearer"
-  });
+    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        In = ParameterLocation.Header,
+        Description = "Please enter JWT token",
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        BearerFormat = "JWT",
+        Scheme = "bearer"
+    });
 
-  options.AddSecurityRequirement(new OpenApiSecurityRequirement
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement
   {
     {
       new OpenApiSecurityScheme
@@ -143,24 +179,26 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 //JWT authentication
+//Comment out following to run Swagger without going through JWT
+
 builder.Services.AddAuthentication(options =>
 {
-  options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-  options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-  options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
 }).AddJwtBearer(o =>
 {
-  o.TokenValidationParameters = new TokenValidationParameters
-  {
-    ValidIssuer = configuration["Jwt:Issuer"],
-    ValidAudience = configuration["Jwt:Audience"],
-    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"])),
-    ValidateIssuer = true,
-    ValidateAudience = true,
-    ValidateLifetime = true,
-    ValidateIssuerSigningKey = true,
-    ClockSkew = TimeSpan.Zero
-  };
+    o.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidIssuer = configuration["Jwt:Issuer"],
+        ValidAudience = configuration["Jwt:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"])),
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ClockSkew = TimeSpan.Zero
+    };
 });
 
 // CORS
@@ -173,6 +211,19 @@ builder.Services.AddCors(options =>
           .AllowAnyHeader()
           .AllowAnyMethod();
   });
+});
+
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.PropertyNamingPolicy = null; // preserve C# casing
+    });
+
+//Jim, Apr.29,2025 register custom converters for DateOnly and TimeOnly
+builder.Services.Configure<JsonOptions>(options =>
+{
+    options.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter());
+    options.JsonSerializerOptions.Converters.Add(new TimeOnlyJsonConverter());
 });
 
 builder.Services.AddAuthorization();
@@ -192,7 +243,10 @@ if (useHttps)
   app.UseHttpsRedirection();
 }
 app.UseCors(InfonetAllowedSpecificOrigins);
+
+//Comment out following to run Swagger without going through JWT
 app.UseAuthentication();
+
 app.UseAuthorization();
 app.MapControllers();
 app.UseMiddleware<ErrorHandlingMiddleware>();

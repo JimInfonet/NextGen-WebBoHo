@@ -1,0 +1,423 @@
+﻿@{ ViewBag.Title = "Category Report"; }
+<div id="error" class="alert alert-danger alert-dismissible" role="alert">
+    <span id="errorMessage"></span>
+</div>
+
+<div class="mt-2">
+    <h3 class="fw-bold mb-3">@ViewBag.Title</h3>
+
+    <div class="card" style="height: 100px;">
+        <div class="card-body px-3 py-2">
+            <div class="row">
+                <div id="CategorySelect" class="col-lg-3 col-md-4 col-sm-12 d-flex flex-column justify-content-end">
+                    <label>Category</label>
+                    <select id="drpCategorySelect" class="form-control">
+                        <option value="All">All</option>
+                        <option value="1">AR customers</option>
+                        <option value="2">Departments</option>
+                        <option value="3">Gift card & loyalty</option>
+                        <option value="4">Graphical report</option>
+                        <option value="5">Inventory</option>
+                        <option value="6">Kits</option>
+                        <option value="7">Others</option>
+                        <option value="8">Policies</option>
+                        <option value="9">Pricing</option>
+                        <option value="10">Product Classifications</option>
+                        <option value="11">Sales information</option>
+                        <option value="12">Security</option>
+                        <option value="13">Tax</option>
+                        <option value="14">Tenders</option>
+                    </select>
+                </div>
+
+                <div id="ReportSelect" class="col-lg-3 col-md-4 col-sm-12 d-flex flex-column justify-content-end">
+                    <label>Select Report</label>
+                    <select id="drpReportSelect" class="form-control"></select>
+                </div>
+
+                <div class="col-lg-3 col-md-4 col-sm-12 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary me-2" id="submitBtn">Load</button>
+                    <button type="button" class="btn btn-primary" id="printBtn">Export to PDF</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<div class="row">
+    @if (ViewBag.IsHeadOffice)
+    {
+        <div class="col-lg-3 col-xs-12">
+            <div>
+                <label>Select Store</label>
+            </div>
+            <div>
+                @Html.DropDownList("drpStoreSelect", (IEnumerable<SelectListItem>)ViewBag.Stores, new { @class = "form-control" })
+            </div>
+        </div>}
+    <div class="singleMovDateFilter col-lg-3 col-xs-12">
+        <div>
+            <label>Stock Movement Date <= </label>
+        </div>
+        <div>
+            <input type="date" id="singleMovDate" max="9999-12-31" pattern="[0-9]{4}" class="form-control" />
+        </div>
+    </div>
+    <div class="singleDateFilter col-lg-3 col-xs-12">
+        <div>
+            <label>Date</label>
+        </div>
+        <div>
+            <input type="date" id="singleDate" max="9999-12-31" pattern="[0-9]{4}" class="form-control" />
+        </div>
+    </div>
+    <div class="rangeDateFilter col-lg-3 col-xs-12">
+        <div>
+            <label>Date</label>
+        </div>
+        <div>
+            between <input type="date" id="startDate" max="9999-12-31" pattern="[0-9]{4}" class="form-control" />
+        </div>
+        <div>
+            and <input type="date" id="endDate" max="9999-12-31" pattern="[0-9]{4}" class="form-control" />
+        </div>
+    </div>
+    <div class="singleDeptFilter col-lg-3 col-xs-12">
+        <div>
+            <label>Dept</label>
+        </div>
+        @*<div>
+                <select id="deptSelect" class="form-control"></select>
+            </div>*@
+        <div>
+            <input id="deptSelect" class="form-control" />
+        </div>
+    </div>
+    <div class="rangeDeptFilter col-lg-3 col-xs-12">
+        <div>
+            <label>Dept</label>
+        </div>
+        @*<div>
+                between <select id="startDeptSelect" class="form-control"></select>
+            </div>
+            <div>
+                and <select id="endDeptSelect" class="form-control"></select>
+            </div>*@
+        <div>
+            between <input id="startDeptSelect" class="form-control" />
+        </div>
+        <div>
+            and <input id="endDeptSelect" class="form-control" />
+        </div>
+    </div>
+    <div class="singleSubDeptFilter col-lg-3 col-xs-12">
+        <div>
+            <label>Sub Dept</label>
+        </div>
+        <div>
+            <input id="subdeptSelect" class="form-control" />
+        </div>
+    </div>
+    <div class="rangeSubDeptFilter col-lg-3 col-xs-12">
+        <div>
+            <label>Sub Dept</label>
+        </div>
+        <div>
+            between <input id="startSubDeptSelect" class="form-control" />
+        </div>
+        <div>
+            and <input id="endSubDeptSelect" class="form-control" />
+        </div>
+    </div>
+    <div class="singleSubDetailFilter col-lg-3 col-xs-12">
+        <div>
+            <label>Sub Detail</label>
+        </div>
+        <div>
+            <input id="subDetailSelect" class="form-control" />
+        </div>
+    </div>
+    <div class="rangeSubDetailFilter col-lg-3 col-xs-12">
+        <div>
+            <label>Sub Detail</label>
+        </div>
+        <div>
+            between <input id="startSubDetailSelect" class="form-control" />
+        </div>
+        <div>
+            and <input id="endSubDetailSelect" class="form-control" />
+        </div>
+    </div>
+    <div class="singleCustFilter col-lg-3 col-xs-12">
+        <div>
+            <label>Customer</label>
+        </div>
+        <div>
+            <input id="custSelect" class="form-control" />
+        </div>
+    </div>
+    <div class="rangeCustFilter col-lg-3 col-xs-12">
+        <div>
+            <label>Customer</label>
+        </div>
+        <div>
+            between <input id="startCustSelect" class="form-control" />
+        </div>
+        <div>
+            and <input id="endCustSelect" class="form-control" />
+        </div>
+    </div>
+    <div class="singleEmpFilter col-lg-3 col-xs-12">
+        <div>
+            <label>Employee ID</label>
+        </div>
+        <div>
+            <input id="empSelect" class="form-control" />
+        </div>
+    </div>
+    <div class="rangeEmpFilter col-lg-3 col-xs-12">
+        <div>
+            <label>Employee ID</label>
+        </div>
+        <div>
+            between <input id="startEmpSelect" class="form-control" />
+        </div>
+        <div>
+            and <input id="endEmpSelect" class="form-control" />
+        </div>
+    </div>
+    <div class="singleTillFilter col-lg-3 col-xs-12">
+        <div>
+            <label>Till Number</label>
+        </div>
+        <div>
+            <input id="tillSelect" class="form-control" />
+        </div>
+    </div>
+    <div class="rangeTillFilter col-lg-3 col-xs-12">
+        <div>
+            <label>Till Number</label>
+        </div>
+        <div>
+            between <input id="startTillSelect" class="form-control" />
+        </div>
+        <div>
+            and <input id="endTillSelect" class="form-control" />
+        </div>
+    </div>
+    <div class="singleVendorFilter col-lg-3 col-xs-12">
+        <div>
+            <label>Vendor Code</label>
+        </div>
+        <div>
+            <input id="vendorSelect" class="form-control" />
+        </div>
+    </div>
+    <div class="rangeVendorFilter col-lg-3 col-xs-12">
+        <div>
+            <label>Vendor Code</label>
+        </div>
+        <div>
+            between <input id="startVendorSelect" class="form-control" />
+        </div>
+        <div>
+            and <input id="endVendorSelect" class="form-control" />
+        </div>
+    </div>
+    <div class="singleStockFilter col-lg-3 col-xs-12">
+        <div>
+            <label>Stock Code</label>
+        </div>
+        <div>
+            <input id="stockSelect" class="form-control" />
+        </div>
+    </div>
+    <div class="rangeStockFilter col-lg-3 col-xs-12">
+        <div>
+            <label>Stock Code</label>
+        </div>
+        <div>
+            between <input id="startStockSelect" class="form-control" />
+        </div>
+        <div>
+            and <input id="endStockSelect" class="form-control" />
+        </div>
+    </div>
+    <div class="singleTaxFilter col-lg-3 col-xs-12">
+        <div>
+            <label>Tax Name</label>
+        </div>
+        <div>
+            <input id="taxSelect" class="form-control" />
+        </div>
+    </div>
+    <div class="rangeTaxFilter col-lg-3 col-xs-12">
+        <div>
+            <label>Tax Name</label>
+        </div>
+        <div>
+            between <input id="startTaxSelect" class="form-control" />
+        </div>
+        <div>
+            and <input id="endTaxSelect" class="form-control" />
+        </div>
+    </div>
+    <div class="singlePclassFilter col-lg-3 col-xs-12">
+        <div>
+            <label>Class</label>
+        </div>
+        <div>
+            <input id="pClassSelect" class="form-control" />
+        </div>
+    </div>
+    <div class="rangePclassFilter col-lg-3 col-xs-12">
+        <div>
+            <label>Class</label>
+        </div>
+        <div>
+            between <input id="startPclassSelect" class="form-control" />
+        </div>
+        <div>
+            and <input id="endPclassSelect" class="form-control" />
+        </div>
+    </div>
+    <div class="singleTclassFilter col-lg-3 col-xs-12">
+        <div>
+            <label>Class</label>
+        </div>
+        <div>
+            <input id="tClassSelect" class="form-control" />
+        </div>
+    </div>
+    <div class="rangeTclassFilter col-lg-3 col-xs-12">
+        <div>
+            <label>Class</label>
+        </div>
+        <div>
+            between <input id="startTclassSelect" class="form-control" />
+        </div>
+        <div>
+            and <input id="endTclassSelect" class="form-control" />
+        </div>
+    </div>
+    <div class="singleOrderNoFilter col-lg-3 col-xs-12">
+        <div>
+            <label>OrderNo</label>
+        </div>
+        <div>
+            <input id="orderNoSelect" class="form-control" />
+        </div>
+    </div>
+    <div class="singleQtyNohFilter col-lg-3 col-xs-12">
+        <div>
+            <label>Qty on Hand <> </label>
+        </div>
+        <div>
+            <input id="qytNohSelect" class="form-control" />
+        </div>
+    </div>
+
+    <div class="row" id="stockMovementFilterContainer">
+        <div class="col-lg-3 col-xs-12">
+            <div>
+                <label>Select Dept</label>
+            </div>
+            <div>
+                <select id="drpDeptSelect" class="form-control"></select>
+            </div>
+        </div>
+        <div id="subDeptFilter" class="col-lg-3 col-xs-12">
+            <div>
+                <label>Select Sub Dept</label>
+            </div>
+            <div>
+                <select id="drpSubDeptSelect" class="form-control"></select>
+            </div>
+        </div>
+        <div class="col-lg-3 col-xs-12">
+            <div>
+                <label>Select Sub Detail</label>
+            </div>
+            <div>
+                <select id="drpSubDetailSelect" class="form-control"></select>
+            </div>
+        </div>
+        <div class="col-lg-3 col-xs-12">
+            <div>
+                <label>Select Stock Code</label>
+            </div>
+            <div>
+                <select id="drpStockCodeSelect" class="form-control"></select>
+            </div>
+        </div>
+
+    </div>
+    <div id="shelfLableContainer">
+        <div class="col-lg-3 col-xs-12" id="vendorFilter">
+            <div>
+                <label>Select Vendor</label>
+            </div>
+            <div>
+                <select id="vendorSelect" class="form-control"></select>
+            </div>
+        </div>
+        <div class="col-lg-3 col-xs-12" id="deptmentFilter">
+            <div>
+                <label>Select Dept</label>
+            </div>
+            <div>
+                <select id="deptmentSelect" class="form-control"></select>
+            </div>
+        </div>
+        <div id="subdeptmentFilter" class="col-lg-3 col-xs-12">
+            <div>
+                <label>Select Sub Dept</label>
+            </div>
+            <div>
+                <select id="subdeptmentSelect" class="form-control"></select>
+            </div>
+        </div>
+        <div id="barCodeTypeFilter" class="col-lg-3 col-xs-12">
+            <div>
+                <label>Select Code Type</label>
+            </div>
+            <div>
+                <select id="barCodeTypeSelect" class="form-control">
+                    <option value="1">EAN 13</option>
+                    <option value="2">Code 39</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row" id="reportDiv">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div id="reportBlock"></div>
+    </div>
+</div>
+
+<div id="loading">
+    <img id="loading-image" src="~/Images/loader.gif" alt="Loading..." />
+</div>
+
+@section Scripts
+{
+    <script src="~/Scripts/Category.js" type="text/javascript"></script>
+    <script src="~/Scripts/Script.js" type="text/javascript"></script>
+    <script>
+        var getReportFilter = '@Url.Action("GetReportFilter", "Category", new { access_token = ViewBag.jwtToken })';
+        var getDailySalesReport = '@Url.Action("GetDailySalesReport", "Category")';
+        var getStockMoveMentReport = '@Url.Action("GetStockMoveMentReport", "Category")';
+        var getNoStockMoveMentReport = '@Url.Action("GetNoStockMoveMentReport", "Category")';
+        var getDepartmentSalesReport = '@Url.Action("GetDepartmentSalesReport", "Category")';
+        var getQuantityLeaderReport = '@Url.Action("GetQuantityLeaderReport", "Category")';
+        var getHistoricalInventoryLevelReport = '@Url.Action("GetHistoricalInventoryLevelReport", "Category")';
+        var getHourlySalesReport = '@Url.Action("GetHourlySalesReport", "Report")';
+        var getDeptSalesLastSixWeeksReport = '@Url.Action("GetDeptSalesLastSixWeeksReport", "Category")';
+        var getShelfLabelReport = '@Url.Action("GetShelfLabelReport", "Category")';
+        var getReportUrl = '@Url.Action("LoadReports", "Category")';
+    </script>
+}
+

@@ -4,9 +4,9 @@ public class FunctionButtonsService : IFunctionButtonsService
 {
   private readonly IUnitOfWork _unitOfWork;
 
-  public FunctionButtonsService(IApplicationConfig applicationConfig)
+  public FunctionButtonsService(IApplicationConfig _applicationConfig)
   {
-    this._unitOfWork = new UnitOfWork(applicationConfig, applicationConfig.CSCMasterConnectionString);
+    this._unitOfWork = new UnitOfWork(_applicationConfig, _applicationConfig.CSCMasterConnectionString);
   }
 
   public async Task<IList<FunctionButton>> GetAllFunctionButtonsData()

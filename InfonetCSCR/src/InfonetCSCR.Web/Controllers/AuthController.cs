@@ -22,6 +22,7 @@ public class AuthController : Controller
     _logger = Log.Logger;
   }
 
+
   [AllowAnonymous]
   public IActionResult Index()
   {
@@ -153,7 +154,7 @@ public class AuthController : Controller
     return Ok(userName);
   }
 
-  [AllowAnonymous]
+  //[AllowAnonymous]
   public bool IsAuthenticated()
   {
     return User.Identity != null && User.Identity.IsAuthenticated;

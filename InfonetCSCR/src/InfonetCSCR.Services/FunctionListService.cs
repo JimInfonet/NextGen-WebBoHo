@@ -4,9 +4,9 @@ public class FunctionListService : IFunctionListService
 {
   private readonly IUnitOfWork _unitOfWork;
 
-  public FunctionListService(IApplicationConfig applicationConfig)
+  public FunctionListService(IApplicationConfig _applicationConfig)
   {
-    this._unitOfWork = new UnitOfWork(applicationConfig, applicationConfig.CSCMasterConnectionString);
+    this._unitOfWork = new UnitOfWork(_applicationConfig, _applicationConfig.CSCMasterConnectionString);
   }
 
   public async Task<IList<FunctionList>> GetAllFunctionListData()

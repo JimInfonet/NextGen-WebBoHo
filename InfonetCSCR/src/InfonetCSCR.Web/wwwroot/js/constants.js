@@ -524,3 +524,41 @@ const FUEL_PRICE_CHANGE = {
 }
 
 /*:::::::::::::::: FUEL PRICE CHANGE End ::::::::::::::::*/
+
+// TillClose Start
+
+const REP_TILL_CLOSE_STRING_TABLE = {
+    URL: {
+        GET_POLICIES: "/RepTillClose/GetPolicies",
+        GET_SHIFTS: "/RepTillClose/GetShiftNos"
+    }
+}
+
+// TillClose End
+
+// BatchClose Start
+
+const REP_CLOSE_BATCH_STRING_TABLE = {
+    URL: {
+        GET_POLICIES: "/RepCloseBatch/GetPolicies",
+    }
+}
+
+// BatchClose End
+
+// AR Statement Start
+
+const REP_ARSTATEMENT_STRING_TABLE = {
+    URL: {
+        CUSTOMER_GRID: "RepArStat/CustomerGrid",
+    },
+    TABLE: {
+        COLUMN_NAME: {
+            CUSTOMER_CODE: "Customer Code",
+            CUSTOMER_NAME: "Customer Name",
+            PHONE_NUMBER: "Phone #",
+        },
+    },
+};
+
+// AR Statement End

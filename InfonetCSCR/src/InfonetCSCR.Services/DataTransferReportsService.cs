@@ -4,9 +4,9 @@ public class DataTransferReportsService : IDataTransferReportsService
 {
   private readonly IUnitOfWork _unitOfWork;
 
-  public DataTransferReportsService(IApplicationConfig applicationConfig)
+  public DataTransferReportsService(IApplicationConfig _applicationConfig)
   {
-    this._unitOfWork = new UnitOfWork(applicationConfig, applicationConfig.CSCTransferConnectionString);
+    this._unitOfWork = new UnitOfWork(_applicationConfig, _applicationConfig.CSCTransferConnectionString);
   }
 
   public async Task<IEnumerable<CommodityTransferReportDto>> GetCommodityTransferReportData()

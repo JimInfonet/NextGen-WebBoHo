@@ -19,8 +19,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InfonetCSCR.Reporting", "sr
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{93CF7A48-3EB2-4D43-8FDA-354A5AA48961}"
 	ProjectSection(SolutionItems) = preProject
-		Database\HeadOfficeDBScripts.sql = Database\HeadOfficeDBScripts.sql
 		Database\BackOfficeDBScripts.sql = Database\BackOfficeDBScripts.sql
+		Database\HeadOfficeDBScripts.sql = Database\HeadOfficeDBScripts.sql
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D6C2F905-CD10-4D49-99BF-0C09DAF9F677}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
 Global

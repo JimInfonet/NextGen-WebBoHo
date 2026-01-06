@@ -4,9 +4,9 @@ public class CustomerGroupService : ICustomerGroupService
 {
   private readonly IUnitOfWork _unitOfWork;
 
-  public CustomerGroupService(IApplicationConfig applicationConfig)
+  public CustomerGroupService(IApplicationConfig _applicationConfig)
   {
-    this._unitOfWork = new UnitOfWork(applicationConfig, applicationConfig.CSCMasterConnectionString);
+    this._unitOfWork = new UnitOfWork(_applicationConfig, _applicationConfig.CSCMasterConnectionString);
   }
 
   public async Task<IEnumerable<CustomerGroup>> GetAllCustomerGroupsByCashBonus(bool cashBonus)

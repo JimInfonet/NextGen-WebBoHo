@@ -4,9 +4,9 @@ public class FuelPriceChangeService : IFuelPriceChangeService
 {
   private readonly IUnitOfWork _unitOfWork;
 
-  public FuelPriceChangeService(IApplicationConfig applicationConfig)
+  public FuelPriceChangeService(IApplicationConfig _applicationConfig)
   {
-    this._unitOfWork = new UnitOfWork(applicationConfig, applicationConfig.CSCPumpConnectionString);
+    this._unitOfWork = new UnitOfWork(_applicationConfig, _applicationConfig.CSCPumpConnectionString);
   }
 
   private StoreDataInHoDbRecord FillStoreIdsThatCannotBeAddedField(StoreDataInHoDbRecord storeDataInHoDbRecord, IList<string> storeIdsToRemove)

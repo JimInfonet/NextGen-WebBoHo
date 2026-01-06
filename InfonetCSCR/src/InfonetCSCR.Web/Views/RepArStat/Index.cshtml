@@ -1,0 +1,231 @@
+﻿@section Head {
+    <link rel="stylesheet" type="text/css" href="~/css/site.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+}
+@inject IApplicationConfig _config
+@inject IViewLocalizer localizer
+@inject IHttpContextAccessor httpContextAccessor
+@{
+    ViewData["Title"] = @localizer["pageTitle"];
+    bool custMem = ViewData["CUST_MEM"]?.ToString() == "Customer";
+}
+
+@* <input id="errorMessage" type="hidden" value="@localizer["errorMessage"]" />
+<div id="isBackOffice" hidden>@_config.IsBackOffice</div>
+ *@
+<input id="search" type="hidden" value="@localizer["search"]" />
+
+<input id="failedToLoadCustomers" type="hidden" value="@localizer["failedToLoadCustomers"]" />
+<input id="failedToLoadMembers" type="hidden" value="@localizer["failedToLoadMembers"]" />
+<input id="anErrorHasOccurredWhileLoadingCustomers" type="hidden" value="@localizer["anErrorHasOccurredWhileLoadingCustomers"]" />
+<input id="anErrorHasOccurredWhileLoadingMembers" type="hidden" value="@localizer["anErrorHasOccurredWhileLoadingMembers"]" />
+<input id="customerDeletedSuccessfully" type="hidden" value="@localizer["customerDeletedSuccessfully"]" />
+<input id="memberDeletedSuccessfully" type="hidden" value="@localizer["memberDeletedSuccessfully"]" />
+<input id="failedToDeleteCustomer" type="hidden" value="@localizer["failedToDeleteCustomer"]" />
+<input id="failedToDeleteMember" type="hidden" value="@localizer["failedToDeleteMember"]" />
+<input id="anErrorHasOccurredWhileDeletingCustomers" type="hidden" value="@localizer["anErrorHasOccurredWhileDeletingCustomers"]" />
+<input id="selectACustomer" type="hidden" value="@localizer["selectACustomer"]" />
+<input id="confirmDeleteCustomer" type="hidden" value="@localizer["confirmDeleteCustomer", "{0}"]" />
+<input id="confirmDeleteMember" type="hidden" value="@localizer["confirmDeleteMember"]" />
+<input id="delete" type="hidden" value="@localizer["delete"]" />
+<input id="CUST_MEM" type="hidden" value="@ViewData["CUST_MEM"]" />
+
+<title>CSHTML with Group Frame</title>
+<!-- Add necessary CSS links and scripts here -->
+<style>
+    /* Style for the group frame */
+    .group-frame {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-bottom: 15px;
+    }
+
+    /* Style for the group frame title */
+    .group-title {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+    /* Style for the table container */
+    .table {
+        display: table;
+        width: 70%;
+        border-collapse: collapse;
+        margin-bottom: 5px;
+        /* Add other styling properties as needed */
+    }
+
+    /* Style for table header */
+    .table-header {
+        display: table-header-group;
+        font-weight: bold;
+        /* Add other header styling properties */
+    }
+
+    /* Style for table body */
+    .table-body {
+        display: table-row-group;
+    }
+
+    /* Style for table rows */
+    .table-row {
+        display: table-row;
+        border: 0px thin #ccc;
+        /* Add row styling properties */
+    }
+
+
+    /* Style for table cells */
+    .table-cell {
+        display: table-cell;
+        border: 0px thin #ccc;
+        padding: 5px;
+        /* Add cell styling properties */
+    }
+
+    .u_table {
+        max-width: 900px; /* Set your desired maximum width */
+        margin: 0 auto; /* Center the container */
+        padding: 20px;
+        height: 600px; /* Set a fixed height for the container */
+        overflow-y: auto; /* Add vertical scrollbar */
+    }
+
+    .u_row {
+        display: flex;
+    }
+
+        .u_row:focus {
+            background-color: skyblue; /* Highlight when focused */
+        }
+
+        .u_row:not(:focus) {
+            background-color: transparent; /* Reset when not focused */
+        }
+
+    .u_header {
+        font-weight: bold;
+        display: table-row-group;
+        background-color: #f2f2f2;
+    }
+
+    .u_body {
+        display: table-row-group;
+    }
+
+    .u_cell {
+        width: 115px;
+        flex: 1;
+        padding: 10px;
+        border: 1px solid #ddd;
+    }
+
+</style>
+
+<input id="error-message-for-list-load" type="hidden" value="@localizer["errorMessageForListLoad"]" />
+
+
+<div class="px-3 py-2 mt-2">
+    <div class="d-flex justify-content-between">
+        <h3 class="h3 fw-bold mb-3">@localizer["AR Statement"]</h3>
+    </div>
+
+    <div class="page-content p-4 h-100 row">
+        <div class="d-flex flex-column col">
+            @*                 <div class="container overflow-scroll custom-grid-scrollbar border-2" style="max-width:3000px; height:1000px">
+ *@              
+             <div class="group-frame" id="groupList" style="display: block;">
+
+                <div class="container overflow-scroll custom-grid-scrollbar border-2" style="height:770px">
+                    <table id="customers-grid" class="table table-striped" width="20%">
+                        <thead>
+                            <tr>
+                                <th width="25%" id="DTCode">@localizer["Code"]</th>
+                                <th width="50%" id="DTName">@localizer["Name"]</th>
+                                <th width="25%" id="DTPhone">@localizer["Phone"]</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th class="input" width="25%" scope="col"></th>
+                                <th class="input" width="50%" scope="col"></th>
+                                <th class="input" width="25%" scope="col"></th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex flex-column col">
+            <!-- NEW: Period Selection Group -->
+            <div class="group-frame mt-2" id="groupPeriod" style="display: block" ;>
+                <div class="group-title">@localizer["Period Selection"]</div>
+                @{
+                    int currentMonth = DateTime.Now.Month;
+                    int currentYear = DateTime.Now.Year;
+                }
+                <div class="form-row">
+                    <!-- Month -->
+                    <div class="d-flex align-items-center mb-3">
+                        <label for="monthSelect" class="me-2">@localizer["Month"]</label>
+                        <select id="monthSelect" name="monthSelect" class="form-select w-auto me-3">
+                            @for (int m = 1; m <= 12; m++)
+                            {
+                                var monthName = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(m);
+                                <option value="@m "selected="@(m == currentMonth ? "selected" : null)">@monthName</option>
+                            }
+                        </select>
+
+                        <!-- Year -->
+                        <label for="yearInput" class="me-2">Year:</label>
+                        <input id="yearInput" name="yearInput" type="number" value="@currentYear"
+                               class="form-control w-auto" />
+                    </div>
+                </div>
+            </div>
+            <!-- END Period Selection -->
+
+            <div class="mt-4">
+                <div class="group-frame" id="groupBatch">
+                    <button id="btn-export" type="button" class="btn btn-default text-center btn-outline-success" onclick="monthClosingClicked()" disabled>@localizer["Month Closing"]</button>
+                    <button id="btn-display" type="button" class="btn btn-default text-center btn-outline-success" onclick="displayStatementClicked()" disabled>@localizer["Display Statement"]</button>
+                    <button id="btn-print" type="button" class="btn btn-default text-center btn-outline-success" onclick="printStatementClicked()" disabled>@localizer["Print Statement"]</button>
+                    <div class="progress mt-2" id="progressContainer" style="display:block;">
+                        <div id="jobBar" class="progress-bar bg-info"
+                             role="progressbar" style="width:0%">
+                            0%
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RichTextBox -->
+                <textarea id="ArStatementTextArea" name="ArStatementTextArea" rows="22" cols="60" width: 800px;>
+                </textarea>
+                <br><br>
+            </div>
+        </div>
+        <script>
+            function pollJob(jobId) {
+                fetch(`/progress?id=${jobId}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        const percent = data.percent;
+                        const bar = document.getElementById("jobBar");
+                        bar.style.width = percent + "%";
+                        bar.innerText = percent + "%";
+
+                        if (percent < 100) {
+                            setTimeout(() => pollJob(jobId), 1000); // poll every second
+                        } else {
+                            alert("Job completed!");
+                        }
+                    });
+            }
+        </script>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/repArStatement.js" asp-append-version="true"></script>
+}

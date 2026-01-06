@@ -4,9 +4,9 @@ public class CardProductRestrictionService : ICardProductRestrictionService
 {
   private readonly IUnitOfWork _unitOfWork;
 
-  public CardProductRestrictionService(IApplicationConfig applicationConfig)
+  public CardProductRestrictionService(IApplicationConfig _applicationConfig)
   {
-    this._unitOfWork = new UnitOfWork(applicationConfig, applicationConfig.CSCMasterConnectionString);
+    this._unitOfWork = new UnitOfWork(_applicationConfig, _applicationConfig.CSCMasterConnectionString);
   }
 
   public async Task<bool> AddProductRestriction(ProductRestriction productRestriction)

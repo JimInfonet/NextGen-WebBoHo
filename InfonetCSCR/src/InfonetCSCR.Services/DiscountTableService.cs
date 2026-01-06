@@ -4,9 +4,9 @@ public class DiscountTableService : IDiscountTableService
 {
   private readonly IUnitOfWork _unitOfWork;
 
-  public DiscountTableService(IApplicationConfig applicationConfig)
+  public DiscountTableService(IApplicationConfig _applicationConfig)
   {
-    this._unitOfWork = new UnitOfWork(applicationConfig, applicationConfig.CSCMasterConnectionString);
+    this._unitOfWork = new UnitOfWork(_applicationConfig, _applicationConfig.CSCMasterConnectionString);
   }
 
   public async Task<IList<DiscountTable>> GetAllDiscountTableData(DiscountTablePolicyRecord discountTablePolicyRecord)

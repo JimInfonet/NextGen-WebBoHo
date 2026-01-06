@@ -4,9 +4,9 @@ public class BrandService : IBrandService
 {
   private readonly IUnitOfWork _unitOfWork;
 
-  public BrandService(IApplicationConfig applicationConfig)
+  public BrandService(IApplicationConfig _applicationConfig)
   {
-    this._unitOfWork = new UnitOfWork(applicationConfig, applicationConfig.CSCMasterConnectionString);
+    this._unitOfWork = new UnitOfWork(_applicationConfig, _applicationConfig.CSCMasterConnectionString);
   }
 
   public async Task<IList<Brand>> GetAllBrands()

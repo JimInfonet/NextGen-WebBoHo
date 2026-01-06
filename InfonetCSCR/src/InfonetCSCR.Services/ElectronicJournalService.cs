@@ -8,10 +8,10 @@ public class ElectronicJournalService : IElectronicJournalService
   private static bool? _isWareHouse = false;
   private static char? _storeRadioOption = null;
 
-  public ElectronicJournalService(IApplicationConfig applicationConfig)
+  public ElectronicJournalService(IApplicationConfig _applicationConfig)
   {
-    _unitOfWork = new UnitOfWork(applicationConfig, applicationConfig.CSCTransConnectionString);
-    _config = applicationConfig;
+    _unitOfWork = new UnitOfWork(_applicationConfig, _applicationConfig.CSCTransConnectionString);
+    _config = _applicationConfig;
   }
 
   public async Task<IEnumerable<ElectronicJournalReportData>> GetElectronicJournalReportData(string saleNo, bool isFromTills)

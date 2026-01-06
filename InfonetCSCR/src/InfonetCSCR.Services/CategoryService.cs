@@ -4,9 +4,9 @@ public class CategoryService : ICategoryService
 {
   private readonly IUnitOfWork _unitOfWork;
 
-  public CategoryService(IApplicationConfig applicationConfig)
+  public CategoryService(IApplicationConfig _applicationConfig)
   {
-    this._unitOfWork = new UnitOfWork(applicationConfig, applicationConfig.CSCMasterConnectionString);
+    this._unitOfWork = new UnitOfWork(_applicationConfig, _applicationConfig.CSCMasterConnectionString);
   }
 
   public async Task<IEnumerable<Department>> GetDepartmentsAsync()

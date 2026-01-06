@@ -1,17 +1,16 @@
-﻿namespace InfonetCSCR.Core.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-public class SaleData
+namespace InfonetCSCR.Core.Models
 {
-  public Company? Company { get; set; }
-  public DateTime? ShiftDate { get; set; }
-  public string? Dept { get; set; }
-  public string? Sub_Dept { get; set; }
-  public string? Stock { get; set; }
-  public Decimal? Volume { get; set; }
-  public Decimal? Sales { get; set; }
-  public Decimal? ExemptedTax { get; set; }
-  public bool? TaxExempt { get; set; }
-  public int? Gradeid { get; set; }
-  public Decimal? Cost { get; set; }
-  public bool? Member { get; set; }
+    public class SaleData
+    {
+        public string TTYPE { get; set; } = null!;
+        public int Transactions { get; set; }
+        public decimal Amount { get; set; }
+        public decimal Pays { get; set; }
+    }
 }

@@ -3,21 +3,23 @@
 //CSCAdmin Connection
 public class CompanySetupRepository : BaseRepository, ICompanySetupRepository
 {
-  private Company? _company;
-	private readonly IApplicationConfig _applicationConfig;
+    private Company? _company;
+    private readonly IApplicationConfig _config;
+    private IDbTransaction _transaction;
 
-  public CompanySetupRepository(IApplicationConfig applicationConfig, IDbTransaction transaction) : base(transaction)
-  {
-    _applicationConfig = applicationConfig;
-  }
+    public CompanySetupRepository(IApplicationConfig _applicationConfig, IDbTransaction transaction) : base(transaction)
+    {
+        _config = _applicationConfig;
+        _transaction = transaction;
+    }
 
-  public async Task<Company?> GetCompanyAsync()
-  {
-    if (_company != null)
-      return _company;
+    public async Task<Company?> GetCompanyAsync()
+    {
+        if (_company != null)
+            return _company;
 
-    string sql = (_applicationConfig.IsBackOffice) ?
-                        @"SELECT TOP 1
+        string sql = (_config.IsBackOffice) ?
+                            @"SELECT TOP 1
 													[Company_Name] CompanyName,
 													[Address_1] Address1,
 													[Address_2] Address2,
@@ -43,7 +45,7 @@ public class CompanySetupRepository : BaseRepository, ICompanySetupRepository
 													[Sec_Reg_Num] SecondaryRegistrationNumber,
 													[AgentNumber] AgentNumber
 												FROM [CSCAdmin].[dbo].[Setup_C]" :
-                        @"SELECT TOP 1
+                            @"SELECT TOP 1
                           [Company_Name] CompanyName,
                           [Address_1] Address1,
                           [Address_2] Address2,
@@ -65,7 +67,7 @@ public class CompanySetupRepository : BaseRepository, ICompanySetupRepository
                           [Store] StoreCode
                         FROM [CSCAdmin].[dbo].[Setup_C]";
 
-    _company = await Connection.QuerySingleOrDefaultAsync<Company?>(sql, null, Transaction);
-    return _company;
-  }
+        _company = await Connection.QuerySingleOrDefaultAsync<Company?>(sql, null, Transaction);
+        return _company;
+    }
 }

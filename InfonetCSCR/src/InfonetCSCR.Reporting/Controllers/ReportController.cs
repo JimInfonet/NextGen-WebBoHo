@@ -10,11 +10,11 @@ using System.Web.Mvc;
 
 namespace InfonetCSCR.Reporting.Controllers
 {
-  [Authorize]
-  public class ReportController : Controller
+    [Authorize]
+    public class ReportController : Controller
   {
-    private ReportService _reportService;
-    private DataTransferReportsService _dataTransferReportService;
+    private readonly ReportService _reportService;
+    private readonly DataTransferReportsService _dataTransferReportService;
 
     public ReportController()
     {

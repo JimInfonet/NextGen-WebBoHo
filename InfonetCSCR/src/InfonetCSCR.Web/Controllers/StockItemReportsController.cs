@@ -75,8 +75,12 @@ public class StockItemReportsController : Controller
     return vendors?.FirstOrDefault()?.Name ?? string.Empty;
   }
 
-  public async Task<bool> RefreshToken()
-  {
-    return await _http.RefreshToken();
-  }
+    //public async Task<bool> RefreshToken()
+    //{
+    //    return await _http.RefreshToken();
+    //}
+    public Task<bool> RefreshToken()
+    {
+        return _http.RefreshToken();
+    }
 }

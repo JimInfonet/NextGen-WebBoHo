@@ -62,7 +62,7 @@ let ajaxGetAsync = async (url, data) => {
 let ajaxGetAsyncAsString = async (url, data) => {
   return await $.ajax({
     type: 'GET',
-    url: `${url}`,
+   url: `${url}`,
     dataType: 'text',
     contentType: "application/json; charset=utf-8",
     data: data,

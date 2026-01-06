@@ -5,10 +5,10 @@ public class CustomerService : ICustomerService
   private readonly IUnitOfWork _unitOfWork;
   private readonly IApplicationConfig _config;
 
-  public CustomerService(IApplicationConfig applicationConfig)
+  public CustomerService(IApplicationConfig _applicationConfig)
   {
-    this._unitOfWork = new UnitOfWork(applicationConfig, applicationConfig.CSCMasterConnectionString);
-    _config = applicationConfig;
+    this._unitOfWork = new UnitOfWork(_applicationConfig, _applicationConfig.CSCMasterConnectionString);
+    _config = _applicationConfig;
   }
 
   public async Task<IEnumerable<CustomersDto>> GetAllCustomers(bool orderByCode)

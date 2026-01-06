@@ -1,0 +1,82 @@
+﻿@model InfonetCSCR.Reporting.Models.DashboardData
+@{
+    ViewBag.Title = "Dashboard";
+}
+
+<div class="px-3 py-2 mt-2">
+    <div class="row">
+        <div class="col-lg-12">
+            <h3 class="fw-bold mb-3">@ViewBag.Title</h3>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="card-row col-sm-3">
+            <div class="date">
+                Date: @ViewBag.Today
+            </div>
+            <div class="card-column">
+                <div class="card">
+                    <table>
+                        <tr>
+                            <td class="col-lg-10 col-md-10 col-sm-10 font-bold">
+                                TOTAL SALES
+                            </td>
+                            <td rowspan="2" class="col-lg-2 col-md-2 col-sm-2">
+                                <i class="fas fa-store"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-lg-10 col-md-10 col-sm-10">
+                                $ @Html.DisplayFor(m => m.SaleAmt)
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="card-column">
+                <div class="card">
+                    <table>
+                        <tr>
+                            <td class="col-lg-10 col-md-10 col-sm-10 font-bold">
+                                TOTAL TRANSACTIONS
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-lg-10 col-md-10 col-sm-10">
+                                @Html.DisplayFor(m => m.Transactions)
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id="charts" class="row charts col-sm-9">
+            <div id="noData" class="no-data">
+                There is no data to populate the charts.
+            </div>
+            <div class="col-lg-12 chart-container sales-chart-container">
+                <canvas id="salesChart"></canvas>
+            </div>
+            <div class="col-lg-12 chart-container">
+                <canvas id="categoryChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+
+    <script src="~/Scripts/Dashboard.js" type="text/javascript"></script>
+    <script src="~/Scripts/Script.js" type="text/javascript"></script>
+
+    <script>
+    var getChartModelDataURL = '@Url.Action("GetChartModelData", "Dashboard")';
+
+    $(document).ready(function () {
+        loadCharts();
+    });
+
+    </script>
+}

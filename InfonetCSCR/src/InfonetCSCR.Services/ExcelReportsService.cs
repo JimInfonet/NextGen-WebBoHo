@@ -7,10 +7,10 @@ public class ExcelReportsService : IExcelReportsService
   private readonly IUnitOfWork _unitOfWork;
   private readonly IApplicationConfig _applicationConfig;
 
-  public ExcelReportsService(IApplicationConfig applicationConfig)
+  public ExcelReportsService(IApplicationConfig _applicationConfig)
   {
-    this._unitOfWork = new UnitOfWork(applicationConfig, applicationConfig.CSCTransConnectionString);
-    this._applicationConfig = applicationConfig;
+    this._unitOfWork = new UnitOfWork(_applicationConfig, _applicationConfig.CSCTransConnectionString);
+    this._applicationConfig = _applicationConfig;
   }
 
   public async Task<bool> CheckSaleDataExists(ExcelReportGenerator excelReportGenerator)

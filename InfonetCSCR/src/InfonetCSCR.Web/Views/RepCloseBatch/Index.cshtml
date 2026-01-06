@@ -1,0 +1,169 @@
+﻿@section Head {
+    <link rel="stylesheet" type="text/css" href="~/css/site.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+}
+@inject IApplicationConfig _config
+@inject IViewLocalizer localizer
+@inject IHttpContextAccessor httpContextAccessor
+@{
+    ViewData["Title"] = @localizer["pageTitle"];
+}
+
+<input id="errorMessage" type="hidden" value="@localizer["errorMessage"]" />
+<div id="isBackOffice" hidden>@_config.IsBackOffice</div>
+<input id="search" type="hidden" value="@localizer["search"]" />
+<input id="CloseBDays" type="hidden" value="@ViewData["CloseBDays"]" />
+
+<title>CSHTML with Group Frame</title>
+<!-- Add necessary CSS links and scripts here -->
+<style>
+    /* Style for the group frame */
+    .group-frame {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-bottom: 15px;
+    }
+
+    /* Style for the group frame title */
+    .group-title {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+    /* Style for the table container */
+    .table {
+        display: table;
+        width: 70%;
+        border-collapse: collapse;
+        margin-bottom: 5px;
+        /* Add other styling properties as needed */
+    }
+
+    /* Style for table header */
+    .table-header {
+        display: table-header-group;
+        font-weight: bold;
+        /* Add other header styling properties */
+    }
+
+    /* Style for table body */
+    .table-body {
+        display: table-row-group;
+    }
+
+    /* Style for table rows */
+    .table-row {
+        display: table-row;
+        border: 0px thin #ccc;
+        /* Add row styling properties */
+    }
+
+
+    /* Style for table cells */
+    .table-cell {
+        display: table-cell;
+        border: 0px thin #ccc;
+        padding: 5px;
+        /* Add cell styling properties */
+    }
+
+    .u_table {
+        width: 900px; /* Set a fixed width */
+        max-width: 900px; /* Set your desired maximum width */
+        margin: 0 auto; /* Center the container */
+        padding: 20px;
+        height: 700px; /* Set a fixed height for the container */
+        overflow-y: auto; /* Add vertical scrollbar */
+    }
+
+    .u_row {
+        display: flex;
+    }
+
+        .u_row:focus {
+            background-color: skyblue; /* Highlight when focused */
+        }
+
+        .u_row:not(:focus) {
+            background-color: transparent; /* Reset when not focused */
+        }
+
+    .u_header {
+        font-weight: bold;
+        display: table-row-group;
+        background-color: #f2f2f2;
+    }
+
+    .u_body {
+        display: table-row-group;
+    }
+
+    .u_cell {
+        width: 150px;
+        flex: 1;
+        padding: 10px;
+        border: 1px solid #ddd;
+    }
+
+</style>
+
+<input id="error-message-for-list-load" type="hidden" value="@localizer["errorMessageForListLoad"]" />
+
+<div class="px-3 py-2 mt-2">
+    <div class="d-flex justify-content-between">
+        <h3 class="h3 fw-bold mb-3">@localizer["Reprint Close Batch"]</h3>
+    </div>
+    <div class="page-content p-4 h-100 row">
+        <div class="d-flex flex-column col">
+            <div class="group-frame" id="groupList" style="display: block;">
+                @*             <div class="container overflow-scroll custom-grid-scrollbar border-2" style="max-width:3000px;">
+ *@
+                <div class="container overflow-scroll custom-grid-scrollbar border-2" style="height:770px">
+                    <table id="closeBatches-grid" class="table table-striped" width="20%">
+                        <thead>
+                            <tr>
+                                <th width="10%" id="batchId">@localizer["ID"]</th>
+                                <th width="30%" id="batchNumber">@localizer["BatchNumber"]</th>
+                                <th width="20%" id="batchDate">@localizer["Date"]</th>
+                                <th width="20%" id="batchTime">@localizer["Time"]</th>
+                                <th width="20%" id="terminalID">@localizer["TerminalID"]</th>
+                                @* <th width="0%" id="report">@localizer["Report"]</th> *@
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th class="input" width="10%" scope="col"></th>
+                                <th class="input" width="30%" scope="col"></th>
+                                <th class="input" width="20%" scope="col"></th>
+                                <th class="input" width="20%" scope="col"></th>
+                                <th class="input" width="20%" scope="col"></th>
+                                @* <th class="input" width="0%" scope="col"></th> *@
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex flex-column col">
+            <div class="mt-4">
+                <div class="group-frame" id="groupBatch">
+                    <button id="btn-export" type="button" class="btn btn-default text-center btn-outline-success" onclick="exportButtonClicked()" disabled>@localizer["Export"]</button>
+                    <button id="btn-print" type="button" class="btn btn-default text-center btn-outline-success" onclick="printStatementClicked()" disabled>@localizer["Print"]</button>
+                </div>
+
+                <!-- RichTextBox -->
+                <textarea id="CloseBatchTextArea" name="ArStatementTextArea" rows="28" cols="50">
+                </textarea>
+                <br><br>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script src="~/js/repCloseBatch.js" asp-append-version="true"></script>
+}

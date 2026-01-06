@@ -377,3 +377,7 @@ th, td, p {
   word-wrap: break-word !important;
   white-space: pre-wrap !important;
 }
+
+.hourglass-cursor {
+    cursor: wait !important;
+}

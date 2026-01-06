@@ -4,9 +4,9 @@ public class CommissionService : ICommissionService
 {
 	private readonly IUnitOfWork _unitOfWork;
 
-	public CommissionService(IApplicationConfig applicationConfig)
+	public CommissionService(IApplicationConfig _applicationConfig)
 	{
-		_unitOfWork = new UnitOfWork(applicationConfig, applicationConfig.CSCMasterConnectionString);
+		_unitOfWork = new UnitOfWork(_applicationConfig, _applicationConfig.CSCMasterConnectionString);
 	}
 
 	public async Task<IEnumerable<Commission>> GetCommissionListAsync(string employeeID)

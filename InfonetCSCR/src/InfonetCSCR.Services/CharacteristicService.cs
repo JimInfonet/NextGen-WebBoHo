@@ -4,9 +4,9 @@ public class CharacteristicService : ICharacteristicService
 {
   private readonly IUnitOfWork _unitOfWork;
 
-  public CharacteristicService(IApplicationConfig applicationConfig)
+  public CharacteristicService(IApplicationConfig _applicationConfig)
   {
-    this._unitOfWork = new UnitOfWork(applicationConfig, applicationConfig.CSCMasterConnectionString);
+    this._unitOfWork = new UnitOfWork(_applicationConfig, _applicationConfig.CSCMasterConnectionString);
   }
 
   public async Task<IList<Characteristic>> GetAllCharacteristics()

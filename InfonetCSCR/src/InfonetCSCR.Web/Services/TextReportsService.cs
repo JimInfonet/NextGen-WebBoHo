@@ -1,4 +1,6 @@
-﻿namespace InfonetCSCR.Web.Services;
+﻿using InfonetCSCR.Core.Models;
+
+namespace InfonetCSCR.Web.Services;
 
 public class TextReportsService : ITextReportsService
 {
@@ -3105,9 +3107,9 @@ public class TextReportsService : ITextReportsService
   private async Task<SelectList> GetCompanyAsync()
   {
     const string url = "CompanySetup/GetCompany";
-    var company = await _http.GetAndParseAsync<CompanyViewModel>(url);
+    var company = await _http.GetAndParseAsync<Company>(url);
     company.CompanyName = $"{company.StoreCode}-{company.CompanyName}";
-    var companyList = new List<CompanyViewModel> { company };
+    var companyList = new List<Company> { company };
     return new SelectList(companyList, "StoreCode", "CompanyName");
   }
 

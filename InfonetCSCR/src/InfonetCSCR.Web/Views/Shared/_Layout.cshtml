@@ -6,441 +6,466 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>@ViewData["Title"] - @(_config.IsBackOffice.ToString() == "True" ? _localizer["infonetBackOffice"] : _localizer["infonetHeadOffice"])</title>
-  <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="~/InfonetCSCR.Web.styles.css" asp-append-version="true" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@@simonwep/pickr/dist/themes/nano.min.css" />
-  <script src="https://code.iconify.design/iconify-icon/1.0.1/iconify-icon.min.js" integrity="sha384-bNhl9ScgJHezYDKt9sV5k1TKYpj0geW5t8nIbAZIH8h3vGwmyonn4A6gJSWjyqVY" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css" />
-  <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - @(_config.IsBackOffice.ToString() == "True" ? _localizer["infonetBackOffice"] : _localizer["infonetHeadOffice"])</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/InfonetCSCR.Web.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@@simonwep/pickr/dist/themes/nano.min.css" />
+    <script src="https://code.iconify.design/iconify-icon/1.0.1/iconify-icon.min.js" integrity="sha384-bNhl9ScgJHezYDKt9sV5k1TKYpj0geW5t8nIbAZIH8h3vGwmyonn4A6gJSWjyqVY" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 
-  @await RenderSectionAsync("Head", required: false)
+    @await RenderSectionAsync("Head", required: false)
 </head>
 
 <body>
-  <input id="_defaultErrorMessage" hidden value="@_localizer["defaultErrorMessage"]" />
-  <input id="_webBaseUrl" hidden value="@_config.WebBaseUrl" />
-  <input id="_reportBaseUrl" hidden value="@_config.ReportBaseUrl" />
-  <input id="select" hidden value="@_localizer["select"]" />
-  <input id="search" hidden value="@_localizer["search"]" />
-  <input id="zeroRecordsMessage" hidden value="@_localizer["zeroRecords"]" />
-  <input id="emptyMessage" hidden value="@_localizer["emptyMessage"]" />
-  <input id="loading" hidden value="@_localizer["loading"]" />
-  <input id="info" hidden value="@_localizer["info"]" />
-  <input id="infoForpaginationFalse" hidden value="@_localizer["infoForPaginationFalse"]" />
-  <input id="infoEmpty" hidden value="@_localizer["infoEmpty"]" />
-  <input id="infoEmptyForPaginationFalse" hidden value="@_localizer["infoEmptyForPaginationFalse"]" />
-  <input id="lengthMenu" hidden value="@_localizer["lengthMenu"]" />
-  <input type="hidden" id="allText" value="@_localizer["all"]">
+    <input id="_defaultErrorMessage" hidden value="@_localizer["defaultErrorMessage"]" />
+    <input id="_webBaseUrl" hidden value="@_config.WebBaseUrl" />
+    <input id="_reportBaseUrl" hidden value="@_config.ReportBaseUrl" />
+    <input id="select" hidden value="@_localizer["select"]" />
+    <input id="search" hidden value="@_localizer["search"]" />
+    <input id="zeroRecordsMessage" hidden value="@_localizer["zeroRecords"]" />
+    <input id="emptyMessage" hidden value="@_localizer["emptyMessage"]" />
+    <input id="loading" hidden value="@_localizer["loading"]" />
+    <input id="info" hidden value="@_localizer["info"]" />
+    <input id="infoForpaginationFalse" hidden value="@_localizer["infoForPaginationFalse"]" />
+    <input id="infoEmpty" hidden value="@_localizer["infoEmpty"]" />
+    <input id="infoEmptyForPaginationFalse" hidden value="@_localizer["infoEmptyForPaginationFalse"]" />
+    <input id="lengthMenu" hidden value="@_localizer["lengthMenu"]" />
+    <input type="hidden" id="allText" value="@_localizer["all"]">
 
-  <input id="_goBackConfirmationMessage" type="hidden" value="@_localizer["goBackConfirmationMessage"]">
-  <input id="_pleaseEnterANumericValue" type="hidden" value="@_localizer["pleaseEnterANumericValue"]" />
-  <input id="_goBackConfirmationTitle" type="hidden" value="@_localizer["goBackConfirmationTitle"]">
-  <input id="_successfullyExportedTo" type="hidden" value="@_localizer["successfullyExportedTo"]">
-  <input id="_anErrorHasOccurredWhileExportingFile" type="hidden" value="@_localizer["anErrorHasOccurredWhileExportingFile"]">
-  <input id="_isAutoImportExport" type="hidden" value="@_config.FileConfig.IsAutoImportExport.ToString()" />
-  <input id="_invalidNumberWarningMessage" hidden value="@_localizer["invalidNumberWarningMessage"]" />
-  <input id="discountsNotBeingUsed" hidden value="@_localizer["discountsNotBeingUsed"]" />
-  <input id="theDiscountTableIsNotBeingUsed" hidden value="@_localizer["theDiscountTableIsNotBeingUsed"]" />
-  <input id="cardRestrictionProfile" hidden value="@_localizer["cardRestrictionProfile"]" />
-  <input id="infoFiltered" hidden value="@_localizer["infoFiltered"]" />
-  <input id="_globalIsBackOffice" hidden value="@_config.IsBackOffice.ToString().ToLower()" />
-  <input type="hidden" id="_lclLogAddSuccessMessage" value="@_localizer["logAddSuccessMessage"]" />
-  <input type="hidden" id="_lclLogAddErrorMessage" value="@_localizer["logAddErrorMessage"]" />
-  <input type="hidden" id="_isBackOffice" value="@_config.IsBackOffice.ToString()" />
-  <input type="hidden" id="_logFolderPath" value="@(_config.IsBackOffice ? _config.FileConfig.BackOfficeLogFolderPath : _config.FileConfig.HeadOfficeLogFolderPath)" />
-  <input type="hidden" id="_logFileName" value="@(_config.IsBackOffice ? "BO" : "HO")" />
+    <input id="_goBackConfirmationMessage" type="hidden" value="@_localizer["goBackConfirmationMessage"]">
+    <input id="_pleaseEnterANumericValue" type="hidden" value="@_localizer["pleaseEnterANumericValue"]" />
+    <input id="_goBackConfirmationTitle" type="hidden" value="@_localizer["goBackConfirmationTitle"]">
+    <input id="_successfullyExportedTo" type="hidden" value="@_localizer["successfullyExportedTo"]">
+    <input id="_anErrorHasOccurredWhileExportingFile" type="hidden" value="@_localizer["anErrorHasOccurredWhileExportingFile"]">
+    <input id="_isAutoImportExport" type="hidden" value="@_config.FileConfig.IsAutoImportExport.ToString()" />
+    <input id="_invalidNumberWarningMessage" hidden value="@_localizer["invalidNumberWarningMessage"]" />
+    <input id="discountsNotBeingUsed" hidden value="@_localizer["discountsNotBeingUsed"]" />
+    <input id="theDiscountTableIsNotBeingUsed" hidden value="@_localizer["theDiscountTableIsNotBeingUsed"]" />
+    <input id="cardRestrictionProfile" hidden value="@_localizer["cardRestrictionProfile"]" />
+    <input id="infoFiltered" hidden value="@_localizer["infoFiltered"]" />
+    <input id="_globalIsBackOffice" hidden value="@_config.IsBackOffice.ToString().ToLower()" />
+    <input type="hidden" id="_lclLogAddSuccessMessage" value="@_localizer["logAddSuccessMessage"]" />
+    <input type="hidden" id="_lclLogAddErrorMessage" value="@_localizer["logAddErrorMessage"]" />
+    <input type="hidden" id="_isBackOffice" value="@_config.IsBackOffice.ToString()" />
+    <input type="hidden" id="_logFolderPath" value="@(_config.IsBackOffice ? _config.FileConfig.BackOfficeLogFolderPath : _config.FileConfig.HeadOfficeLogFolderPath)" />
+    <input type="hidden" id="_logFileName" value="@(_config.IsBackOffice ? "BO" : "HO")" />
 
-  <div class="container-fluid">
-    <div class="row flex-nowrap">
-      @{
-        if (User.Identity != null && User.Identity.IsAuthenticated)
-        {
-          SideBarItemsPoliciesViewModel sideBarPolicies =
-          await _sideBarItemsPolicyService.GetSideBarItemsPoliciesAsync();
+    <div class="container-fluid">
+        <div class="row flex-nowrap">
+            @{
+                if (User.Identity != null && User.Identity.IsAuthenticated)
+                {
+                    SideBarItemsPoliciesViewModel sideBarPolicies =
+                    await _sideBarItemsPolicyService.GetSideBarItemsPoliciesAsync();
 
-          <div class="col-auto col-md-3 col-xl-2"></div>
-          <div class="col-auto col-md-3 col-xl-2 px-sm-1 bg-primary-color position-fixed custom-scrollbar sidebar">
-            <div class="d-flex flex-column align-items-center pt-2 text-white vh-100">
-              <a href="/" class="d-flex align-items-center pb-5 text-decoration-none">
-                <img class="sidebar-logo" src="~/images/infonetlogo.png" />
-              </a>
+                    <div class="col-auto col-md-3 col-xl-2"></div>
+                    <div class="col-auto col-md-3 col-xl-2 px-sm-1 bg-primary-color position-fixed custom-scrollbar sidebar">
+                        <div class="d-flex flex-column align-items-center pt-2 text-white vh-100">
+                            <a href="/" class="d-flex align-items-center pb-5 text-decoration-none">
+                                <img class="sidebar-logo" src="~/images/infonetlogo.png" />
+                            </a>
 
-              <div class="sidebar-options custom-scrollbar">
-                <ul class="nav nav-pills flex-column p-2 mb-sm-auto mb-0 align-items-center align-items-sm-start w-100" id="menu">
+                            <div class="sidebar-options custom-scrollbar">
+                                <ul class="nav nav-pills flex-column p-2 mb-sm-auto mb-0 align-items-center align-items-sm-start w-100" id="menu">
 
-                  @*Inventory*@
-                  <li class="nav-item w-100 py-2 px-1 rounded">
-                    <a href="#submenu1" data-bs-toggle="collapse" class="align-middle text-decoration-none d-flex align-items-center nav-item-menu">
-                      <iconify-icon icon="system-uicons:grid-circles" class="sidebar-icon"></iconify-icon>
-                      <span class="ms-1 d-none d-sm-inline sidebar-menu-text ">@_localizer["inventory"]</span>
-                    </a>
-                    <ul class="collapse nav flex-column mx-2 collapse-item" id="submenu1" data-bs-parent="#menu">
-                      <li>
-                        <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'StockItems')" id="stock-items"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["stockItems"]</span></a>
-                      </li>
-                      @{
-                        if (sideBarPolicies.ShowStockReceiving)
-                        {
-                          <li>
-                            <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'StockTakesAndReceiving?stockCountType=StockRecieving')" id="stock-receive"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["stockReceiving"]</span></a>
-                          </li>
-                        }
-                      }
-                      @{
-                        if (sideBarPolicies.ShowStockTakes)
-                        {
-                          <li>
-                            <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'StockTakesAndReceiving?stockCountType=StockTakes')" id="stock-takes"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["stockTakes"]</span></a>
-                          </li>
-                        }
-                      }
-                      @if (sideBarPolicies.ShowPurchasingAndReceiving)
-                      {
-                        <li>
-                          <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'PurchasingAndReceiving')" id="purchasing-and-receiving"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["purchasingAndReceiving"]</span></a>
-                        </li>
-                      }
-                      <li>
-                        <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'PromotionalItems')" id="promotional-items"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["promotion"]</span></a>
-                      </li>
-                      <li>
-                        <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'Kits')" id="kits"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["kits"]</span></a>
-                      </li>
-                      <li>
-                        <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'ProductClassification')" id="product-classification"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["productCategories"]</span></a>
-                      </li>
-                      @if (sideBarPolicies.ShowPriceBookManagement)
-                      {
-                        <li>
-                          <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'PricebookManagement')" id="pricebook-management"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["pricebookManagement"]</span></a>
-                        </li>
-                      }
-                    </ul>
-                  </li>
+                                    @*Inventory*@
+                                    <li class="nav-item w-100 py-2 px-1 rounded">
+                                        <a href="#submenu1" data-bs-toggle="collapse" class="align-middle text-decoration-none d-flex align-items-center nav-item-menu">
+                                            <iconify-icon icon="system-uicons:grid-circles" class="sidebar-icon"></iconify-icon>
+                                            <span class="ms-1 d-none d-sm-inline sidebar-menu-text ">@_localizer["inventory"]</span>
+                                        </a>
+                                        <ul class="collapse nav flex-column mx-2 collapse-item" id="submenu1" data-bs-parent="#menu">
+                                            <li>
+                                                <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'StockItems')" id="stock-items"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["stockItems"]</span></a>
+                                            </li>
+                                            @{
+                                                if (sideBarPolicies.ShowStockReceiving)
+                                                {
+                                                    <li>
+                                                        <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'StockTakesAndReceiving?stockCountType=StockRecieving')" id="stock-receive"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["stockReceiving"]</span></a>
+                                                    </li>
+                                                }
+                                            }
+                                            @{
+                                                if (sideBarPolicies.ShowStockTakes)
+                                                {
+                                                    <li>
+                                                        <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'StockTakesAndReceiving?stockCountType=StockTakes')" id="stock-takes"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["stockTakes"]</span></a>
+                                                    </li>
+                                                }
+                                            }
+                                            @if (sideBarPolicies.ShowPurchasingAndReceiving)
+                                            {
+                                                <li>
+                                                    <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'PurchasingAndReceiving')" id="purchasing-and-receiving"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["purchasingAndReceiving"]</span></a>
+                                                </li>
+                                            }
+                                            <li>
+                                                <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'PromotionalItems')" id="promotional-items"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["promotion"]</span></a>
+                                            </li>
+                                            <li>
+                                                <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'Kits')" id="kits"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["kits"]</span></a>
+                                            </li>
+                                            <li>
+                                                <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'ProductClassification')" id="product-classification"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["productCategories"]</span></a>
+                                            </li>
+                                            @if (sideBarPolicies.ShowPriceBookManagement)
+                                            {
+                                                <li>
+                                                    <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'PricebookManagement')" id="pricebook-management"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["pricebookManagement"]</span></a>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </li>
 
-                  @*POS Screen Setup*@
-                  @*Add nav-item in class of first li tag to make this option selectable*@
-                  <li class="w-100 py-2 px-1 rounded nav-item">
-                    <a href="#submenu2" data-bs-toggle="collapse" class="px-0 align-middle text-decoration-none d-flex align-items-center nav-item-menu">
-                      <iconify-icon icon="ci:monitor" class="sidebar-icon"></iconify-icon>
-                      <span class="ms-1 d-none d-sm-inline sidebar-menu-text">@_localizer["posScreenSetup"]</span>
-                    </a>
-                    <ul class="collapse nav flex-column mx-2 collapse-item" id="submenu2" data-bs-parent="#menu">
-                      <li>
-                        <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'HotButtonsAndBottleReturn?pageType=HotButtons')" id="hot-buttons"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["hotButtons"]</span></a>
-                      </li>
-                      <li>
-                        <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'HotButtonsAndBottleReturn?pageType=BottleReturn')" id="bottle-return"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["bottleReturn"]</span></a>
-                      </li>
-                      @if (sideBarPolicies.ShowFunctionButtons)
-                      {
-                        <li>
-                          <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'FunctionButtons')" id="function-buttons"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["functionButtons"]</span></a>
-                        </li>
-                        <li>
-                          <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'GroupButtons')" id="group-buttons"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["groupButtons"]</span></a>
-                        </li>
-                      }
-                      <li>
-                        <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'CashDraws')" id="cashDraws-buttons"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["cashDraws"]</span></a>
-                      </li>
-                    </ul>
-                  </li>
+                                    @*POS Screen Setup*@
+                                    @*Add nav-item in class of first li tag to make this option selectable*@
+                                    <li class="w-100 py-2 px-1 rounded nav-item">
+                                        <a href="#submenu2" data-bs-toggle="collapse" class="px-0 align-middle text-decoration-none d-flex align-items-center nav-item-menu">
+                                            <iconify-icon icon="ci:monitor" class="sidebar-icon"></iconify-icon>
+                                            <span class="ms-1 d-none d-sm-inline sidebar-menu-text">@_localizer["posScreenSetup"]</span>
+                                        </a>
+                                        <ul class="collapse nav flex-column mx-2 collapse-item" id="submenu2" data-bs-parent="#menu">
+                                            <li>
+                                                <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'HotButtonsAndBottleReturn?pageType=HotButtons')" id="hot-buttons"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["hotButtons"]</span></a>
+                                            </li>
+                                            <li>
+                                                <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'HotButtonsAndBottleReturn?pageType=BottleReturn')" id="bottle-return"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["bottleReturn"]</span></a>
+                                            </li>
+                                            @if (sideBarPolicies.ShowFunctionButtons)
+                                            {
+                                                <li>
+                                                    <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'FunctionButtons')" id="function-buttons"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["functionButtons"]</span></a>
+                                                </li>
+                                                <li>
+                                                    <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'GroupButtons')" id="group-buttons"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["groupButtons"]</span></a>
+                                                </li>
+                                            }
+                                            <li>
+                                                <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'CashDraws')" id="cashDraws-buttons"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["cashDraws"]</span></a>
+                                            </li>
+                                        </ul>
+                                    </li>
 
-                  @*Reports*@
-                  @*Add nav-item in class of first li tag to make this option selectable*@
-                  <li class="w-100 py-2 px-1 rounded nav-item">
-                    <a href="#submenu3" data-bs-toggle="collapse" class="px-0 align-middle text-decoration-none d-flex align-items-center nav-item-menu">
-                      <iconify-icon icon="akar-icons:file" class="sidebar-icon"></iconify-icon>
-                      <span class="ms-1 d-none d-sm-inline sidebar-menu-text">@_localizer["reports"]</span>
-                    </a>
-                    <ul class="collapse nav flex-column mx-2 collapse-item" id="submenu3" data-bs-parent="#menu">
-                      @if (sideBarPolicies.UserReports)
-                      {
-                        <li>
-                          <a id="textReports" class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'TextReports')">
-                            <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["textReports"]</span>
-                          </a>
-                        </li>
-                        <li>
-                          <a id="electronicJournal" class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'ElectronicJournal')">
-                            <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["electronicJournal"]</span>
-                          </a>
-                        </li>
-                      }
-                      <li>
-                        <a id="excelReports" class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'ExcelReports')">
-                          <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["excelReports"]</span>
-                        </a>
-                      </li>
-                    </ul>
-                  </li>
+                                    @*Reports*@
+                                    @*Add nav-item in class of first li tag to make this option selectable*@
+                                    <!--li class="w-100 py-2 px-1 rounded nav-item"-->
+                                    <li id="Reports" class="nav-item w-100 py-2 px-1 rounded">
+                                        <a href="#submenu3" data-bs-toggle="collapse" class="px-0 align-middle text-decoration-none d-flex align-items-center nav-item-menu">
+                                            <iconify-icon icon="akar-icons:file" class="sidebar-icon"></iconify-icon>
+                                            <span class="ms-1 d-none d-sm-inline sidebar-menu-text">@_localizer["reports"]</span>
+                                        </a>
+                                        <ul class="collapse nav flex-column mx-2 collapse-item" id="submenu3" data-bs-parent="#menu">
+                                            <li>
+                                                <a asp-controller="Report" asp-action="Dashboard" class="nav-link ps-2" id="DashboardMain">
+                                                    <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["Dashboard"]</span>
+                                                </a>
+                                                <!--a id="Reports" class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'Report')">
+                                                    <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["Dashboard"]</span>
+                                                </a-->
+                                            </li>
+                                            <li>
+                                                <a asp-controller="Report" asp-action="Category" class="nav-link ps-2" id="ReportMain">
+                                                    <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["By Category"]</span>
+                                                </a>
+                                                <!--a id="Reports" class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'Report')">
+                                                    <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["By Category"]</span>
+                                                </a-->
+                                            </li>
+                                            @if (sideBarPolicies.UserReports)
+                                            {
+                                                <li>
+                                                    <a id="textReports" class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'TextReports')">
+                                                        <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["textReports"]</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a id="electronicJournal" class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'ElectronicJournal')">
+                                                        <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["electronicJournal"]</span>
+                                                    </a>
+                                                </li>
+                                            }
+                                            <li>
+                                                <a id="excelReports" class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'ExcelReports')">
+                                                    <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["excelReports"]</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a asp-controller="RepTillClose" asp-action="Index" class="nav-link ps-2" id="ReportTillClose"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["Till Closes"]</span></a>
+                                            </li>
+                                            <li>
+                                                <a asp-controller="RepCloseBatch" asp-action="Index" class="nav-link ps-2" id="ReportCloseBatch"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["Close Batch"]</span></a>
+                                            </li>
+                                            <li>
+                                                <a asp-controller="RepArStat" asp-action="Index" class="nav-link ps-2" id="ReportArStat"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["AR Statement"]</span></a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    @*Data Maintenance*@
+                                    <li id="cardDefinitionGrid" class="w-100 py-2 px-1 rounded nav-item">
+                                        <a href="#submenu4" data-bs-toggle="collapse" class="px-0 align-middle text-decoration-none d-flex align-items-center nav-item-menu">
+                                            <iconify-icon icon="bx:bar-chart-square" class="sidebar-icon"></iconify-icon>
+                                            <span class="ms-1 d-none d-sm-inline sidebar-menu-text">@_localizer["dataMaintenance"]</span>
+                                        </a>
+                                        <ul class="collapse nav flex-column mx-2 collapse-item" id="submenu4" data-bs-parent="#menu">
+                                            <li>
+                                                <a id="tenders" class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'Tenders')">
+                                                    <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["tenders"]</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a id="cardDefinitionGridNavLink" class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'CardDefinitionGrid')">
+                                                    <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["cardDefinitions"]</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a id="cardRestrictionProfileGrid" class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'CardRestrictionProfileGrid')">
+                                                    <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["cardRestrictionProfile"]</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a id="negativePositiveCards" class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'NegativePositiveCards')">
+                                                    <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["negativePositiveCardsInput"]</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'CustomerGroup')" id="customerGroupNavLink">
+                                                    <span class="d-none d-sm-inline sidebar-submenu-text">
+                                                        @(sideBarPolicies.IsCustomer ? _localizer["customerGroup"] : _localizer["memberGroup"])
+                                                    </span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'CustomersGrid')" id="CustomersGridNavLink">
+                                                    <span class="d-none d-sm-inline sidebar-submenu-text">
+                                                        @(sideBarPolicies.IsCustomer ? _localizer["customers"] : _localizer["members"])
+                                                    </span>
+                                                </a>
+                                            </li>
+                                            @if (sideBarPolicies.CustomerDiscount || sideBarPolicies.ProductDiscount)
+                                            {
+                                                <li>
+                                                    <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'DiscountTable')" id="discount-table"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["discountTable"]</span></a>
+                                                </li>
+                                            }
+                                            else
+                                            {
+                                                <li>
+                                                    <a class="disabled-nav-link ps-2" id="discount-table" onclick="showDiscountTableNotUsedModal()"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["discountTable"]</span></a>
+                                                </li>
+                                            }
+                                            <li>
+                                                <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'Registers')" id="Registers"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["registers"]</span></a>
+                                            </li>
+                                            @if (_config.IsBackOffice)
+                                            {
+                                                <li>
+                                                    <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'Tills')" id="tills"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["tills"]</span></a>
+                                                </li>
+                                            }
+                                            @if (_config.IsBackOffice)
+                                            {
+                                                <li>
+                                                    <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'StoreShifts')" id="storeShifts"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["storeShifts"]</span></a>
+                                                </li>
+                                            }
+                                            <li>
+                                                <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'UserGrid')" id="userGridNavLink"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["users"]</span></a>
+                                            </li>
+                                            @if (_config.IsBackOffice)
+                                            {
+                                                <li>
+                                                    <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'Commission')" id="commission"> <span class="d-none d-sm-inline sidebar-submenu-text">Commission</span></a>
+                                                </li>
+                                            }
+                                            <li>
+                                                <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'Vendors')" id="vendors"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["vendors"]</span></a>
+                                            </li>
+                                            <li>
+                                                <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'Reasons')" id="reasons"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["reasons"]</span></a>
+                                            </li>
+                                            <li>
+                                                <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'Restrictions')" id="restrictions"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["restrictions"]</span></a>
+                                            </li>
+                                            <li>
+                                                <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'Tax')" id="tax"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["taxes"]</span></a>
+                                            </li>
+                                            <li>
+                                                <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'AssociatedCharges')" id="associatedCharges"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["associatedCharges"]</span></a>
+                                            </li>
+                                            <li>
+                                                <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'StockDescriptionElements')" id="stockDescriptionElements"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["stockDescriptionElements"]</span></a>
+                                            </li>
+                                            @if (!_config.IsBackOffice)
+                                            {
+                                                <li>
+                                                    <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'Store')" id="store"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["stores"]</span></a>
+                                                </li>
+                                                <li>
+                                                    <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'Region')" id="regions"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["regions"]</span></a>
+                                                </li>
+                                                <li>
+                                                    <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'PriceGroup')" id="priceGroup"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["priceGroups"]</span></a>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </li>
 
-                  @*Data Maintenance*@
-                  <li id="cardDefinitionGrid" class="w-100 py-2 px-1 rounded nav-item">
-                    <a href="#submenu4" data-bs-toggle="collapse" class="px-0 align-middle text-decoration-none d-flex align-items-center nav-item-menu">
-                      <iconify-icon icon="bx:bar-chart-square" class="sidebar-icon"></iconify-icon>
-                      <span class="ms-1 d-none d-sm-inline sidebar-menu-text">@_localizer["dataMaintenance"]</span>
-                    </a>
-                    <ul class="collapse nav flex-column mx-2 collapse-item" id="submenu4" data-bs-parent="#menu">
-                      <li>
-                        <a id="tenders" class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'Tenders')">
-                          <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["tenders"]</span>
-                        </a>
-                      </li>
-                      <li>
-                        <a id="cardDefinitionGridNavLink" class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'CardDefinitionGrid')">
-                          <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["cardDefinitions"]</span>
-                        </a>
-                      </li>
-                      <li>
-                        <a id="cardRestrictionProfileGrid" class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'CardRestrictionProfileGrid')">
-                          <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["cardRestrictionProfile"]</span>
-                        </a>
-                      </li>
-                      <li>
-                        <a id="negativePositiveCards" class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'NegativePositiveCards')">
-                          <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["negativePositiveCardsInput"]</span>
-                        </a>
-                      </li>
-                      <li>
-                        <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'CustomerGroup')" id="customerGroupNavLink">
-                          <span class="d-none d-sm-inline sidebar-submenu-text">
-                            @(sideBarPolicies.IsCustomer ? _localizer["customerGroup"] : _localizer["memberGroup"])
-                          </span>
-                        </a>
-                      </li>
-                      <li>
-                        <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'CustomersGrid')" id="CustomersGridNavLink">
-                          <span class="d-none d-sm-inline sidebar-submenu-text">
-                            @(sideBarPolicies.IsCustomer ? _localizer["customers"] : _localizer["members"])
-                          </span>
-                        </a>
-                      </li>
-                      @if (sideBarPolicies.CustomerDiscount || sideBarPolicies.ProductDiscount)
-                      {
-                        <li>
-                          <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'DiscountTable')" id="discount-table"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["discountTable"]</span></a>
-                        </li>
-                      }
-                      else
-                      {
-                        <li>
-                          <a class="disabled-nav-link ps-2" id="discount-table" onclick="showDiscountTableNotUsedModal()"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["discountTable"]</span></a>
-                        </li>
-                      }
-                      <li>
-                        <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'Registers')" id="Registers"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["registers"]</span></a>
-                      </li>
-                      @if (_config.IsBackOffice)
-                      {
-                        <li>
-                          <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'Tills')" id="tills"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["tills"]</span></a>
-                        </li>
-                      }
-                      @if (_config.IsBackOffice)
-                      {
-                        <li>
-                          <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'StoreShifts')" id="storeShifts"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["storeShifts"]</span></a>
-                        </li>
-                      }
-                      <li>
-                        <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'UserGrid')" id="userGridNavLink"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["users"]</span></a>
-                      </li>
-                      @if (_config.IsBackOffice)
-                      {
-                        <li>
-                          <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'Commission')" id="commission"> <span class="d-none d-sm-inline sidebar-submenu-text">Commission</span></a>
-                        </li>
-                      }
-                      <li>
-                        <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'Vendors')" id="vendors"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["vendors"]</span></a>
-                      </li>
-                      <li>
-                        <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'Reasons')" id="reasons"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["reasons"]</span></a>
-                      </li>
-                      <li>
-                        <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'Restrictions')" id="restrictions"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["restrictions"]</span></a>
-                      </li>
-                      <li>
-                        <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'Tax')" id="tax"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["taxes"]</span></a>
-                      </li>
-                      <li>
-                        <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'AssociatedCharges')" id="associatedCharges"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["associatedCharges"]</span></a>
-                      </li>
-                      <li>
-                        <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'StockDescriptionElements')" id="stockDescriptionElements"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["stockDescriptionElements"]</span></a>
-                      </li>
-                      @if (!_config.IsBackOffice)
-                      {
-                        <li>
-                          <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'Store')" id="store"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["stores"]</span></a>
-                        </li>
-                        <li>
-                          <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'Region')" id="regions"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["regions"]</span></a>
-                        </li>
-                        <li>
-                          <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'PriceGroup')" id="priceGroup"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["priceGroups"]</span></a>
-                        </li>
-                      }
-                    </ul>
-                  </li>
+                                    @*Policies*@
+                                    @*Add nav-item in class of first li tag to make this option selectable*@
+                                    <li id="policy" class="nav-item w-100 py-2 px-1 rounded">
+                                        <a href="#submenu5" data-bs-toggle="collapse" class="px-0 align-middle text-decoration-none d-flex align-items-center nav-item-menu">
+                                            <iconify-icon icon="ant-design:file-protect-outlined" class="sidebar-icon"></iconify-icon>
+                                            <span class="ms-1 d-none d-sm-inline sidebar-menu-text">@_localizer["policies"]</span>
+                                        </a>
+                                        <ul class="collapse nav flex-column mx-2 collapse-item" id="submenu5" data-bs-parent="#menu">
+                                            <li>
+                                                <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'PolicyByClass')" id="policy-by-class"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["policiesByClass"]</span></a>
+                                            </li>
+                                            <li>
+                                                <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'PolicyByEntity')" id="policy-by-entity"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["policiesByEntity"]</span></a>
+                                            </li>
+                                        </ul>
+                                    </li>
 
-                  @*Policies*@
-                  @*Add nav-item in class of first li tag to make this option selectable*@
-                  <li id="policy" class="nav-item w-100 py-2 px-1 rounded">
-                    <a href="#submenu5" data-bs-toggle="collapse" class="px-0 align-middle text-decoration-none d-flex align-items-center nav-item-menu">
-                      <iconify-icon icon="ant-design:file-protect-outlined" class="sidebar-icon"></iconify-icon>
-                      <span class="ms-1 d-none d-sm-inline sidebar-menu-text">@_localizer["policies"]</span>
-                    </a>
-                    <ul class="collapse nav flex-column mx-2 collapse-item" id="submenu5" data-bs-parent="#menu">
-                      <li>
-                        <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'PolicyByClass')" id="policy-by-class"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["policiesByClass"]</span></a>
-                      </li>
-                      <li>
-                        <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'PolicyByEntity')" id="policy-by-entity"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["policiesByEntity"]</span></a>
-                      </li>
-                    </ul>
-                  </li>
+                                    @*Routine Maintenance*@
+                                    @*Add nav-item in class of first li tag to make this option selectable*@
+                                    <li id="routineMaintenance" class="nav-item w-100 py-2 px-1 rounded">
+                                        <a href="#submenu6" data-bs-toggle="collapse" class="px-0 align-middle text-decoration-none d-flex align-items-center nav-item-menu">
+                                            <iconify-icon icon="fluent:calendar-ltr-20-regular" class="sidebar-icon"></iconify-icon>
+                                            <span class="ms-1 d-none d-sm-inline sidebar-menu-text">@_localizer["routineMaintenance"]</span>
+                                        </a>
+                                        <ul class="collapse nav flex-column mx-2 collapse-item" id="submenu6" data-bs-parent="#menu">
+                                            @{
+                                                if (sideBarPolicies.ShowCheckInCheckOut)
+                                                {
+                                                    <li>
+                                                        <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'CheckInCheckOut')" id="check-in-check-out"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["checkInAndCheckOut"]</span></a>
+                                                    </li>
+                                                }
+                                                if (sideBarPolicies.ShowPriceBookTransfer)
+                                                {
+                                                    <li>
+                                                        <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'PriceBookTransfer')" id="pricebook-transfer"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["pricebookTransfer"]</span></a>
+                                                    </li>
+                                                }
+                                                if (sideBarPolicies.ShowFuelPriceChange)
+                                                {
+                                                    <li>
+                                                        <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'FuelPriceChange')" id="fuelPrice-Change"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["fuelPriceChange"]</span></a>
+                                                    </li>
+                                                }
+                                                if (sideBarPolicies.ShowSendDataToStore)
+                                                {
+                                                    <li>
+                                                        <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'SendDataToStore')" id="sendDataToStore"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["sendDataToStores"]</span></a>
+                                                    </li>
+                                                }
+                                            }
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
 
-                  @*Routine Maintenance*@
-                  @*Add nav-item in class of first li tag to make this option selectable*@
-                  <li id="routineMaintenance" class="nav-item w-100 py-2 px-1 rounded">
-                    <a href="#submenu6" data-bs-toggle="collapse" class="px-0 align-middle text-decoration-none d-flex align-items-center nav-item-menu">
-                      <iconify-icon icon="fluent:calendar-ltr-20-regular" class="sidebar-icon"></iconify-icon>
-                      <span class="ms-1 d-none d-sm-inline sidebar-menu-text">@_localizer["routineMaintenance"]</span>
-                    </a>
-                    <ul class="collapse nav flex-column mx-2 collapse-item" id="submenu6" data-bs-parent="#menu">
-                      @{
-                        if (sideBarPolicies.ShowCheckInCheckOut)
-                        {
-                          <li>
-                            <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'CheckInCheckOut')" id="check-in-check-out"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["checkInAndCheckOut"]</span></a>
-                          </li>
-                        }
-                        if (sideBarPolicies.ShowPriceBookTransfer)
-                        {
-                          <li>
-                            <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'PriceBookTransfer')" id="pricebook-transfer"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["pricebookTransfer"]</span></a>
-                          </li>
-                        }
-                        if (sideBarPolicies.ShowFuelPriceChange)
-                        {
-                          <li>
-                            <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'FuelPriceChange')" id="fuelPrice-Change"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["fuelPriceChange"]</span></a>
-                          </li>
-                        }
-                        if (sideBarPolicies.ShowSendDataToStore)
-                        {
-                          <li>
-                            <a class="nav-link ps-2 cursor-pointer" onclick="navigateToSelectedNavLink(event, 'SendDataToStore')" id="sendDataToStore"> <span class="d-none d-sm-inline sidebar-submenu-text">@_localizer["sendDataToStores"]</span></a>
-                          </li>
-                        }
-                      }
-                    </ul>
-                  </li>
-                </ul>
-              </div>
-
-              <div class="d-flex w-100 flex-column pb-3">
-                <div><hr /></div>
-                <div class="d-flex align-items-center justify-content-start text-white mx-3 py-1">
-                  <iconify-icon icon="healthicons:ui-user-profile" class="sidebar-icon"></iconify-icon>
-                  <div class="mx-4 ps-2 w-100 justify-content-start sidebar-menu-text"><span>@_httpContextAccessor.HttpContext.Session.GetString("UserName")</span></div>
-                </div>
-                <form method="post" asp-controller="Auth" asp-action="Logout">
-                  <button class="btn d-flex align-items-center justify-content-start text-white px-0 mx-3 py-1 signout-button" onclick="localStorage.clear()">
-                    <iconify-icon icon="la:sign-out-alt" class="sidebar-icon"></iconify-icon>
-                    <div class="ps-2 justify-content-start sidebar-menu-text text-decoration-none text-white"><span>@_localizer["signOut"]</span></div>
-                  </button>
-                </form>
-              </div>
+                            <div class="d-flex w-100 flex-column pb-3">
+                                <div><hr /></div>
+                                <div class="d-flex align-items-center justify-content-start text-white mx-3 py-1">
+                                    <iconify-icon icon="healthicons:ui-user-profile" class="sidebar-icon"></iconify-icon>
+                                    <div class="mx-4 ps-2 w-100 justify-content-start sidebar-menu-text"><span>@_httpContextAccessor.HttpContext.Session.GetString("UserName")</span></div>
+                                </div>
+                                <form method="post" asp-controller="Auth" asp-action="Logout">
+                                    <button class="btn d-flex align-items-center justify-content-start text-white px-0 mx-3 py-1 signout-button" onclick="localStorage.clear()">
+                                        <iconify-icon icon="la:sign-out-alt" class="sidebar-icon"></iconify-icon>
+                                        <div class="ps-2 justify-content-start sidebar-menu-text text-decoration-none text-white"><span>@_localizer["signOut"]</span></div>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            @{
+                string width100 = User.Identity != null && User.Identity.IsAuthenticated ? "" : "w-100";
+            }
+            <div class="col-auto col-md-9 col-xl-10 p-0 @width100">
+                <main role="main">
+                    @RenderBody()
+                </main>
             </div>
-          </div>
-        }
-      }
-      @{
-        string width100 = User.Identity != null && User.Identity.IsAuthenticated ? "" : "w-100";
-      }
-      <div class="col-auto col-md-9 col-xl-10 p-0 @width100">
-        <main role="main">
-          @RenderBody()
-        </main>
-      </div>
-      <footer class="custom-footer">
-        <div class="custom-footer-content">
-          <p class="custom-footer-text">
-            <span class="me-3">v5.0.20241112.707</span>
-            Powered by <img class="custom-footer-img" src="~/images/infonetlogo.png" alt="Infonet" />
-          </p>
+            <footer class="custom-footer">
+                <div class="custom-footer-content">
+                    <p class="custom-footer-text">
+                        <span class="me-3">v5.0.20241112.707</span>
+                        Powered by <img class="custom-footer-img" src="~/images/infonetlogo.png" alt="Infonet" />
+                    </p>
+                </div>
+            </footer>
         </div>
-      </footer>
+
+        <div class="modal fade" id="confirmModalId" tabindex="1" role="dialog" area-labelledby="exampleModalLiveLabel" area-modal="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 id="confirmModalTitleId" class="modal-title"></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="confirmModalMessageId"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="confirmModalNoButtonId" class="btn btn-cancel btn-outline-danger align-content-center btn-sm me-2" data-bs-dismiss="modal">@_localizer["no"]</button>
+                        <button type="button" id="confirmModalYesButtonId" class="btn btn-primary btn-sm btn-save">@_localizer["yes"]</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="alertModalId" tabindex="1" role="dialog" area-labelledby="exampleModalLiveLabel" area-modal="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 id="alertModelTitleId" class="modal-title"></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="alertModelMessageId"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="alertModelOkButtonId" type="button" class="btn btn-primary btn-sm btn-save" data-bs-dismiss="modal">@_localizer["ok"]</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="modal fade" id="confirmModalId" tabindex="1" role="dialog" area-labelledby="exampleModalLiveLabel" area-modal="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 id="confirmModalTitleId" class="modal-title"></h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <p id="confirmModalMessageId"></p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" id="confirmModalNoButtonId" class="btn btn-cancel btn-outline-danger align-content-center btn-sm me-2" data-bs-dismiss="modal">@_localizer["no"]</button>
-            <button type="button" id="confirmModalYesButtonId" class="btn btn-primary btn-sm btn-save">@_localizer["yes"]</button>
-          </div>
-        </div>
-      </div>
-    </div>
+    @* Local libraries *@
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/moment/moment.min.js"></script>
 
-    <div class="modal fade" id="alertModalId" tabindex="1" role="dialog" area-labelledby="exampleModalLiveLabel" area-modal="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 id="alertModelTitleId" class="modal-title"></h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <p id="alertModelMessageId"></p>
-          </div>
-          <div class="modal-footer">
-            <button id="alertModelOkButtonId" type="button" class="btn btn-primary btn-sm btn-save" data-bs-dismiss="modal">@_localizer["ok"]</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+    @* Packages *@
+    @*<script src="https://code.jquery.com/jquery-3.5.1.js" asp-append-version="true" integrity="sha384-/LjQZzcpTzaYn7qWqRIWYC5l8FWEZ2bIHIz0D73Uzba4pShEcdLdZyZkI4Kv676E" crossorigin="anonymous"></script>*@
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js" asp-append-version="true" integrity="sha384-ZuLbSl+Zt/ry1/xGxjZPkp9P5MEDotJcsuoHT0cM8oWr+e1Ide//SZLebdVrzb2X" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js" asp-append-version="true" integrity="sha384-jIAE3P7Re8BgMkT0XOtfQ6lzZgbDw/02WeRMJvXK3WMHBNynEx5xofqia1OHuGh0" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha384-Si3HKTyQYGU+NC4aAF3ThcOSvK+ZQiyEKlYyfjiIFKMqsnCmfHjGa1VK1kYP9UdS" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@@simonwep/pickr/dist/pickr.min.js"></script>
+    <script src="https://cdn.rawgit.com/ashl1/datatables-rowsgroup/v1.0.0/dataTables.rowsGroup.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.3.0-beta.3/pdfmake.min.js" asp-append-version="true"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.3.0-beta.3/standard-fonts/Courier.min.js" asp-append-version="true"></script>
 
-  @* Local libraries *@
-  <script src="~/lib/jquery/dist/jquery.min.js"></script>
-  <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="~/lib/moment/moment.min.js"></script>
+    @* Local scripts *@
+    <script src="~/js/file.js" asp-append-version="true"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/validation.js" asp-append-version="true"></script>
+    <script src="~/js/constants.js" asp-append-version="true"></script>
+    <script src="~/js/utility.js" asp-append-version="true"></script>
 
-  @* Packages *@
-  @*<script src="https://code.jquery.com/jquery-3.5.1.js" asp-append-version="true" integrity="sha384-/LjQZzcpTzaYn7qWqRIWYC5l8FWEZ2bIHIz0D73Uzba4pShEcdLdZyZkI4Kv676E" crossorigin="anonymous"></script>*@
-  <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js" asp-append-version="true" integrity="sha384-ZuLbSl+Zt/ry1/xGxjZPkp9P5MEDotJcsuoHT0cM8oWr+e1Ide//SZLebdVrzb2X" crossorigin="anonymous"></script>
-  <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js" asp-append-version="true" integrity="sha384-jIAE3P7Re8BgMkT0XOtfQ6lzZgbDw/02WeRMJvXK3WMHBNynEx5xofqia1OHuGh0" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha384-Si3HKTyQYGU+NC4aAF3ThcOSvK+ZQiyEKlYyfjiIFKMqsnCmfHjGa1VK1kYP9UdS" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@@simonwep/pickr/dist/pickr.min.js"></script>
-  <script src="https://cdn.rawgit.com/ashl1/datatables-rowsgroup/v1.0.0/dataTables.rowsGroup.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.3.0-beta.3/pdfmake.min.js" asp-append-version="true"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.3.0-beta.3/standard-fonts/Courier.min.js" asp-append-version="true"></script>
-
-  @* Local scripts *@
-  <script src="~/js/file.js" asp-append-version="true"></script>
-  <script src="~/js/site.js" asp-append-version="true"></script>
-  <script src="~/js/validation.js" asp-append-version="true"></script>
-  <script src="~/js/constants.js" asp-append-version="true"></script>
-  <script src="~/js/utility.js" asp-append-version="true"></script>
-
-  @await Html.PartialAsync("_ValidationScriptsPartial")
-  @await RenderSectionAsync("Scripts", required: false)
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

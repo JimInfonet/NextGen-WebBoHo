@@ -134,6 +134,11 @@ builder.Services.AddTransient<IPricebookManagementService, PricebookManagementSe
 builder.Services.AddTransient<IRegionService, RegionService>();
 builder.Services.AddTransient<ISendDataToStoreService, SendDataToStoreService>();
 builder.Services.AddTransient<IPriceGroupService, PriceGroupService>();
+builder.Services.AddTransient<IReportService, ReportService>();
+builder.Services.AddTransient<IRepTillCloseService, RepTillCloseService>();
+builder.Services.AddTransient<IRepCloseBatchService, RepCloseBatchService>();
+builder.Services.AddTransient<IRepArStatService, RepArStatService>();
+
 #endregion services
 
 var app = builder.Build();
@@ -155,6 +160,7 @@ if (useHttps)
 }
 app.UseSession();
 app.UseStaticFiles();
+
 // Setting UI culture
 app.UseRequestLocalization(options =>
 {

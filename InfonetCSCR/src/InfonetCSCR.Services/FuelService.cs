@@ -3,9 +3,9 @@
 public class FuelService : IFuelService
 {
   private readonly IUnitOfWork _unitOfWork;
-  public FuelService(IApplicationConfig applicationConfig)
+  public FuelService(IApplicationConfig _applicationConfig)
   {
-    this._unitOfWork = new UnitOfWork(applicationConfig, applicationConfig.CSCPumpConnectionString);
+    this._unitOfWork = new UnitOfWork(_applicationConfig, _applicationConfig.CSCPumpConnectionString);
   }
 
   public async Task<bool> CheckStockCodeExistsInGrade(string stockCode)

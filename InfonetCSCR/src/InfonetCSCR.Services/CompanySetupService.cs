@@ -4,9 +4,9 @@ public class CompanySetupService : ICompanySetupService
 {
   private readonly IUnitOfWork _unitOfWork;
 
-  public CompanySetupService(IApplicationConfig applicationConfig)
+  public CompanySetupService(IApplicationConfig _applicationConfig)
   {
-    this._unitOfWork = new UnitOfWork(applicationConfig, applicationConfig.CSCAdminConnectionString);
+    this._unitOfWork = new UnitOfWork(_applicationConfig, _applicationConfig.CSCAdminConnectionString);
   }
 
   public async Task<Company?> GetCompany()

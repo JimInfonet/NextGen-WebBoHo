@@ -10,14 +10,14 @@ public class DataDefinitionService : IDataDefinitionService
   private readonly IVendorService _vendorService;
 
   public DataDefinitionService(
-    IApplicationConfig applicationConfig,
+    IApplicationConfig _applicationConfig,
     IStoreService storeService,
     IStockTransferService stockTransferService,
     IRegionService regionService,
     IPriceGroupService priceGroupService,
     IVendorService vendorService)
   {
-    this._unitOfWork = new UnitOfWork(applicationConfig, applicationConfig.CSCTransferConnectionString);
+    this._unitOfWork = new UnitOfWork(_applicationConfig, _applicationConfig.CSCTransferConnectionString);
     this._storeService = storeService;
     _stockTransferService = stockTransferService;
     _regionService = regionService;

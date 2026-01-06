@@ -1,6 +1,9 @@
-﻿namespace InfonetCSCR.Web.Abstractions.Services;
+﻿using InfonetCSCR.Core.Models;
+
+namespace InfonetCSCR.Web.Abstractions.Services;
 
 public interface ICompanySetupService
 {
-  Task<string> GetCompanyNameAsync();
+    Task<Company?> GetCompanyAsync();
+    Task<string> GetCompanyNameAsync();
 }

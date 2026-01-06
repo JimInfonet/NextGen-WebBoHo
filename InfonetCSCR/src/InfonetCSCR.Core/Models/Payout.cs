@@ -2,6 +2,6 @@
 
 public class Payout
 {
-  public string? Code { get; set; }
-  public string? Reason { get; set; }
+  public int Cnt { get; set; }
+  public double sumAmount { get; set; }
 }
