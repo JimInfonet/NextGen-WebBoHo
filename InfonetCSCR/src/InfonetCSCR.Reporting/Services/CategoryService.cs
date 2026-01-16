@@ -70,7 +70,7 @@ namespace InfonetCSCR.Reporting.Service
         }
         public ReportViewer GetShelfLabelReport(string reportPath, string reportName, string dept, string subDept, string vendor, string codetype)
         {
-            DataTable dataTable = dbHelper.GetShelfLabelReport(reportName, dept, subDept, vendor);
+            DataTable dataTable = dbHelper.GetShelfLabelReport(dept, subDept, vendor, codetype);
             switch (codetype)
             {
                 case "1":
@@ -304,7 +304,10 @@ namespace InfonetCSCR.Reporting.Service
             {
                 reportViewer.LocalReport.ReportPath = reportPath;
                 reportViewer.LocalReport.DataSources.Clear();
-                ReportDataSource rdc = new ReportDataSource(reportName.Substring(0, 6), dataTable);
+                string reportSourceName = reportName.StartsWith("Arch", StringComparison.OrdinalIgnoreCase)
+                    ? reportName
+                    : reportName.Substring(0, Math.Min(6, reportName.Length));
+                ReportDataSource rdc = new ReportDataSource(reportSourceName, dataTable);
                 reportViewer.LocalReport.DataSources.Add(rdc);
                 reportViewer.LocalReport.Refresh();
                 reportViewer.SizeToReportContent = true;

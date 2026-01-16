@@ -86,8 +86,8 @@ public static class PolicyName
     public const string SUPPORT_WAREHOUSE = "SUPPORT_WAREHOUSE";
     public const string SYNC_CUSTINFO = "SYNC_CUSTINFO";
     public const string SYSADMIN = "SYSADMIN";
-    public const string Show_NRGT = "Show_NRGT";
-    public const string SupplyDept = "SupplyDept";
+    public const string SHOW_NRGT = "SHOW_NRGT";
+    public const string SupplyDept = "SUPPLYDEPT";
     public const string TAX_EXEMPT = "TAX_EXEMPT";
     public const string TAX_EXEMPT_GA = "TAX_EXEMPT_GA";
     public const string TAX_REBATE = "TAX_REBATE";

@@ -2454,178 +2454,6 @@ BEGIN
     ADD [Web] bit NOT NULL DEFAULT(0);
 END
 
---Adding Reports and Reports_in_Groups
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'AC2019')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'AC2019', N'Tax Sales Detail', 0, 0, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'AC4040')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'AC4040', N'Credit Card Reconciliation', 0, 0, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'AC5010')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'AC5010', N'Third Party Card', 0, 1, N'ThCardPayments', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'AR0050')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'AR0050', N'AR Customer Information', 0, 0, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'AR0120')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'AR0120', N'AR Payment History', 0, 0, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'FL0100')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'FL0100', N'Fuel Price Change', 0, 0, N'', 0, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'FL0100GR')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'FL0100GR', N'Fuel Price Change - Chart', 0, 2, N'', 0, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'PL1010')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'PL1010', N'Tender Definitions', 0, 1, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'PL1020')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'PL1020', N'Policy Settings', 0, 1, N'', 0, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'PT0100')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'PT0100', N'Price Change Tracking', 0, 0, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SA1030')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SA1030', N'Special Pricing', 0, 1, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SA1040')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SA1040', N'Payout Journal', 0, 0, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SA1050')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SA1050', N'Cash Draw', 0, 0, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SA2319')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SA2319', N'Refunds By Customer', 0, 0, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SA2379')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SA2379', N'Markdown Items', 0, 0, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SA7010')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SA7010', N'Daily Sales Report', 0, 0, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[Report_Filter] WHERE [Report_Name] = 'SA7010')
-INSERT [dbo].[Report_Filter] ([Report_Name], [Filter_Seq], [Table_name], [Field], [Field_Desc], [Type], [Field_Type], [Forced], [GroupBy]) VALUES (N'SA7010', 1, N'SaleHead', N'ShiftDate', N'Shift Date', N'=', N'D', NULL, NULL)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SA7012')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SA7012', N'Margin By Stock Item & Selling Price', 0, 2, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SA7013')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SA7013', N'Department Sales By Date (Detail)', 0, 0, N'', 0, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SA7016')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SA7016 ', N'Department Sales By Date (Gross & Net)', 0, 2, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SA7016GR')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SA7016GR', N'Department Sales By Date (Gross & Net)  - Chart', 0, 2, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SA7019')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SA7019', N'Up Sell Sales Report', 0, 0, NULL, 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SA7062')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SA7062', N'Contribution Margin By Department', 1, 2, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SA7062GR')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SA7062GR', N'Contribution Margin By Department - Graphical', 1, 1, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SA7070')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SA7070', N'Voided & Deleted Sales', 0, 0, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SK1010')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SK1010', N'Department Listing', 0, 0, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SK1011')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SK1011 ', N'Department / Sub-Dept Listing', 0, 0, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SK1070')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SK1070', N'Tax Codes & Rates', 0, 0, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SK2010')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SK2010', N'Stock Master Listing', 0, 2, N'', 0, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SK2011')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SK2011', N'Inventory Levels', 0, 0, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SK2012')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SK2012', N'Reorder Levels', 0, 1, NULL, 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SK2015')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SK2015', N'Stock Items Detail Report', 0, 1, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SK2020')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SK2020', N'Kit Components', 0, 0, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SK2030')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SK2030', N'Promotional Items', 0, 2, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SK3010')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SK3010', N'Standard Price List(1 Column)', 0, 0, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SK3011')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SK3011', N'Standard Price List( Multiple Columns)', 0, 2, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SK4010')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SK4010', N'Stock Count Listing', 0, 0, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SK4020')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SK4020', N'Stock Movement Summary', 0, 0, NULL, 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SK4030')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SK4030', N'No Stock Movement Report', 1, 0, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SK4040')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SK4040', N'Stock- Zero Movement', 1, 0, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SK4045')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SK4045', N'Stock Valuation by Department', 1, 0, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SK5010')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SK5010', N'Stock Receiving History', 0, 0, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SK5011')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SK5011', N'Stock Takes History', 0, 0, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SK5020')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SK5020', N'Historical Inventory Level Report', 1, 0, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SK5030')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SK5030', N'ShelfLabelEAN13L', 1, 0, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SK5040')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SK5040', N'ShelfLabelCode39', 1, 0, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SL0200')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SL0200 ', N'Top Sellers - Total $ Amount', 0, 0, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SL0200GR')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SL0200GR', N'Top Sellers - Total $ Amount - Chart', 0, 2, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SL0202')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SL0202', N'Top Sellers - Margin $', 0, 0, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SL0202GR')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SL0202GR', N'Top Sellers - Margin $ - Chart', 0, 2, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SL0204')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SL0204', N'Quantity Leaders Sales By Date', 0, 0, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SL0205')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SL0205', N'Hourly Sales Report', 1, 2, NULL, 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SS9010')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SS9010', N'User Id Listing', 0, 0, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SS9020')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SS9020', N'User Group Listing', 0, 0, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SS9050')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SS9050 ', N'User Group / Incumbent Listing', 0, 0, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'TE4045')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'TE4045', N'Stock Valuation by Department', 1, 2, NULL, 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'WK0100')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'WK0100 ', N'Sales by Dept - Last 6 Weeks', 0, 0, N'', 1, 1)
-GO
 IF EXISTS (SELECT 1 FROM [dbo].[Reports_in_Groups] WHERE [Report_Name] = 'AC2019')
 DELETE FROM [dbo].[Reports_in_Groups] WHERE [Report_Name] = 'AC2019'
 INSERT [dbo].[Reports_in_Groups] ([Report_Name], [Group_Name], [GID]) VALUES (N'AC2019', N'Tax', 13)
@@ -6579,3 +6407,43 @@ BEGIN
 END
 GO
 --Jim end
+
+
+-- WebHo report rows synchronized from JIM\HOSERVER on 2026-09-15 09:55
+USE [CSCAdmin]
+GO
+IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = N'AR0051')
+    INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [WebHo], [WebBo])
+    VALUES (N'AR0051', N'AR Customer Balance Report', 0, 1, NULL, 1, 1, 1)
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = N'AR0140')
+    INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [WebHo], [WebBo])
+    VALUES (N'AR0140', N'AR Monthend Report', 0, 1, NULL, 1, 1, 1)
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = N'FADOQ01')
+    INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [WebHo], [WebBo])
+    VALUES (N'FADOQ01', N'Fadoq Sales Report', 0, 2, NULL, 1, 1, 0)
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = N'SA7077')
+    INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [WebHo], [WebBo])
+    VALUES (N'SA7077', N'SITE Sales tax exemption details for Fuel', 1, 0, NULL, 1, 1, 1)
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = N'SK5012')
+    INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [WebHo], [WebBo])
+    VALUES (N'SK5012', N'Stock Receiving History by Department', 1, 0, NULL, 1, 1, 1)
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = N'SM0300')
+    INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [WebHo], [WebBo])
+    VALUES (N'SM0300', N'Safe Balance History ', 0, 2, NULL, 1, 1, 0)
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = N'Timesheet')
+    INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [WebHo], [WebBo])
+    VALUES (N'Timesheet', N'Timesheet Report', 0, 0, N'Prior', 1, 1, 0)
+GO
+

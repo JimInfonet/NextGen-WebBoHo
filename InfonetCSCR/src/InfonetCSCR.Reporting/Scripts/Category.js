@@ -49,13 +49,41 @@ function validateFilter(date) {
     return true;
 }
 
+function hideGroupIdFilters() {
+    $(".singleGrpIdFilter").hide();
+    $(".rangeGrpIdFilter").hide();
+}
+
+function showGroupIdFilter(type) {
+    if ((type || "").toUpperCase().trim() == "RANGE") {
+        $(".rangeGrpIdFilter").show();
+    }
+    else {
+        $(".singleGrpIdFilter").show();
+    }
+}
+
 function loadDropDown(data, dropDownName) {
     $(dropDownName).empty();
 
     $.each(data, function (i, member) {
         $(dropDownName).append('<option value="'
             + member.Id + '">'
-            + member.Name + '</option>');
+            + member.Id + " -- " + member.Name + '</option>');
+    });
+}
+
+function loadCategoryDropDown(data) {
+    var categorySelect = $('#drpCategorySelect');
+
+    categorySelect.empty().append('<option value="All">All</option>');
+
+    $.each(data || [], function (i, category) {
+        //categorySelect.empty();
+        categorySelect.append($('<option>', {
+            value: category.Id,
+            text: category.Name
+        }));
     });
 }
 
@@ -95,6 +123,7 @@ $(document).ready(function () {
     $(".singleDateFilter").hide();
     $(".rangeDateFilter").hide();
     $(".singleOrderNoFilter").hide();
+    $(".storeFilter").hide();
 
     $.ajax({
         type: 'POST',
@@ -102,6 +131,8 @@ $(document).ready(function () {
         dataType: 'json',
         success: function (data) {
             dropDownData = data;
+            loadCategoryDropDown(dropDownData["Categories"]);
+            loadDropDown(dropDownData["Stores"], '#drpStoreSelect');
             loadDropDown(dropDownData["DeptWithFuel"], '#deptSelect');
             loadDropDown(dropDownData["DeptWithFuel"], '#drpDeptSelect');
             loadDropDown(dropDownData["DeptWithFuel"], '#startDeptSelect');
@@ -117,6 +148,8 @@ $(document).ready(function () {
             //loadDropDown(dropDownData["SubDept"], '#subdeptmentSelect');    //for ShelfLabelEAN13LReport
             loadDropDown(dropDownData["Vendor"], '#vendorSelect');
             loadDropDown(dropDownData["Reports"], '#drpReportSelect');
+
+            $("#drpReportSelect").trigger('change')
         }
     });
 
@@ -162,6 +195,8 @@ $(document).ready(function () {
         $(".singleDateFilter").hide();
         $(".rangeDateFilter").hide();
         $(".singleOrderNoFilter").hide();
+        $(".storeFilter").hide();
+
         var cate = $("#drpCategorySelect").val();
         var subReport = dropDownData["Reports"].filter(function (e) {
             return cate == "All" || e.GID == cate || e.Id == "All";
@@ -169,8 +204,12 @@ $(document).ready(function () {
         loadDropDown(subReport, '#drpReportSelect');
         $("#drpReportSelect").trigger('change')
     });
+    //$("#drpSelectLanguage").change(function (event) {
+    //    ViewBag.Language = $("#drpSelectLanguage").val;
+    //});
     $("#drpSelectLanguage").change(function (event) {
-        ViewBag.Language = $("#drpSelectLanguage").val;
+        var lang = $(this).val();
+        $.post('/Home/SetLanguage', { language: lang });
     });
     $("#drpReportSelect").change(function (event) {
         var reportName = $(this).val();
@@ -210,6 +249,8 @@ $(document).ready(function () {
         $(".singleDateFilter").hide();
         $(".rangeDateFilter").hide();
         $(".singleOrderNoFilter").hide();
+        $(".storeFilter").hide();
+        hideGroupIdFilters();
 
         //Only DailySalesReport uses Printing PDF button
         if (reportName == "SA7010")
@@ -228,7 +269,7 @@ $(document).ready(function () {
                     $(".singleMovDateFilter").show();
                     if ($("#singleMovDate").val() == "") $("#singleMovDate")[0].valueAsDate = new Date();
                 }
-            //    $("#printBtn").show();
+                //    $("#printBtn").show();
             }
             if (member.Field.toUpperCase() == "DEL_DATE") {
                 if (member.Type.toUpperCase() == "RANGE") {
@@ -401,7 +442,16 @@ $(document).ready(function () {
                 }
                 //$("#printBtn").show();
             }
-            if (member.Field.toUpperCase() == "PY_CLIENT") {
+            //if (member.Field.toUpperCase() == "PY_CLIENT") {
+            //    if (member.Type.toUpperCase() == "RANGE") {
+            //        $(".rangeCustFilter").show();
+            //    }
+            //    else {
+            //        $(".singleCustFilter").show();
+            //    }
+            //    //$("#printBtn").show();
+            //}
+            if (member.Field.toUpperCase() == "PY_CLIENT" || member.Field.toUpperCase() == "CLIENT" || member.Field.toUpperCase() == "CL_CODE") {
                 if (member.Type.toUpperCase() == "RANGE") {
                     $(".rangeCustFilter").show();
                 }
@@ -410,14 +460,17 @@ $(document).ready(function () {
                 }
                 //$("#printBtn").show();
             }
-            if (member.Field.toUpperCase() == "CLIENT") {
-                if (member.Type.toUpperCase() == "RANGE") {
-                    $(".rangeCustFilter").show();
-                }
-                else {
-                    $(".singleCustFilter").show();
-                }
-                //$("#printBtn").show();
+            //if (member.Field.toUpperCase() == "CLIENT") {
+            //    if (member.Type.toUpperCase() == "RANGE") {
+            //        $(".rangeCustFilter").show();
+            //    }
+            //    else {
+            //        $(".singleCustFilter").show();
+            //    }
+            //    //$("#printBtn").show();
+            //}
+            if (member.Field.toUpperCase() == "GROUPID") {
+                showGroupIdFilter(member.Type);
             }
             if (member.Field.toUpperCase() == "USER") {
                 if (member.Type.toUpperCase() == "RANGE") {
@@ -486,8 +539,8 @@ $(document).ready(function () {
             //var isValidated = validateFilter(date);
 
             //if (isValidated) {
-                args = "?date=" + date1 + "&reportName=" + reportName;
-        //    }
+            args = "?date=" + date1 + "&reportName=" + reportName;
+            //    }
         }
         else {
             reportUrl = getReportUrl;
@@ -688,8 +741,10 @@ $(document).ready(function () {
                 args = args + "&tax1=" + tax1 + "&tax2=" + tax2;
             }
             else if ($(".singleTaxFilter").is(":visible")) {
+                var tax1 = "All";
                 if ($("#taxSelect").val() != "")
-                    args = args + "&tax1=" + tax1;
+                    tax1 = $("#taxSelect").val();
+                args = args + "&tax1=" + tax1;
             }
 
             if ($(".singleOrderNoFilter").is(":visible")) {
@@ -711,12 +766,27 @@ $(document).ready(function () {
                     qtyoh = $("#qytNohSelect").val();
                 args = args + "&qtyoh=" + qtyoh;
             }
+            if ($(".rangeGrpIdFilter").is(":visible")) {
+                var grpId1 = "All";
+                var grpId2 = "All";
+                if ($("#startGrpIdSelect").val() != "")
+                    grpId1 = $("#startGrpIdSelect").val();
+                if ($("#endGrpIdSelect").val() != "")
+                    grpId2 = $("#endGrpIdSelect").val();
+                args = args + "&group1=" + grpId1 + "&group2=" + grpId2;
+            }
+            else if ($(".singleGrpIdFilter").is(":visible")) {
+                var grpId = "All";
+                if ($("#grpIdSelect").val() != "")
+                    grpId = $("#grpIdSelect").val();
+                args = args + "&group1=" + grpId;
+            }
         }
         args += "&store=" + store;
         loadReport(reportUrl + args);
     });
 
-    $("#drpReportSelect").trigger("change");
+    //$("#drpReportSelect").trigger("change");
 
     $("#drpDeptSelect").change(function (event) {
         var dept = $("#drpDeptSelect").val();

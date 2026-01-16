@@ -1,4 +1,17 @@
 ﻿@{ ViewBag.Title = "Category Report"; }
+<style>
+    #drpReportSelect {
+        width: 500px !important;
+        max-width: none;
+    }
+
+    @@media (max-width: 767.98px) {
+        #drpReportSelect {
+            width: 100% !important;
+            max-width: 100%;
+        }
+    }
+</style>
 <div id="error" class="alert alert-danger alert-dismissible" role="alert">
     <span id="errorMessage"></span>
 </div>
@@ -9,33 +22,17 @@
     <div class="card" style="height: 100px;">
         <div class="card-body px-3 py-2">
             <div class="row">
-                <div id="CategorySelect" class="col-lg-3 col-md-4 col-sm-12 d-flex flex-column justify-content-end">
+                <div id="CategorySelect" class="col-lg-3 col-md-3 col-sm-12 d-flex flex-column justify-content-end">
                     <label>Category</label>
-                    <select id="drpCategorySelect" class="form-control">
-                        <option value="All">All</option>
-                        <option value="1">AR customers</option>
-                        <option value="2">Departments</option>
-                        <option value="3">Gift card & loyalty</option>
-                        <option value="4">Graphical report</option>
-                        <option value="5">Inventory</option>
-                        <option value="6">Kits</option>
-                        <option value="7">Others</option>
-                        <option value="8">Policies</option>
-                        <option value="9">Pricing</option>
-                        <option value="10">Product Classifications</option>
-                        <option value="11">Sales information</option>
-                        <option value="12">Security</option>
-                        <option value="13">Tax</option>
-                        <option value="14">Tenders</option>
-                    </select>
+                    <select id="drpCategorySelect" class="form-control"></select>
                 </div>
 
-                <div id="ReportSelect" class="col-lg-3 col-md-4 col-sm-12 d-flex flex-column justify-content-end">
+                <div id="ReportSelect" class="col-lg-6 col-md-6 col-sm-12 d-flex flex-column justify-content-end">
                     <label>Select Report</label>
-                    <select id="drpReportSelect" class="form-control"></select>
+                    <select id="drpReportSelect" class="form-control w-100"></select>
                 </div>
 
-                <div class="col-lg-3 col-md-4 col-sm-12 d-flex align-items-end">
+                <div class="col-lg-3 col-md-3 col-sm-12 d-flex align-items-end justify-content-end">
                     <button type="submit" class="btn btn-primary me-2" id="submitBtn">Load</button>
                     <button type="button" class="btn btn-primary" id="printBtn">Export to PDF</button>
                 </div>
@@ -47,12 +44,15 @@
 <div class="row">
     @if (ViewBag.IsHeadOffice)
     {
-        <div class="col-lg-3 col-xs-12">
+        <div class="storeFilter col-lg-3 col-xs-12">
             <div>
                 <label>Select Store</label>
             </div>
             <div>
-                @Html.DropDownList("drpStoreSelect", (IEnumerable<SelectListItem>)ViewBag.Stores, new { @class = "form-control" })
+                @Html.DropDownList(
+                    "drpStoreSelect",
+                    ViewBag.Stores as IEnumerable<SelectListItem> ?? new SelectListItem[0],
+                    new { @class = "form-control" })
             </div>
         </div>}
     <div class="singleMovDateFilter col-lg-3 col-xs-12">
@@ -165,6 +165,25 @@
         </div>
         <div>
             and <input id="endCustSelect" class="form-control" />
+        </div>
+    </div>
+    <div class="singleGrpIdFilter col-lg-3 col-xs-12" style="display:none;">
+        <div>
+            <label>Group ID</label>
+        </div>
+        <div>
+            <input id="grpIdSelect" class="form-control" />
+        </div>
+    </div>
+    <div class="rangeGrpIdFilter col-lg-3 col-xs-12" style="display:none;">
+        <div>
+            <label>Group ID</label>
+        </div>
+        <div>
+            between <input id="startGrpIdSelect" class="form-control" />
+        </div>
+        <div>
+            and <input id="endGrpIdSelect" class="form-control" />
         </div>
     </div>
     <div class="singleEmpFilter col-lg-3 col-xs-12">

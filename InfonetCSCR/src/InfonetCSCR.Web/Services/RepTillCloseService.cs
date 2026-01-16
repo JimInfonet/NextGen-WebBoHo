@@ -24,6 +24,11 @@ namespace InfonetCSCR.Web.Services
             this._http = http;
             this._logger = logger;
             this._policy = policy;
+
+            // Initialize non-nullable fields with default values  
+            this.printFont = new Font("Arial", 10);
+            this.verdana10Font = new Font("Verdana", 10);
+            this.streamToPrint = new StreamReader(new MemoryStream());
         }
 
         private static void PrintPageHandler(object sender, PrintPageEventArgs ev)
@@ -221,36 +226,46 @@ namespace InfonetCSCR.Web.Services
         {
             Policies policies = new ()
             {
-                TillCDays = _policy.GetPolicy(PolicyName.TILLC_DAYS),
-                BaseCurr = _policy.GetPolicy(PolicyName.BASECURR),
-                CBonusName = _policy.GetPolicy(PolicyName.CBONUSNAME),
-                CBonusTend = _policy.GetPolicy(PolicyName.CBONUSTEND),
-                CashBonus = _policy.GetPolicy(PolicyName.CASHBONUS),
-                CcMode = _policy.GetPolicy(PolicyName.CC_MODE),
-                CombineCr = _policy.GetPolicy(PolicyName.COMBINECR),
-                CombineFleet = _policy.GetPolicy(PolicyName.COMBINEFLEET),
-                CountCash = _policy.GetPolicy(PolicyName.COUNT_CASH),
-                CountType = _policy.GetPolicy(PolicyName.COUNT_TYPE),
-                CloseBDays = _policy.GetPolicy(PolicyName.CLOSEB_DAYS)
-                //,
-                //CloseIncluded = _policy.GetPolicy(PolicyName.CLOSE_INCLUD),
-                //EodGroup = _policy.GetPolicy(PolicyName.EOD_GROUP),
-                //PrtTillClCol = _policy.GetPolicy(PolicyName.PRT_TILLCLCOL),
-                //ShowCodes = _policy.GetPolicy(PolicyName.SHOW_CODES),
-                //ShowAllExempt = _policy.GetPolicy(PolicyName.SHOW_ALL_EXEMPT),
-                //Show_NRGT = _policy.GetPolicy(PolicyName.Show_NRGT),
-                //SupportEzi = _policy.GetPolicy(PolicyName.SUPPORTEZI),
-                //TaxRebate = _policy.GetPolicy(PolicyName.TAX_REBATE),
-                //TaxExempt = _policy.GetPolicy(PolicyName.TAX_EXEMPT),
-                //Te_Type = _policy.GetPolicy(PolicyName.TE_TYPE),
-                //TidelSafe = _policy.GetPolicy(PolicyName.TIDELSAFE),
-                //,
-                //,
-                //UseShifts = _policy.GetPolicy(PolicyName.USE_SHIFTS),
-                //UseOvrPymnt = _policy.GetPolicy(PolicyName.USE_OVR_PYMNT)
+                BaseCurr = _policy.GetPolicy(PolicyName.BASECURR)
+                ,CBonusName = _policy.GetPolicy(PolicyName.CBONUSNAME)
+                ,CBonusTend = _policy.GetPolicy(PolicyName.CBONUSTEND)
+                ,CashBonus = GetBool(_policy.GetPolicy(PolicyName.CASHBONUS))
+                ,CcMode = _policy.GetPolicy(PolicyName.CC_MODE)
+                ,CombineFleet = GetBool(_policy.GetPolicy(PolicyName.COMBINEFLEET))
+                ,CountCash = GetBool(_policy.GetPolicy(PolicyName.COUNT_CASH))
+                ,CountType = _policy.GetPolicy(PolicyName.COUNT_TYPE)
+                ,CloseBDays = _policy.GetPolicy(PolicyName.CLOSEB_DAYS)
+                ,CloseIncluded = GetBool(_policy.GetPolicy(PolicyName.CLOSE_INCLUD))
+                ,EodGroup = GetBool(_policy.GetPolicy(PolicyName.EOD_GROUP))
+                ,PrtTillClCol = GetBool(_policy.GetPolicy(PolicyName.PRT_TILLCLCOL))
+                ,ShowCodes = GetBool(_policy.GetPolicy(PolicyName.SHOW_CODES))
+                ,ShowAllExempt = GetBool(_policy.GetPolicy(PolicyName.SHOW_ALL_EXEMPT))
+                ,Show_NRGT = GetBool(_policy.GetPolicy(PolicyName.SHOW_NRGT))
+                ,SupportEzi = GetBool(_policy.GetPolicy(PolicyName.SUPPORTEZI))
+                ,TaxExempt = GetBool(_policy.GetPolicy(PolicyName.TAX_EXEMPT))
+                ,Te_Type = _policy.GetPolicy(PolicyName.TE_TYPE)
+                ,TidelSafe = GetBool(_policy.GetPolicy(PolicyName.TIDELSAFE))
+                ,TillCDays = _policy.GetPolicy(PolicyName.TILLC_DAYS)
+                ,UseShifts = GetBool(_policy.GetPolicy(PolicyName.USE_SHIFTS))
+                ,UseOvrPymnt = GetBool(_policy.GetPolicy(PolicyName.USE_OVR_PYMNT))
             };
 
             return policies;
+        }
+
+        public bool GetBool(object? value)
+        {
+            if (value == null)
+                return false;
+
+            if (value is bool b)
+                return b;
+
+            var str = value.ToString()?.Trim().ToUpper();
+
+            return str == "YES"
+                || str == "TRUE"
+                || str == "1";
         }
 
         //using EPPlus

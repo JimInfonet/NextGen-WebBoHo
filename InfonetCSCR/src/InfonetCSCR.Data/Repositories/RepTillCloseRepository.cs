@@ -1,14 +1,18 @@
-﻿using InfonetCSCR.Core.Dtos;
+﻿using InfonetCSCR.Core.Abstractions.Services;
+using InfonetCSCR.Core.Dtos;
 using InfonetCSCR.Core.Models;
 using System.ComponentModel;
 using System.Reflection;
+using System.Xml.Linq;
 
 namespace InfonetCSCR.Data.Repositories
 {
     public class RepTillCloseRepository : BaseRepository, IRepTillCloseRepository
     {
         private readonly IApplicationConfig _config;
+        private IPolicyRepository _policy;
         private IDbTransaction _transaction;
+        private readonly IUserService _userService;
         long CloseNo;
         //int ShiftNo;
 
@@ -35,10 +39,12 @@ namespace InfonetCSCR.Data.Repositories
         Till_Close TC = new();
         const int PRINT_WIDTH = 40; // Update the width as needed
         bool polShow_All_Exempt;
-        public RepTillCloseRepository(IApplicationConfig config, IDbTransaction transaction) : base(transaction)
+        public RepTillCloseRepository(IApplicationConfig config, IPolicyRepository policy, IDbTransaction transaction, IUserService userService) : base(transaction)
         {
             _config = config;
+            _policy = policy;
             _transaction = transaction;
+            _userService = userService;
         }
         //public async Task<IEnumerable<RepTillClose>> GetRepTillCloses(DateOnly date1)
         public async Task<IEnumerable<RepTillClose>> GetRepTillCloses(DateTime date1, DateTime date2)
@@ -449,7 +455,7 @@ namespace InfonetCSCR.Data.Repositories
                 writer.WriteLine(PadR("-AR Pay", PRINT_WIDTH / 2) + PadL((-1 * ARPay).ToString("##,###,##0.00"), PRINT_WIDTH / 2));
 
             if (OverPay != 0)
-                writer.WriteLine(PadR("-OverPay", PRINT_WIDTH / 2) + PadL((-1 * OverPay).ToString("##,###,##0.00"), PRINT_WIDTH / 2));
+                writer.WriteLine(PadR("-OP Adj.", PRINT_WIDTH / 2) + PadL((-1 * OverPay).ToString("##,###,##0.00"), PRINT_WIDTH / 2));
 
             if (Draw_Amt != 0)
                 writer.WriteLine(PadR("-Draws", PRINT_WIDTH / 2) + PadL((-1 * Draw_Amt).ToString("##,###,##0.00"), PRINT_WIDTH / 2));
@@ -461,7 +467,7 @@ namespace InfonetCSCR.Data.Repositories
                 writer.WriteLine(PadR("+Payouts", PRINT_WIDTH / 2) + PadL(Payouts.ToString("##,###,##0.00"), PRINT_WIDTH / 2));
 
             if (Penny_Adj != 0)
-                writer.WriteLine(PadR("+/-Penny Adjustment", PRINT_WIDTH / 2) + PadL((-1 * Penny_Adj).ToString("##,###,##0.00"), PRINT_WIDTH / 2));
+                writer.WriteLine(PadR("+/-Penny A", PRINT_WIDTH / 2) + PadL((-1 * Penny_Adj).ToString("##,###,##0.00"), PRINT_WIDTH / 2));
 
             T_Sys += Exc_Adj_S + Credits_Issued - Float_Amt - Draw_Amt + Drop_Amt - Payments - ARPay + Payouts - OverPay - Penny_Adj;
 
@@ -988,7 +994,7 @@ namespace InfonetCSCR.Data.Repositories
                 writer.WriteLine(PadR("-AR Pay", PRINT_WIDTH / 2) + PadL((-1 * ARPay).ToString("##,###,##0.00"), PRINT_WIDTH / 2));
 
             if (OverPay != 0)
-                writer.WriteLine(PadR("-OverPay", PRINT_WIDTH / 2) + PadL((-1 * OverPay).ToString("##,###,##0.00"), PRINT_WIDTH / 2));
+                writer.WriteLine(PadR("-OP Adj.", PRINT_WIDTH / 2) + PadL((-1 * OverPay).ToString("##,###,##0.00"), PRINT_WIDTH / 2));
 
             if (Draw_Amt != 0)
                 writer.WriteLine(PadR("-Draws", PRINT_WIDTH / 2) + PadL((-1 * Draw_Amt).ToString("##,###,##0.00"), PRINT_WIDTH / 2));
@@ -1000,7 +1006,7 @@ namespace InfonetCSCR.Data.Repositories
                 writer.WriteLine(PadR("+Payouts", PRINT_WIDTH / 2) + PadL(Payouts.ToString("##,###,##0.00"), PRINT_WIDTH / 2));
 
             if (Penny_Adj != 0)
-                writer.WriteLine(PadR("+/-Penny Adjustment", PRINT_WIDTH / 2) + PadL((-1 * Penny_Adj).ToString("##,###,##0.00"), PRINT_WIDTH / 2));
+                writer.WriteLine(PadR("+/-Penny A", PRINT_WIDTH / 2) + PadL((-1 * Penny_Adj).ToString("##,###,##0.00"), PRINT_WIDTH / 2));
 
             T_Sys += Exc_Adj_S + Credits_Issued - Float_Amt - Draw_Amt + Drop_Amt - Payments - ARPay + Payouts - OverPay - Penny_Adj;
 
@@ -1539,7 +1545,7 @@ namespace InfonetCSCR.Data.Repositories
                                         $"FROM (CSCTrans.dbo.SaleLine INNER JOIN CSCTrans.dbo.SaleHead ON SaleLine.Sale_No = SaleHead.Sale_No) " +
                                         $"WHERE (SaleHead.T_Type IN ('SALE','REFUND','PATP_APP') " +
                                         $" AND {Where_Clause} " +
-                                        $" AND  SaleLine.Dept = {dt.DEPT}) " +
+                                        $" AND  SaleLine.Dept = '{dt.DEPT}') " +
                                         $"Group By SaleLine.Dept " +
                                         $"Order by SaleLine.Dept";
                             }
@@ -1553,7 +1559,7 @@ namespace InfonetCSCR.Data.Repositories
                                 {
                                     //query = $"SELECT DEPT, DEPT_NAME FROM CSCMaster.dbo.Dept where dept = '{sl.Dept}'";
                                     //var dept = await Connection.QueryFirstOrDefaultAsync<Dept>(query, null, Transaction);
-                                    query = "SELECT DEPT, DEPT_NAME FROM CSCMaster.dbo.Dept where dept = @Dept";
+                                    query = $"SELECT DEPT, DEPT_NAME FROM CSCMaster.dbo.Dept where dept = {dt.DEPT}";
                                     var parameters = new { Dept = sl.Dept };
                                     var dept = await Connection.QueryFirstOrDefaultAsync<Dept>(query, parameters, Transaction);
 
@@ -1562,9 +1568,9 @@ namespace InfonetCSCR.Data.Repositories
                                         D_Name = dept.DEPT_NAME;
 
                                         if (polShowCodes)
-                                            writer.WriteLine(PadR(sl.Dept, 5) + PadR(D_Name, 13) + PadL(sl.Volume.ToString("########0"), 9) + PadL(sl.Sales.ToString("#####0.00"), 13));
+                                            writer.WriteLine(PadR(sl.Dept, 5) + PadR(D_Name.Substring(0, Math.Min(D_Name.Length, 13)), 13) + PadL(sl.Volume.ToString("########0"), 9) + PadL(sl.Sales.ToString("#####0.00"), 13));
                                         else
-                                            writer.WriteLine(PadR(D_Name, 18) + PadL(sl.Volume.ToString("########0"), 9) + PadL(sl.Sales.ToString("#####0.00"), 13));
+                                            writer.WriteLine(PadR(D_Name.Substring(0, Math.Min(D_Name.Length, 18)), 18) + PadL(sl.Volume.ToString("########0"), 9) + PadL(sl.Sales.ToString("#####0.00"), 13));
 
                                         S_Sales += sl.Sales;
                                         S_Volume += sl.Volume;
@@ -1962,7 +1968,7 @@ namespace InfonetCSCR.Data.Repositories
             writer.WriteLine(new string('_', PRINT_WIDTH));
             writer.WriteLine(PadR("Total Product Sales", 25) + PadL(S_Sales.ToString("##,###,##0.00"), 15));
 
-            //Report Fuel Sales
+            //Fuel Sales
             query = "";
             if (Where_Clause.Length == 0)
             {
@@ -2085,14 +2091,14 @@ namespace InfonetCSCR.Data.Repositories
 
             if (fuelSaleList != null && fuelSaleList.Any())
             {
+                writer.WriteLine(new string(' ', PRINT_WIDTH));
+                writer.WriteLine(PadR("FUEL SALES", PRINT_WIDTH));
+                writer.WriteLine(PadR("Grade", 10) + PadL("AVG $", 5) + PadL("Volume", 12) + PadL("Sales", 13));
+                writer.WriteLine(new string('_', PRINT_WIDTH));
+
+                TotDiscount = 0;
                 foreach (var sl in fuelSaleList)
                 {
-                    writer.WriteLine(new string(' ', PRINT_WIDTH));
-                    writer.WriteLine(PadR("FUEL SALES", PRINT_WIDTH));
-                    writer.WriteLine(PadR("Grade", 10) + PadL("AVG $", 5) + PadL("Volume", 12) + PadL("Sales", 13));
-                    writer.WriteLine(new string('_', PRINT_WIDTH));
-
-                    TotDiscount = 0;
                     if (sl.Sales != null)
                     {
                         query = $"SELECT DEPT, DEPT_NAME FROM CSCMaster.dbo.Dept where dept = '{sl.Dept}'";
@@ -2114,18 +2120,18 @@ namespace InfonetCSCR.Data.Repositories
                             else
                                 Avg_Price = 0;
 
-                            writer.WriteLine(PadR(D_Name, 12) + PadL(Avg_Price.ToString("0.000"), 5) +
-                                PadL(sl.Volume.ToString("#######0.000"), 10) + PadL(sl.Sales.ToString("##,###,##0.00"), 13));
+                            writer.WriteLine(PadR(D_Name.Substring(0, Math.Min(D_Name.Length, 10)), 10) + PadL(Avg_Price.ToString("0.000"), 5) +
+                                PadL(sl.Volume.ToString("#######0.000"), 12) + PadL(sl.Sales.ToString("##,###,##0.00"), 13));
 
                             if (model.policies.UseOvrPymnt)
                             {
-                                if (D_Name.ToUpper().Substring(0, 6) == "PREPAY")
+                                if (D_Name.ToUpper().Substring(0, Math.Min(D_Name.Length, 6)) == "PREPAY")
                                     PrepayRefund = -1 * sl.Sales;
                             }
 
                             if (sl.Discount != 0)
                             {
-                                writer.WriteLine(PadR(" ", 8) + PadC("Discount Included", 22) +
+                                writer.WriteLine(PadR(" ", 8) + PadC("(Discount Included)", 22) +
                                     PadL(sl.Discount.ToString("######0.00"), 10));
                                 TotDiscount += sl.Discount;
                             }
@@ -2149,6 +2155,7 @@ namespace InfonetCSCR.Data.Repositories
                 {
                     writer.WriteLine(new string(' ', PRINT_WIDTH));
                     writer.WriteLine(PadR("Fuel Discount Total", 27) + PadL(Math.Abs(TotDiscount).ToString("##,###,##0.00"), 13));
+                    writer.WriteLine(new string(' ', PRINT_WIDTH));
                 }
 
                 S_Sales += Math.Abs(TotDiscount);
@@ -2162,7 +2169,6 @@ namespace InfonetCSCR.Data.Repositories
                 }
             }
 
-            writer.WriteLine(new string(' ', PRINT_WIDTH));
             writer.WriteLine(new string('_', PRINT_WIDTH));
             if (model.policies.UseOvrPymnt)
                 writer.WriteLine(PadR("Total Sales", 25) + PadL((S_Sales + PrepayRefund).ToString("##,###,##0.00"), 15));
@@ -2663,7 +2669,7 @@ namespace InfonetCSCR.Data.Repositories
             Sales_Only = S_Sales;
             Volume_Only = S_Volume;
 
-            ///TaxExempt
+            // TaxExempt
             if (model.policies.TaxExempt)
             {
                 if (model.policies.ShowAllExempt)
@@ -2679,7 +2685,7 @@ namespace InfonetCSCR.Data.Repositories
                         Print_SITE_Report(writer, Where_Clause, StoreID);
                 }
             }
-            ///Summary for Non-Taxable items section
+
             query = "";
             if (Where_Clause.Length == 0)
             {
@@ -2739,11 +2745,6 @@ namespace InfonetCSCR.Data.Repositories
             {
                 if (saleNoTax.CNT > 0)
                 {
-                    writer.WriteLine(PadR("", PRINT_WIDTH));
-                    writer.WriteLine(PadR("Non-Taxable Product Sales", PRINT_WIDTH));
-                    writer.WriteLine(new string('_', PRINT_WIDTH));
-                    writer.WriteLine(PadR("", 18) + PadL("Qty", 9) + PadL("Sales", 13));
-
                     query = "";
                     if (Where_Clause.Length == 0)
                     {
@@ -2805,36 +2806,49 @@ namespace InfonetCSCR.Data.Repositories
                                     $"Order by SaleLine.Dept";
                         }
                     }
+
                     IEnumerable<SaleLineTax> saleNoTaxDept = await Connection.QueryAsync<SaleLineTax>(query, null, Transaction);
                     if (saleNoTaxDept != null && saleNoTaxDept.Any())
                     {
+                        /////Summary for Non-Taxable items section
+                        //writer.WriteLine(PadR("", PRINT_WIDTH));
+                        //writer.WriteLine(PadR("Non-Taxable Product Sales", PRINT_WIDTH));
+                        //writer.WriteLine(new string('_', PRINT_WIDTH));
+                        //writer.WriteLine(PadR("", 18) + PadL("Qty", 9) + PadL("Sales", 13));
+
                         foreach (var snt in saleNoTaxDept)
-                        {
+                        {                            
                             if (snt.Dept != "")
                             {
                                 query = $"SELECT Dept + ' ' + Dept_Name As DeptName FROM CSCMaster.dbo.Dept WHERE DEPT = {snt.Dept}";
                                 string DeptName = await Connection.QueryFirstOrDefaultAsync<string>(query, null, Transaction);
 
-                                if (DeptName != null)
+                                if (snt.Dept == fuelDept)
+                                    writer.WriteLine(PadR(DeptName, 18) + PadL(snt.QTY.ToString("#####0.000"), 9) + PadL(snt.AMT.ToString("##,###,##0.00"), 13));
+                                else
                                 {
-                                    if (snt.Dept == fuelDept)
-                                        writer.WriteLine(PadR(DeptName, 17) + PadL(snt.QTY.ToString("#####0.000"), 10) + PadL(snt.AMT.ToString("##,###,##0.00"), 13));
-                                    else
-                                        writer.WriteLine(PadR(DeptName, 17) + PadL(snt.QTY.ToString("#########0"), 10) + PadL(snt.AMT.ToString("##,###,##0.00"), 13));
+                                    if (DeptName == null)
+                                    {
+                                        DeptName = snt.Dept + " <No Dept>";
+                                    }
+                                    writer.WriteLine(PadR(DeptName.Substring(0, Math.Min(DeptName.Length, 18)), 18) + PadL(snt.QTY.ToString("#########0"), 9) + PadL(snt.AMT.ToString("##,###,##0.00"), 13));
                                 }
                             }
                         }
+
+                        writer.WriteLine(new string('_', PRINT_WIDTH));
+                        writer.WriteLine(PadR("Total Sales", 17) + PadL(saleNoTax.QTY.ToString("#####0.000"), 10) + PadL(saleNoTax.AMT.ToString("##,###,##0.00"), 13));
+                        writer.WriteLine(PadR("", PRINT_WIDTH));
                     }
-                    writer.WriteLine(new string('_', PRINT_WIDTH));
-                    writer.WriteLine(PadR("Total Sales", 17) + PadL(saleNoTax.QTY.ToString("#####0.000"), 10) + PadL(saleNoTax.AMT.ToString("##,###,##0.00"), 13));
-                    writer.WriteLine(PadR("", PRINT_WIDTH));
                 }
             }
+
             if (model.policies.Te_Type == "QITE" || model.policies.Te_Type == "AITE")
             {
                 writer.WriteLine(PadR("", PRINT_WIDTH));
                 Print_TE_TAXES_Report(writer, Where_Clause, StoreID);
             }
+
 
             ///EOD Grouping Summary
             bool blGroupSummary = true;
@@ -3157,7 +3171,7 @@ namespace InfonetCSCR.Data.Repositories
                     writer.WriteLine(PadR("Total", 10) + PadL("", 5) + PadL(F_Vol.ToString("#######0.000"), 12) +
                         PadL(F_Sales.ToString("##,###,##0.00"), 13));
 
-                    writer.WriteLine(new string(' ', PRINT_WIDTH));
+                    writer.WriteLine(new string('_', PRINT_WIDTH));
                 }
 
                 //this section is for Fuel after excluding the included tax and also after reducing taxexempt sales
@@ -3222,6 +3236,71 @@ namespace InfonetCSCR.Data.Repositories
                             }
                         }
                     } /* FuelSale Loop */
+                    TotDiscount = 0;
+                    foreach (var sl in fuelSaleList)
+                    {
+                        if (sl.Sales != null)
+                        {
+                            query = $"SELECT DEPT, DEPT_NAME FROM CSCMaster.dbo.Dept where dept = '{sl.Dept}'";
+                            var fDept = await Connection.QueryFirstOrDefaultAsync<FuelDept>(query, null, Transaction);
+
+                            if (fDept != null)
+                            {
+                                D_Name = PadR(sl.Descript, 12);
+
+                                S_Sales += sl.Sales + sl.Discount;
+                                S_Volume += sl.Volume;
+
+                                F_Sales += sl.Sales + sl.Discount;
+
+                                F_Vol += sl.Volume;
+
+                                if (sl.Volume != 0)
+                                    Avg_Price = sl.Sales / sl.Volume;
+                                else
+                                    Avg_Price = 0;
+
+                                writer.WriteLine(PadR(D_Name.Substring(0, Math.Min(D_Name.Length, 10)), 10) + PadL(Avg_Price.ToString("0.000"), 5) +
+                                    PadL(sl.Volume.ToString("#######0.000"), 12) + PadL(sl.Sales.ToString("##,###,##0.00"), 13));
+
+                                if (model.policies.UseOvrPymnt)
+                                {
+                                    if (D_Name.ToUpper().Substring(0, Math.Min(D_Name.Length, 6)) == "PREPAY")
+                                        PrepayRefund = -1 * sl.Sales;
+                                }
+
+                                if (sl.Discount != 0)
+                                {
+                                    writer.WriteLine(PadR(" ", 8) + PadC("(Discount Included)", 22) +
+                                        PadL(sl.Discount.ToString("######0.00"), 10));
+                                    TotDiscount += sl.Discount;
+                                }
+                            }
+                        }
+                    } /* end of for loop */
+
+                    if (F_Vol != 0)
+                        Avg_Price = F_Sales / F_Vol;
+                    else
+                        Avg_Price = 0;
+
+                    writer.WriteLine(new string('_', PRINT_WIDTH));
+                    writer.WriteLine(PadR("Total", 12) + PadL(Avg_Price.ToString("0.000"), 5) +
+                        PadL(F_Vol.ToString("#######0.000"), 10) + PadL(F_Sales.ToString("##,###,##0.00"), 13));
+
+                    writer.WriteLine(new string(' ', PRINT_WIDTH));
+                    writer.WriteLine(PadR("Fuel Taxes", PRINT_WIDTH));
+                    writer.WriteLine(PadR("Grade", 10) + PadL("Name", 5) + PadL("Added", 12) + PadL("Included", 13));
+                    writer.WriteLine(new string('_', PRINT_WIDTH));
+                    //Data
+
+                    writer.WriteLine(new string('_', PRINT_WIDTH));
+                    writer.WriteLine(PadR("Total Fuel Taxes", PRINT_WIDTH));
+                    //Data
+
+                    writer.WriteLine(new string('_', PRINT_WIDTH));
+                    writer.WriteLine(PadR("Total", 12) + PadL(Avg_Price.ToString("0.000"), 5) +
+                        PadL(F_Vol.ToString("#######0.000"), 10) + PadL(F_Sales.ToString("##,###,##0.00"), 13));
                 } /* End of if FuleSale */
             } /* End of if model.policies.TaxExempt */
             /* End of Product_Sales_Report */
@@ -3304,131 +3383,156 @@ namespace InfonetCSCR.Data.Repositories
         }
         public async Task<string[]?> GetRepByTillNo(GetRepTillCloseDto model)
         {
-            polShow_All_Exempt = model.policies.ShowAllExempt;
-            Boolean bFound = false;
-            CloseNo = model.closeNo;
-            //ShiftNo = model.shiftNo;
-
-            string filePath = "TillClose.txt";
-            Boolean PrintIt = false;
-            String Where_Clause;
-
-            CloseHead closeHead = await GetCloseHead();
-
-            Float_Amt = (closeHead.Float) ?? 0;
-            Draw_Amt = (closeHead.Draw) ?? 0;
-
-            BonusFloat = (closeHead.BonusFloat) ?? 0;
-            BonusDraw = (closeHead.BonusDraw) ?? 0;
-            BonusDrop = (closeHead.BonusDrop) ?? 0;
-            BonusGiveAway = (closeHead.BonusGiveAway) ?? 0;
-
-            SC_Issued = (closeHead.ScIssued) ?? 0;
-
-            if (model.policies.UseShifts)
-                Where_Clause = Collect_Close_Data(model, 0, false, StoreID).Result;
-            else
-                Where_Clause = Collect_Close_Data(model, 0).Result;
-
-            // Load the Entered amounts into the recordset.
-            var data = (IEnumerable<Close_Line>)await GetCloseTenders();
-            if (model.policies.CountType.ToUpper() == "EACH TENDER")
+            try
             {
-                //Search the tender of the close_tenders out of TillCloses
-                foreach (var cl in data)
+                polShow_All_Exempt = model.policies.ShowAllExempt;
+                
+                Boolean bFound = false;
+                CloseNo = model.closeNo;
+
+                string filePath = "TillClose.txt";
+                Boolean PrintIt = false;
+                String Where_Clause;
+
+                CloseHead closeHead = await GetCloseHead();
+                if (closeHead == null)
+                    throw new Exception("CloseHead not found.");
+
+                Float_Amt = (closeHead.Float) ?? 0;
+                Draw_Amt = (closeHead.Draw) ?? 0;
+
+                BonusFloat = (closeHead.BonusFloat) ?? 0;
+                BonusDraw = (closeHead.BonusDraw) ?? 0;
+                BonusDrop = (closeHead.BonusDrop) ?? 0;
+                BonusGiveAway = (closeHead.BonusGiveAway) ?? 0;
+
+                SC_Issued = (closeHead.ScIssued) ?? 0;
+
+                Setup_C setup_C = await GetSetup_C();
+                if (setup_C == null)
+                    throw new Exception("Setup_C not found.");
+
+                if (model.policies.UseShifts)
+                    Where_Clause = setup_C.Store != null
+                        ? await Collect_Close_Data(model, 0, false, setup_C.Store)
+                        : await Collect_Close_Data(model, 0, false, "");
+                else
+                    Where_Clause = await Collect_Close_Data(model, 0);
+
+                var data = (IEnumerable<Close_Line>)await GetCloseTenders();
+
+                if (model.policies.CountType.ToUpper() == "EACH TENDER")
                 {
-                    bFound = false;
                     var tillCloses = (IEnumerable<TillClose>?)await GetTillClose();
-                    if (tillCloses != null)
+
+                    foreach (var cl in data)
                     {
-                        foreach (var tc in tillCloses)
+                        bFound = false;
+
+                        if (tillCloses != null)
                         {
-                            if (tc.Tender == cl.Tender_Name)
+                            foreach (var tc in tillCloses)
                             {
-                                tc.Entered = cl.Entered;
-                                tc.System = cl.System;
-                                tc.Difference = cl.Entered - cl.System;
-                                if (!await UpdateTender(cl.Entered, cl.System, cl.Tender_Name))
+                                if (tc.Tender == cl.Tender_Name)
                                 {
-                                    Console.WriteLine($"Error in UpdateTender");
+                                    tc.Entered = cl.Entered;
+                                    tc.System = cl.System;
+                                    tc.Difference = cl.Entered - cl.System;
+
+                                    await UpdateTender(cl.Entered, cl.System, cl.Tender_Name);
+
+                                    bFound = true;
+                                    break;
                                 }
-                                bFound = true;
-                                break;
                             }
                         }
+
                         if (!bFound)
                         {
-                            TillClose tc = new();
-                            tc.Tender = cl.Tender_Name;
-                            tc.Entered = cl.Entered;
-                            tc.System = cl.System;
-                            tc.Difference = cl.Entered - cl.System;
-                            if (!await AddTillClose(tc))
+                            TillClose tc = new()
                             {
-                                Console.WriteLine($"Error in AddTillClose");
-                            }
+                                Tender = cl.Tender_Name,
+                                Entered = cl.Entered,
+                                System = cl.System,
+                                Difference = cl.Entered - cl.System
+                            };
+
+                            await AddTillClose(tc);
                         }
                     }
                 }
-            }
-            else
-            {
-                foreach (var cl in data)
+                else
                 {
-                    if (!await UpdateTender(cl.Entered, cl.System, cl.Tender_Name))
+                    foreach (var cl in data)
                     {
-                        Console.WriteLine($"Error in UpdateTender");
+                        await UpdateTender(cl.Entered, cl.System, cl.Tender_Name);
                     }
                 }
 
+                // Assign TC values
+                TC.Till_Number = closeHead.Till_Num;
+                TC.Close_Num = closeHead.Close_Num;
+                TC.User = closeHead.User;
+                // Ensure TC.User is not null before calling GetUserNameByCode
+                //TC.UserName = await _userService.GetUserNameByCode(code: TC.User);
+                TC.CloseLines = data;
+
+                TC.GroupNumber = (closeHead.GroupNumber) ?? 0;
+                TC.GroupType = (closeHead.GroupType) ?? "";
+
+                TC.Open_Date = closeHead.Open_Date.HasValue ? DateOnly.FromDateTime((DateTime)closeHead.Open_Date) : null;
+                TC.Open_Time = closeHead.Open_Time.HasValue ? TimeOnly.FromDateTime((DateTime)closeHead.Open_Time) : null;
+                TC.Close_Date = closeHead.Close_Date.HasValue ? DateOnly.FromDateTime((DateTime)closeHead.Close_Date) : null;
+                TC.Close_Time = closeHead.Close_Time.HasValue ? TimeOnly.FromDateTime((DateTime)closeHead.Close_Time) : null;
+
+                TC.ShiftNumber = closeHead.ShiftNumber;
+                TC.ShiftDate = DateOnly.FromDateTime(closeHead.ShiftDate);
+
+                TC.Float = Float_Amt;
+                TC.Draw = Draw_Amt;
+                TC.Drop = Drop_Conv - BonusDrop;
+
+                TC.Payments = Payments;
+                TC.ARPay = ARPay;
+                TC.PayOuts = Payouts;
+                TC.OverPay = OverPay;
+                TC.Penny_Adj = Penny_Adj;
+
+                TC.BonusFloat = BonusFloat;
+                TC.BonusDraw = BonusDraw;
+                TC.BonusDrop = BonusDrop;
+                TC.BonusGiveAway = BonusGiveAway;
+
+                TC.Credits_Issued = SC_Issued;
+                TC.Close_Num = CloseNo;
+
+                bool result = await printTillCloseReport(model, PrintIt, Where_Clause, setup_C.Store, setup_C.Company_Name);
+
+                if (!result)
+                    return null;
+
+                // ✅ File read safety
+                if (!File.Exists(filePath))
+                    throw new FileNotFoundException("Report file not found.", filePath);
+
+                return File.ReadAllLines(filePath);
             }
-            TC.Till_Number = closeHead.Till_Num;
-            TC.Close_Num = closeHead.Close_Num;
-            TC.User = closeHead.User;
-
-            TC.CloseLines = data;
-            TC.GroupNumber = (closeHead.GroupNumber) ?? 0;
-            TC.GroupType = (closeHead.GroupType) ?? "";
-
-            TC.Open_Date = closeHead.Open_Date.HasValue ? DateOnly.FromDateTime((DateTime)closeHead.Open_Date) : null;
-            TC.Open_Time = closeHead.Open_Time.HasValue ? TimeOnly.FromDateTime((DateTime)closeHead.Open_Time) : null;
-            TC.Close_Date = closeHead.Close_Date.HasValue ? DateOnly.FromDateTime((DateTime)closeHead.Close_Date) : null;
-            TC.Close_Time = closeHead.Close_Time.HasValue ? TimeOnly.FromDateTime((DateTime)closeHead.Close_Time) : null;
-
-            TC.ShiftNumber = closeHead.ShiftNumber;
-            //TC.ShiftDate = closeHead.ShiftDate.HasValue ? DateOnly.FromDateTime((DateTime)closeHead.ShiftDate) : null;
-            TC.ShiftDate = DateOnly.FromDateTime(closeHead.ShiftDate);
-            TC.Float = Float_Amt;
-            TC.Draw = Draw_Amt;
-            TC.Drop = Drop_Conv - BonusDrop;
-            TC.Payments = Payments;
-            TC.ARPay = ARPay;
-            TC.PayOuts = Payouts;
-            TC.OverPay = OverPay;
-            TC.Penny_Adj = Penny_Adj;
-            TC.BonusFloat = BonusFloat;
-            TC.BonusDraw = BonusDraw;
-            TC.BonusDrop = BonusDrop;
-            TC.BonusGiveAway = BonusGiveAway;
-
-            TC.Credits_Issued = SC_Issued;
-            TC.Close_Num = CloseNo;
-
-            //tc.Close_Till False, Where_Clause, StoreID
-            if (printTillCloseReport(model, PrintIt, Where_Clause, StoreID).Result)
+            catch (SqlException ex)
             {
-                //Console.WriteLine("File created successfully.");
-                // Read the file as binary data
-                string[] fileLines = File.ReadAllLines(filePath);
-
-                return fileLines;
+                Console.WriteLine($"SQL Error: {ex.Message}");
+                throw; // or return null if you prefer silent fail
             }
-            else
+            catch (IOException ex)
             {
-                //Console.WriteLine("Error in creating file.");
-                return null;
+                Console.WriteLine($"File Error: {ex.Message}");
+                throw;
             }
-        } // End of Product_Sales_Report
+            catch (Exception ex)
+            {
+                Console.WriteLine($"General Error in GetRepByTillNo: {ex.Message}");
+                throw;
+            }
+        }
 
         public async Task<bool> UpdateTender(decimal? amount, decimal? system, string? tendName)
         {
@@ -3473,27 +3577,34 @@ namespace InfonetCSCR.Data.Repositories
         {
             List<Close_Line> closeTenders = new();
 
-            string query = $"Select * From CSCTrans.dbo.Close_Tenders Where Close_Num = {CloseNo}";
-
+            //string query = $"Select * From CSCTrans.dbo.Close_Tenders Where Close_Num = {CloseNo}";
+            string query = $"SELECT CT.Sequence, CT.TENDNAME AS Tender_Name, TM.SHORTDESC AS Short_Name, CT.TENDCLASS AS Tender_Class, " +
+                           $"CT.TENDCOUNT AS Tender_Count, CT.AMOUNT AS Entered, CT.SYSTEM AS System, " +
+                           $"CT.Balance AS Balance, CT.Exchange_Rate AS Exchange_Rate, CT.CONV_SYS AS Converted_System, " +
+                           $"CT.CONV_AMT AS Converted_Entered, CT.CONV_BAL AS Converted_Balance " +
+                           $"FROM [CSCTrans].[dbo].[Close_Tenders] CT " +
+                           $"JOIN [CSCMaster].[dbo].[TENDMAST] TM ON TM.TENDDESC=CT.TENDNAME AND CT.CLOSE_NUM = {CloseNo} " +
+                           $"ORDER BY Sequence ";
             try
             {
-                var data = await Connection.QueryAsync<CloseLine>(query, null, Transaction);
+                var data = await Connection.QueryAsync<Close_Line>(query, null, Transaction);
 
                 foreach (var cl in data)
                 {
                     var close_Line = new Close_Line();
 
-                    close_Line.Tender_Name = cl.TENDNAME;
-                    close_Line.Tender_Class = cl.TENDCLASS;
-                    close_Line.Tender_Count = cl.TENDCOUNT;
+                    close_Line.Short_Name = cl.Short_Name;
+                    close_Line.Tender_Name = cl.Tender_Name;
+                    close_Line.Tender_Class = cl.Tender_Class;
+                    close_Line.Tender_Count = cl.Tender_Count;
                     close_Line.Sequence = cl.Sequence;
-                    close_Line.Entered = cl.AMOUNT;
-                    close_Line.System = cl.SYSTEM;
-                    close_Line.Balance = cl.BALANCE;
+                    close_Line.Entered = cl.Entered;
+                    close_Line.System = cl.System;
+                    close_Line.Balance = cl.Balance;
                     close_Line.Exchange_Rate = cl.Exchange_Rate;
-                    close_Line.Converted_System = cl.CONV_SYS;
-                    close_Line.Converted_Entered = cl.CONV_AMT;
-                    close_Line.Converted_Balance = cl.CONV_SYS;
+                    close_Line.Converted_System = cl.Converted_System;
+                    close_Line.Converted_Entered = cl.Converted_Entered;
+                    close_Line.Converted_Balance = cl.Converted_Balance;
 
                     closeTenders.Add(close_Line);
                 }
@@ -3506,6 +3617,7 @@ namespace InfonetCSCR.Data.Repositories
 
             return (IEnumerable<Close_Line>)closeTenders;
         }
+
         public async Task<bool> GetTillCloseByDesc(string sDesc)
         {
             string query = $"Select Count(*) As Cnt From CSCTrans.dbo.TillClose WHERE Tender = '{sDesc}'";
@@ -3622,29 +3734,31 @@ namespace InfonetCSCR.Data.Repositories
                 {
                     if (StoreID == "ALL")
                     {
-                        string query = $"Select SaleTend.TendName as [Tender], Count(*) as [Count], " +
+                        string query = $"Select TendMast.[SHORTDESC] as [Tender], Count(*) as [Count], " +
                             $"Sum(SaleTend.AmtTend) as [Amount], " +
                             $"Sum(SaleTend.AmtUsed) as [Used] " +
                             $"From CSCTrans.dbo.SaleTend " +
+                            $"LEFT JOIN CSCMaster.[dbo].[TendMAST] on SaleTend.TENDNAME = TendMast.TENDDESC " +
                             $"INNER JOIN CSCTrans.dbo.SaleHead ON SaleTend.Sale_No = SaleHead.Sale_No and SaleTend.store_id = SaleHead.store_id " +
                             $"Where (SaleTend.TendName <> 'Store Credit' OR SaleTend.AmtTend > 0) " +
                             $"AND SaleHead.T_Type NOT IN ('VOID','CANCEL') AND " +
                             $"{Where_Clause} " +
-                            $"Group By SaleTend.TendName";
+                            $"Group By TendMast.[SHORTDESC]";
                         var list = await Connection.QueryAsync<TenderData>(query, null, Transaction);
                         return list;
                     }
                     else
                     {
-                        string query = $"Select SaleTend.TendName as [Tender], Count(*) as [Count], " +
+                        string query = $"Select TendMast.[SHORTDESC] as [Tender], Count(*) as [Count], " +
                             $"Sum(SaleTend.AmtTend) as [Amount], " +
                             $"Sum(SaleTend.AmtUsed) as [Used] " +
                             $"From CSCTrans.dbo.SaleTend " +
+                            $"LEFT JOIN CSCMaster.[dbo].[TendMAST] on SaleTend.TENDNAME = TendMast.TENDDESC " +
                             $"INNER JOIN CSCTrans.dbo.SaleHead ON SaleTend.Sale_No = SaleHead.Sale_No and SaleTend.store_id = SaleHead.store_id " +
                             $"Where (SaleTend.TendName <> 'Store Credit' OR SaleTend.AmtTend > 0) " +
                             $"AND SaleHead.T_Type NOT IN ('VOID','CANCEL') AND " +
                             $"{Where_Clause} and SaleHead.Store_id = {StoreID} " +
-                            $"Group By SaleTend.TendName";
+                            $"Group By TendMast.[SHORTDESC]";
                         var list = await Connection.QueryAsync<TenderData>(query, null, Transaction);
                         return list;
 
@@ -3652,15 +3766,16 @@ namespace InfonetCSCR.Data.Repositories
                 }
                 else
                 {
-                    string query = $"Select SaleTend.TendName as [Tender], Count(*) as [Count], " +
+                    string query = $"Select TendMast.[SHORTDESC] as [Tender], Count(*) as [Count], " +
                         $"Sum(SaleTend.AmtTend) as [Amount], " +
                         $"Sum(SaleTend.AmtUsed) as [Used] " +
                         $"From CSCTrans.dbo.SaleTend " +
+                        $"LEFT JOIN CSCMaster.[dbo].[TendMAST] on SaleTend.TENDNAME = TendMast.TENDDESC " +
                         $"INNER JOIN CSCTrans.dbo.SaleHead ON SaleTend.Sale_No = SaleHead.Sale_No " +
                         $"Where (SaleTend.TendName <> 'Store Credit' OR SaleTend.AmtTend > 0) " +
                         $"AND SaleHead.T_Type NOT IN ('VOID','CANCEL') AND " +
                         $"{Where_Clause} " +
-                        $"Group By SaleTend.TendName";
+                        $"Group By TendMast.[SHORTDESC]";
                     var list = await Connection.QueryAsync<TenderData>(query, null, Transaction);
                     return list;
                 }
@@ -4155,6 +4270,24 @@ namespace InfonetCSCR.Data.Repositories
             }
         }
 
+        public async Task<Setup_C> GetSetup_C()
+        {
+            try
+            {
+                string query = $"Select * " +
+                    $"From [CSCAdmin].[dbo].[Setup_C] ";
+                    var data = await Connection.QuerySingleAsync<Setup_C>(query, null, Transaction);
+                    return data;
+            }
+            catch (Exception ex)
+            {
+                // Handle the exception or log it appropriately.
+                Console.WriteLine($"Error in GetSetup_C: {ex.Message}");
+                //throw; // Rethrow the exception if you want to propagate it.
+                return null;
+            }
+        }
+
         public async Task<IEnumerable<DropData>> GetDropLines(GetRepTillCloseDto model, string StoreID, string Where_Clause, DateTime StartDate, DateTime EndDate)
         {
             try
@@ -4219,6 +4352,7 @@ namespace InfonetCSCR.Data.Repositories
                 return null;
             }
         }
+
         public async Task<string> GetTerminalId()
         {
             string query = $"SELECT TerminalID FROM CSCAdmin.dbo.TerminalIds where TerminalType='Ezipin'";
@@ -4226,7 +4360,7 @@ namespace InfonetCSCR.Data.Repositories
             return data;
         }
 
-        public async Task<bool> printTillCloseReport(GetRepTillCloseDto model, bool PrintIt, string Where_Clause, string StoreID)
+        public async Task<bool> printTillCloseReport(GetRepTillCloseDto model, bool PrintIt, string Where_Clause, string StoreID, string StoreName)
         {
             bool bFinished = false;
             decimal T_Ent;
@@ -4251,7 +4385,7 @@ namespace InfonetCSCR.Data.Repositories
             // Create the file and write content to it
             using (StreamWriter writer = File.CreateText(filePath))
             {
-                writer.WriteLine(PadC("Store:" + StoreID + "    INFONET TECHNOLOGY", PRINT_WIDTH));
+                writer.WriteLine(PadC("Store:" + StoreID + " " + StoreName, PRINT_WIDTH));
                 writer.WriteLine(PadC("TILL CLOSE #" + TC.Close_Num + " FOR TILL #" + TC.Till_Number, PRINT_WIDTH));
                 writer.WriteLine(PadC("Opened on " + TC.Open_Date.Value.ToString("MM-dd-yyyy") + " at " + TC.Open_Time.Value.ToString("hh:mm:sstt"), PRINT_WIDTH));
                 writer.WriteLine(PadC("Closed on " + TC.Close_Date.Value.ToString("MM-dd-yyyy") + " at " + TC.Close_Time.Value.ToString("hh:mm:sstt"), PRINT_WIDTH));
@@ -4259,7 +4393,7 @@ namespace InfonetCSCR.Data.Repositories
                     writer.WriteLine(PadC("Shift " + TC.ShiftNumber + " On " + TC.ShiftDate.Value.ToString("MM-dd-yyyy"), PRINT_WIDTH));
 
                 if (model.tillNo != 100)
-                    writer.WriteLine(PadC("Cashier " + TC.User + " : " + TC.UserName, PRINT_WIDTH));
+                    writer.WriteLine(PadC("Cashier: " + TC.User + " - " + TC.UserName, PRINT_WIDTH));
 
                 if (Where_Clause.Length > 0)
                 {
@@ -4267,7 +4401,6 @@ namespace InfonetCSCR.Data.Repositories
                     writer.WriteLine(PadC("REPRINT ON : " + DateTime.Now.ToString("MM-dd-yyyy") + " " + "at " + DateTime.Now.ToString("hh:mm:sstt"), PRINT_WIDTH));
                 }
 
-                writer.WriteLine(new string('_', PRINT_WIDTH));
                 if (model.policies.SupportEzi)
                 {
                     string TerminalId = GetTerminalId().Result;
@@ -4297,7 +4430,7 @@ namespace InfonetCSCR.Data.Repositories
                     foreach (var cl in TC.CloseLines)
                     {
                         if (model.policies.CountCash)
-                            writer.WriteLine(PadR(cl.Tender_Name ?? 0.ToString(), 7) + PadL(cl.Tender_Count!.Value.ToString(), 4) +
+                            writer.WriteLine(PadR(cl.Short_Name ?? 0.ToString(), 7) + PadL(cl.Tender_Count!.Value.ToString(), 4) +
                             //PadL(cl.ENTERED!.Value.ToString("######0.00"), 10) +
                             PadL(cl.Entered.ToString("######0.00"), 10) +
                             PadL(cl.System.ToString("######0.00"), 10) +
@@ -4308,10 +4441,10 @@ namespace InfonetCSCR.Data.Repositories
                             //PadL(" ", 10) +
                             //PadL(cl.SYSTEM!.Value.ToString("######0.00"), 9));
                             string cName;
-                            if (cl.Tender_Name!.Length > 7)
-                                cName = cl.Tender_Name.Substring(0, 6);
+                            if (cl.Short_Name!.Length > 7)
+                                cName = cl.Short_Name.Substring(0, Math.Min(cl.Short_Name.Length, 6));
                             else
-                                cName = cl.Tender_Name!.ToString();
+                                cName = cl.Short_Name!.ToString();
                             writer.WriteLine(PadR(cName, 7) + PadL(cl.Tender_Count!.Value.ToString(), 4) +
                             PadL(" ", 10) +
                             PadL(cl.System.ToString("######0.00"), 9));
@@ -4386,7 +4519,7 @@ namespace InfonetCSCR.Data.Repositories
                     if (OverPay != 0)
                     {
                         Amount = (-1) * OverPay;
-                        writer.WriteLine(PadR("-OverPay", 11) +
+                        writer.WriteLine(PadR("-OP Adj.", 11) +
                             PadL(Amount.ToString("######0.00"), 10) +
                             PadL(Amount.ToString("######0.00"), 10));
                     }
@@ -4422,7 +4555,7 @@ namespace InfonetCSCR.Data.Repositories
                     if (Penny_Adj != 0)
                     {
                         Amount = (-1) * Penny_Adj;
-                        writer.WriteLine(PadR("Penny Adjustment", 11) +
+                        writer.WriteLine(PadR("+/-Penny A", 11) +
                             PadL(Amount.ToString("######0.00"), 10) +
                             PadL(Amount.ToString("######0.00"), 10));
                     }
@@ -4472,14 +4605,14 @@ namespace InfonetCSCR.Data.Repositories
                 {
                     // Totals
                     writer.WriteLine(PadR("TOTALS", 11) +
-                        PadL(" ", 10) +
+                        PadL(" ", 9) +
                         PadL(T_Sys.ToString("######0.00"), 10));
 
                     // Show Exchange Adjustments (may be positive or negative)
                     if (Exc_Adj_E != 0 || Exc_Adj_S != 0 || Exc_Adj_D != 0)
                     {
                         writer.WriteLine(PadR("_EXCH_ADJ", 11) +
-                            PadL(" ", 10) +
+                            PadL(" ", 9) +
                             PadL(Exc_Adj_S.ToString("######0.00"), 10));
                     }
                     // Subtract the float
@@ -4487,7 +4620,7 @@ namespace InfonetCSCR.Data.Repositories
                     {
                         Amount = (-1) * Float_Amt;
                         writer.WriteLine(PadR("-Float", 11) +
-                            PadL(" ", 10) +
+                            PadL(" ", 9) +
                             PadL(Amount.ToString("######0.00"), 10));
                     }
                     // Remove Store Credits issued
@@ -4495,7 +4628,7 @@ namespace InfonetCSCR.Data.Repositories
                     {
                         Amount = Credits_Issued;
                         writer.WriteLine(PadR("-Credits", 11) +
-                            PadL(" ", 10) +
+                            PadL(" ", 9) +
                             PadL(Amount.ToString("######0.00"), 10));
                     }
 
@@ -4504,7 +4637,7 @@ namespace InfonetCSCR.Data.Repositories
                     {
                         Amount = (-1) * Payments;
                         writer.WriteLine(PadR("-Payments", 11) +
-                            PadL(" ", 10) +
+                            PadL(" ", 9) +
                             PadL(Amount.ToString("######0.00"), 10));
                     }
 
@@ -4513,7 +4646,7 @@ namespace InfonetCSCR.Data.Repositories
                     {
                         Amount = (-1) * ARPay;
                         writer.WriteLine(PadR("-AR Pay", 11) +
-                            PadL(" ", 10) +
+                            PadL(" ", 9) +
                             PadL(Amount.ToString("######0.00"), 10));
                     }
 
@@ -4521,8 +4654,8 @@ namespace InfonetCSCR.Data.Repositories
                     if (OverPay != 0)
                     {
                         Amount = (-1) * OverPay;
-                        writer.WriteLine(PadR("-OverPay", 11) +
-                            PadL(" ", 10) +
+                        writer.WriteLine(PadR("-OP Adj.", 11) +
+                            PadL(" ", 9) +
                             PadL(Amount.ToString("######0.00"), 10));
                     }
 
@@ -4531,7 +4664,7 @@ namespace InfonetCSCR.Data.Repositories
                     {
                         Amount = (-1) * Draw_Amt;
                         writer.WriteLine(PadR("-Draws", 11) +
-                            PadL(" ", 10) +
+                            PadL(" ", 9) +
                             PadL(Amount.ToString("######0.00"), 10));
                     }
 
@@ -4540,7 +4673,7 @@ namespace InfonetCSCR.Data.Repositories
                     {
                         Amount = Drop_Amt;
                         writer.WriteLine(PadR("+Drops", 11) +
-                            PadL(" ", 10) +
+                            PadL(" ", 9) +
                             PadL(Amount.ToString("######0.00"), 10));
                     }
 
@@ -4549,7 +4682,7 @@ namespace InfonetCSCR.Data.Repositories
                     {
                         Amount = Payouts;
                         writer.WriteLine(PadR("Payouts", 11) +
-                            PadL(" ", 10) +
+                            PadL(" ", 9) +
                             PadL(Amount.ToString("######0.00"), 10));
                     }
 
@@ -4557,8 +4690,8 @@ namespace InfonetCSCR.Data.Repositories
                     if (Penny_Adj != 0)
                     {
                         Amount = (-1) * Penny_Adj;
-                        writer.WriteLine(PadR("Penny Adjustment", 11) +
-                            PadL(" ", 10) +
+                        writer.WriteLine(PadR("+/-Penny A", 11) +
+                            PadL(" ", 9) +
                             PadL(Amount.ToString("######0.00"), 10));
                     }
 
@@ -5644,11 +5777,15 @@ namespace InfonetCSCR.Data.Repositories
             bFinished = true;
             return bFinished;
         }
+
         public async Task<bool> Print_AITE_Report(StreamWriter writer, string Where_Clause, string StoreID)
         {
             string query;
             decimal vAmount;
             decimal vTotalTaxSaved;
+
+            writer.WriteLine(new string(' ', PRINT_WIDTH));
+            writer.WriteLine(new string(' ', PRINT_WIDTH));
 
             query = "select * from CSCMaster.dbo.Category order by ID";
             IEnumerable<Category> category = await Connection.QueryAsync<Category>(query, null, Transaction);
@@ -5699,16 +5836,13 @@ namespace InfonetCSCR.Data.Repositories
                             $"      COALESCE(Sum(Amount),0) as [sAmount], " +
                             $"      COALESCE(Sum(ExemptedTax),0) as [sTotalTaxSaved]  " +
                             $"From CSCTrans.dbo.TaxExemptSaleLine INNER JOIN CSCTrans.dbo.SaleHead ON TaxExemptSaleLine.Sale_No = SaleHead.Sale_No " +
-                            $"Where ProductType= {ct.Id} AND TILL_NUM = {TC.Till_Number} " +
+                            $"Where ProductType = {ct.Id} AND TILL_NUM = {TC.Till_Number} " +
                             $"Group By ProductType";
                 }
                 IEnumerable<TaxExemptLine> teLines = await Connection.QueryAsync<TaxExemptLine>(query, null, Transaction);
 
                 if (teLines != null && teLines.Any())
                 {
-                    writer.WriteLine(new string(' ', PRINT_WIDTH));
-                    writer.WriteLine(new string(' ', PRINT_WIDTH));
-
                     if (polShow_All_Exempt)
                         writer.WriteLine(PadR("Tax Exempt Sales - (AITE) ", 25));
                     else
@@ -5718,8 +5852,7 @@ namespace InfonetCSCR.Data.Repositories
 
                     writer.WriteLine(PadR("Category", 10) + PadL("Qty", 11) + PadL("Sales", 10) + PadL("Tax", 9));
                     writer.WriteLine(new string('_', PRINT_WIDTH));
-                    writer.WriteLine(new string(' ', PRINT_WIDTH));
-                    
+
                     foreach (var tl in teLines)
                     {
                         writer.WriteLine(PadR(ct.Name, 11) + PadL(tl.sQuantity.ToString("####0.000"), 10) + PadL(tl.sAmount.ToString("######0.00"), 10)
@@ -5728,12 +5861,11 @@ namespace InfonetCSCR.Data.Repositories
                         vAmount += tl.sAmount;
                         vTotalTaxSaved += tl.sTotalTaxSaved;
                     }
-
-                    writer.WriteLine(new string('_', PRINT_WIDTH));
-                    writer.WriteLine(PadR("Total Sales", 21) + PadL(vAmount.ToString("######0.00"), 10) + PadL(vTotalTaxSaved.ToString("######0.00"), 9));
                 }
-
             } /* end of for */
+
+            writer.WriteLine(new string('_', PRINT_WIDTH));
+            writer.WriteLine(PadR("Total Sales", 21) + PadL(vAmount.ToString("######0.00"), 10) + PadL(vTotalTaxSaved.ToString("######0.00"), 9));
 
             return true;
         } /* end of function */
@@ -5744,6 +5876,9 @@ namespace InfonetCSCR.Data.Repositories
             decimal vAmount;
             decimal vTotalTaxSaved;
             bool HeadPrn = false;
+
+            writer.WriteLine(new string(' ', PRINT_WIDTH));
+            writer.WriteLine(new string(' ', PRINT_WIDTH));
 
             query = "select * from CSCMaster.dbo.Category order by ID";
             IEnumerable<Category> category = await Connection.QueryAsync<Category>(query, null, Transaction);
@@ -5801,9 +5936,6 @@ namespace InfonetCSCR.Data.Repositories
 
                 if (teLines != null && teLines.Any())
                 {
-                    writer.WriteLine(new string(' ', PRINT_WIDTH));
-                    writer.WriteLine(new string(' ', PRINT_WIDTH));
-
                     if (polShow_All_Exempt)
                         writer.WriteLine(PadR("Tax Exempt Sales - (SITE) ", 25));
                     else
@@ -5813,22 +5945,9 @@ namespace InfonetCSCR.Data.Repositories
 
                     writer.WriteLine(PadR("Category", 10) + PadL("Qty", 11) + PadL("Sales", 10) + PadL("Tax", 9));
                     writer.WriteLine(new string('_', PRINT_WIDTH));
-                    writer.WriteLine(new string(' ', PRINT_WIDTH));
 
                     if (!HeadPrn)
                     {
-                        if (polShow_All_Exempt)
-                        {
-                            writer.WriteLine(PadR("Tax Exempt Sales - (SITE)", 25));
-                        }
-                        else
-                        {
-                            writer.WriteLine(PadR("Tax Exempt Sales", 20));
-                        }
-
-                        writer.WriteLine(PadR("", 33) + PadL("Exempted", 8));
-                        writer.WriteLine(PadR("Category", 13) + PadL("Qty", 9) + PadL("Sales", 10) + PadL("Tax", 8));
-                        writer.WriteLine(new string('_', PRINT_WIDTH));
                         HeadPrn = true;
                     }
                     foreach (var tl in teLines)
@@ -5840,15 +5959,16 @@ namespace InfonetCSCR.Data.Repositories
                         vTotalTaxSaved += tl.sTotalTaxSaved;
                     }
 
-                    if (HeadPrn)
-                    {
-                        writer.WriteLine(new string('_', PRINT_WIDTH));
-                        writer.WriteLine(PadR("Total Sales", 22) + PadL(vAmount.ToString("######0.00"), 10) + PadL(vTotalTaxSaved.ToString("######0.00"), 8));
-                        writer.WriteLine(new string(' ', PRINT_WIDTH));
-                    }
                 }
 
             } /* end of for */
+
+            if (HeadPrn)
+            {
+                writer.WriteLine(new string('_', PRINT_WIDTH));
+                writer.WriteLine(PadR("Total Sales", 22) + PadL(vAmount.ToString("######0.00"), 10) + PadL(vTotalTaxSaved.ToString("######0.00"), 8));
+                writer.WriteLine(new string(' ', PRINT_WIDTH));
+            }
 
             return true;
         } /* end of function */

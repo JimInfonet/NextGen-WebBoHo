@@ -1,4 +1,5 @@
 ﻿using InfonetCSCR.Core.Abstractions.Repositories;
+using InfonetCSCR.Core.Abstractions.Services;
 
 namespace InfonetCSCR.Data;
 
@@ -120,6 +121,7 @@ public class UnitOfWork : IUnitOfWork
     private IRepTillCloseRepository? _repTillCloseRepository;
     private IRepCloseBatchRepository? _repCloseBatchRepository;
     private IRepArStatRepository? _repArStatementRepository;
+    private IUserService? _userService;
     #endregion private fields
 
     public UnitOfWork(IApplicationConfig _applicationConfig)
@@ -137,6 +139,11 @@ public class UnitOfWork : IUnitOfWork
         _connection = new SqlConnection(connectionString);
         _connection.Open();
         _transaction = _connection.BeginTransaction();
+    }
+
+    public void BeginTransaction(IDbTransaction transaction)
+    {
+        _transaction = transaction;
     }
 
     public bool Commit()
@@ -189,7 +196,6 @@ public class UnitOfWork : IUnitOfWork
             _disposed = true;
         }
     }
-
     ~UnitOfWork()
     {
         dispose(false);
@@ -235,7 +241,7 @@ public class UnitOfWork : IUnitOfWork
     public ICardCodesRepository CardCodes => _cardCodesRepository ??= new CardCodesRepository(_transaction);
     public ICardProductRestrictionRepository CardProductRestrictions => _cardProductRestrictionRepository ??= new CardProductRestrictionRepository(_transaction);
     public IOptionalDataRepository OptionalDatas => _optionalDataRepository ??= new OptionalDataRepository(_transaction);
-    public ITillsSaleTendRepository? TilllsSaleTends => _tillsSaleTendRepository ??= new TillsSaleTendRepository(_transaction);
+    public ITillsSaleTendRepository TilllsSaleTends => _tillsSaleTendRepository ??= new TillsSaleTendRepository(_transaction);
     public ITransSaleTendRepository TransSaleTends => _transSaleTendRepository ??= new TransSaleTendRepository(_transaction);
     public IHotButtonsRepository HotButtons => _hotButtonsRepository ??= new HotButtonsRepository(_transaction);
     public IPriceGroupRepository PriceGroups => _priceGroupRepository ??= new PriceGroupRepository(_transaction);
@@ -304,7 +310,8 @@ public class UnitOfWork : IUnitOfWork
     public ISendDataToStoreRepository SendDataToStore => _sendDataToStoreRepository ??= new SendDataToStoreRepository(_transaction);
     public IExcelReportsRepository ExcelReports => _excelReportsRepository ??= new ExcelReportsRepository(_transaction);
     public IReportRepository Reports => _reportRepository ??= new ReportRepository(_transaction);
-    public IRepTillCloseRepository RepTillCloses => _repTillCloseRepository ??= new RepTillCloseRepository(_applicationConfig, _transaction);
+    public IRepTillCloseRepository RepTillCloses => _repTillCloseRepository ??= new RepTillCloseRepository(_applicationConfig, _policyRepository, _transaction, _userService);
+    //public IRepTillCloseRepository RepTillCloses { get; }
     public IRepCloseBatchRepository RepCloseBatch => _repCloseBatchRepository ??= new RepCloseBatchRepository(_applicationConfig, _transaction);
     public IRepArStatRepository RepArStat => _repArStatementRepository ??= new RepArStatRepository(_transaction);
     #endregion properties

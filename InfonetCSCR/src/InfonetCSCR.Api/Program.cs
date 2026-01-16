@@ -1,5 +1,6 @@
 // TODO: Add validation
 
+using InfonetCSCR.Api.Configuration;
 using InfonetCSCR.Api.Converter;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,10 +18,9 @@ builder.Logging.AddSerilog(Log.Logger);
 // Add services to the container.
 #region services
 builder.Services.AddControllers();
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-builder.Services.AddSingleton<ICompanySetupService, CompanySetupService>();
-builder.Services.AddSingleton<IApplicationConfig, ApplicationConfig>();
+builder.Services.AddCscApiCore();
 builder.Services.AddTransient<IUserService, UserService>();
+//builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddTransient<ICheckInCheckOutService, CheckInCheckOutService>();
 builder.Services.AddTransient<ITimesheetReportsService, TimesheetReportsService>();
 builder.Services.AddTransient<ITokenService, TokenService>();
@@ -45,7 +45,6 @@ builder.Services.AddTransient<ITaxExemptVendorsService, TaxExemptVendorsService>
 builder.Services.AddTransient<ITaxExemptRateService, TaxExemptRateService>();
 builder.Services.AddTransient<IEncryptionService, EncryptionService>();
 builder.Services.AddTransient<IAuthService, AuthService>();
-builder.Services.AddTransient<IStockPriceService, StockPriceService>();
 builder.Services.AddTransient<IPolicyService, PolicyService>();
 builder.Services.AddTransient<IRegionService, RegionService>();
 builder.Services.AddTransient<IStoreService, StoreService>();
@@ -59,7 +58,6 @@ builder.Services.AddTransient<ITendersService, TendersService>();
 builder.Services.AddTransient<ICardProductRestrictionService, CardProductRestrictionService>();
 builder.Services.AddTransient<ITransSaleTendService, TransSaleTendService>();
 builder.Services.AddTransient<ITillsSaleTendService, TillsSaleTendService>();
-builder.Services.AddTransient<IPricebookTransferService, PricebookTransferService>();
 builder.Services.AddTransient<IHotButtonsService, HotButtonsService>();
 builder.Services.AddTransient<IDataTransferReportsService, DataTransferReportsService>();
 builder.Services.AddTransient<IEODGroupService, EODGroupService>();
@@ -242,6 +240,8 @@ if (useHttps)
 {
   app.UseHttpsRedirection();
 }
+// Exception handling must wrap authentication, authorization, and endpoints.
+app.UseMiddleware<ErrorHandlingMiddleware>();
 app.UseCors(InfonetAllowedSpecificOrigins);
 
 //Comment out following to run Swagger without going through JWT
@@ -249,6 +249,5 @@ app.UseAuthentication();
 
 app.UseAuthorization();
 app.MapControllers();
-app.UseMiddleware<ErrorHandlingMiddleware>();
 
 app.Run();

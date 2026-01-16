@@ -26,7 +26,7 @@ namespace InfonetCSCR.Web.Controllers
         {
             var policies = _repTillCloseService.GetPolicies();
 
-            ViewData["CloseBDays"] = policies.CloseBDays;
+            ViewData["TillCDays"] = policies.TillCDays;
             return View();
         }
         public async Task<IActionResult> GetStores()

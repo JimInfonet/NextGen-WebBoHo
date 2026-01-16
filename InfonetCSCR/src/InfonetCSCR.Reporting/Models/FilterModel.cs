@@ -47,12 +47,14 @@ namespace InfonetCSCR.Reporting.Models
     }
     public class ReportFilter
     {
+        public List<FilterModel> Stores { get; set; }
         public List<DeptFilterModel> Dept { get; set; }
         public List<DeptFilterModel> DeptWithFuel { get; set; }
         public List<StockMovementFilterModel> SubDept { get; set; }
         public List<StockMovementFilterModel> SubDetail { get; set; }
         public List<StockMovementFilterModel> StockCode { get; set; }
         public List<FilterModel> Vendor { get; set; }
+        public List<FilterModel> Categories { get; set; }
         public List<CategoryFilterModel> Reports { get; set; }
         public List<ReportFilterModel> Filters { get; set; }
         public List<ReportResModel> ReportRes { get; set; }

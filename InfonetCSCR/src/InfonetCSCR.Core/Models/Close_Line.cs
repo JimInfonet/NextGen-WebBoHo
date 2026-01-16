@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace InfonetCSCR.Core.Models
 {
-    public partial class Close_Line
+    public class Close_Line
     {
         public int Sequence { get; set; }
         public string? Tender_Name { get; set; }

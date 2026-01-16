@@ -3,7 +3,9 @@ using InfonetCSCR.Reporting.Service;
 using Microsoft.Reporting.WebForms;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
+using System.Web.Configuration;
 using System.Web.Mvc;
 
 namespace InfonetCSCR.Reporting.Controllers
@@ -15,19 +17,43 @@ namespace InfonetCSCR.Reporting.Controllers
         private readonly DateTime today ;
         private readonly string companyName;
 
+        public string reportDir;
+        public bool isBackOffice;
+
         public CategoryController()
         {
             categoryService = new CategoryService();
             companyName = "Infonet-Technology.com";
             today = DateTime.Today;
+
+            isBackOffice = bool.Parse(WebConfigurationManager.AppSettings["BackOffice"] ?? "true");
+            if (isBackOffice)
+                reportDir = "~/BoReports/";
+            else
+                reportDir = "~/HoReports/";
         }
 
         // GET: Dashboard
         public ActionResult Index()
         {
-            bool.TryParse(ConfigurationManager.AppSettings["IsHeadOffice"], out bool isHeadOffice);
-            ViewBag.IsHeadOffice = isHeadOffice;
+            //bool.TryParse(ConfigurationManager.AppSettings["IsHeadOffice"], out bool isHeadOffice);
+            ViewBag.IsHeadOffice = !isBackOffice;
             ViewBag.Today = today.ToShortDateString();
+
+            var stores = new List<SelectListItem>();
+            if (!isBackOffice)
+            {
+                stores.Add(new SelectListItem { Value = "All", Text = "All" });
+                foreach (FilterModel store in categoryService.GetStoreList())
+                {
+                    stores.Add(new SelectListItem
+                    {
+                        Value = store.Id,
+                        Text = store.Name
+                    });
+                }
+            }
+            ViewBag.Stores = stores;
 
             return View();
         }
@@ -44,6 +70,7 @@ namespace InfonetCSCR.Reporting.Controllers
         {
             ReportFilter reportFilter = categoryService.GetReportFilter();
 
+            reportFilter.Stores.Insert(0, new FilterModel { Id = "All", Name = "Stores" });
             reportFilter.Dept.Insert(0, new DeptFilterModel { Id = "All", Name = "All" });
             reportFilter.DeptWithFuel.Insert(0, new DeptFilterModel { Id = "All", Name = "All" });
             reportFilter.SubDept.Insert(0, new StockMovementFilterModel { Id = "All", Name = "All" });
@@ -66,7 +93,7 @@ namespace InfonetCSCR.Reporting.Controllers
             string vendor1, string vendor2, string till1, string till2, string tax1, string tax2, string orderno, string qtyoh)
         {
             ReportViewer reportViewer;
-            string reportPath = Server.MapPath("~/Reports/" + reportName + ".rdlc");
+            string reportPath = Server.MapPath(reportDir + reportName + ".rdlc");
             string reportTitle = categoryService.GetReportTitle(reportName);
             string codetype = "";
 
@@ -79,21 +106,21 @@ namespace InfonetCSCR.Reporting.Controllers
             else if (reportName == "SK4020")
             {
                 reportName = "StockMovementReport";
-                reportPath = Server.MapPath("~/Reports/" + reportName + ".rdlc");
+                reportPath = Server.MapPath(reportDir + reportName + ".rdlc");
                 reportViewer = categoryService.GetStockMovementReport(reportName, reportPath, date1, date2, dept1, subdept1, subdetail1, stock1, store, companyName);
             }
             //NoStockMovementReport
             else if (reportName == "SK4030")
             {
                 reportName = "NoStockMovementReport";
-                reportPath = Server.MapPath("~/Reports/" + reportName + ".rdlc");
+                reportPath = Server.MapPath(reportDir + reportName + ".rdlc");
                 reportViewer = categoryService.GetNoStockMovementReport(reportName, reportPath, date1, date2, store, companyName);
             }
             //GetHistoricalInventoryLevelReport
             //else if (reportName == "SK5020")
             //{
             //    reportName = "HistoricalInventoryReport";
-            //    reportPath = Server.MapPath("~/Reports/" + reportName + ".rdlc");
+            //    reportPath = Server.MapPath(reportDir + reportName + ".rdlc");
             //    reportViewer = categoryService.GetHistoricalInventoryLevelReport(reportName, reportPath, date1, store, companyName);
             //}
             //for Label reports
@@ -110,7 +137,7 @@ namespace InfonetCSCR.Reporting.Controllers
                         reportName = "ShelfLabelCode39";
                         break;
                 }
-                reportPath = Server.MapPath("~/Reports/" + reportName + ".rdlc");
+                reportPath = Server.MapPath(reportDir + reportName + ".rdlc");
                 reportViewer = categoryService.GetShelfLabelReport(reportPath, reportName, dept1, subdept1, vendor1, codetype);
             }
             //for all other reports

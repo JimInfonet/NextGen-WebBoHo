@@ -14,7 +14,7 @@ $(async function () {
 });
 
 let loadTillCloses = async () => {
-    var days = document.getElementById("CloseBDays").value;
+    var days = document.getElementById("TillCDays").value;
     let date1 = new Date();
     let date2 = new Date();
     date1.setDate(date2.getDate() - days);

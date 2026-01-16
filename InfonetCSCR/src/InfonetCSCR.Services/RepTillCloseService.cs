@@ -5,12 +5,15 @@
         private readonly IUnitOfWork _unitOfWork;
         private readonly IApplicationConfig _config;
         private readonly IPolicyService _policy;
+        private readonly IUserService _userService;
 
         public RepTillCloseService(IApplicationConfig config,
-                                    IPolicyService policy)
+                                    IPolicyService policy,
+                                    IUserService userService)
         {
             _config = config;
             _policy = policy;
+            _userService = userService;
             this._unitOfWork = new UnitOfWork(_config, _config.CSCMasterConnectionString);
         }
 

@@ -1,0 +1,245 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns:cl="http://schemas.microsoft.com/sqlserver/reporting/2010/01/componentdefinition" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/reportdefinition">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSet1">
+      <ConnectionProperties>
+        <DataProvider>System.Data.DataSet</DataProvider>
+        <ConnectString>/* Local Data */</ConnectString>
+      </ConnectionProperties>
+      <rd:DataSourceID>8005b246-ac33-450a-9936-f3a578622215</rd:DataSourceID>
+    </DataSource>
+  </DataSources>
+  <DataSets>
+    <DataSet Name="LO0020">
+      <Query>
+        <DataSourceName>DataSet1</DataSourceName>
+        <CommandText>/* Local Data */</CommandText>
+      </Query>
+    </DataSet>
+  </DataSets>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <ReportItems>
+          <Textbox Name="ReportTitle">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs><Paragraph><TextRuns><TextRun><Value>LO0020 - Loyalty Points by customer</Value><Style><FontSize>16pt</FontSize><FontWeight>Bold</FontWeight></Style></TextRun></TextRuns><Style /></Paragraph></Paragraphs>
+            <rd:DefaultName>ReportTitle</rd:DefaultName>
+            <Top>0.25in</Top><Left>0.25in</Left><Height>0.3in</Height><Width>7.5in</Width>
+            <Style><Border><Style>None</Style></Border></Style>
+          </Textbox>
+          <Textbox Name="PendingConversionNotice">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs><Paragraph><TextRuns><TextRun><Value>This RDLC file was created from the report chart as a placeholder. Convert the Crystal report layout and bind fields before publishing to users.</Value><Style><FontSize>9pt</FontSize></Style></TextRun></TextRuns><Style /></Paragraph></Paragraphs>
+            <rd:DefaultName>PendingConversionNotice</rd:DefaultName>
+            <Top>0.7in</Top><Left>0.25in</Left><Height>0.4in</Height><Width>7.5in</Width>
+            <Style><Border><Style>None</Style></Border></Style>
+          </Textbox>
+        </ReportItems>
+        <Height>1.3in</Height>
+        <Style />
+      </Body>
+      <Width>8in</Width>
+      <Page><PageHeight>11in</PageHeight><PageWidth>8.5in</PageWidth><LeftMargin>0.25in</LeftMargin><RightMargin>0.25in</RightMargin><TopMargin>0.25in</TopMargin><BottomMargin>0.25in</BottomMargin><ColumnSpacing>0.13in</ColumnSpacing><Style /></Page>
+    </ReportSection>
+  </ReportSections>
+  <ReportParameters>
+    <ReportParameter Name="date1">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>date1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="date2">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>date2</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="sdate1">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>sdate1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="sdate2">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>sdate2</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="dept1">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>dept1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="dept2">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>dept2</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="subdept1">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>subdept1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="subdept2">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>subdept2</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="subdetail1">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>subdetail1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="subdetail2">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>subdetail2</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="stock1">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>stock1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="stock2">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>stock2</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="class1">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>class1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="class2">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>class2</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="cust1">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>cust1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="cust2">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>cust2</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="emp1">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>emp1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="emp2">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>emp2</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="vendor1">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>vendor1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="vendor2">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>vendor2</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="till1">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>till1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="till2">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>till2</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="tax1">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>tax1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="tax2">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>tax2</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="group1">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>group1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="group2">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>group2</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="orderno">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>orderno</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="qtyoh">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>qtyoh</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="store">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>store</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="company">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>company</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="reportTitle">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>reportTitle</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="reportName">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>reportName</Prompt>
+    </ReportParameter>
+  </ReportParameters>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>9d05db3f-9b99-4181-987c-a7fe864ebdae</rd:ReportID>
+</Report>

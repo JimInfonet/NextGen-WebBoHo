@@ -1,0 +1,39 @@
+diff --git a/Database/HeadOfficeDBScripts.sql b/Database/HeadOfficeDBScripts.sql
+--- a/Database/HeadOfficeDBScripts.sql
++++ b/Database/HeadOfficeDBScripts.sql
+@@ -6449,0 +6450,35 @@
++-- StoreSpecial Crystal report migration.
++-- CategoryService maps StoreSpecial to Sproc_StoreS (the first six report-name characters).
++CREATE OR ALTER PROCEDURE [dbo].[Sproc_StoreS]
++    @stock1 NVARCHAR(10) = N'All',
++    @stock2 NVARCHAR(10) = N'All'
++AS
++BEGIN
++    SET NOCOUNT ON;
++
++    SELECT
++        STOCKMST.[STOCK_CODE],
++        STOCKMST.[DESCRIPT],
++        PRICEL.[StoreID],
++        PRICEL.[VendorID],
++        PRICEL.[Pr_Type],
++        PRICEL.[Pr_Units],
++        PRICEL.[PRICE],
++        PRICEL.[StartDate],
++        PRICEL.[EndDate],
++        PRICEL.[OrderNo],
++        Vendors.[Name]
++    FROM [CSCMaster].[dbo].[STOCKMST] AS STOCKMST
++    INNER JOIN [CSCMaster].[dbo].[PRICEL] AS PRICEL
++        ON STOCKMST.[STOCK_CODE] = PRICEL.[STOCK_CODE]
++    LEFT JOIN [CSCMaster].[dbo].[STORE] AS STORE
++        ON PRICEL.[StoreID] = STORE.[Store_ID]
++    LEFT JOIN [CSCMaster].[dbo].[Vendors] AS Vendors
++        ON PRICEL.[VendorID] = Vendors.[Code]
++    WHERE
++        @stock1 IS NULL OR @stock1 = N'' OR @stock1 = N'All'
++        OR STOCKMST.[STOCK_CODE] BETWEEN @stock1 AND COALESCE(NULLIF(@stock2, N''), @stock1)
++    ORDER BY
++        STOCKMST.[STOCK_CODE], PRICEL.[StoreID], PRICEL.[OrderNo], PRICEL.[VendorID];
++END
++GO

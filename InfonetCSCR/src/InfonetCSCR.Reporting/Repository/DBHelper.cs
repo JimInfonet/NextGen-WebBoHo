@@ -11,6 +11,7 @@ using System.Linq;
 using System.Resources;
 using System.Security.Cryptography;
 using System.Text;
+using System.Web.Configuration;
 using System.Web.Razor.Tokenizer;
 
 namespace InfonetCSCR.Reporting.Repository
@@ -88,7 +89,8 @@ namespace InfonetCSCR.Reporting.Repository
             CSCMasterDB = new SqlConnection(ConfigurationManager.ConnectionStrings["CSCMasterConnectionString"].ConnectionString);
             CSCTransDB = new SqlConnection(ConfigurationManager.ConnectionStrings["CSCTransConnectionString"].ConnectionString);
 
-            bool.TryParse(ConfigurationManager.AppSettings["IsHeadOffice"], out isHeadOffice);
+            bool.TryParse(WebConfigurationManager.AppSettings["BackOffice"] ?? "true", out bool isBackOffice);
+            isHeadOffice = !isBackOffice;
         }
 
         #region Authentication
@@ -163,7 +165,7 @@ namespace InfonetCSCR.Reporting.Repository
 
         public List<FilterModel> GetStoreList()
         {
-            return CSCMasterDB.Query<FilterModel>("SELECT Store_Id as Id, Store_Desc as Name from Store ORDER BY Store_Id").ToList();
+            return CSCMasterDB.Query<FilterModel>("SELECT Store_Id as Id, Store_Desc as Name from Store WHERE IsWarehouse =0 ORDER BY Store_Id").ToList();
         }
 
         public List<ReportFilterModel> GetReportFilterList()
@@ -185,14 +187,29 @@ namespace InfonetCSCR.Reporting.Repository
 
         public ReportFilter GetReportFilter()
         {
+
+            bool isBackOffice = bool.Parse(WebConfigurationManager.AppSettings["BackOffice"] ?? "true");
+            string cond ="";
+            if (!isBackOffice)
+                cond = "AND rep.WebHo = 1";
+            else
+                cond = "AND rep.WebBo = 1";
+
             ReportFilter reportFilter = new ReportFilter
             {
+                Stores = isHeadOffice ? GetStoreList() : new List<FilterModel>(),
+                //Stores = CSCMasterDB.Query<StoreFilterModel>("SELECT Store_ID as Id, Store_Desc as Name FROM STORE ORDER BY Store_ID").ToList(),
                 DeptWithFuel = CSCMasterDB.Query<DeptFilterModel>("SELECT D.Dept as Id, Dept_Name as Name, FD.Dept FuelDept FROM DEPT D LEFT JOIN [FUELDEPT] FD ON D.DEPT = FD.DEPT ORDER BY D.Dept").ToList(),
                 SubDept = CSCMasterDB.Query<StockMovementFilterModel>("SELECT Sub_Dept as Id, Sub_Name as Name, Dept as DeptId from SubDept ORDER BY Sub_Name").ToList(),
                 SubDetail = CSCMasterDB.Query<StockMovementFilterModel>("SELECT SubDetail as Id, SubDetail_Name as Name, Dept as DeptId from SubDetail ORDER BY SubDetail_Name").ToList(),
                 StockCode = CSCMasterDB.Query<StockMovementFilterModel>("SELECT Stock_Code as Id, Descript as Name, Dept as DeptId from StockMST ORDER BY Descript").ToList(),
                 Vendor = CSCMasterDB.Query<FilterModel>("SELECT Code as Id, Name from Vendors ORDER BY Name").ToList(),
-                Reports = CSCAdminDB.Query<CategoryFilterModel>("SELECT GID, rep.Report_Name as ID, rep.Report_Title as Name FROM [CSCAdmin].[dbo].[REPORTS] rep, [CSCAdmin].[dbo].[Reports_in_Groups] rig WHERE rep.Report_Name = rig.Report_Name AND rep.Web = 1 order by GID, rep.Report_Name").ToList(),
+                Categories = CSCAdminDB.Query<FilterModel>(
+                    "SELECT DISTINCT CAST(rig.GID AS varchar(10)) AS Id, rig.Group_Name AS Name " +
+                    "FROM [CSCAdmin].[dbo].[Reports_in_Groups] rig " +
+                    "INNER JOIN [CSCAdmin].[dbo].[REPORTS] rep ON rep.Report_Name = rig.Report_Name " +
+                    "WHERE rig.GID IS NOT NULL " + cond + " ORDER BY Name").ToList(),
+                Reports = CSCAdminDB.Query<CategoryFilterModel>("SELECT GID, rep.Report_Name as ID, rep.Report_Title as Name FROM [CSCAdmin].[dbo].[REPORTS] rep, [CSCAdmin].[dbo].[Reports_in_Groups] rig WHERE rep.Report_Name = rig.Report_Name " + cond + " order by rep.Report_Name").ToList(),
                 Filters = CSCAdminDB.Query<ReportFilterModel>("SELECT [Report_Name],[Filter_Seq],[Field],[Type],[Field_Type] FROM [Report_Filter] ORDER BY Filter_Seq").ToList(),
                 //ReportRes = CSCAdminDB.Query<ReportResModel>("SELECT Report_name, Field_name, Res_Number FROM [CSCAdmin].[dbo].[Report_Res] ORDER BY Field_Name").ToList()
             };
@@ -687,8 +704,10 @@ namespace InfonetCSCR.Reporting.Repository
             {
                 using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["CSCTransConnectionString"].ConnectionString))
                 {
-                    //SqlCommand cmd = new SqlCommand("Sproc_" + reportName, con);
-                    SqlCommand cmd = new SqlCommand("Sproc_" + reportName.Substring(0, 6), con);
+                    string storedProcedureReportName = reportName.StartsWith("Arch", StringComparison.OrdinalIgnoreCase)
+                        ? reportName
+                        : reportName.Substring(0, Math.Min(6, reportName.Length));
+                    SqlCommand cmd = new SqlCommand("Sproc_" + storedProcedureReportName, con);
 
                     cmd.CommandType = CommandType.StoredProcedure;
                     if (!String.IsNullOrEmpty(date1))

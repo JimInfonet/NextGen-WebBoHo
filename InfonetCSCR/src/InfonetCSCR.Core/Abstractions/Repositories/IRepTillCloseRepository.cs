@@ -13,7 +13,7 @@ namespace InfonetCSCR.Core.Abstractions.Repositories
         public Task<IEnumerable<RepTillClose>> GetRepTillCloses(DateTime date1, DateTime date2);
         public Task<string[]> GetRepByShift(GetRepTillCloseDto model);
         public Task<IEnumerable<int>> GetShiftNos(DateTime shiftdate);
-        public Task<string[]?> GetRepByDates(GetRepTillCloseDto model);
+        public Task<string[]> GetRepByDates(GetRepTillCloseDto model);
         public Task<string[]> GetRepByTillNo(GetRepTillCloseDto model);
         Task<bool> AddTillClose(TillClose tc);
     }

@@ -1,5 +1,1232 @@
 ﻿-- All necessary database scripts for Back Office of Infonet CSCR project will be written in this file
 
+/* Creating Stored Procedure [Sproc_ShelfLabelReportData] for Getting shelf lable data */
+
+USE [CSCMaster]
+GO
+/****** Object:  StoredProcedure [dbo].[Sproc_ShelfLabelReportData]    Script Date: 3/7/2022 7:13:54 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE ID = OBJECT_ID('Sproc_ShelfLabelReportData'))
+BEGIN
+    DROP PROCEDURE Sproc_ShelfLabelReportData
+END
+GO
+CREATE PROCEDURE [dbo].[Sproc_ShelfLabelReportData] 
+	@Dept NVARCHAR(10),
+	@SubDept NVARCHAR(10),
+	@Vendor NVARCHAR(10)
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+with cte_1 
+as 
+(  select  
+    ROW_NUMBER() over (order by v1.STOCK_CODE) as m  
+	,ROW_NUMBER() over (order by v1.STOCK_CODE)-1 as n  
+	,v1.STOCK_CODE  ,v2.DESCRIPT  
+	,v3.Price  
+	from [CSCMaster].[dbo].[STOCK_BR] v1  
+	INNER JOIN [CSCMaster].[dbo].[STOCKMST] v2 on v2.STOCK_CODE=v1.STOCK_CODE  
+	inner join [CSCMaster].[dbo].[Stock_Prices] v3 on v3.Stock_Code=v1.STOCK_CODE and v3.VendorID=v2.Vendor and v3.Price_Number=1 and v3.OrderNo=0  
+	inner join [CSCMaster].[dbo].[Dept] v4 on v4.DEPT=v2.DEPT  
+	left join [CSCMaster].[dbo].[SubDept] v5 on v5.SUB_DEPT=v2.SUB_DEPT and v5.DEPT=v2.DEPT  
+	where ISNUMERIC(v1.STOCK_CODE)>0 
+	and len(v1.STOCK_CODE)>=12 
+	and (@Vendor='All' or v2.Vendor=@Vendor)
+	and (@Dept='All' or v4.DEPT=@Dept)
+	and (@SubDept='All' or v5.SUB_DEPT=@SubDept)
+	) 
+,cte_2 
+as 
+(  select 
+     ROW_NUMBER() over (order by v1.m) as ky
+	 ,  v1.*  
+	 from cte_1 v1  
+	 inner join cte_1 v2 on v1.m=v2.n*3+1 )  
+,cte_3 
+as 
+(  select 
+     ROW_NUMBER() over (order by v1.m) as ky
+	 ,  v1.*  
+	 from cte_1 v1  
+	 inner join cte_1 v2 on v1.m=v2.n*3+2 )  
+, cte_4 
+as 
+(  select 
+      ROW_NUMBER() over (order by v1.m) as ky  
+	  ,v1.*  from cte_1 v1  
+	  inner join cte_1 v2 on v1.m=v2.n*3+3 )  
+,cte_5 
+as 
+(  select isnull(v1.STOCK_CODE,'') as STOCK_CODE1  
+          ,UPPER(left(v1.DESCRIPT,22)) as DESCRIPT1  
+		  ,v1.Price as Price1  
+		  ,'' as BarCode1  
+		  ,isnull(v2.STOCK_CODE,'') as STOCK_CODE2  
+		  ,UPPER(left(v2.DESCRIPT,22)) as DESCRIPT2  
+		  ,v2.Price as Price2  
+		  ,'' as BarCode2  
+		  ,isnull(v3.STOCK_CODE,'') as STOCK_CODE3  
+		  ,UPPER(left(v3.DESCRIPT,22)) as DESCRIPT3  
+		  ,v3.Price as Price3  
+		  ,'' as BarCode3  
+		  from cte_2 v1  
+		  left join cte_3 v2 on v1.ky=v2.ky  
+		  left join cte_4 v3 on v1.ky=v3.ky )  
+		  select  * from cte_5 
+END
+GO
+
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE ID = OBJECT_ID('Sproc_ShelfLabelReportDataCode39'))
+BEGIN
+    DROP PROCEDURE Sproc_ShelfLabelReportDataCode39
+END
+GO
+
+create PROCEDURE [dbo].[Sproc_ShelfLabelReportDataCode39] 
+	@Dept NVARCHAR(10),
+	@SubDept NVARCHAR(10),
+	@Vendor NVARCHAR(10)
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+with cte_1 
+as 
+(  select  
+    ROW_NUMBER() over (order by v1.STOCK_CODE) as m  
+	,ROW_NUMBER() over (order by v1.STOCK_CODE)-1 as n  
+	,v1.STOCK_CODE  ,v2.DESCRIPT  
+	,v3.Price  
+	from [CSCMaster].[dbo].[STOCK_BR] v1  
+	INNER JOIN [CSCMaster].[dbo].[STOCKMST] v2 on v2.STOCK_CODE=v1.STOCK_CODE  
+	inner join [CSCMaster].[dbo].[Stock_Prices] v3 on v3.Stock_Code=v1.STOCK_CODE and v3.VendorID=v2.Vendor and v3.Price_Number=1 and v3.OrderNo=0  
+	inner join [CSCMaster].[dbo].[Dept] v4 on v4.DEPT=v2.DEPT  
+	left join [CSCMaster].[dbo].[SubDept] v5 on v5.SUB_DEPT=v2.SUB_DEPT and v5.DEPT=v2.DEPT  
+	where ISNUMERIC(v1.STOCK_CODE)>0 
+	
+	and (@Vendor='All' or v2.Vendor=@Vendor)
+	and (@Dept='All' or v4.DEPT=@Dept)
+	and (@SubDept='All' or v5.SUB_DEPT=@SubDept)
+	) 
+,cte_2 
+as 
+(  select 
+     ROW_NUMBER() over (order by v1.m) as ky
+	 ,  v1.*  
+	 from cte_1 v1  
+	 inner join cte_1 v2 on v1.m=v2.n*3+1 )  
+,cte_3 
+as 
+(  select 
+     ROW_NUMBER() over (order by v1.m) as ky
+	 ,  v1.*  
+	 from cte_1 v1  
+	 inner join cte_1 v2 on v1.m=v2.n*3+2 )  
+, cte_4 
+as 
+(  select 
+      ROW_NUMBER() over (order by v1.m) as ky  
+	  ,v1.*  from cte_1 v1  
+	  inner join cte_1 v2 on v1.m=v2.n*3+3 )  
+,cte_5 
+as 
+(  select isnull(v1.STOCK_CODE,'') as STOCK_CODE1  
+          ,UPPER(left(v1.DESCRIPT,22)) as DESCRIPT1  
+		  ,v1.Price as Price1  
+		  ,'' as BarCode1  
+		  ,isnull(v2.STOCK_CODE,'') as STOCK_CODE2  
+		  ,UPPER(left(v2.DESCRIPT,22)) as DESCRIPT2  
+		  ,v2.Price as Price2  
+		  ,'' as BarCode2  
+		  ,isnull(v3.STOCK_CODE,'') as STOCK_CODE3  
+		  ,UPPER(left(v3.DESCRIPT,22)) as DESCRIPT3  
+		  ,v3.Price as Price3  
+		  ,'' as BarCode3  
+		  from cte_2 v1  
+		  left join cte_3 v2 on v1.ky=v2.ky  
+		  left join cte_4 v3 on v1.ky=v3.ky )  
+		  select  * from cte_5 
+END
+GO
+
+
+/* Creating Stored Procedure [Sproc_TotalSalesAndTransactions] for Getting Total Sales amount and total transaction count for a specific date */
+
+
+
+USE [CSCTRANS]
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO 
+
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE ID = OBJECT_ID('Sproc_TotalSalesAndTransactions'))
+BEGIN
+    DROP PROCEDURE Sproc_TotalSalesAndTransactions
+END
+GO
+
+CREATE PROCEDURE [DBO].[Sproc_TotalSalesAndTransactions]
+	@SALEDATE DATETIME
+AS
+
+BEGIN
+	SET NOCOUNT ON;
+	DECLARE @SALEAMT SMALLMONEY = 0
+	DECLARE @TRANCOUNT INT = 0
+	SET @SALEDATE = CONVERT(DATE, @SALEDATE)
+
+	SELECT @SALEAMT = 
+		(
+			SELECT
+			ISNULL(SUM(ISNULL(SL.AMOUNT, 0) - ISNULL(SL.DISCOUNT, 0) - ISNULL(SL.DISC_ADJ, 0)), 0) 
+			FROM 
+			CSCTRANS.DBO.SALEHEAD SH 
+			INNER JOIN 
+				CSCTRANS.DBO.SALELINE SL 
+				ON SH.SALE_NO = SL.SALE_NO AND SH.TILL = SL.TILL_NUM
+				WHERE 
+						CONVERT(DATE, SH.SALE_DATE) = @SALEDATE
+				AND SH.T_TYPE IN ('SALE', 'REFUND', 'PATP_APP') 
+		) 
+			+
+		
+		(
+			SELECT
+			ISNULL(SUM(ISNULL(SL.AMOUNT, 0) - ISNULL(SL.DISCOUNT, 0) - ISNULL(SL.DISC_ADJ, 0)),0) 
+				FROM 
+				CSCTills.DBO.SALEHEAD SH 
+				INNER JOIN 
+					CSCTills.DBO.SALELINE SL 
+					ON SH.SALE_NO = SL.SALE_NO AND SH.TILL = SL.TILL_NUM
+					WHERE 
+							CONVERT(DATE, SH.SALE_DATE) =  @SALEDATE
+					AND SH.T_TYPE IN ('SALE', 'REFUND', 'PATP_APP')
+		)
+		
+
+	SELECT @TRANCOUNT =
+		(
+			SELECT 
+				COUNT(SH.SALE_NO) AS TRANSACTIONS
+			FROM CSCTrans.DBO.SALEHEAD SH 
+			WHERE 
+				CONVERT(DATE, SH.SALE_DATE) = @SALEDATE
+				AND SH.T_TYPE IN ('SALE', 'REFUND', 'PATP_APP')
+		) 
+			+
+		
+		(
+			SELECT 
+				COUNT(SH.SALE_NO) AS TRANSACTIONS
+			FROM CSCTills.DBO.SALEHEAD SH 
+			WHERE 
+				CONVERT(DATE, SH.SALE_DATE) = @SALEDATE
+				AND SH.T_TYPE IN ('SALE', 'REFUND', 'PATP_APP')
+		)
+	
+	SELECT @SALEAMT AS SALEAMT, 
+		   @TRANCOUNT AS TRANSACTIONS
+END
+GO
+
+
+/* Creating Stored Procedure [Sproc_DashboardChartData] for Getting Sales Chart and Top Category Chart data for a specific date */
+
+USE [CSCTRANS]
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO 
+
+
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE ID = OBJECT_ID('Sproc_DashboardChartData'))
+BEGIN
+    DROP PROCEDURE Sproc_DashboardChartData
+END
+GO
+
+CREATE PROCEDURE [DBO].[Sproc_DashboardChartData]
+	@SALEDATE DATETIME
+AS
+
+BEGIN
+	SET NOCOUNT ON;
+	SET @SALEDATE = CONVERT(DATE, @SALEDATE)
+
+	SELECT DEPT, SALEHOUR, SUM(SALES) AS SALEAMT
+	FROM
+	(
+		SELECT 
+			D.DEPT_NAME AS DEPT, 
+			DATEPART(HOUR, SH.SALE_TIME) AS SALEHOUR,
+			(ISNULL(SL.AMOUNT, 0) - ISNULL(SL.DISCOUNT, 0) - ISNULL(SL.DISC_ADJ, 0)) AS SALES
+		FROM 
+			CSCTRANS.DBO.SALELINE SL 
+			INNER JOIN 
+			CSCTRANS.DBO.SALEHEAD SH 
+			ON 
+			SH.SALE_NO = SL.SALE_NO AND SH.TILL = SL.TILL_NUM
+			INNER JOIN 
+			CSCMaster.DBO.Dept D
+			ON D.DEPT = SL.DEPT
+		WHERE 
+				CONVERT(DATE, SH.SALE_DATE) = @SALEDATE
+			AND SH.T_TYPE IN ('SALE', 'REFUND', 'PATP_APP')
+		
+		UNION ALL
+		
+		SELECT 
+			D.DEPT_NAME AS DEPT, 
+			DATEPART(HOUR, SH.SALE_TIME) AS SALEHOUR,
+			(ISNULL(SL.AMOUNT, 0) - ISNULL(SL.DISCOUNT, 0) - ISNULL(SL.DISC_ADJ, 0)) AS SALES
+		FROM CSCTILLS.DBO.SALELINE SL 
+			INNER JOIN 
+			CSCTILLS.DBO.SALEHEAD SH 
+			ON 
+			SH.SALE_NO = SL.SALE_NO AND SH.TILL = SL.TILL_NUM
+			INNER JOIN 
+			CSCMaster.DBO.Dept D
+			ON D.DEPT = SL.DEPT
+		WHERE 
+				CONVERT(DATE, SH.SALE_DATE) = @SALEDATE
+			AND SH.T_TYPE IN ('SALE', 'REFUND', 'PATP_APP')
+	) 
+	AS U
+	GROUP BY U.DEPT, U.SALEHOUR 
+END
+GO
+
+/* Creating Stored Procedure [Sproc_DailySalesReportData] for Getting Fuel Sales data and C-store Sales data for a specific date on report page */
+
+USE [CSCTRANS]
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO 
+
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE ID = OBJECT_ID('Sproc_DailySalesReportData'))
+BEGIN
+    DROP PROCEDURE Sproc_DailySalesReportData
+END
+GO
+
+CREATE PROCEDURE [DBO].[Sproc_DailySalesReportData]
+	@SALEDATE DATETIME
+AS
+
+BEGIN
+	SET NOCOUNT ON;
+	SET @SALEDATE = CONVERT(DATE, @SALEDATE)
+
+	SELECT 
+		D.DEPT AS DEPTID,
+		SL.STOCK_CODE AS STOCKCODE,
+		SUM(SL.QUANTITY) AS QTY, 
+		SUM(SL.AMOUNT - SL.DISCOUNT - SL.DISC_ADJ) AS SALES 
+	FROM 
+		[SALEHEAD] SH
+		INNER JOIN [SALELINE] SL 
+					ON SH.SALE_NO = SL.SALE_NO AND SH.TILL = SL.TILL_NUM
+		INNER JOIN [CSCMASTER].[DBO].[FUELDEPT] FD 
+					ON SL.DEPT = FD.DEPT
+		INNER JOIN [CSCMASTER].[DBO].[DEPT] D 
+					ON D.DEPT = SL.DEPT
+		WHERE 
+			SH.T_TYPE IN ( 'SALE', 'REFUND', 'PATP_APP') 
+		AND SH.SHIFTDATE = @SALEDATE
+		
+		GROUP BY 
+				 D.DEPT,
+				 SL.STOCK_CODE
+				 
+	SELECT  DEPTNAME, 
+			DEPTID, 
+			SUM(ISNULL(QTY, 0)) AS QTY, 
+			SUM(ISNULL(SALES, 0)) AS SALES 
+	FROM (
+		SELECT
+			(ISNULL(D.DEPT_NAME, '<No Dept>')) AS DEPTNAME,
+			IIF(D.DEPT_NAME IS NULL, 'No ID', SL.DEPT) AS DEPTID,
+			SUM(SL.QUANTITY) AS QTY, 
+			SUM(SL.AMOUNT - SL.DISCOUNT - SL.DISC_ADJ) AS SALES 
+		FROM 
+			[SALEHEAD] SH
+			INNER JOIN [SALELINE] SL 
+				ON SH.SALE_NO = SL.SALE_NO AND SH.TILL = SL.TILL_NUM 
+			LEFT JOIN [CSCMASTER].[DBO].[FUELDEPT] FD 
+				ON SL.DEPT = FD.DEPT
+			LEFT JOIN [CSCMASTER].[DBO].[DEPT] 
+				D ON D.DEPT = SL.DEPT
+			WHERE FD.DEPT IS NULL 
+				AND SH.T_TYPE IN ( 'SALE', 'REFUND', 'PATP_APP') 
+				AND SH.SHIFTDATE = @SALEDATE
+			GROUP BY SL.DEPT, D.DEPT_NAME
+	)AS U
+	GROUP BY U.DEPTID, U.DEPTNAME
+				
+	
+	SELECT 
+		TAXNAME, 
+		INCLUDED,
+		ADDED, 
+		ADDED + INCLUDED AS TOTAL 
+	FROM(
+		SELECT 
+			TAX_NAME AS TAXNAME, 
+			SUM(TAX_INCLUDED_AMOUNT) AS INCLUDED, 
+			SUM(TAX_ADDED_AMOUNT) AS ADDED
+		  FROM [S_SALETAX] ST
+				INNER JOIN [SALEHEAD] SH 
+				ON ST.SALE_NO = SH.SALE_NO AND ST.TILL_NUM = SH.TILL
+		  WHERE SH.SHIFTDATE = @SALEDATE
+		  GROUP BY TAX_NAME
+	) TAX
+
+
+	SELECT 
+		'Sale Charges' AS NAME, 
+		ISNULL(SUM(SC.AMOUNT),0) AS AMOUNT
+	FROM [SALECHG] SC
+		INNER JOIN [SALEHEAD] SH 
+		ON SC.SALE_NO = SH.SALE_NO AND SC.TILL_NUM = SH.TILL
+	WHERE SH.SHIFTDATE = @SALEDATE
+
+	UNION ALL
+
+	SELECT 'Sale Kit Charges' AS NAME, 
+			ISNULL(SUM(SC.AMOUNT),0) AS AMOUNT
+	FROM [SALEKITCHG] SC
+	  INNER JOIN [SALEHEAD] SH 
+			ON SC.SALE_NO = SH.SALE_NO AND SC.TILL_NUM = SH.TILL
+	WHERE SH.SHIFTDATE = @SALEDATE
+
+
+	SELECT 
+		R.NAME, 
+		R.AMOUNT,
+		ISCHARTDATA
+	FROM 
+	(
+		SELECT 
+			TENDNAME AS NAME, 
+			ISNULL(SUM(AMTTEND),0) AS AMOUNT, 
+			1 AS RNK, 
+			1 AS ISCHARTDATA
+		  FROM 
+			[SALETEND] ST
+		  INNER JOIN [SALEHEAD] SH 
+			ON ST.Sale_No = SH.SALE_NO AND ST.TILL_NUM = SH.TILL
+		  WHERE 
+			SH.ShiftDate = @SALEDATE
+		  GROUP BY TENDNAME
+		  
+		  UNION
+		
+		SELECT 
+			'Exchange adjustment' AS NAME, 
+			ISNULL(SUM(AMTUSED - AMTTEND), 0) AS AMOUNT,
+			2 AS RNK, 
+			0 AS ISCHARTDATA
+		  FROM 
+			[SALETEND] ST
+		  INNER JOIN [SALEHEAD] SH 
+			ON ST.Sale_No = SH.SALE_NO AND ST.TILL_NUM = SH.TILL
+		  WHERE 
+			SH.ShiftDate = @SALEDATE
+		  
+		  UNION
+		
+		SELECT 
+			'AR payments' AS NAME, 
+			ISNULL(SUM(TEND_AMT),0) AS AMOUNT, 
+			3 AS RNK, 
+			0 AS ISCHARTDATA
+		  FROM [SALEHEAD] SH 
+		  WHERE 
+			SH.ShiftDate = @SALEDATE
+			AND SH.T_TYPE = 'PAYMENT'
+		  
+		  UNION
+		
+		SELECT 
+			'Overpayments' AS NAME, 
+			ISNULL(SUM(OverPayment),0) 
+			AS AMOUNT, 
+			4 AS RNK, 
+			0 AS ISCHARTDATA
+		  FROM [SALEHEAD] SH
+		  WHERE 
+			SH.ShiftDate = @SALEDATE 
+			AND SH.T_TYPE = 'PAYMENT'
+		
+		UNION
+		
+		SELECT 
+			'Payouts' AS NAME, 
+			ISNULL(SUM(TEND_AMT),0) AS AMOUNT, 
+			5 AS RNK, 0 AS ISCHARTDATA
+		  FROM 
+			[SALEHEAD] SH
+		  WHERE 
+			SH.ShiftDate = @SALEDATE 
+			AND SH.T_TYPE = 'PAYOUTS'
+		
+		UNION
+
+		SELECT 
+			'Penny Rounding' AS NAME, 
+			ISNULL(SUM(Penny_Adj),0) AS AMOUNT, 
+			6 AS RNK, 
+			0 AS ISCHARTDATA
+		  FROM 
+			[SALEHEAD] SH
+		  WHERE
+			SH.ShiftDate = @SALEDATE
+	) 
+	AS R ORDER BY RNK
+END
+GO
+
+USE [CSCTrans]
+GO
+/****** Object:  Table [dbo].[InventoryHist]   Script Date: 7/26/2021 7:02:01 PM  ******/
+
+IF  NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InventoryHist]') AND type in (N'U'))
+BEGIN
+	CREATE TABLE [dbo].[InventoryHist](
+		[Stock_Code] [nvarchar](32) NOT NULL,
+		[Inv_Date] [smalldatetime] NOT NULL,
+		[Quantity] [int] NULL,
+		[Cost] [money] NULL,
+	 CONSTRAINT [PK_InventoryHist] PRIMARY KEY CLUSTERED 
+	(
+		[Stock_Code] ASC,
+		[Inv_Date] ASC
+	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+	) ON [PRIMARY]
+END
+GO
+
+USE CSCTrans
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO 
+
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE ID = OBJECT_ID('Sproc_StockMovementReportData'))
+BEGIN
+    DROP PROCEDURE Sproc_StockMovementReportData
+END
+GO
+
+CREATE PROCEDURE [dbo].[Sproc_StockMovementReportData] 
+	-- Add the parameters for the stored procedure here
+	@StartDate SMALLDATETIME,
+	@EndDate SMALLDATETIME,
+	@Dept NVARCHAR(10),
+	@SubDept NVARCHAR(10),
+	@SubDetail NVARCHAR(32),
+	@StockCode NVARCHAR(32)
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+    DECLARE @code NVARCHAR(32) 
+	DECLARE @description NVARCHAR(70) 
+	DECLARE @OUTPUT TABLE
+	(	
+		STOCK_CODE NVARCHAR(32),
+		STOCK_DESCRIPTION NVARCHAR(70),
+		OPENINGQUANTITY FLOAT,
+		QUANTITYIN FLOAT,
+		QUANTITYOUT FLOAT,
+		CLOSINGQUANTITY FLOAT,
+		OPENINGVALUE MONEY,
+		VALUEIN MONEY,
+		VALUEOUT MONEY,
+		CLOSINGVALUE MONEY
+	)
+	DECLARE db_cursor CURSOR FOR 
+	SELECT STOCK_CODE, DESCRIPT FROM [CSCMaster].[dbo].[STOCKMST] 
+	LEFT JOIN [CSCMASTER].[DBO].[FUELDEPT] FD 
+			ON STOCKMST.DEPT = FD.DEPT
+	INNER JOIN [CSCMASTER].[DBO].[DEPT] 
+		D ON D.DEPT = STOCKMST.DEPT
+		WHERE 
+		FD.DEPT IS NULL 
+		AND (@StockCode = 'All' OR STOCK_CODE = @StockCode)
+		AND (@Dept = 'All' OR STOCKMST.DEPT = @Dept)
+		AND (@SubDept = 'All' OR SUB_DEPT = @SubDept)
+		AND (@SubDetail = 'All' OR Sub_Detail = @SubDetail)
+	OPEN db_cursor  
+	FETCH NEXT FROM db_cursor INTO @code, @description  
+	WHILE @@FETCH_STATUS = 0  
+	BEGIN  
+		DECLARE @QUANTITYIN AS FLOAT
+		DECLARE @QUANTITYOUT AS FLOAT
+		DECLARE @OPENINGVALUE AS MONEY
+		DECLARE @VALUEIN AS MONEY
+		DECLARE @VALUEOUT AS MONEY
+		DECLARE @CLOSINGVALUE AS MONEY
+		DECLARE @CLOSINGQUANTITY AS FLOAT
+		DECLARE @OPENINGQUANTITY AS FLOAT
+
+		DECLARE @COST AS MONEY
+		DECLARE @LASTCOST AS MONEY
+
+		SELECT @OPENINGQUANTITY = ISNULL(SUM(Quantity),0) FROM INVENTORYHIST
+			WHERE Inv_Date = @StartDate
+			AND Stock_Code = @code
+
+		SELECT @COST = ISNULL(SUM(COST),0) FROM INVENTORYHIST
+			WHERE Inv_Date = @StartDate
+			AND Stock_Code = @code
+		
+		SELECT @LASTCOST = ISNULL(SUM(COST),0) FROM INVENTORYHIST
+			WHERE Inv_Date = @EndDate
+			AND Stock_Code = @code
+
+		SELECT @QUANTITYIN = 
+			(SELECT ISNULL(SUM(PD.ReceivedQty),0) FROM [PurchaseHeader] PH
+				INNER JOIN [PurchaseDetail] PD ON PH.PurchaseNo = PD.PurchaseNo 
+				WHERE PH.ReceivedDate BETWEEN @StartDate AND @EndDate 
+				AND PD.StockCode = @code)
+			+
+			(SELECT ISNULL(SUM(QTY), 0) FROM StockHist
+				WHERE Purpose = 1
+				AND BatchDate BETWEEN @StartDate AND @EndDate
+				AND StockCode = @code)
+			+
+			(SELECT ISNULL(SUM(QUANTITY * -1), 0) FROM SALELINE SL
+			INNER JOIN SALEHEAD SH 
+				ON SH.SALE_NO = SL.SALE_NO AND SH.TILL = SL.TILL_NUM 
+				WHERE STOCK_CODE = @code AND SALE_TYPE = 'REFUND' AND sh.ShiftDate BETWEEN @StartDate AND @EndDate )
+		 
+		SELECT @QUANTITYOUT = 
+		 	(SELECT ISNULL(SUM(QUANTITY),0) FROM SALELINE SL
+			INNER JOIN SALEHEAD SH 
+				ON SH.SALE_NO = SL.SALE_NO AND SH.TILL = SL.TILL_NUM 
+				WHERE STOCK_CODE = @code AND SALE_TYPE = 'SALE' AND sh.ShiftDate BETWEEN @StartDate AND @EndDate)
+		 +
+			(SELECT ISNULL(SUM(QUANTITY), 0) FROM SALELINE SL
+			INNER JOIN SALEHEAD SH 
+				ON SH.SALE_NO = SL.SALE_NO AND SH.TILL = SL.TILL_NUM 
+				WHERE STOCK_CODE = @code AND SALE_TYPE = 'MARKDOWN' AND sh.ShiftDate BETWEEN @StartDate AND @EndDate )
+
+		SELECT @CLOSINGQUANTITY = @OPENINGQUANTITY + @QUANTITYIN - @QUANTITYOUT
+
+		SELECT @OPENINGVALUE = @OPENINGQUANTITY * @COST
+
+		SELECT @VALUEIN = @QUANTITYIN * @LASTCOST 
+
+		SELECT @VALUEOUT = @QUANTITYOUT * @LASTCOST
+
+		SELECT @CLOSINGVALUE = @CLOSINGQUANTITY * @LASTCOST
+
+		INSERT INTO @OUTPUT VALUES (
+			@code,
+			@description,
+			@OPENINGQUANTITY,
+			@QUANTITYIN,
+			@QUANTITYOUT,
+			@CLOSINGQUANTITY,
+			@OPENINGVALUE,
+			@VALUEIN,
+			@VALUEOUT,
+			@CLOSINGVALUE
+		)
+		
+		FETCH NEXT FROM db_cursor INTO @code, @description 
+	END		
+	CLOSE db_cursor  
+	DEALLOCATE db_cursor 
+	SELECT * FROM @OUTPUT
+	ORDER BY STOCK_CODE
+END
+
+GO
+
+USE CSCTrans
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO 
+
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE ID = OBJECT_ID('Sproc_NoStockMovementReportData'))
+BEGIN
+    DROP PROCEDURE Sproc_NoStockMovementReportData
+END
+GO
+
+CREATE PROCEDURE [dbo].[Sproc_NoStockMovementReportData] 
+	-- Add the parameters for the stored procedure here
+	@StartDate SMALLDATETIME,
+	@EndDate SMALLDATETIME
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+    DECLARE @code NVARCHAR(32) 
+	DECLARE @description NVARCHAR(70) 
+	DECLARE @dept NVARCHAR(10)
+	DECLARE @dept_name NVARCHAR(35)
+
+	DECLARE @OUTPUT TABLE
+	(
+		DEPT NVARCHAR(10),
+		DEPT_NAME NVARCHAR(35),
+		STOCK_CODE NVARCHAR(32),
+		STOCK_DESCRIPTION NVARCHAR(70),
+		QTY_ON_HAND FLOAT,
+		UNIT_COST MONEY,
+		EXT_COST MONEY
+	)
+
+	DECLARE db_cursor CURSOR FOR 
+	SELECT STOCK_CODE, DESCRIPT, D.DEPT, D.DEPT_NAME FROM [CSCMaster].[dbo].[STOCKMST] 
+	LEFT JOIN [CSCMASTER].[DBO].[FUELDEPT] FD 
+			ON STOCKMST.DEPT = FD.DEPT
+	INNER JOIN [CSCMASTER].[DBO].[DEPT] 
+		D ON D.DEPT = STOCKMST.DEPT
+	WHERE 
+		FD.DEPT IS NULL 
+
+	OPEN db_cursor  
+	FETCH NEXT FROM db_cursor INTO @code, @description, @dept, @dept_name
+	WHILE @@FETCH_STATUS = 0  
+	BEGIN  
+		DECLARE @QUANTITYIN AS FLOAT
+		DECLARE @QUANTITYOUT AS FLOAT
+
+		SELECT @QUANTITYIN = 
+			(SELECT ISNULL(SUM(PD.ReceivedQty),0) FROM [PurchaseHeader] PH
+				INNER JOIN [PurchaseDetail] PD ON PH.PurchaseNo = PD.PurchaseNo
+				WHERE PH.ReceivedDate BETWEEN @StartDate AND @EndDate 
+				AND PD.StockCode = @code)
+			+
+			(SELECT ISNULL(SUM(QTY), 0) FROM StockHist
+				WHERE Purpose = 1
+				AND BatchDate BETWEEN @StartDate AND @EndDate
+				AND StockCode = @code)
+			+
+			(SELECT ISNULL(SUM(QUANTITY * -1), 0) FROM SALELINE SL
+			INNER JOIN SALEHEAD SH 
+				ON SH.SALE_NO = SL.SALE_NO AND SH.TILL = SL.TILL_NUM
+				WHERE STOCK_CODE = @code AND SALE_TYPE = 'REFUND' AND sh.ShiftDate BETWEEN @StartDate AND @EndDate )
+		 
+		SELECT @QUANTITYOUT = 
+		 	(SELECT ISNULL(SUM(QUANTITY),0) FROM SALELINE SL
+			INNER JOIN SALEHEAD SH 
+				ON SH.SALE_NO = SL.SALE_NO AND SH.TILL = SL.TILL_NUM
+				WHERE STOCK_CODE = @code AND SALE_TYPE = 'SALE' AND sh.ShiftDate BETWEEN @StartDate AND @EndDate)
+		 +
+			(SELECT ISNULL(SUM(QUANTITY), 0) FROM SALELINE SL
+			INNER JOIN SALEHEAD SH 
+				ON SH.SALE_NO = SL.SALE_NO AND SH.TILL = SL.TILL_NUM
+				WHERE STOCK_CODE = @code AND SALE_TYPE = 'MARKDOWN' AND sh.ShiftDate BETWEEN @StartDate AND @EndDate )
+
+		IF @QUANTITYIN = 0 AND @QUANTITYOUT = 0
+			BEGIN
+			
+				DECLARE	@QTY_ON_HAND FLOAT
+				DECLARE @UNIT_COST MONEY
+				DECLARE @EXT_COST MONEY
+
+				SELECT @QTY_ON_HAND = ISNULL(SUM(Quantity),0) FROM INVENTORYHIST
+				WHERE Inv_Date = @EndDate
+				AND Stock_Code = @code
+		
+				SELECT @UNIT_COST = ISNULL(SUM(COST),0) FROM INVENTORYHIST
+					WHERE Inv_Date = @EndDate
+					AND Stock_Code = @code
+
+				SELECT @EXT_COST = @QTY_ON_HAND * @UNIT_COST
+
+				INSERT INTO @OUTPUT VALUES (
+					@dept,
+					@dept_name,
+					@code,
+					@description,
+					@QTY_ON_HAND,
+					@UNIT_COST,
+					@EXT_COST
+				)
+			END
+		
+		FETCH NEXT FROM db_cursor INTO @code, @description, @dept, @dept_name
+	END		
+	CLOSE db_cursor  
+	DEALLOCATE db_cursor 
+
+	SELECT * FROM @OUTPUT
+	ORDER BY DEPT
+END
+GO
+
+USE [CSCTRANS]
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO 
+
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE ID = OBJECT_ID('Sproc_HistoricalInventoryLevelReportData'))
+BEGIN
+    DROP PROCEDURE Sproc_HistoricalInventoryLevelReportData
+END
+GO
+
+CREATE PROCEDURE [DBO].[Sproc_HistoricalInventoryLevelReportData]
+	@INVDATE DATETIME
+AS
+
+BEGIN
+	SET NOCOUNT ON;
+	SET @INVDATE = CONVERT(DATE, @INVDATE)
+	
+	SELECT 
+		SM.DESCRIPT AS STOCK_DESCRIPTION,
+		SM.STOCK_CODE AS STOCK_CODE,
+		INV_DATE,
+		QUANTITY,
+		COST,
+		SM.STOCK_CODE,
+        SM.DEPT,
+		D.DEPT_NAME,
+		COST * QUANTITY AS TOTAL_COST
+	FROM INVENTORYHIST I
+	INNER JOIN [CSCMaster].[dbo].[STOCKMST] SM
+	ON SM.STOCK_CODE = I.STOCK_CODE
+	INNER JOIN [CSCMASTER].[DBO].[DEPT] D
+		ON SM.DEPT = D.DEPT
+	WHERE
+		I.INV_DATE = @INVDATE
+	ORDER BY DEPT_NAME, STOCK_DESCRIPTION
+END
+GO
+
+USE [CSCTRANS]
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO 
+
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE ID = OBJECT_ID('Sproc_DepartmentSalesReportData'))
+BEGIN
+    DROP PROCEDURE Sproc_DepartmentSalesReportData
+END
+GO
+
+CREATE PROCEDURE [DBO].[Sproc_DepartmentSalesReportData]
+	@STARTDATE DATETIME,
+	@ENDDATE DATETIME
+AS
+
+BEGIN
+	SET NOCOUNT ON;
+	SET @STARTDATE = CONVERT(DATE, @STARTDATE)
+	SET @ENDDATE = CONVERT(DATE, @ENDDATE)
+
+	SET NOCOUNT ON;
+    DECLARE @DEPT NVARCHAR(10) 
+    DECLARE @DEPT_NAME NVARCHAR(35) 
+
+	DECLARE @OUTPUT TABLE
+	(	
+		DEPT NVARCHAR(10),
+		DEPT_NAME NVARCHAR(35),
+		SALE_QTY FLOAT,
+		SALE_AMT MONEY,
+		REFUND_QTY FLOAT,
+		REFUND_AMT MONEY,
+		DISCOUNT MONEY,
+		NET_AMT MONEY
+	)
+
+	DECLARE db_cursor CURSOR FOR 
+
+	SELECT DISTINCT SL.DEPT, DEPT_NAME 
+		FROM [CSCTrans].[DBO].[SALELINE] SL
+		LEFT JOIN [CSCMASTER].[DBO].[DEPT] D
+		ON D.DEPT = SL.DEPT
+	
+	OPEN DB_CURSOR  
+	FETCH NEXT FROM DB_CURSOR INTO @DEPT, @DEPT_NAME
+	WHILE @@FETCH_STATUS = 0  
+	BEGIN  
+		DECLARE @SALE_QTY AS FLOAT
+		DECLARE @REFUND_QTY AS FLOAT
+		DECLARE @SALE_AMT AS MONEY
+		DECLARE @REFUND_AMT AS MONEY
+		DECLARE @DISCOUNT AS MONEY
+		DECLARE @NET_AMT AS MONEY
+		
+		SELECT @SALE_QTY = ISNULL(SUM(SL.QUANTITY), 0)
+			FROM 
+				[CSCTrans].[dbo].[SALELINE] SL
+			INNER JOIN 
+				[CSCTrans].[dbo].[SALEHEAD] SH
+			ON 
+				SH.SALE_NO = SL.SALE_NO AND SH.TILL = SL.TILL_NUM
+			WHERE 
+				SL.DEPT = @DEPT
+				AND SL.SALE_TYPE IN ('SALE', 'PATT_APP') 
+				AND SH.ShiftDate BETWEEN @StartDate AND @EndDate
+
+		SELECT @REFUND_QTY = ISNULL(SUM(SL.QUANTITY) * -1, 0)
+			FROM 
+				[CSCTrans].[dbo].[SALELINE] SL
+			INNER JOIN 
+				[CSCTrans].[dbo].[SALEHEAD] SH
+			ON 
+				SH.SALE_NO = SL.SALE_NO AND SH.TILL = SL.TILL_NUM
+			WHERE 
+				SL.DEPT = @DEPT
+				AND SL.SALE_TYPE = 'REFUND'
+				AND SH.ShiftDate BETWEEN @StartDate AND @EndDate
+
+		IF @SALE_QTY <> 0 OR @REFUND_QTY <>  0
+		BEGIN
+			SELECT @SALE_AMT = ISNULL(SUM(SL.AMOUNT), 0)
+				FROM 
+					[CSCTrans].[dbo].[SALELINE] SL
+				INNER JOIN 
+					[CSCTrans].[dbo].[SALEHEAD] SH
+				ON 
+				SH.SALE_NO = SL.SALE_NO AND SH.TILL = SL.TILL_NUM 
+				WHERE 
+				SL.DEPT = @DEPT
+				AND SH.T_TYPE IN ('SALE', 'PATT_APP') 
+				AND SH.ShiftDate BETWEEN @StartDate AND @EndDate
+
+			SELECT @REFUND_AMT = ISNULL(SUM(SL.AMOUNT) * -1, 0)
+				FROM 
+					[CSCTrans].[dbo].[SALELINE] SL
+				INNER JOIN 
+					[CSCTrans].[dbo].[SALEHEAD] SH
+				ON 
+					SH.SALE_NO = SL.SALE_NO AND SH.TILL = SL.TILL_NUM
+				WHERE 
+					SL.DEPT = @DEPT
+					AND SH.T_TYPE = 'REFUND'
+					AND SH.ShiftDate BETWEEN @StartDate AND @EndDate
+			
+			SELECT @DISCOUNT = 
+				ISNULL(SUM(SL.DISCOUNT), 0) + ISNULL(SUM(SL.DISC_ADJ), 0)
+				FROM 
+					[CSCTrans].[dbo].[SALELINE] SL
+				INNER JOIN 
+					[CSCTrans].[dbo].[SALEHEAD] SH
+				ON 
+					SH.SALE_NO = SL.SALE_NO AND SH.TILL = SL.TILL_NUM 
+				WHERE 
+					SL.DEPT = @DEPT
+					AND SH.T_TYPE IN  ('SALE', 'REFUND', 'PATP_APP')
+					AND SH.ShiftDate BETWEEN @StartDate AND @EndDate
+	
+			SELECT @NET_AMT = @SALE_AMT - @REFUND_AMT - @DISCOUNT
+
+		INSERT INTO @OUTPUT VALUES (
+			@DEPT,
+			@DEPT_NAME,
+			@SALE_QTY,
+			@SALE_AMT,
+			@REFUND_QTY,
+			@REFUND_AMT,
+			@DISCOUNT,
+			@NET_AMT
+		)
+		END
+
+		FETCH NEXT FROM DB_CURSOR INTO @DEPT, @DEPT_NAME
+
+	END		
+	CLOSE db_cursor  
+	DEALLOCATE db_cursor 
+	SELECT * FROM @OUTPUT
+	ORDER BY DEPT
+END
+GO
+
+
+USE [CSCTRANS]
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO 
+
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE ID = OBJECT_ID('Sproc_HourlySalesReportData'))
+BEGIN
+    DROP PROCEDURE Sproc_HourlySalesReportData
+END
+GO
+
+CREATE PROCEDURE [DBO].[Sproc_HourlySalesReportData]
+	@STARTDATE DATETIME,
+	@ENDDATE DATETIME,
+	@DEPT NVARCHAR(10)
+AS
+
+BEGIN
+	SET NOCOUNT ON;
+	SET @STARTDATE = CONVERT(DATE, @STARTDATE)
+	SET @ENDDATE = CONVERT(DATE, @ENDDATE)
+
+	SET NOCOUNT ON;
+
+	SELECT DEPT, 
+		   DEPT_NAME, 
+		   SALEDATE, 
+		   SALEHOUR, 
+		   SUM(QTY) AS QTY, 
+		   SUM(AMOUNT) AS AMOUNT,
+			CASE 
+				WHEN SALEHOUR % 12 = 0 THEN '12.00 ' 
+						+ 
+						CASE WHEN SALEHOUR < 12  THEN 'AM  '
+							ELSE 'PM  '
+						END
+				ELSE CONVERT(VARCHAR, SALEHOUR % 12) + '.00 '
+						+ 
+						CASE WHEN SALEHOUR < 12  THEN 'AM  '
+							ELSE 'PM  '
+						END
+			END
+				+
+			CASE	
+				WHEN (SALEHOUR + 1) % 12 = 0 THEN '12.00 ' 
+						+ 
+						CASE WHEN (SALEHOUR + 1 ) < 12  THEN 'AM  '
+							WHEN (SALEHOUR + 1 ) = 24  THEN 'AM  '
+							ELSE 'PM  '
+						END
+				ELSE CONVERT(VARCHAR, (SALEHOUR + 1) % 12) + '.00 '
+						+ 
+						CASE 
+							WHEN (SALEHOUR + 1 ) < 12  THEN 'AM  '
+							ELSE 'PM  '
+						END
+			END AS HOURRANGE
+
+	FROM
+	(
+		SELECT 
+		D.DEPT_NAME,
+		D.DEPT, 
+		SL.QUANTITY AS QTY,
+		CONVERT(VARCHAR, SH.SALE_DATE, 101) AS SALEDATE,
+		DATEPART(HOUR, SH.SALE_TIME) AS SALEHOUR,
+		(ISNULL(SL.AMOUNT, 0) - ISNULL(SL.DISCOUNT, 0) - ISNULL(SL.DISC_ADJ, 0)) AS AMOUNT
+
+		FROM
+			[CSCTRANS].[DBO].[SALELINE] SL 
+			INNER JOIN 
+			[CSCTRANS].[DBO].[SALEHEAD] SH ON
+				SH.SALE_NO = SL.SALE_NO AND SH.TILL = SL.TILL_NUM 
+			INNER JOIN 
+				CSCMaster.DBO.Dept D
+			ON D.DEPT = SL.DEPT
+
+		WHERE 
+			CONVERT(DATE, SH.SALE_DATE) BETWEEN @STARTDATE AND @ENDDATE
+		AND SH.T_TYPE IN ('SALE', 'REFUND', 'PATP_APP')
+		AND (@DEPT = 'All' OR SL.DEPT = @DEPT)
+	)
+	AS U
+	GROUP BY U.SALEDATE, U.SALEHOUR, U.DEPT, U.DEPT_NAME
+END
+GO
+
+USE [CSCTRANS]
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO 
+
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE ID = OBJECT_ID('Sproc_QuantityLeaderReportData'))
+BEGIN
+    DROP PROCEDURE Sproc_QuantityLeaderReportData
+END
+GO
+
+CREATE PROCEDURE [DBO].[Sproc_QuantityLeaderReportData]
+	@STARTDATE DATETIME,
+	@ENDDATE DATETIME
+AS
+
+BEGIN
+	SET NOCOUNT ON;
+	SET @STARTDATE = CONVERT(DATE, @STARTDATE)
+	SET @ENDDATE = CONVERT(DATE, @ENDDATE)
+
+	SET NOCOUNT ON;
+
+	SELECT U.DESCRIPT, U.STOCK_CODE, U.QUANTITY, V.AMOUNT
+	FROM 
+	(
+		SELECT TOP(20) SL.STOCK_CODE, SM.DESCRIPT, SUM(QUANTITY) AS QUANTITY FROM
+		SALELINE SL
+		INNER JOIN SALEHEAD SH
+			ON SL.SALE_NO = SH.SALE_NO AND SL.TILL_NUM = SH.TILL
+		LEFT JOIN CSCMaster.dbo.STOCKMST SM
+			ON SL.STOCK_CODE = SM.STOCK_CODE
+		WHERE 
+			SH.SHIFTDATE BETWEEN @STARTDATE AND @ENDDATE
+			AND SL.SALE_TYPE IN ('SALE', 'REFUND', 'PATP_APP') 
+		GROUP BY SL.STOCK_CODE, SM.DESCRIPT
+		ORDER BY SUM(QUANTITY) DESC
+	) AS U
+
+	LEFT JOIN 
+	(
+		SELECT SL.STOCK_CODE, SUM(AMOUNT) AS AMOUNT FROM
+		SALELINE SL
+		INNER JOIN SALEHEAD SH
+			ON SL.SALE_NO = SH.SALE_NO AND SL.TILL_NUM = SH.TILL
+		WHERE 
+			SH.SHIFTDATE BETWEEN @STARTDATE AND @ENDDATE
+			AND SH.T_TYPE IN ('SALE', 'REFUND', 'PATP_APP')
+		GROUP BY SL.STOCK_CODE
+	) AS V
+	ON U.STOCK_CODE = V.STOCK_CODE
+END
+GO
+
+USE [CSCTRANS]
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO 
+
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE ID = OBJECT_ID('Sproc_DepartmentSalesLast6WeeksReportData'))
+BEGIN
+    DROP PROCEDURE Sproc_DepartmentSalesLast6WeeksReportData
+END
+GO
+
+CREATE PROCEDURE [DBO].[Sproc_DepartmentSalesLast6WeeksReportData]
+	@TODAY DATETIME
+AS
+
+BEGIN
+	SET NOCOUNT ON;
+	SET @TODAY = CONVERT(DATE, @TODAY)
+
+	SET NOCOUNT ON;
+    DECLARE @DEPT NVARCHAR(10) 
+    DECLARE @DEPT_NAME NVARCHAR(35) 
+
+
+	DECLARE @OUTPUT TABLE (
+		DEPT VARCHAR(10),
+		DEPT_NAME VARCHAR(35),
+		WEEK1 MONEY,
+		WEEK2 MONEY,
+		WEEK3 MONEY,
+		WEEK4 MONEY,
+		WEEK5 MONEY,
+		WEEK6 MONEY
+	)
+
+	DECLARE DB_CURSOR CURSOR FOR 
+	SELECT  DEPT, DEPT_NAME 
+			FROM [CSCMASTER].[DBO].[DEPT]
+
+	OPEN DB_CURSOR  
+	FETCH NEXT FROM DB_CURSOR INTO @DEPT, @DEPT_NAME
+	WHILE @@FETCH_STATUS = 0  
+	BEGIN  
+
+		DECLARE @Counter INT 
+		DECLARE @START_DATE DATETIME
+		DECLARE @END_DATE DATETIME
+
+		DECLARE @W1 MONEY
+		DECLARE @W2 MONEY
+		DECLARE @W3 MONEY
+		DECLARE @W4 MONEY
+		DECLARE @W5 MONEY
+		DECLARE @W6 MONEY
+
+		SET @Counter=0
+		WHILE ( @Counter <= 5)
+		BEGIN
+			SELECT @END_DATE = @TODAY - @Counter * 7
+			SELECT @START_DATE = @TODAY - (@Counter + 1) * 7 + 1
+			DECLARE @AMT MONEY
+
+			SELECT @AMT = ISNULL(SUM(SL.AMOUNT), 0) 
+						FROM CSCTrans.DBO.SALELINE SL
+						INNER JOIN CSCTrans.DBO.SALEHEAD SH ON
+						SH.SALE_NO = SL.SALE_NO AND SH.TILL = SL.TILL_NUM
+
+					WHERE @DEPT = SL.DEPT
+					AND SH.T_TYPE IN ('SALE', 'REFUND', 'PATT_APP')
+					AND SH.ShiftDate BETWEEN  @START_DATE AND @END_DATE
+
+				IF @Counter = 0  SELECT @W6 = @AMT
+				IF @Counter = 1  SELECT @W5 = @AMT
+				IF @Counter = 2  SELECT @W4 = @AMT
+				IF @Counter = 3  SELECT @W3 = @AMT
+				IF @Counter = 4  SELECT @W2 = @AMT
+				IF @Counter = 5  SELECT @W1 = @AMT
+
+			SET @Counter  = @Counter  + 1
+		END
+
+		INSERT INTO @OUTPUT VALUES (
+			@DEPT,
+			@DEPT_NAME,
+			@W1,
+			@W2,
+			@W3,
+			@W4,
+			@W5,
+			@W6
+		)
+		
+		FETCH NEXT FROM DB_CURSOR INTO @DEPT, @DEPT_NAME
+	
+	END
+	CLOSE DB_CURSOR  
+	DEALLOCATE DB_CURSOR 
+		
+	SELECT * FROM @OUTPUT
+	ORDER BY DEPT
+
+END
+GO
+
 
 -- ICSCR-3 - Implement login/logout feature
 -- Create SP Sproc_GetUser
@@ -2228,178 +3455,6 @@ BEGIN
     ADD [Web] bit NOT NULL DEFAULT(0);
 END
 
---Adding Reports and Reports_in_Groups
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'AC2019')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'AC2019', N'Tax Sales Detail', 0, 0, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'AC4040')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'AC4040', N'Credit Card Reconciliation', 0, 0, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'AC5010')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'AC5010', N'Third Party Card', 0, 1, N'ThCardPayments', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'AR0050')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'AR0050', N'AR Customer Information', 0, 0, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'AR0120')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'AR0120', N'AR Payment History', 0, 0, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'FL0100')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'FL0100', N'Fuel Price Change', 0, 0, N'', 0, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'FL0100GR')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'FL0100GR', N'Fuel Price Change - Chart', 0, 2, N'', 0, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'PL1010')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'PL1010', N'Tender Definitions', 0, 1, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'PL1020')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'PL1020', N'Policy Settings', 0, 1, N'', 0, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'PT0100')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'PT0100', N'Price Change Tracking', 0, 0, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SA1030')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SA1030', N'Special Pricing', 0, 1, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SA1040')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SA1040', N'Payout Journal', 0, 0, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SA1050')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SA1050', N'Cash Draw', 0, 0, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SA2319')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SA2319', N'Refunds By Customer', 0, 0, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SA2379')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SA2379', N'Markdown Items', 0, 0, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SA7010')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SA7010', N'Daily Sales Report', 0, 0, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[Report_Filter] WHERE [Report_Name] = 'SA7010')
-INSERT [dbo].[Report_Filter] ([Report_Name], [Filter_Seq], [Table_name], [Field], [Field_Desc], [Type], [Field_Type], [Forced], [GroupBy]) VALUES (N'SA7010', 1, N'SaleHead', N'ShiftDate', N'Shift Date', N'=', N'D', NULL, NULL)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SA7012')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SA7012', N'Margin By Stock Item & Selling Price', 0, 2, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SA7013')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SA7013', N'Department Sales By Date (Detail)', 0, 0, N'', 0, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SA7016')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SA7016 ', N'Department Sales By Date (Gross & Net)', 0, 2, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SA7016GR')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SA7016GR', N'Department Sales By Date (Gross & Net)  - Chart', 0, 2, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SA7019')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SA7019', N'Up Sell Sales Report', 0, 0, NULL, 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SA7062')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SA7062', N'Contribution Margin By Department', 1, 2, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SA7062GR')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SA7062GR', N'Contribution Margin By Department - Graphical', 1, 1, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SA7070')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SA7070', N'Voided & Deleted Sales', 0, 0, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SK1010')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SK1010', N'Department Listing', 0, 0, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SK1011')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SK1011 ', N'Department / Sub-Dept Listing', 0, 0, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SK1070')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SK1070', N'Tax Codes & Rates', 0, 0, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SK2010')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SK2010', N'Stock Master Listing', 0, 2, N'', 0, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SK2011')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SK2011', N'Inventory Levels', 0, 0, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SK2012')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SK2012', N'Reorder Levels', 0, 1, NULL, 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SK2015')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SK2015', N'Stock Items Detail Report', 0, 1, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SK2020')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SK2020', N'Kit Components', 0, 0, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SK2030')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SK2030', N'Promotional Items', 0, 2, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SK3010')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SK3010', N'Standard Price List(1 Column)', 0, 0, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SK3011')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SK3011', N'Standard Price List( Multiple Columns)', 0, 2, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SK4010')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SK4010', N'Stock Count Listing', 0, 0, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SK4020')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SK4020', N'Stock Movement Summary', 0, 0, NULL, 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SK4030')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SK4030', N'No Stock Movement Report', 1, 0, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SK4040')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SK4040', N'Stock- Zero Movement', 1, 0, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SK4045')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SK4045', N'Stock Valuation by Department', 1, 0, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SK5010')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SK5010', N'Stock Receiving History', 0, 0, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SK5011')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SK5011', N'Stock Takes History', 0, 0, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SK5020')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SK5020', N'Historical Inventory Level Report', 1, 0, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SK5030')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SK5030', N'ShelfLabelEAN13L', 1, 0, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SK5040')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SK5040', N'ShelfLabelCode39', 1, 0, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SL0200')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SL0200 ', N'Top Sellers - Total $ Amount', 0, 0, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SL0200GR')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SL0200GR', N'Top Sellers - Total $ Amount - Chart', 0, 2, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SL0202')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SL0202', N'Top Sellers - Margin $', 0, 0, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SL0202GR')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SL0202GR', N'Top Sellers - Margin $ - Chart', 0, 2, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SL0204')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SL0204', N'Quantity Leaders Sales By Date', 0, 0, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SL0205')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SL0205', N'Hourly Sales Report', 1, 2, NULL, 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SS9010')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SS9010', N'User Id Listing', 0, 0, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SS9020')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SS9020', N'User Group Listing', 0, 0, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'SS9050')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'SS9050 ', N'User Group / Incumbent Listing', 0, 0, N'', 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'TE4045')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'TE4045', N'Stock Valuation by Department', 1, 2, NULL, 1, 1)
-GO
-IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = 'WK0100')
-INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [Web]) VALUES (N'WK0100 ', N'Sales by Dept - Last 6 Weeks', 0, 0, N'', 1, 1)
-GO
 IF EXISTS (SELECT 1 FROM [dbo].[Reports_in_Groups] WHERE [Report_Name] = 'AC2019')
 DELETE FROM [dbo].[Reports_in_Groups] WHERE [Report_Name] = 'AC2019'
 INSERT [dbo].[Reports_in_Groups] ([Report_Name], [Group_Name], [GID]) VALUES (N'AC2019', N'Tax', 13)
@@ -6352,3 +7407,229 @@ BEGIN
 END
 GO
 --Jim end
+
+
+
+-- WebBo report rows synchronized from JIM\HOSERVER on 2026-09-15 09:52
+USE [CSCAdmin]
+GO
+IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = N'AC0100')
+    INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [WebHo], [WebBo])
+    VALUES (N'AC0100', N'Customers List', 0, 2, NULL, 1, 0, 1)
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = N'AC4050')
+    INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [WebHo], [WebBo])
+    VALUES (N'AC4050', N'Cash Reconciliation', 0, 0, NULL, 1, 0, 1)
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = N'AR0051')
+    INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [WebHo], [WebBo])
+    VALUES (N'AR0051', N'AR Customer Balance Report', 0, 1, NULL, 1, 1, 1)
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = N'AR0140')
+    INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [WebHo], [WebBo])
+    VALUES (N'AR0140', N'AR Monthend Report', 0, 1, NULL, 1, 1, 1)
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = N'GC0100')
+    INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [WebHo], [WebBo])
+    VALUES (N'GC0100', N'Outstanding Gift Certificates', 0, 0, NULL, 1, 0, 1)
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = N'GC0150')
+    INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [WebHo], [WebBo])
+    VALUES (N'GC0150', N'Gift Certificate Sales', 0, 0, NULL, 1, 0, 1)
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = N'LBLPCHG')
+    INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [WebHo], [WebBo])
+    VALUES (N'LBLPCHG', N'Label Printing With Price Change', 0, 1, NULL, 1, 0, 1)
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = N'LO0010')
+    INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [WebHo], [WebBo])
+    VALUES (N'LO0010', N'Loyalty Points', 0, 1, NULL, 1, 0, 1)
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = N'LO0020')
+    INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [WebHo], [WebBo])
+    VALUES (N'LO0020', N'Loyalty Points by customer', 0, 0, NULL, 1, 0, 1)
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = N'PU5010')
+    INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [WebHo], [WebBo])
+    VALUES (N'PU5010', N'Purchase History By Product', 0, 2, NULL, 1, 0, 1)
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = N'SA1041')
+    INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [WebHo], [WebBo])
+    VALUES (N'SA1041', N'Payout Journal - Tax Summary', 0, 1, NULL, 1, 0, 1)
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = N'SA1060')
+    INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [WebHo], [WebBo])
+    VALUES (N'SA1060', N'Cash Drop', 0, 1, NULL, 1, 0, 1)
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = N'SA7011')
+    INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [WebHo], [WebBo])
+    VALUES (N'SA7011', N'Sales by Vendor Report', 0, 0, NULL, 1, 0, 1)
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = N'SA7014')
+    INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [WebHo], [WebBo])
+    VALUES (N'SA7014', N'Sales Report', 0, 0, NULL, 1, 0, 1)
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = N'SA7020')
+    INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [WebHo], [WebBo])
+    VALUES (N'SA7020', N'Ezipin Sales Report', 0, 2, NULL, 1, 0, 1)
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = N'SA7022')
+    INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [WebHo], [WebBo])
+    VALUES (N'SA7022', N'Purchase Receiving Taxes Report', 0, 0, NULL, 1, 0, 1)
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = N'SA7065')
+    INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [WebHo], [WebBo])
+    VALUES (N'SA7065', N'Runaways and Pump tests', 0, 0, NULL, 1, 0, 1)
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = N'SA7067')
+    INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [WebHo], [WebBo])
+    VALUES (N'SA7067', N'Sales Report by User', 0, 0, NULL, 1, 0, 1)
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = N'SA7068')
+    INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [WebHo], [WebBo])
+    VALUES (N'SA7068', N'Sales Report by Pump', 0, 0, NULL, 1, 0, 1)
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = N'SA7077')
+    INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [WebHo], [WebBo])
+    VALUES (N'SA7077', N'SITE Sales tax exemption details for Fuel', 1, 0, NULL, 1, 1, 1)
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = N'SA7078')
+    INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [WebHo], [WebBo])
+    VALUES (N'SA7078', N'SITE Sales tax exemption details for Tabacco', 1, 0, NULL, 1, 0, 1)
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = N'SA7080')
+    INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [WebHo], [WebBo])
+    VALUES (N'SA7080', N'SITE Detail Sales Report By Treaty Number', 0, 2, NULL, 1, 0, 1)
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = N'SA7081')
+    INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [WebHo], [WebBo])
+    VALUES (N'SA7081', N'SITE Detail Sales report for Manitoba', 0, 2, NULL, 1, 0, 1)
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = N'SA7090')
+    INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [WebHo], [WebBo])
+    VALUES (N'SA7090', N'SITE Sales Report By Department', 1, 0, NULL, 1, 0, 1)
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = N'SA7100')
+    INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [WebHo], [WebBo])
+    VALUES (N'SA7100', N'SITE Override Sales Report By Department', 1, 0, NULL, 1, 0, 1)
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = N'SA7110')
+    INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [WebHo], [WebBo])
+    VALUES (N'SA7110', N'Categorized Sales Report', 1, 2, NULL, 1, 0, 1)
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = N'SA7120')
+    INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [WebHo], [WebBo])
+    VALUES (N'SA7120', N'Average Sales Per Transaction', 1, 2, NULL, 1, 0, 1)
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = N'SA8000')
+    INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [WebHo], [WebBo])
+    VALUES (N'SA8000', N'Customer Sales Report By Department ', 1, 2, NULL, 1, 0, 1)
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = N'SC0100')
+    INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [WebHo], [WebBo])
+    VALUES (N'SC0100', N'Outstanding Store Credits', 0, 0, NULL, 1, 0, 1)
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = N'SK2013')
+    INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [WebHo], [WebBo])
+    VALUES (N'SK2013', N'Stock Information Report', 0, 2, NULL, 1, 0, 1)
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = N'SK2014')
+    INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [WebHo], [WebBo])
+    VALUES (N'SK2014', N'Purchase Report', 0, 0, NULL, 1, 0, 1)
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = N'SK5012')
+    INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [WebHo], [WebBo])
+    VALUES (N'SK5012', N'Stock Receiving History by Department', 1, 0, NULL, 1, 1, 1)
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = N'TE0000(F)')
+    INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [WebHo], [WebBo])
+    VALUES (N'TE0000(F)', N'BC TAX EXEMPT SALES - FUEL', 0, 2, NULL, 1, 0, 1)
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = N'TE0000(T)')
+    INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [WebHo], [WebBo])
+    VALUES (N'TE0000(T)', N'BC TAX EXEMPT SALES - TOBACCO', 0, 2, NULL, 1, 0, 1)
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = N'TE0002')
+    INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [WebHo], [WebBo])
+    VALUES (N'TE0002', N'AITE Stock Takes History', 0, 2, NULL, 1, 0, 1)
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = N'TE0003')
+    INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [WebHo], [WebBo])
+    VALUES (N'TE0003', N'Categorized Tax Exempt Report', 1, 2, NULL, 1, 0, 1)
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = N'TE0003_C')
+    INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [WebHo], [WebBo])
+    VALUES (N'TE0003_C', N'Categorized Tax Exempt Summary', 1, 2, NULL, 1, 0, 1)
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = N'TE0100')
+    INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [WebHo], [WebBo])
+    VALUES (N'TE0100', N'AITE Purchase History', 0, 2, NULL, 1, 0, 1)
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = N'TE0101')
+    INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [WebHo], [WebBo])
+    VALUES (N'TE0101', N'AITE Purchase History by Department', 1, 0, NULL, 1, 0, 1)
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = N'TE0200')
+    INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [WebHo], [WebBo])
+    VALUES (N'TE0200', N'AITE Messages', 0, 2, NULL, 1, 0, 1)
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = N'TE0300')
+    INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [WebHo], [WebBo])
+    VALUES (N'TE0300', N'AITE Sales Detail Report', 0, 2, NULL, 1, 0, 1)
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = N'TE0301')
+    INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [WebHo], [WebBo])
+    VALUES (N'TE0301', N'AITE Sales Summary Report', 0, 2, NULL, 1, 0, 1)
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = N'TE0400')
+    INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [WebHo], [WebBo])
+    VALUES (N'TE0400', N'AITE Override Sales Detail Report', 0, 2, NULL, 1, 0, 1)
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[REPORTS] WHERE [Report_Name] = N'TE0401')
+    INSERT [dbo].[REPORTS] ([Report_Name], [Report_Title], [Detail_Level], [print_orientation], [SubReport_Name], [EnhancedReport], [WebHo], [WebBo])
+    VALUES (N'TE0401', N'AITE Override Sales Summary Report', 0, 2, NULL, 1, 0, 1)
+GO
+
